@@ -14,12 +14,7 @@ export const NATIONAL_CIRCUMSTANCES = 'location/NATIONAL_CIRCUMSTANCES';
 export const GHG_EMISSIONS = 'location/GHG_EMISSIONS';
 
 export const routes = {
-  [HOME]: {
-    nav: false,
-    label: 'Overview',
-    path: '/',
-    component: Home
-  },
+  [HOME]: { nav: false, label: 'Overview', path: '/', component: Home },
   [NATIONAL_CIRCUMSTANCES]: {
     nav: true,
     label: 'National Circumstances',
@@ -31,8 +26,8 @@ export const routes = {
   [GHG_EMISSIONS]: {
     nav: true,
     label: 'GHG Emissions',
-    link: '/ghg-emisisons',
-    path: '/ghg-emisisons/:section?',
+    link: '/ghg-emissions',
+    path: '/ghg-emissions/:section?',
     component: Sections,
     sections: GHGSections
   },
@@ -42,6 +37,4 @@ export const routes = {
   }
 };
 
-export default connectRoutes(history, routes, {
-  querySerializer: queryString
-});
+export default connectRoutes(history, routes, { querySerializer: queryString });
