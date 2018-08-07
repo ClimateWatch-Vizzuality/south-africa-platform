@@ -22,7 +22,6 @@ plugins: [react, prettier]
 
 rules:
   max-len: [1, 140, 2, {"ignoreUrls":true}]
-  comma-dangle: [error, never]
   no-console: [error, allow: [warn, error, info]]
   no-plusplus: ["error", { "allowForLoopAfterthoughts": true }]
   arrow-parens: 0
@@ -41,6 +40,8 @@ rules:
   func-names: 0
   react/jsx-indent: 1
   no-mixed-operators: 1
+  react/jsx-one-expression-per-line: 0
+
 settings:
   import/resolver:
     node:
