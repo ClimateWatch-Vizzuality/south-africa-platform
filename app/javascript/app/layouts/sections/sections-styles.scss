@@ -1,0 +1,13 @@
+@import '~styles/settings.scss';
+
+.page {
+  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+}
+
+.link {
+  color: $theme-color;
+}
+
+.active {
+  border-bottom: 3px solid $theme-color;
+}
