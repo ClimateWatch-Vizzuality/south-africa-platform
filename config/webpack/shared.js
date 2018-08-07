@@ -6,7 +6,7 @@
 const webpack = require('webpack');
 const { basename, dirname, join, relative, resolve } = require('path');
 const { sync } = require('glob');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const DirectoryNamedWebpackPlugin = require('directory-named-webpack-plugin');
 
@@ -17,42 +17,42 @@ const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
 const packPaths = sync(join(entryPath, extensionGlob));
 
-const entry = packPaths.reduce((map, entryParam) => {
-  const localMap = map;
-  const namespace = relative(join(entryPath), dirname(entryParam));
-  localMap[
-    join(namespace, basename(entryParam, extname(entryParam)))
-  ] = resolve(entryParam);
-  return localMap;
-}, {});
+const entry = packPaths.reduce(
+  (map, entryParam) => {
+    const localMap = map;
+    const namespace = relative(join(entryPath), dirname(entryParam));
+    localMap[join(
+      namespace,
+      basename(entryParam, extname(entryParam))
+    )] = resolve(entryParam);
+    return localMap;
+  },
+  {}
+);
 
 module.exports = {
   entry,
-
   output: {
-    filename: '[name].js',
     path: output.path,
-    publicPath: output.publicPath
+    publicPath: output.publicPath,
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js'
   },
-
   module: {
     rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
   },
-
   plugins: [
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
-    new ExtractTextPlugin(
-      env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'
-    ),
-    new ManifestPlugin({
-      publicPath: output.publicPath,
-      writeToFileEmit: true
+    new MiniCssExtractPlugin({
+      filename: env.NODE_ENV === 'production'
+        ? '[name]-[hash].css'
+        : '[name].css',
+      chunkFilename: env.NODE_ENV === 'production'
+        ? '[id]-[hash].css'
+        : '[id].css'
     }),
-    new webpack.DefinePlugin({
-      'process.env.JSCOV': JSON.stringify(false)
-    })
+    new ManifestPlugin({ publicPath: output.publicPath, writeToFileEmit: true })
   ],
-
   resolve: {
     extensions: settings.extensions,
     modules: [
@@ -60,20 +60,9 @@ module.exports = {
       resolve(settings.source_path, 'app'),
       'node_modules'
     ],
-    plugins: [new DirectoryNamedWebpackPlugin(true)],
-    alias: {
-      app: 'app',
-      components: 'app/components',
-      routes: 'app/routes'
-    }
+    plugins: [ new DirectoryNamedWebpackPlugin(true) ],
+    alias: { app: 'app', components: 'app/components', routes: 'app/routes' }
   },
-
-  resolveLoader: {
-    modules: ['node_modules']
-  },
-
-  node: {
-    fs: 'empty',
-    net: 'empty'
-  }
+  resolveLoader: { modules: [ 'node_modules' ] },
+  node: { fs: 'empty', net: 'empty' }
 };
