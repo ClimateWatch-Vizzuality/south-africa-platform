@@ -7,7 +7,7 @@ import { Loading } from 'cw-components';
 import styles from './sections-styles.scss';
 
 const universalOptions = {
-  loading: Loading,
+  loading: <Loading height={500} />,
   minDelay: 400
 }
 const SectionComponent = universal((
