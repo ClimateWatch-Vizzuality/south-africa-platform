@@ -8,6 +8,7 @@ $flag-height: 40px;
 // Header wrapper
 .header {
   @include row();
+
   margin-top: $header-top-margin;
 }
 

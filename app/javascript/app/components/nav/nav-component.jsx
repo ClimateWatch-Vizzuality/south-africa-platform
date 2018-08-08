@@ -4,7 +4,7 @@ import Link, { NavLink } from 'redux-first-router-link';
 import cx from 'classnames';
 import environmentalAffairsLogo from 'assets/environmental-affairs-logo.png';
 import SAflag from 'assets/south-africa-flag.png';
-import { ENVIRONMENTAL_AFFAIRS_URL } from '../../constants';
+import { ENVIRONMENTAL_AFFAIRS_URL } from 'constants/links.js';
 
 import styles from './nav-styles.scss';
 
