@@ -1,9 +1,14 @@
-# Climate Watch - Starter Kit
+# Climate Watch - South Africa Platform
 
 Table of Contents:
 
+- [Starter kit](#starter-kit)
 - [Local Setup](#local-setup)
 - [Modules](#modules)
+
+## Starter-kit
+
+This repo is a fork from the project boilerplate of [cw-projects](https://github.com/ClimateWatch-Vizzuality/project-starter-kit) so please remember to keep it updated on bugs fixes or features adds.
 
 ## Local setup
 
@@ -29,7 +34,7 @@ project's settings. At the very least you'll need to have the `DATABASE_URL`
 env variable.
 
 ```
-DATABASE_URL=postgresql://postgres@localhost/cw-starter-kit_development
+DATABASE_URL=postgresql://postgres@localhost/cw-south-africa_development
 ```
 
 #### Setting up the database

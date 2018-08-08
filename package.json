@@ -1,5 +1,5 @@
 {
-  "name": "cw-starter-kit",
+  "name": "cw-south-africa",
   "version": "1.0.0",
   "scripts": {
     "start": "./bin/webpack-dev-server",

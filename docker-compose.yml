@@ -15,11 +15,11 @@ services:
       - PORT=3000
       - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw_ndc_tracking
     restart: always
-    container_name: cw-starter-kit
+    container_name: cw-south-africa
     depends_on:
       - postgres
     volumes:
-      - .:/usr/src/cw-starter-kit
+      - .:/usr/src/cw-south-africa
 
   postgres:
     image: postgres:9.6
