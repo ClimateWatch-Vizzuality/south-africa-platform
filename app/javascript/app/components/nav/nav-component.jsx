@@ -4,6 +4,7 @@ import Link, { NavLink } from 'redux-first-router-link';
 import cx from 'classnames';
 import environmentalAffairsLogo from 'assets/environmental-affairs-logo.png';
 import SAflag from 'assets/south-africa-flag.png';
+import { ENVIRONMENTAL_AFFAIRS_URL } from '../../constants';
 
 import styles from './nav-styles.scss';
 
@@ -14,17 +15,19 @@ class Nav extends PureComponent {
       <nav className={cx(styles.header, className)}>
         <div className={styles.navbarContainer}>
           <div className={styles.navElement}>
-            <Link className={styles.link} to="/">
+            <a href={ENVIRONMENTAL_AFFAIRS_URL}>
               <img
                 src={environmentalAffairsLogo}
                 alt="Environmental Affairs Logo"
                 className={cx(styles.logo)}
               />
-            </Link>
+            </a>
           </div>
           <div className={cx(styles.navElement, styles.pageTitleContainer)}>
-            <span className={styles.climatText}>Climate</span>
-            <span className={styles.reportText}>Report</span>
+            <Link to="/">
+              <span className={styles.climatText}>Climate</span>
+              <span className={styles.reportText}>Report</span>
+            </Link>
           </div>
           <div className={cx(styles.navElement, styles.flagContainer)}>
             <img

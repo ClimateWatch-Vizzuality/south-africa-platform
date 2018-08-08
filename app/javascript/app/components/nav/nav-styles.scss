@@ -1,17 +1,14 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
 
-$header-side-margin: 55px;
 $header-top-margin: 30px;
 $logo-width: 215px;
 $flag-height: 40px;
 
 // Header wrapper
 .header {
-  margin: {
-    left: $header-side-margin;
-    right: $header-side-margin;
-    top: $header-top-margin;
-  }
+  @include row();
+  margin-top: $header-top-margin;
 }
 
 .navbarContainer {
