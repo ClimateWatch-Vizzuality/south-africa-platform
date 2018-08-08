@@ -1,5 +1,5 @@
 {
-  "name": "cw-ndc-tracker",
+  "name": "cw-starter-kit",
   "version": "1.0.0",
   "scripts": {
     "start": "./bin/webpack-dev-server",

@@ -1,4 +1,4 @@
-# Climate Watch - NDC Tracking tool
+# Climate Watch - Starter Kit
 
 Table of Contents:
 
@@ -10,13 +10,14 @@ Table of Contents:
 ### Installing dependencies
 
 ```
-yarn run js:install
+yarn install
 ```
 
 and then
 
 ```
-yarn run rails:install
+gem install bundler
+bundle install
 ```
 
 These will satisfy both the frontend and backend's dependency requirements.
@@ -28,19 +29,14 @@ project's settings. At the very least you'll need to have the `DATABASE_URL`
 env variable.
 
 ```
-DATABASE_URL=postgresql://postgres@localhost/cw-ndc-tracker_development
+DATABASE_URL=postgresql://postgres@localhost/cw-starter-kit_development
 ```
 
 #### Setting up the database
 
 ```
-yarn run rails:db:create
-```
-
-and then
-
-```
-yarn run rails:db:migrate
+bundle exec rails db:create
+bundle exec rails db:migrate
 ```
 
 These will create the development database and then run the database migration tasks.
@@ -50,13 +46,13 @@ These will create the development database and then run the database migration t
 You'll need to run both the rails server and the webpack server, which will be used internally by rails. Run, separately:
 
 ```
-yarn run rails:server
+bundle exec rails s
 ```
 
 and
 
 ```
-yarn run js:server
+yarn start
 ```
 
 Point your browser to `http://localhost:3000/`. Ta-da!
@@ -72,8 +68,13 @@ There are some peculiarities in the architectural choices that we will outline i
 
 ## Router
 
-We prefer to use a router redux library to handle the router state easily instead of the `withRouter` HOC with a lot of performance issues, so
-- routes are defined as a data-structure instead of using `jsx` inside the `routes.js` file.
+Interesting [read](https://github.com/faceyspacey/redux-first-router#motivation---what-routing-in-redux-is-meant-to-be) about motivation to use it.
+
+- Routes are defined as another reducer
+- Navigation are just actions
+- You can grab the piece of state from the url that you need in any component
+- Seamless code splitting using [react-universal-component](https://github.com/faceyspacey/react-universal-component)
+- Routes are defined as a data-structure instead of using `jsx` inside the `routes.js` file.
 - All of the router data will be located in the `location` store.
 
 ## Modules
@@ -131,6 +132,16 @@ Reducers inside a module are simple pure functions, no switch case is even prese
 The reducers file exports an object which keys are the actions constants and the value is the reducer that will react to that dispatched action.
 
 The exported actions are used for the keys since `redux-actions` returns the action constant when calling the `.toString()` method in the action creator.
+
+### Modules boilerplate generator
+
+Using [plop](https://github.com/amwmedia/plop) you can generate the folder and files of a module as easy as running:
+
+```
+yarn generate
+```
+
+It will promtp with the name of the module and the redux connection when needed.
 
 ### App Actions
 
