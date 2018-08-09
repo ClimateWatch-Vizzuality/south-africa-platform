@@ -61,7 +61,7 @@ spec:
             valueFrom:
                 secretKeyRef:
                   name: dbsecrets
-                  key: CW_POSTGRES_URL_STAGING
+                  key: SA_POSTGRES_URL_STAGING
 
         ports:
           - containerPort: 3000
