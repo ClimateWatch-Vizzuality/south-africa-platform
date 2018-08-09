@@ -1,5 +1,76 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
 
-.page {
-  min-height: calc(100vh - #{$header-height} - #{$footer-height});
+.page {}
+
+.section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  @media #{$tablet-landscape} {
+    padding-bottom: 0;
+
+    &.extraPadding {
+      padding-top: 110px;
+      padding-bottom: 120px;
+    }
+  }
+}
+
+.row {
+  height: 700px;
+  @include row(12);
+}
+
+.introTextContainer {
+  @include row(10);
+  justify-content: center;
+  padding: 50px;
+  padding-top: 120px;
+  flex-wrap: nowrap;
+  position: relative;
+}
+
+.introText {
+  color: $white;
+  font-size: $font-size-large;
+  line-height: 1.5;
+}
+
+.cardsContainer {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 85%;
+
+  @include row('shrink', $wrap: false);
+
+  overflow: scroll;
+
+  @media #{$tablet-landscape} {
+    @include row(4);
+
+    > div {
+      @include xy-gutters($gutter-position: ('top', 'bottom'));
+    }
+
+    overflow: hidden;
+    position: absolute;
+    top: 706px;
+  }
+}
+
+.cardContent {
+  padding: 15px;
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-family: $font-family-1;
+  font-size: $font-size-s;
 }
