@@ -1,18 +1,99 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
 
-.navbar {
-  height: $header-height;
+$header-top-margin: 30px;
+$logo-width: 215px;
+$flag-height: 40px;
+
+// Header wrapper
+.header {
+  @include row();
+
+  margin-top: $header-top-margin;
 }
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+}
+
+// True for every side of header
+
+.navElement {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+// Left side of the header
 
 .logo {
-  width: 136px;
-  height: 13px;
+  width: $logo-width;
 }
+
+// Center of the header
+
+.pageTitleContainer {
+  font-size: 30px;
+  font-family: $font-family-2;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  justify-content: center;
+}
+
+.climatText {
+  color: $camarone;
+}
+
+.reportText {
+  color: $dusty-gray;
+}
+
+// Right side of the header
+
+.flagContainer {
+  justify-content: flex-end;
+}
+
+.flag {
+  height: $flag-height;
+}
+
+// Link styles
 
 .link {
   color: $theme-color;
+  padding-bottom: 15px;
+  margin: {
+    left: 15px;
+    right: 15px;
+  }
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: $font-family-1;
+  font-size: $font-size-s;
+  font-weight: bold;
+  position: relative;
+
+  &.active::after {
+    content: "";
+    height: 3px;
+    background-color: $theme-color;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
 }
 
-.active {
-  border-bottom: 3px solid $theme-color;
+// Tabs Container
+
+.tabsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: {
+    top: 20px;
+  }
 }
