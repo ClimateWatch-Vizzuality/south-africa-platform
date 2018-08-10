@@ -1,20 +1,79 @@
 @import '~styles/settings.scss';
 @import '~styles/layout.scss';
 
-$header-top-margin: 30px;
 $logo-width: 215px;
 $flag-height: 40px;
 
 // Header wrapper
+.headerContainer {
+  background-color: $white;
+}
+
 .header {
   @include row();
-
-  margin-top: $header-top-margin;
 }
 
 .navbarContainer {
   display: flex;
   align-items: center;
+}
+
+.stickyWrapper {
+  .navbarContainer {
+    display: none;
+  }
+
+  .smallLogo {
+    display: flex;
+  }
+
+  .smallFlag {
+    display: flex;
+  }
+
+  .stickyNavElement {
+    flex: 1;
+    display: flex;
+  }
+
+  .stickyTabs {
+    flex: auto;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .stickyFlag {
+    justify-content: flex-end;
+  }
+
+  .tabsContainer {
+    margin: {
+      top: 10px;
+      bottom: 10px;
+    }
+  }
+
+  .link {
+    padding-bottom: 0;
+
+    &.active::after {
+      bottom: -19px;
+    }
+  }
+}
+
+.stickyNavElement {
+  display: flex;
+}
+
+.smallLogo {
+  display: none;
+  height: 35px;
+}
+
+.smallFlag {
+  display: none;
+  height: 25px;
 }
 
 // True for every side of header
@@ -79,7 +138,7 @@ $flag-height: 40px;
   font-size: $font-size-s;
   font-weight: bold;
   position: relative;
-  min-height: 47px;
+  // min-height: 47px;
   display: flex;
   align-items: center;
 

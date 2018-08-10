@@ -5,7 +5,9 @@ import universal from 'react-universal-component';
 
 import Nav from 'components/nav';
 import Footer from 'components/footer';
+import Sticky from 'react-stickynode';
 
+import navStyles from 'components/nav/nav-styles.scss';
 import styles from './root-styles.scss';
 
 const universalOptions = {
@@ -14,14 +16,16 @@ const universalOptions = {
 }
 const PageComponent = universal((
   { path } /* webpackChunkName: "[request]" */
-) => (import(`../../${path}.js`)), universalOptions);
+) => (import(`../../${path}.js`)), universalOptions); 
 
 class App extends PureComponent {
   render() {
     const { route } = this.props;
     return (
       <div className={styles.app}>
-        <Nav />
+        <Sticky activeClass={navStyles.stickyWrapper} innerZ={5}>
+          <Nav />
+        </Sticky>
         <PageComponent path={route.component} />
         <Footer />
       </div>
