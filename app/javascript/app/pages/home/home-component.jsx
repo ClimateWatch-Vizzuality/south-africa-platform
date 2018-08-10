@@ -10,23 +10,27 @@ class Home extends PureComponent {
     return (
       <div className={styles.page}>
         <Section backgroundImage={background} theme={styles}>
-          <div className={styles.introTextContainer}>
-            <div className={styles.introText}>
-              The South African Climate Report captures South Africa’s response to climate change with emphasis on climate change mitigation, and offers open data, visualizations and analysis to help policy-makers, researchers, investors and the general public gather insights on the country’s climate progress.
+          <div className="layout-container">
+            <div className={styles.introTextContainer}>
+              <p className={styles.introText}>
+                The South African Climate Report captures South Africa’s response to climate change with emphasis on climate change mitigation, and offers open data, visualizations and analysis to help policy-makers, researchers, investors and the general public gather insights on the country’s climate progress.
+              </p>
             </div>
           </div>
-          <div className={styles.cardsContainer}>
-            {
-              cardsData && cardsData.map(card => (
-                <div className={styles.cardElement}>
-                  <Card title={card.title} theme={styles}>
-                    <div className={styles.cardContent}>
-                      {card.description}
-                    </div>
-                  </Card>
-                </div>
-                ))
-            }
+          <div className="layout-container">
+            <div className={styles.cardsContainer}>
+              {
+                cardsData && cardsData.map(card => (
+                  <div className={styles.cardElement}>
+                    <Card title={card.title} theme={styles}>
+                      <div className={styles.cardContent}>
+                        {card.description}
+                      </div>
+                    </Card>
+                  </div>
+                  ))
+              }
+            </div>
           </div>
         </Section>
       </div>
