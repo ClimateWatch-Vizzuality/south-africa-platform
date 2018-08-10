@@ -34,11 +34,15 @@ $flag-height: 40px;
 // Center of the header
 
 .pageTitleContainer {
-  font-size: 30px;
+  font-size: $font-size;
   font-family: $font-family-2;
   text-transform: uppercase;
   letter-spacing: 2px;
   justify-content: center;
+
+  @media #{$tablet-landscape} {
+    font-size: 30px;
+  }
 }
 
 .climatText {
@@ -75,6 +79,21 @@ $flag-height: 40px;
   font-size: $font-size-s;
   font-weight: bold;
   position: relative;
+  min-height: 47px;
+  display: flex;
+  align-items: center;
+
+  @media #{$tablet-landscape} {
+    min-height: 0;
+  }
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   &.active::after {
     content: "";
@@ -92,8 +111,11 @@ $flag-height: 40px;
 .tabsContainer {
   display: flex;
   align-items: center;
-  justify-content: center;
   margin: {
     top: 20px;
+  }
+
+  @media #{$tablet-landscape} {
+    justify-content: center;
   }
 }

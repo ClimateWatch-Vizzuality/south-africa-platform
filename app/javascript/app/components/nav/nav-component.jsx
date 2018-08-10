@@ -40,6 +40,7 @@ class Nav extends PureComponent {
         <div className={styles.tabsContainer}>
           {routes.map(route => (
             <NavLink
+              exact
               className={styles.link}
               key={route.label}
               to={route.link}

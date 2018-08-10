@@ -13,8 +13,9 @@ export const GHG_EMISSIONS = 'location/GHG_EMISSIONS';
 
 export const routes = {
   [HOME]: {
-    nav: false,
+    nav: true,
     label: 'Overview',
+    link: '/',
     path: '/',
     component: 'pages/home/home'
   },
