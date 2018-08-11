@@ -40,7 +40,9 @@ class Nav extends PureComponent {
             </div>
           </div>
           <div className={styles.tabsContainer}>
-            <div className={styles.stickyNavElement}>
+            <div
+              className={cx(styles.stickyNavElement, styles.stickyImageElement)}
+            >
               <img
                 src={envAffairsLogoSmall}
                 alt="Environmental Affairs Logo"
@@ -60,7 +62,13 @@ class Nav extends PureComponent {
                 </NavLink>
               ))}
             </div>
-            <div className={cx(styles.stickyNavElement, styles.stickyFlag)}>
+            <div
+              className={cx(
+                styles.stickyNavElement,
+                styles.stickyImageElement,
+                styles.stickyFlag
+              )}
+            >
               <img
                 src={SAflag}
                 alt="South Africa flag"

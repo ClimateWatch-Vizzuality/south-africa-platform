@@ -163,10 +163,16 @@ $flag-height: 40px;
     display: flex;
   }
 
+  .stickyImageElement {
+    height: 100%;
+    align-items: center;
+  }
+
   .stickyTabs {
     flex: auto;
     flex-grow: 1;
     justify-content: center;
+    height: 100%;
   }
 
   .stickyFlag {
@@ -174,17 +180,15 @@ $flag-height: 40px;
   }
 
   .tabsContainer {
-    margin: {
-      top: 10px;
-      bottom: 10px;
-    }
+    height: 55px;
+    margin-top: 0;
   }
 
   .link {
     padding-bottom: 0;
 
     &.active::after {
-      bottom: -19px;
+      bottom: 0;
     }
   }
 }
