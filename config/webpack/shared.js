@@ -65,7 +65,8 @@ module.exports = {
       app: 'app',
       components: 'app/components',
       routes: 'app/routes',
-      constants: 'app/constants'
+      constants: 'app/constants',
+      utils: 'app/utils'
     }
   },
   resolveLoader: { modules: [ 'node_modules' ] },

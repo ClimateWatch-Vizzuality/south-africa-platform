@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Section, Card } from 'cw-components';
-import background from 'assets/hero.png';
+import background from 'assets/hero';
+import TotalGHGEmissions from 'components/total-ghg-emissions';
 import styles from './home-styles.scss';
 
 class Home extends PureComponent {
@@ -33,6 +34,9 @@ class Home extends PureComponent {
             </div>
           </div>
         </Section>
+        <div>
+          <TotalGHGEmissions />
+        </div>
       </div>
     );
   }

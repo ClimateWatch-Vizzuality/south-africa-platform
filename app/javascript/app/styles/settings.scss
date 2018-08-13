@@ -33,9 +33,13 @@ $logos-top-bottom-margin: 15px;
 // Colors
 $black: #333;
 $white: #fff;
-$theme-color: #233140;
+$midnightblue: #233140;
 $camarone: #005d28;
 $dusty-gray: #999;
+
+// Theme-colors
+$theme-color: $midnightblue;
+$action-color: $camarone;
 
 // Breakpoints
 $breakpoint-mobile-only: 37.4375rem; // 599px / 16px

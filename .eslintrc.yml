@@ -25,7 +25,7 @@ rules:
   no-console: [error, allow: [warn, error, info]]
   no-plusplus: ["error", { "allowForLoopAfterthoughts": true }]
   arrow-parens: 0
-  import/extensions: [error, {"js": never, "jsx": never}]
+  import/extensions: [error, {"js": never, "jsx": never, "packages": always}]
   import/no-unresolved: 0
   import/no-extraneous-dependencies: 0
   import/prefer-default-export: 0
@@ -44,14 +44,4 @@ rules:
   react/destructuring-assignment: 1
 
 settings:
-  import/resolver:
-    node:
-      extensions:
-        - .js
-        - .jsx
-
-      moduleDirectory:
-        - node_modules
-        - javascript
-        - javascript/app
-        - app/javascript/app
+  import/resolver: webpack
