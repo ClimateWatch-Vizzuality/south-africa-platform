@@ -12,7 +12,7 @@ import { reduxModule as worldBank } from 'providers/world-bank-provider';
 const providersReducers = {
   GHGMeta: handleModule(ghgMeta),
   GHGEmissions: handleModule(ghgEmissions),
-  WorldBankData: handleModule(worldBank)
+  WorldBank: handleModule(worldBank)
 };
 
 export default combineReducers({

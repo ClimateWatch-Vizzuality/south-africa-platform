@@ -9,8 +9,8 @@ export const fetchWorldBankFail = createAction('fetchWorldBankFail');
 
 export const fetchWorldBank = createThunkAction('fetchWorldBank', ({ iso }) =>
   (dispatch, state) => {
-    const { WorldBankData } = state();
-    if (isEmpty(WorldBankData.data) && !WorldBankData.loading) {
+    const { WorldBank } = state();
+    if (WorldBank && isEmpty(WorldBank.data) && !WorldBank.loading) {
       dispatch(fetchWorldBankInit());
       CWAPI
         .get(`wb_extra/${iso}`)

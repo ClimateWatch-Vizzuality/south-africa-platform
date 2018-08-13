@@ -34,9 +34,7 @@ class Home extends PureComponent {
             </div>
           </div>
         </Section>
-        <div>
-          <TotalGHGEmissions />
-        </div>
+        <TotalGHGEmissions />
       </div>
     );
   }

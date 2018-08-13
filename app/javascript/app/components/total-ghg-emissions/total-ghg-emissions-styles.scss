@@ -1,8 +1,43 @@
 @import '~styles/settings.scss';
 @import '~styles/layout.scss';
 
+.section {
+  margin-top: 200px;
+}
+
+.title {
+  font-family: Lato;
+  font-size: $font-size-large;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+}
+
 .row {
   @include row();
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+}
+
+.toolbarButtons {
+  display: flex;
+}
+
+.button {
+  width: 270px;
+  margin-right: 30px;
+  color: $white;
+}
+
+.infobutton {
+  width: 50px;
+}
+
+.dropdown {
+  width: 200px;
 }
 
 .button {

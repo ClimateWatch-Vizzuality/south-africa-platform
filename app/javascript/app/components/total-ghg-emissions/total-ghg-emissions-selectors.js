@@ -14,6 +14,8 @@ const defaults = {
   sector: 'Total excluding LUCF'
 };
 const getMetaData = ({ GHGMeta = {} }) => GHGMeta.data || null;
+const getMetricParam = ({ location }) => location.query.metric || null;
+const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
 
@@ -43,10 +45,25 @@ export const getEmissionsParams = createSelector(
   }
 );
 
+export const getMetricOptions = createSelector([], () => [
+  { label: 'Absolute value', value: 'absolute' },
+  { label: 'per Capita', value: 'pcapita' },
+  { label: 'per GDP', value: 'pgdp' }
+]);
+
+export const getMetricSelected = createSelector(
+  [ getMetricOptions, getMetricParam ],
+  (metrics, metric) => {
+    if (!metric) return metrics[0];
+    return metrics.find(m => m.value === metric);
+  }
+);
+
 export const parseChartData = createSelector(
-  [ getEmissionsData ],
-  emissionsData => {
+  [ getEmissionsData, getMetricSelected, getWBData ],
+  (emissionsData, metric, wbData) => {
     if (!emissionsData) return null;
+    console.info(metric, wbData);
     const [ data ] = emissionsData;
     const xValues = data.emissions.map(d => d.year);
     const dataParsed = xValues.map(x => {
@@ -92,6 +109,8 @@ export const getChartData = createStructuredSelector({
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
+  metricOptions: getMetricOptions,
+  metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,
   chartData: getChartData
 });

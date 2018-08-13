@@ -14,22 +14,46 @@ class TotalGhgEmissions extends PureComponent {
     console.info('clickeeed info');
   };
 
+  handleMetricChange = metric => {
+    this.props.updateMetricSelected({ query: { metric: metric.value } });
+  };
+
   render() {
-    const { emissionsParams, chartData } = this.props;
+    const {
+      metricSelected,
+      metricOptions,
+      emissionsParams,
+      chartData
+    } = this.props;
     return (
       <React.Fragment>
-        <Section title="Historical Emissions" theme={styles}>
+        <Section theme={styles}>
+          <h2 className={styles.title}>Historical Emissions</h2>
           <div className={styles.toolbar}>
-            <Dropdown />
-            <Button link={<Link to="/ghg-emissions" />} theme={styles}>
-              Explore GHG Emissions
-            </Button>
-            <Button onClick={this.handleInfoClick}>
-              <Icon icon={iconInfo} />
-            </Button>
+            <Dropdown
+              theme={{ wrapper: styles.dropdown }}
+              options={metricOptions}
+              value={metricSelected}
+              onValueChange={this.handleMetricChange}
+              hideResetButton
+            />
+            <div className={styles.toolbarButtons}>
+              <Button
+                link={<Link to="/ghg-emissions" />}
+                theme={{ button: styles.button }}
+              >
+                Explore GHG Emissions
+              </Button>
+              <Button
+                onClick={this.handleInfoClick}
+                theme={{ button: styles.infobutton }}
+              >
+                <Icon icon={iconInfo} />
+              </Button>
+            </div>
           </div>
           <div className={styles.chart}>
-            <Chart type="line" hideRemoveOptions {...chartData} />
+            <Chart type="line" dots={false} hideRemoveOptions {...chartData} />
           </div>
         </Section>
         <GHGMetaProvider />
@@ -42,9 +66,17 @@ class TotalGhgEmissions extends PureComponent {
 
 TotalGhgEmissions.propTypes = {
   chartData: PropTypes.object,
-  emissionsParams: PropTypes.object
+  metricOptions: PropTypes.array,
+  metricSelected: PropTypes.object,
+  emissionsParams: PropTypes.object,
+  updateMetricSelected: PropTypes.func.isRequired
 };
 
-TotalGhgEmissions.defaultProps = { chartData: {}, emissionsParams: null };
+TotalGhgEmissions.defaultProps = {
+  chartData: {},
+  metricOptions: [],
+  metricSelected: null,
+  emissionsParams: null
+};
 
 export default TotalGhgEmissions;
