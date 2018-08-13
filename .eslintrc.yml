@@ -41,6 +41,7 @@ rules:
   react/jsx-indent: 1
   no-mixed-operators: 1
   react/jsx-one-expression-per-line: 0
+  react/destructuring-assignment: 1
 
 settings:
   import/resolver:
