@@ -25,6 +25,7 @@
     "react-dom": "16.3.0",
     "react-redux": "5.0.5",
     "react-universal-component": "3.0.0",
+    "recompose": "^0.28.2",
     "redux": "3.7.1",
     "redux-first-router": "0.0.20-next",
     "redux-first-router-link": "0.0.3-next",

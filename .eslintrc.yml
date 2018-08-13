@@ -42,6 +42,7 @@ rules:
   no-mixed-operators: 1
   react/jsx-one-expression-per-line: 0
   react/destructuring-assignment: 1
+  prefer-destructuring: 1
 
 settings:
   import/resolver: webpack

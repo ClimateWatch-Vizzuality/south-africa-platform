@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
+import ModalMetadata from 'components/modal-metadata';
 import { Section, Button, Icon, Dropdown, Chart } from 'cw-components';
 import GHGMetaProvider from 'providers/ghg-meta-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
@@ -11,7 +12,10 @@ import styles from './total-ghg-emissions-styles';
 
 class TotalGhgEmissions extends PureComponent {
   handleInfoClick = () => {
-    console.info('clickeeed info');
+    this.props.setModalMetadata({
+      slugs: 'historical_emissions_cait',
+      open: true
+    });
   };
 
   handleMetricChange = metric => {
@@ -59,6 +63,7 @@ class TotalGhgEmissions extends PureComponent {
         <GHGMetaProvider />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
+        <ModalMetadata />
       </React.Fragment>
     );
   }
@@ -69,6 +74,7 @@ TotalGhgEmissions.propTypes = {
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
+  setModalMetadata: PropTypes.func.isRequired,
   updateMetricSelected: PropTypes.func.isRequired
 };
 
