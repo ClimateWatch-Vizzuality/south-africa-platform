@@ -1,15 +1,18 @@
 @import '~styles/settings.scss';
 @import '~styles/layout.scss';
 
-$header-top-margin: 30px;
 $logo-width: 215px;
 $flag-height: 40px;
 
 // Header wrapper
-.header {
-  @include row();
+.headerContainer {
+  background-color: $white;
+}
 
-  margin-top: $header-top-margin;
+.header {
+  padding-top: 20px;
+
+  @include row();
 }
 
 .navbarContainer {
@@ -39,6 +42,7 @@ $flag-height: 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
   justify-content: center;
+  flex-grow: 3;
 
   @media #{$tablet-landscape} {
     font-size: 30px;
@@ -79,7 +83,7 @@ $flag-height: 40px;
   font-size: $font-size-s;
   font-weight: bold;
   position: relative;
-  min-height: 47px;
+  // min-height: 47px;
   display: flex;
   align-items: center;
 
@@ -117,5 +121,76 @@ $flag-height: 40px;
 
   @media #{$tablet-landscape} {
     justify-content: center;
+  }
+}
+
+// Sticky navbar
+
+.stickyNavElement {
+  display: flex;
+}
+
+.smallLogo {
+  display: none;
+  height: 35px;
+}
+
+.smallFlag {
+  display: none;
+  height: 25px;
+}
+
+// Sticky navbar styles when it's visible
+.stickyWrapper {
+  max-height: 55px;
+
+  .header {
+    padding-top: 0;
+  }
+
+  .navbarContainer {
+    display: none;
+  }
+
+  .smallLogo {
+    display: flex;
+  }
+
+  .smallFlag {
+    display: flex;
+  }
+
+  .stickyNavElement {
+    flex: 1;
+    display: flex;
+  }
+
+  .stickyImageElement {
+    height: 100%;
+    align-items: center;
+  }
+
+  .stickyTabs {
+    flex: auto;
+    flex-grow: 1;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .stickyFlag {
+    justify-content: flex-end;
+  }
+
+  .tabsContainer {
+    height: 55px;
+    margin-top: 0;
+  }
+
+  .link {
+    padding-bottom: 0;
+
+    &.active::after {
+      bottom: 0;
+    }
   }
 }
