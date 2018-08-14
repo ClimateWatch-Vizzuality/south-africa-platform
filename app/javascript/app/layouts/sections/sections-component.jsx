@@ -22,7 +22,13 @@ class Planning extends PureComponent {
         <h2>{route.label}</h2>
         {route.sections && route.sections.length > 0 &&
           route.sections.map(s => (
-            <NavLink className={styles.link} to={s.path} activeClassName={styles.active} exact>
+            <NavLink
+              exact
+              key={s.label}
+              to={s.path}
+              className={styles.link}
+              activeClassName={styles.active}
+            >
               {s.label}
             </NavLink>
           ))

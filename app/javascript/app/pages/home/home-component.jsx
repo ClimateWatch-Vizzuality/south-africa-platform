@@ -21,13 +21,13 @@ class Home extends PureComponent {
             <div className={styles.cardsContainer}>
               {
                 cardsData && cardsData.map(card => (
-                  <div className={styles.cardElement}>
-                    <Card title={card.title} theme={styles}>
-                      <div className={styles.cardContent}>
-                        {card.description}
-                      </div>
-                    </Card>
-                  </div>
+                    <div key={card.title} className={styles.cardElement}>
+                      <Card title={card.title} theme={styles}>
+                        <div className={styles.cardContent}>
+                          {card.description}
+                        </div>
+                      </Card>
+                    </div>
                   ))
               }
             </div>
