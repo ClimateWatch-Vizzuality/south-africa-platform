@@ -3,9 +3,6 @@ import { getCardsData } from './cards-selectors';
 
 import CardsComponent from './cards-component';
 
-const mapStateToProps = ({ countriesOverviewData }) => {
-  const cardsData = getCardsData(countriesOverviewData);
-  return { cardsData };
-};
+const mapStateToProps = getCardsData;
 
 export default connect(mapStateToProps, null)(CardsComponent);

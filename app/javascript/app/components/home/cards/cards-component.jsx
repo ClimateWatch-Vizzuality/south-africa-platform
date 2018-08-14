@@ -4,6 +4,10 @@ import { Card } from 'cw-components';
 import OverviewCountryInfoProvider from 'providers/overview-country-info-provider';
 import styles from './cards-styles.scss';
 
+function createMarkup(description) {
+  return { __html: description };
+}
+
 class Cards extends PureComponent {
   render() {
     const { cardsData } = this.props;
@@ -11,11 +15,12 @@ class Cards extends PureComponent {
       <div className={styles.cardsContainer}>
         {
           cardsData && cardsData.map(card => (
-            <div className={styles.cardElement}>
+            <div key={card.title} className={styles.cardElement}>
               <Card title={card.title} theme={styles}>
-                <div className={styles.cardContent}>
-                  {card.description}
-                </div>
+                <div
+                  className={styles.cardContent}
+                  dangerouslySetInnerHTML={createMarkup(card.description)}
+                />
               </Card>
             </div>
             ))
