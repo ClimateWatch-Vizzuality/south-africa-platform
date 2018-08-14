@@ -43,6 +43,7 @@ rules:
   react/jsx-one-expression-per-line: 0
   react/destructuring-assignment: 1
   prefer-destructuring: 1
+  function-paren-newline: 0
 
 settings:
   import/resolver: webpack

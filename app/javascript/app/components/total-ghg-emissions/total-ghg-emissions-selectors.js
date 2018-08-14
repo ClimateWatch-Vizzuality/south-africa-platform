@@ -119,7 +119,7 @@ export const getChartConfig = createSelector(
     const theme = yColumns.reduce(
       (acc, next) => ({
         ...acc,
-        [next.value]: { stroke: '#00B4D2', fill: '#00B4D2' }
+        [next.value]: { stroke: '#00955f', fill: '#00955f' }
       }),
       {}
     );
@@ -144,10 +144,18 @@ export const getChartConfig = createSelector(
   }
 );
 
+export const getChartFilters = createSelector(() => [ { label: 'All GHG' } ]);
+
+export const getChartFilterSelected = createSelector(() => [
+  { label: 'All GHG' }
+]);
+
 export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
-  loading: getChartLoading
+  loading: getChartLoading,
+  dataOptions: getChartFilters,
+  dataSelected: getChartFilterSelected
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({

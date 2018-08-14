@@ -2,11 +2,20 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import ModalMetadata from 'components/modal-metadata';
-import { Section, Button, Icon, Dropdown, Chart } from 'cw-components';
+import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
+import {
+  Section,
+  ButtonGroup,
+  Button,
+  Icon,
+  Dropdown,
+  Chart
+} from 'cw-components';
 import GHGMetaProvider from 'providers/ghg-meta-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import iconInfo from 'assets/icons/info';
+import downloadIcon from 'assets/icons/download';
 
 import styles from './total-ghg-emissions-styles';
 
@@ -22,6 +31,10 @@ class TotalGhgEmissions extends PureComponent {
     this.props.updateMetricSelected({ query: { metric: metric.value } });
   };
 
+  handleDownloadClick() {
+    console.info('TODO: link todownload data endpoint', this.props);
+  }
+
   render() {
     const {
       metricSelected,
@@ -29,33 +42,57 @@ class TotalGhgEmissions extends PureComponent {
       emissionsParams,
       chartData
     } = this.props;
+
+    const dropdown = (
+      <Dropdown
+        theme={{ wrapper: styles.dropdown }}
+        options={metricOptions}
+        value={metricSelected}
+        onValueChange={this.handleMetricChange}
+        hideResetButton
+      />
+    );
+    const toolbar = (
+      <div className={styles.toolbarButtons}>
+        <Button
+          link={<Link to="/ghg-emissions" />}
+          theme={{ button: styles.button }}
+        >
+          Explore GHG Emissions
+        </Button>
+        <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
+          <Button
+            onClick={this.handleInfoClick}
+            theme={{ button: styles.infobutton }}
+          >
+            <Icon icon={iconInfo} />
+          </Button>
+          <Button
+            onClick={this.handleDownloadClick}
+            theme={{ button: styles.infobutton }}
+          >
+            <Icon icon={downloadIcon} />
+          </Button>
+        </ButtonGroup>
+      </div>
+    );
     return (
       <React.Fragment>
         <Section theme={styles}>
           <h2 className={styles.title}>Historical Emissions</h2>
-          <div className={styles.toolbar}>
-            <Dropdown
-              theme={{ wrapper: styles.dropdown }}
-              options={metricOptions}
-              value={metricSelected}
-              onValueChange={this.handleMetricChange}
-              hideResetButton
-            />
-            <div className={styles.toolbarButtons}>
-              <Button
-                link={<Link to="/ghg-emissions" />}
-                theme={{ button: styles.button }}
-              >
-                Explore GHG Emissions
-              </Button>
-              <Button
-                onClick={this.handleInfoClick}
-                theme={{ button: styles.infobutton }}
-              >
-                <Icon icon={iconInfo} />
-              </Button>
-            </div>
-          </div>
+          <TabletLandscape>
+            {matches => {
+              if (matches) {
+                return (
+                  <div className={styles.toolbar}>
+                    {dropdown}
+                    {toolbar}
+                  </div>
+                );
+              }
+              return dropdown;
+            }}
+          </TabletLandscape>
           <div className={styles.chart}>
             <Chart
               type="line"
@@ -65,6 +102,9 @@ class TotalGhgEmissions extends PureComponent {
               {...chartData}
             />
           </div>
+          <TabletPortraitOnly>
+            {toolbar}
+          </TabletPortraitOnly>
         </Section>
         <GHGMetaProvider />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
