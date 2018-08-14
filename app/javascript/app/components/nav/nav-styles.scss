@@ -142,6 +142,8 @@ $flag-height: 40px;
 
 // Sticky navbar styles when it's visible
 .stickyWrapper {
+  max-height: 55px;
+
   .header {
     padding-top: 0;
   }
