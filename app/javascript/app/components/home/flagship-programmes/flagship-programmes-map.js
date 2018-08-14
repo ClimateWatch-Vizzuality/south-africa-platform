@@ -7,44 +7,46 @@ import transportImg from 'assets/flagship-programmes/transport';
 import wasteManagementImg from 'assets/flagship-programmes/waste_management';
 import waterConservationImg from 'assets/flagship-programmes/water_conservation';
 
+const flagshipProgrammesSectionLink = '/mitigation-actions/flagship-programmes';
+
 export const flagshipProgrammes = [
   {
-    link: '/mitigation-actions/flagship-programmes#climate-change',
+    link: `${flagshipProgrammesSectionLink}#climate-change`,
     title: 'Climate Change Response Public Works',
     background_image_url: climateChangeImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#water-conservation',
+    link: `${flagshipProgrammesSectionLink}#water-conservation`,
     title: 'Water Conservation',
     background_image_url: waterConservationImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#renewable-energy',
+    link: `${flagshipProgrammesSectionLink}#renewable-energy`,
     title: 'Renewable Energy',
     background_image_url: renewableEnergyImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#energy-efficiency',
+    link: `${flagshipProgrammesSectionLink}#energy-efficiency`,
     title: 'Energy Efficiency & Management',
     background_image_url: energyEfficiencyImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#transport',
+    link: `${flagshipProgrammesSectionLink}#transport`,
     title: 'Transport',
     background_image_url: transportImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#waste-management',
+    link: `${flagshipProgrammesSectionLink}#waste-management`,
     title: 'Waste management',
     background_image_url: wasteManagementImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#carbon-capture',
+    link: `${flagshipProgrammesSectionLink}#carbon-capture`,
     title: 'Carbon Capture & Sequestration',
     background_image_url: carbonCaptureImg
   },
   {
-    link: '/mitigation-actions/flagship-programmes#long-term-adaptation',
+    link: `${flagshipProgrammesSectionLink}#long-term-adaptation`,
     title: 'Long-term Adaptation Scenarios',
     background_image_url: longTermAdaptationImg
   }
