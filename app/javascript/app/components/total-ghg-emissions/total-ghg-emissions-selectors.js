@@ -24,6 +24,9 @@ const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
 
+const getChartLoading = ({ GHGMeta = {}, GHGEmissions = {} }) =>
+  GHGMeta.loading || GHGEmissions.loading;
+
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;
   const selected = meta.gas.find(gas => gas.label === defaults.gas);
@@ -143,7 +146,8 @@ export const getChartConfig = createSelector(
 
 export const getChartData = createStructuredSelector({
   data: parseChartData,
-  config: getChartConfig
+  config: getChartConfig,
+  loading: getChartLoading
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({

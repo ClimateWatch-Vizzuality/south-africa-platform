@@ -57,7 +57,13 @@ class TotalGhgEmissions extends PureComponent {
             </div>
           </div>
           <div className={styles.chart}>
-            <Chart type="line" dots={false} hideRemoveOptions {...chartData} />
+            <Chart
+              type="line"
+              dots={false}
+              customMessage="Emissions data not available"
+              hideRemoveOptions
+              {...chartData}
+            />
           </div>
         </Section>
         <GHGMetaProvider />
