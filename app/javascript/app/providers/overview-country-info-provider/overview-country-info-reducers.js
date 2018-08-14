@@ -8,16 +8,16 @@ export const initialState = {
 };
 
 export default {
-  [actions.fetchCardsOverviewContentInit]: state => ({
+  [actions.fetchCountryOverviewInfoInit]: state => ({
     ...state,
     loading: true
   }),
-  [actions.fetchCardsOverviewContentReady]: (state, { payload }) => ({
+  [actions.fetchCountryOverviewInfoReady]: (state, { payload }) => ({
     ...state,
     loading: false,
     data: payload
   }),
-  [actions.fetchCardsOverviewContentFail]: (state, { payload }) => ({
+  [actions.fetchCountryOverviewInfoFail]: (state, { payload }) => ({
     ...state,
     loading: false,
     error: payload

@@ -3,30 +3,30 @@ import isEmpty from 'lodash/isEmpty';
 
 import { CWAPI } from 'services/api';
 
-export const fetchCardsOverviewContentInit = createAction(
-  'fetchCardsOverviewContentInit'
+export const fetchCountryOverviewInfoInit = createAction(
+  'fetchCountryOverviewInfoInit'
 );
-export const fetchCardsOverviewContentReady = createAction(
-  'fetchCardsOverviewContentReady'
+export const fetchCountryOverviewInfoReady = createAction(
+  'fetchCountryOverviewInfoReady'
 );
-export const fetchCardsOverviewContentFail = createAction(
-  'fetchCardsOverviewContentFail'
+export const fetchCountryOverviewInfoFail = createAction(
+  'fetchCountryOverviewInfoFail'
 );
 
-export const fetchCardsOverviewContent = createThunkAction(
-  'fetchCardsOverviewContent',
+export const fetchCountryOverviewInfo = createThunkAction(
+  'fetchCountryOverviewInfo',
   ({ iso }) => (dispatch, state) => {
     const { countriesOverviewData } = state();
     if (isEmpty(countriesOverviewData.data) && !countriesOverviewData.loading) {
-      dispatch(fetchCardsOverviewContentInit());
+      dispatch(fetchCountryOverviewInfoInit());
       CWAPI
         .get(`ndcs/${iso}/content_overview`)
         .then((data = {}) => {
-          dispatch(fetchCardsOverviewContentReady(data));
+          dispatch(fetchCountryOverviewInfoReady(data));
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchCardsOverviewContentFail(error));
+          dispatch(fetchCountryOverviewInfoFail(error));
         });
     }
   }

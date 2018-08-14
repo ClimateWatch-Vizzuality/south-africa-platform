@@ -8,22 +8,22 @@ import reducers, { initialState } from './overview-country-info-reducers';
 
 const { COUNTRY_ISO } = process.env;
 
-class CardsOverviewProvider extends PureComponent {
+class OverviewCountryInfoProvider extends PureComponent {
   componentDidMount() {
-    const { fetchCardsOverviewContent, iso } = this.props;
-    fetchCardsOverviewContent({ iso });
+    const { fetchCountryOverviewInfo, iso } = this.props;
+    fetchCountryOverviewInfo({ iso });
   }
 
   render() {
     return null;
   }
 }
-CardsOverviewProvider.propTypes = {
-  fetchCardsOverviewContent: PropTypes.func.isRequired,
+OverviewCountryInfoProvider.propTypes = {
+  fetchCountryOverviewInfo: PropTypes.func.isRequired,
   iso: PropTypes.string
 };
 
-CardsOverviewProvider.defaultProps = { iso: COUNTRY_ISO };
+OverviewCountryInfoProvider.defaultProps = { iso: COUNTRY_ISO };
 
 export const reduxModule = { actions, reducers, initialState };
-export default connect(null, actions)(CardsOverviewProvider);
+export default connect(null, actions)(OverviewCountryInfoProvider);
