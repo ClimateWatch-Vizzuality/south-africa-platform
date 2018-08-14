@@ -6,7 +6,8 @@ import * as actions from './overview-country-info-provider-actions';
 
 import reducers, { initialState } from './overview-country-info-reducers';
 
-const COUNTRY_ISO = 'ZAF';
+const { COUNTRY_ISO } = process.env;
+
 class CardsOverviewProvider extends PureComponent {
   componentDidMount() {
     const { fetchCardsOverviewContent, iso } = this.props;
