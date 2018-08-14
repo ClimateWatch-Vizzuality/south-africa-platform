@@ -1,0 +1,13 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.container {
+  @include row();
+}
+
+.title {
+  font-family: Lato;
+  font-size: $font-size-large;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+}
