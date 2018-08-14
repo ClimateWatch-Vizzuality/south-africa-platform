@@ -1,8 +1,12 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import uniqBy from 'lodash/uniqBy';
 import isEmpty from 'lodash/isEmpty';
+import groupBy from 'lodash/groupBy';
+import intersection from 'lodash/intersection';
+import { METRIC_OPTIONS } from 'utils/data';
 import {
   DEFAULT_AXES_CONFIG,
+  getMetricRatio,
   getYColumnValue,
   getTooltipConfig
 } from 'utils/graphs';
@@ -14,7 +18,8 @@ const defaults = {
   sector: 'Total excluding LUCF'
 };
 const getMetaData = ({ GHGMeta = {} }) => GHGMeta.data || null;
-const getMetricParam = ({ location }) => location.query.metric || null;
+const getMetricParam = ({ location }) =>
+  location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
@@ -45,11 +50,10 @@ export const getEmissionsParams = createSelector(
   }
 );
 
-export const getMetricOptions = createSelector([], () => [
-  { label: 'Absolute value', value: 'absolute' },
-  { label: 'per Capita', value: 'pcapita' },
-  { label: 'per GDP', value: 'pgdp' }
-]);
+export const getMetricOptions = createSelector(
+  [],
+  () => Object.keys(METRIC_OPTIONS).map(key => METRIC_OPTIONS[key])
+);
 
 export const getMetricSelected = createSelector(
   [ getMetricOptions, getMetricParam ],
@@ -59,19 +63,40 @@ export const getMetricSelected = createSelector(
   }
 );
 
+const getCalculationData = createSelector([ getWBData ], data => {
+  if (!data || !data.length) return null;
+  return groupBy(data, 'year');
+});
+
 export const parseChartData = createSelector(
-  [ getEmissionsData, getMetricSelected, getWBData ],
-  (emissionsData, metric, wbData) => {
+  [ getEmissionsData, getMetricSelected, getCalculationData ],
+  (emissionsData, metricSelected, calculationData) => {
     if (!emissionsData) return null;
-    console.info(metric, wbData);
     const [ data ] = emissionsData;
-    const xValues = data.emissions.map(d => d.year);
+    let xValues = data.emissions.map(d => d.year);
+    if (
+      calculationData &&
+        metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
+    ) {
+      xValues = intersection(
+        xValues,
+        Object.keys(calculationData || []).map(y => parseInt(y, 10))
+      );
+    }
     const dataParsed = xValues.map(x => {
       const yItems = {};
       emissionsData.forEach(d => {
         const yKey = getYColumnValue(data.gas);
         const yData = d.emissions.find(e => e.year === x);
-        yItems[yKey] = yData.value;
+        const calculationRatio = getMetricRatio(
+          metricSelected.value,
+          calculationData,
+          x
+        );
+        if (yData && yData.value) {
+          // 1000000 is the data scale from the API
+          yItems[yKey] = yData.value * 1000000 / calculationRatio;
+        }
       });
       const item = { x, ...yItems };
       return item;
@@ -80,28 +105,41 @@ export const parseChartData = createSelector(
   }
 );
 
-export const getChartConfig = createSelector([ getEmissionsData ], data => {
-  if (!data) return null;
-  const yColumns = data.map(d => ({
-    label: d.gas,
-    value: getYColumnValue(d.gas)
-  }));
-  const theme = yColumns.reduce(
-    (acc, next) => ({
-      ...acc,
-      [next.value]: { stroke: '#00B4D2', fill: '#00B4D2' }
-    }),
-    {}
-  );
-  const tooltip = getTooltipConfig(yColumns);
-  return {
-    axes: DEFAULT_AXES_CONFIG,
-    theme,
-    tooltip,
-    animation: false,
-    columns: { x: [ { label: 'year', value: 'x' } ], y: yColumns }
-  };
-});
+export const getChartConfig = createSelector(
+  [ getEmissionsData, getMetricSelected ],
+  (data, metricSelected) => {
+    if (!data) return null;
+    const yColumns = data.map(d => ({
+      label: d.gas,
+      value: getYColumnValue(d.gas)
+    }));
+    const theme = yColumns.reduce(
+      (acc, next) => ({
+        ...acc,
+        [next.value]: { stroke: '#00B4D2', fill: '#00B4D2' }
+      }),
+      {}
+    );
+    const tooltip = getTooltipConfig(yColumns);
+    let { unit } = DEFAULT_AXES_CONFIG.yLeft;
+    if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
+      unit = `${unit}/ million $ GDP`;
+    } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
+      unit = `${unit} per capita`;
+    }
+    const axes = {
+      ...DEFAULT_AXES_CONFIG,
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+    };
+    return {
+      axes,
+      theme,
+      tooltip,
+      animation: false,
+      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumns }
+    };
+  }
+);
 
 export const getChartData = createStructuredSelector({
   data: parseChartData,
