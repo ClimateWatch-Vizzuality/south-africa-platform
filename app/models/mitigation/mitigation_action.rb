@@ -15,7 +15,9 @@
 #  updated_at                   :datetime         not null
 #
 
-class MitigationAction < ApplicationRecord
-  validates_presence_of :name
-  belongs_to :mitigation_category
+module Mitigation
+  class MitigationAction < ApplicationRecord
+    validates_presence_of :name
+    belongs_to :mitigation_category
+  end
 end

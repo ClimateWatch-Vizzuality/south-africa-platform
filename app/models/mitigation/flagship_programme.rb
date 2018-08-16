@@ -11,8 +11,10 @@
 #  updated_at             :datetime         not null
 #
 
-class FlagshipProgramme < ApplicationRecord
-  self.table_name = 'flagship_programmes'
-  validates_presence_of :position, :title
-  belongs_to :mitigation_categories
+module Mitigation
+  class FlagshipProgramme < ApplicationRecord
+    self.table_name = 'flagship_programmes'
+    validates_presence_of :position, :title
+    belongs_to :mitigation_categories
+  end
 end

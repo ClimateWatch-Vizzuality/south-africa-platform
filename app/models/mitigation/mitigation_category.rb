@@ -9,8 +9,10 @@
 #  updated_at :datetime         not null
 #
 
-class MitigationCategory < ApplicationRecord
-  validates_presence_of :title, :position
-  has_many :mitigation_actions
-  has_many :flagship_programmes
+module Mitigation
+  class MitigationCategory < ApplicationRecord
+    validates_presence_of :title, :position
+    has_many :mitigation_actions
+    has_many :flagship_programmes
+  end
 end

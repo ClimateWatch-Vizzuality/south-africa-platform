@@ -3,7 +3,7 @@ module Api
     module Mitigation
       class MitigationCategoriesController < ApiController
         def index
-          values = MitigationCategory.all
+          values = ::Mitigation::MitigationCategory.all
 
           render json: values,
                  each_serializer: Api::V1::Mitigation::MitigationCategorySerializer

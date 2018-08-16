@@ -15,6 +15,15 @@ ActiveRecord::Schema.define(version: 20180910123227) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "flagship_programmes", force: :cascade do |t|
+    t.integer "mitigation_category_id"
+    t.string "title"
+    t.text "description"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "historical_emissions_data_sources", force: :cascade do |t|
     t.text "name"
     t.text "display_name"
@@ -93,25 +102,6 @@ ActiveRecord::Schema.define(version: 20180910123227) do
     t.jsonb "centroid"
   end
 
-  add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
-  add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade
-  add_foreign_key "historical_emissions_records", "historical_emissions_gwps", column: "gwp_id", on_delete: :cascade
-  add_foreign_key "historical_emissions_records", "historical_emissions_sectors", column: "sector_id", on_delete: :cascade
-  add_foreign_key "historical_emissions_records", "locations", on_delete: :cascade
-  add_foreign_key "historical_emissions_sectors", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
-  add_foreign_key "historical_emissions_sectors", "historical_emissions_sectors", column: "parent_id", on_delete: :cascade
-  add_foreign_key "location_members", "locations", column: "member_id", on_delete: :cascade
-  add_foreign_key "location_members", "locations", on_delete: :cascade
-
-  create_table "flagship_programmes", force: :cascade do |t|
-    t.integer "mitigation_category_id"
-    t.string "title"
-    t.text "description"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "mitigation_actions", force: :cascade do |t|
     t.integer "mitigation_category_id"
     t.string "name"
@@ -136,5 +126,14 @@ ActiveRecord::Schema.define(version: 20180910123227) do
   end
 
   add_foreign_key "flagship_programmes", "mitigation_categories"
+  add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
+  add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade
+  add_foreign_key "historical_emissions_records", "historical_emissions_gwps", column: "gwp_id", on_delete: :cascade
+  add_foreign_key "historical_emissions_records", "historical_emissions_sectors", column: "sector_id", on_delete: :cascade
+  add_foreign_key "historical_emissions_records", "locations", on_delete: :cascade
+  add_foreign_key "historical_emissions_sectors", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
+  add_foreign_key "historical_emissions_sectors", "historical_emissions_sectors", column: "parent_id", on_delete: :cascade
+  add_foreign_key "location_members", "locations", column: "member_id", on_delete: :cascade
+  add_foreign_key "location_members", "locations", on_delete: :cascade
   add_foreign_key "mitigation_actions", "mitigation_categories"
 end

@@ -3,7 +3,7 @@ module Api
     module Mitigation
       class FlagshipProgrammesController < ApiController
         def index
-          values = FlagshipProgramme.all
+          values = ::Mitigation::FlagshipProgramme.all
 
           render json: values,
                  each_serializer: Api::V1::Mitigation::FlagshipProgrammeSerializer
