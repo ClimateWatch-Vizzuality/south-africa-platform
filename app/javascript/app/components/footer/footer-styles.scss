@@ -1,6 +1,111 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+$margin-top-footer: 120px;
 
 .footer {
-  background-color: dimgrey;
-  height: $footer-height;
+  background-color: $white;
+  margin-top: $margin-top-footer;
+}
+
+.grid {
+  @include row();
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  color: $dark-gray;
+  font-weight: $font-weight-semi-bold;
+}
+
+.bottomBarContainer {
+  background-color: $midnightblue;
+}
+
+.bottomBar {
+  @include row();
+  display: block;
+  text-align: right;
+  padding: 10px 35px 10px 35px;
+}
+
+.bottomBarText {
+  letter-spacing: 1px;
+}
+
+.cwText {
+  text-transform: uppercase;
+}
+
+.footerContainer {
+  display: flex;
+  align-items: center;
+}
+
+.firstColumnFooter {
+  display: flex;
+  flex: 50%;
+}
+
+.secondColumnFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  flex: 50%;
+  text-align: right;
+}
+
+
+.content {
+  width: 100%;
+  font-size: $font-size-xs;
+  font-family: $font-family-1;
+  color: $raven;
+}
+
+.footer {
+  padding-top: 20px;
+}
+
+.contentWrapper {
+  width: 100%;
+
+  > :nth-child(2) {
+    justify-content: flex-start;
+  }
+
+  @media #{$tablet-landscape} {
+    width: 100%;
+
+    > :nth-child(2) {
+      justify-content: flex-end;
+    }
+  }
+}
+
+.logoContainer {
+  width: 120px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 15px 30px 15px 0;
+}
+
+.logo {
+  filter: grayscale(100%);
+
+  &:hover {
+    filter: grayscale(0%);
+  }
+}
+
+.defaultLogo {
+  width: 100px;
 }
