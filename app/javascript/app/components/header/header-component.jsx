@@ -14,7 +14,7 @@ class Header extends PureComponent {
   render() {
     const { routes, className } = this.props;
     return (
-      <div className={styles.headerContainer}>
+      <div className={styles.headerContainer} id="header">
         <div className={cx(styles.header, className)}>
           <div className={styles.navbarContainer}>
             <div className={styles.navElement}>

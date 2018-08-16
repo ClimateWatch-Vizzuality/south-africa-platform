@@ -40,3 +40,16 @@
     left: 0;
   }
 }
+
+.linkSubNav {
+  color: rgba($white, 0.75);
+  text-transform: capitalize;
+  font-size: $font-size;
+  font-weight: normal;
+  letter-spacing: 0;
+
+  &.active::after {
+    height: 6px;
+    background-color: $white;
+  }
+}

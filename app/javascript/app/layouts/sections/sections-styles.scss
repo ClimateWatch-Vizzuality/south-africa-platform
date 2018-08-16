@@ -7,6 +7,21 @@
 
 .section {
   background-color: $action-color;
+  background-image: linear-gradient(282deg, #007533, #005d28);
+
+  &.financial {
+
+  }
+}
+
+.stickyWrapper {
+  max-height: 34px;
+
+  :global {
+    .sticky-inner-wrapper {
+      background-color: $action-color;
+    }
+  }
 }
 
 .row {
@@ -15,16 +30,7 @@
 
 .nav {
   display: flex;
-}
-
-.link {
-  color: rgba($white, 0.75);
-  text-transform: capitalize;
-  font-size: $font-size;
-
-  &.active::after {
-    background-color: $white;
-  }
+  padding-top: $gutter-padding / 2;
 }
 
 .sectionTitle {
