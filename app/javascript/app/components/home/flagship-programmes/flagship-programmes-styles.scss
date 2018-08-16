@@ -1,10 +1,18 @@
 @import '~styles/settings.scss';
 @import '~styles/layout.scss';
 
-.container {
+.flagshipContainer {
   @include row();
+}
 
-  position: relative;
+.flagshipProgrammesTitle {
+  font-family: $font-family-1;
+  font-size: $font-size-large;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+}
+
+.container {
   height: 700px;
 
   @media #{$tablet-portrait} {
@@ -17,14 +25,13 @@
 }
 
 .title {
-  font-family: Lato;
-  font-size: $font-size-large;
-  color: $theme-color;
-  margin-bottom: $gutter-padding;
+  display: none;
 }
 
 .grid {
-  height: 90%; // avoid the children going outside of div
+  @include xy-grid($wrap: true);
+
+  height: 100%;
 
   @media #{$tablet-landscape} {
     @include xy-grid($direction: 'vertical', $wrap: true);

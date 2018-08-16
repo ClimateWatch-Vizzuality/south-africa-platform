@@ -7,11 +7,12 @@ import { flagshipProgrammes } from './flagship-programmes-map';
 class FlagshipProgrammes extends PureComponent {
   render() {
     return (
-      <Stories
-        stories={flagshipProgrammes}
-        storiesTitle="Flagship Programmes"
-        theme={styles}
-      />
+      <div className={styles.flagshipContainer}>
+        <div className={styles.flagshipProgrammesTitle}>
+          Flagship Programmes
+        </div>
+        <Stories stories={flagshipProgrammes} theme={styles} />
+      </div>
     );
   }
 }
