@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       resources :inventory_improvement_projects,
                 only: [:index],
                 defaults: { format: 'json' }
+      namespace :mitigation do
+        resources :flagship_programmes, only: [:index], controller: :flagship_programmes
+        resources :mitigation_actions, only: [:index], controller: :mitigation_actions
+        resources :mitigation_categories, only: [:index], controller: :mitigation_categories
+      end
       get '(*endpoint)', controller: :api, action: :route_not_found
     end
   end

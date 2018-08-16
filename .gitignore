@@ -52,3 +52,6 @@ bower.json
 
 # Editors
 .vscode/
+
+# Node version
+.nvmrc
