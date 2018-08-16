@@ -1,13 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import universal from 'react-universal-component';
+import Sticky from 'react-stickynode';
 import { Loading } from 'cw-components';
 
-import cx from 'classnames';
-import Sticky from 'react-stickynode';
 import Nav from 'components/nav';
-
 import navStyles from 'components/nav/nav-styles';
+
+import ghgEmissionsBg from 'assets/backgrounds/ghg-emissions';
+import nationalBg from 'assets/backgrounds/national-circumstances';
+import mitigationBg from 'assets/backgrounds/mitigation';
+
 import styles from './sections-styles.scss';
 
 const universalOptions = {
@@ -17,6 +20,12 @@ const universalOptions = {
 const SectionComponent = universal((
   { page, section } /* webpackChunkName: "[request]" */
 ) => (import(`../../pages${page}/${section}/${section}.js`)), universalOptions);
+
+const backgrounds = {
+  '/national-circumstances': nationalBg,
+  '/ghg-emissions': ghgEmissionsBg,
+  '/mitigation': mitigationBg,
+}
 
 class Planning extends PureComponent {
   handleStickyChange =  (status) => {
@@ -32,7 +41,7 @@ class Planning extends PureComponent {
     const { route, section } = this.props;
     return (
       <div className={styles.page}>
-        <div className={cx(styles.section, styles[route.label])}>
+        <div className={styles.section} style={{backgroundImage: `url('${backgrounds[route.link]}')`}}>
           <div className={styles.row}>
             <h2 className={styles.sectionTitle}>{route.label}</h2>
           </div>

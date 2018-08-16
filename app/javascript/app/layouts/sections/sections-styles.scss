@@ -6,11 +6,18 @@
 }
 
 .section {
-  background-color: $action-color;
   background-image: linear-gradient(282deg, #007533, #005d28);
+  position: relative;
 
-  &.financial {
-
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(282deg, #007533, #005d28);
+    z-index: -1;
   }
 }
 

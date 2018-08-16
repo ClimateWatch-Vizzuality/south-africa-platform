@@ -4,12 +4,14 @@ import queryString from 'query-string';
 
 import NationalSections from './sections/national-circumstances';
 import GHGSections from './sections/ghg-emissions';
+import MitigationSections from './sections/mitigation';
 
 const history = createHistory();
 
 export const HOME = 'location/HOME';
 export const NATIONAL_CIRCUMSTANCES = 'location/NATIONAL_CIRCUMSTANCES';
 export const GHG_EMISSIONS = 'location/GHG_EMISSIONS';
+export const MITIGATIONS = 'location/MITIGATIONS';
 
 export const routes = {
   [HOME]: {
@@ -35,6 +37,14 @@ export const routes = {
     path: '/ghg-emissions/:section?',
     component: 'layouts/sections/sections',
     sections: GHGSections
+  },
+  [MITIGATIONS]: {
+    nav: true,
+    label: 'Mitigation',
+    link: '/mitigation',
+    path: '/mitigation/:section?',
+    component: 'layouts/sections/sections',
+    sections: MitigationSections
   },
   [NOT_FOUND]: {
     path: '/404',
