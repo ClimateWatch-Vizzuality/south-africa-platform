@@ -8,9 +8,9 @@ class FlagshipProgrammes extends PureComponent {
   render() {
     return (
       <div className={styles.flagshipContainer}>
-        <div className={styles.flagshipProgrammesTitle}>
+        <h2 className={styles.flagshipProgrammesTitle}>
           Flagship Programmes
-        </div>
+        </h2>
         <Stories stories={flagshipProgrammes} theme={styles} />
       </div>
     );
