@@ -1,13 +1,38 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
 
 .page {
   min-height: calc(100vh - #{$header-height} - #{$footer-height});
 }
 
-.link {
-  color: $theme-color;
+.section {
+  background-color: $action-color;
 }
 
-.active {
-  border-bottom: 3px solid $theme-color;
+.row {
+  @include row();
+}
+
+.nav {
+  display: flex;
+}
+
+.link {
+  color: rgba($white, 0.75);
+  text-transform: capitalize;
+  font-size: $font-size;
+
+  &.active::after {
+    background-color: $white;
+  }
+}
+
+.sectionTitle {
+  color: $white;
+  font-size: $font-size-xl-large;
+  font-weight: 300;
+  line-height: 1.19;
+  letter-spacing: -1.3px;
+  padding-top: $gutter-padding * 2;
+  padding-bottom: $gutter-padding * 3;
 }

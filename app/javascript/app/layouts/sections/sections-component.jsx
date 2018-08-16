@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'redux-first-router-link';
 import universal from 'react-universal-component';
-import { Loading } from 'cw-components';
+import { Section, Loading } from 'cw-components';
+import Nav from 'components/nav';
 
 import styles from './sections-styles.scss';
 
@@ -19,20 +19,10 @@ class Planning extends PureComponent {
     const { route, section } = this.props;
     return (
       <div className={styles.page}>
-        <h2>{route.label}</h2>
-        {route.sections && route.sections.length > 0 &&
-          route.sections.map(s => (
-            <NavLink
-              exact
-              key={s.label}
-              to={s.path}
-              className={styles.link}
-              activeClassName={styles.active}
-            >
-              {s.label}
-            </NavLink>
-          ))
-        }
+        <Section theme={styles}>
+          <h2 className={styles.sectionTitle}>{route.label}</h2>
+          <Nav theme={styles} routes={route.sections} />
+        </Section>
         <SectionComponent page={route.link} section={section.slug} />
       </div>
     );
