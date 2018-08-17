@@ -3,11 +3,11 @@ import Proptypes from 'prop-types';
 import { Loading } from 'cw-components';
 import universal from 'react-universal-component';
 
-import Nav from 'components/nav';
+import Header from 'components/header';
 import Footer from 'components/footer';
 import Sticky from 'react-stickynode';
 
-import navStyles from 'components/nav/nav-styles.scss';
+import headerStyles from 'components/header/header-styles';
 import styles from './root-styles.scss';
 
 const universalOptions = {
@@ -16,15 +16,15 @@ const universalOptions = {
 }
 const PageComponent = universal((
   { path } /* webpackChunkName: "[request]" */
-) => (import(`../../${path}.js`)), universalOptions); 
+) => (import(`../../${path}.js`)), universalOptions);
 
 class App extends PureComponent {
   render() {
     const { route } = this.props;
     return (
       <div className={styles.app}>
-        <Sticky activeClass={navStyles.stickyWrapper} innerZ={5}>
-          <Nav />
+        <Sticky activeClass={headerStyles.stickyWrapper} innerZ={5}>
+          <Header />
         </Sticky>
         <PageComponent path={route.component} />
         <Footer />
