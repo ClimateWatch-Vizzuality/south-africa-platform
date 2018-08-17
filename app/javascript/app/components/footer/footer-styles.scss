@@ -1,6 +1,86 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+$margin-top-footer: 120px;
 
 .footer {
-  background-color: dimgrey;
-  height: $footer-height;
+  background-color: $white;
+  margin-top: $gutter-padding;
+
+  @media #{$tablet-landscape} {
+    margin-top: $margin-top-footer;
+  }
+}
+
+.grid {
+  padding-bottom: $gutter-padding;
+
+  @include row();
+
+  @media #{$tablet-landscape} {
+    @include row(6);
+  }
+}
+
+.downloadWrapper {
+  display: flex;
+  margin-top: $gutter-padding / 2;
+
+  @media #{$tablet-landscape} {
+    justify-content: flex-end;
+    margin-top: 0;
+
+    > div {
+      max-width: 200px;
+    }
+  }
+}
+
+.bottomBarContainer {
+  background-color: $midnightblue;
+}
+
+.bottomBar {
+  @include row();
+
+  display: block;
+  text-align: right;
+}
+
+.bottomBarText {
+  letter-spacing: 1px;
+}
+
+.cwText {
+  text-transform: uppercase;
+}
+
+.content {
+  font-size: $font-size-xs;
+  font-family: $font-family-1;
+  color: $raven;
+}
+
+.footer {
+  padding-top: 20px;
+}
+
+.logoContainer {
+  width: 120px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 15px 30px 15px 0;
+}
+
+.logo {
+  filter: grayscale(100%);
+
+  &:hover {
+    filter: grayscale(0%);
+  }
+}
+
+.defaultLogo {
+  width: 100px;
 }
