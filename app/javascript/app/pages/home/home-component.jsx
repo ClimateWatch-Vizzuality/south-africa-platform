@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Section } from 'cw-components';
 import background from 'assets/hero';
-import TotalGHGEmissions from 'components/total-ghg-emissions';
+import TotalGHGEmissions from 'components/home/total-ghg-emissions';
 import FlagshipProgrammes from 'components/home/flagship-programmes';
 import Cards from 'components/home/cards';
 import styles from './home-styles.scss';
