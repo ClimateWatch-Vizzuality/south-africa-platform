@@ -7,7 +7,10 @@ const climateRisksData = () => [
   },
   { title: 'Target type', description: 'Absolute Emissions Reduction' },
   { title: 'Target years', description: '2025 2030' },
-  { title: 'Blablala', description: 'descritpion' }
+  {
+    title: 'Free State Province',
+    description: 'Intense wild fies: significant damages caused...'
+  }
 ];
 export const getClimateRisksData = createStructuredSelector({
   climateRisksData
