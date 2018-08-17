@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Section, Card } from 'cw-components';
-import background from 'assets/hero.png';
+import { Section } from 'cw-components';
+import background from 'assets/hero';
+import TotalGHGEmissions from 'components/total-ghg-emissions';
+import FlagshipProgrammes from 'components/home/flagship-programmes';
+import Cards from 'components/home/cards';
 import styles from './home-styles.scss';
 
 class Home extends PureComponent {
   render() {
-    const { cardsData } = this.props;
     return (
       <div className={styles.page}>
         <Section backgroundImage={background} theme={styles}>
@@ -18,28 +19,13 @@ class Home extends PureComponent {
             </div>
           </div>
           <div className="layout-container">
-            <div className={styles.cardsContainer}>
-              {
-                cardsData && cardsData.map(card => (
-                    <div key={card.title} className={styles.cardElement}>
-                      <Card title={card.title} theme={styles}>
-                        <div className={styles.cardContent}>
-                          {card.description}
-                        </div>
-                      </Card>
-                    </div>
-                  ))
-              }
-            </div>
+            <Cards />
           </div>
         </Section>
+        <TotalGHGEmissions />
+        <FlagshipProgrammes />
       </div>
     );
   }
 }
-Home.propTypes = {
-  cardsData: PropTypes.arrayOf(
-    PropTypes.shape({ title: PropTypes.string, description: PropTypes.string })
-  ).isRequired
-};
 export default Home;

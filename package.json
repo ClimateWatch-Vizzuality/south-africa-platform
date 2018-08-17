@@ -24,13 +24,15 @@
     "react-css-themr": "2.1.2",
     "react-dom": "16.3.0",
     "react-redux": "5.0.5",
+    "react-responsive": "^5.0.0",
     "react-stickynode": "^2.0.1",
     "react-universal-component": "3.0.0",
+    "recompose": "^0.28.2",
     "redux": "3.7.1",
     "redux-first-router": "0.0.20-next",
     "redux-first-router-link": "0.0.3-next",
     "redux-thunk": "2.2.0",
-    "redux-tools": "github:vizzuality/redux-tools#3.3.0",
+    "redux-tools": "github:vizzuality/redux-tools#v3.3.1",
     "reselect": "3.0.1"
   },
   "devDependencies": {
