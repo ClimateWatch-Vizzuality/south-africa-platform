@@ -144,7 +144,14 @@ $flag-height: 40px;
 .stickyWrapper {
   max-height: 55px;
 
+  :global {
+    .sticky-inner-wrapper {
+      top: 85px !important; // Overwriting library top to have the threshold
+    }
+  }
+
   .header {
+    height: 55px;
     padding-top: 0;
   }
 
@@ -182,11 +189,10 @@ $flag-height: 40px;
   }
 
   .tabsContainer {
-    height: 55px;
     margin-top: 0;
   }
 
-  .link {
+  .stickyLink {
     padding-bottom: 0;
 
     &.active::after {

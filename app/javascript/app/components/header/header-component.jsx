@@ -51,7 +51,10 @@ class Header extends PureComponent {
               />
             </div>
             <Nav
-              theme={{ nav: cx(styles.stickyNavElement, styles.stickyTabs) }}
+              theme={{
+                nav: cx(styles.stickyNavElement, styles.stickyTabs),
+                link: styles.stickyLink
+              }}
               routes={routes}
             />
             <div

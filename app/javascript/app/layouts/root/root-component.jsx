@@ -22,13 +22,15 @@ class App extends PureComponent {
   render() {
     const { route } = this.props;
     return (
-      <div className={styles.app}>
-        <Sticky activeClass={headerStyles.stickyWrapper} innerZ={5}>
+      <React.Fragment>
+        <Sticky top={-85} className={styles.header} activeClass={headerStyles.stickyWrapper} innerZ={5}>
           <Header />
         </Sticky>
-        <PageComponent path={route.component} />
+        <div className={styles.appContent}>
+          <PageComponent path={route.component} />
+        </div>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
