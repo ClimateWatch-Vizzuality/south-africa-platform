@@ -4,7 +4,8 @@ MAINTAINER Jose Angel Parreño <joseangel.parreno@vizzuality.com>
 ENV NAME cw-south-africa
 ENV RAKE_ENV production
 ENV RAILS_ENV production
-ENV CW_API /api/v1
+ENV COUNTRY_ISO=ZAF
+ENV CW_API_URL=https://climate-watch.vizzuality.com/api/v1
 
 # Install dependencies
 RUN apt-get update \
