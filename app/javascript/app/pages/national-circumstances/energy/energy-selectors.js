@@ -22,7 +22,7 @@ const getQueryParams = ({ location }) => location.query || null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getDataSourceParam = ({ location }) =>
-  location.query ? location.query.dataSource : null;
+  location.query ? parseInt(location.query.dataSource, 10) : null;
 const getDataSourceOptions = ({ GHGMeta = {} }) =>
   GHGMeta.data ? GHGMeta.data.dataSource : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
