@@ -11,6 +11,9 @@ import { reduxModule as worldBank } from 'providers/world-bank-provider';
 import {
   reduxModule as countriesOverview
 } from 'providers/overview-country-info-provider';
+import {
+  reduxModule as climateRisksData
+} from 'providers/climate-risks-data-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -21,6 +24,7 @@ const providersReducers = {
   WorldBank: handleModule(worldBank),
   modalMetadata: handleModule(modalMetadata),
   countriesOverviewData: handleModule(countriesOverview),
+  climateRisksData: handleModule(climateRisksData)
 };
 
 export default combineReducers({

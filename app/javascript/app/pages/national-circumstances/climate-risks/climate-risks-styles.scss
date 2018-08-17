@@ -1,6 +1,52 @@
 @import '~styles/settings.scss';
+@import '~styles/layout.scss';
 
 .logo {
   width: 136px;
   height: 13px;
+}
+
+.sectionWrapper {
+  @include row();
+}
+
+.titleWrapper {
+  font-family: $font-family-1;
+  font-size: $font-size-large;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+  margin-top: $gutter-padding * 2;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  margin-bottom: 0;
+
+  > div {
+    @include xy-gutters($gutter-position: ('top', 'bottom'));
+
+    &:last-child {
+      .card {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media #{$tablet-landscape} {
+    @include columns(4);
+  }
+}
+
+.card {
+  margin-right: $gutter-padding;
+
+  @media #{$tablet-landscape} {
+    margin-right: 0;
+  }
+}
+
+.cardContent {
+  padding: 15px;
 }
