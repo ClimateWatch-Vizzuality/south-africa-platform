@@ -1,0 +1,18 @@
+[
+  { "title": "Climate Change Response Public Works",
+    "position": 1 },
+  { "title": "Water Conservation",
+    "position": 2 },
+  { "title": "Renewable Energy",
+    "position": 3 },
+  { "title": "Energy Efficiency & Management",
+    "position": 4 },
+  { "title": "Transport",
+    "position": 5 },
+  { "title": "Waste Management",
+    "position": 6 },
+  { "title": "Carbon Capture & Sequestration",
+    "position": 7 },
+  { "title": "Long-term Adaptation Scenarios",
+    "position": 8 }
+]
