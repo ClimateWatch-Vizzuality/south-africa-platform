@@ -32,9 +32,9 @@ class TotalGhgEmissions extends PureComponent {
     this.props.updateMetricSelected({ query: { metric: metric.value } });
   };
 
-  handleDownloadClick() {
+  handleDownloadClick = () => {
     console.info('TODO: link todownload data endpoint', this.props);
-  }
+  };
 
   render() {
     const {

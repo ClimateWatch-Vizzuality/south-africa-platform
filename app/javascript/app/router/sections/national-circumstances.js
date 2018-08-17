@@ -2,7 +2,7 @@ export default [
   {
     slug: 'energy',
     label: 'energy',
-    path: '/national-circumstances/energy',
+    path: '/national-circumstances',
     exact: true,
     default: true
   },
