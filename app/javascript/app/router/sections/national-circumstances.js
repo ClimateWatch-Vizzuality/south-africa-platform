@@ -1,5 +1,10 @@
 export default [
   {
+    slug: 'economy',
+    label: 'economy',
+    path: '/national-circumstances/economy'
+  },
+  {
     slug: 'energy',
     label: 'energy',
     path: '/national-circumstances',
