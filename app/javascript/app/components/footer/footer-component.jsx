@@ -11,51 +11,36 @@ class Footer extends PureComponent {
     return (
       <footer className={styles.footer}>
         <div className={styles.grid}>
-          <div className={styles.footerContainer}>
-            <div className={styles.firstColumnFooter}>
-              <div className={styles.content}>
-                <span>Support received from:</span>
-                <div className="grid-column-item">
-                  <div className={styles.contentWrapper}>
-                    <div className="grid-column-item">
-                      <div className={styles.partnersContainer}>
-                        {partners.map(
-                          partner => partner.img && (
-                          <div
-                            key={partner.img.alt}
-                            className={styles.logoContainer}
-                          >
-                            <a
-                              className={cx(
-                                    styles.logo,
-                                    styles[partner.img.customClass]
-                                  )}
-                              href={partner.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <img
-                                className={styles.defaultLogo}
-                                src={partner.img.src}
-                                alt={partner.img.alt}
-                              />
-                            </a>
-                          </div>
-                            )
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.disclaimer}>
-                  Copyright &#169; Department of Environmental Affairs{' '}
-                  {new Date().getFullYear()}
-                </div>
+          <div className={styles.content}>
+            <span>Support received from:</span>
+            {partners.map(
+              partner => partner.img && (
+              <div key={partner.img.alt} className={styles.logoContainer}>
+                <a
+                  className={cx(
+                        styles.logo,
+                        styles[partner.img.customClass]
+                      )}
+                  href={partner.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    className={styles.defaultLogo}
+                    src={partner.img.src}
+                    alt={partner.img.alt}
+                  />
+                </a>
               </div>
+                )
+            )}
+            <div className={styles.disclaimer}>
+              Copyright &#169; Department of Environmental Affairs{' '}
+              {new Date().getFullYear()}
             </div>
-            <div className={styles.secondColumnFooter}>
-              <DownloadBox />
-            </div>
+          </div>
+          <div className={styles.downloadWrapper}>
+            <DownloadBox />
           </div>
         </div>
         <BottomBar
