@@ -11,13 +11,6 @@
   }
 }
 
-.title {
-  font-family: $font-family-1;
-  font-size: $font-size-large;
-  color: $theme-color;
-  margin-bottom: $gutter-padding;
-}
-
 .row {
   @include row();
 }

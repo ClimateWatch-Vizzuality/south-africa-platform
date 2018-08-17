@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ModalMetadata from 'components/modal-metadata';
+import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import {
   Section,
@@ -89,7 +90,7 @@ class Energy extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <h2 className={styles.title}>Energy supply</h2>
+          <SectionTitle title="Energy supply" />
           <TabletLandscape>
             {matches => {
               if (matches) {
