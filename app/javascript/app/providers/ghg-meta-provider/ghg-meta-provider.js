@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import * as actions from './ghg-meta-provider-actions';
 import reducers, { initialState } from './ghg-meta-provider-reducers';
 
-class LoginProvider extends PureComponent {
+class GHGMetaProvider extends PureComponent {
   componentDidMount() {
     this.props.fetchGHGMeta();
   }
@@ -15,7 +15,7 @@ class LoginProvider extends PureComponent {
   }
 }
 
-LoginProvider.propTypes = { fetchGHGMeta: PropTypes.func.isRequired };
+GHGMetaProvider.propTypes = { fetchGHGMeta: PropTypes.func.isRequired };
 
 export const reduxModule = { actions, reducers, initialState };
-export default connect(null, actions)(LoginProvider);
+export default connect(null, actions)(GHGMetaProvider);

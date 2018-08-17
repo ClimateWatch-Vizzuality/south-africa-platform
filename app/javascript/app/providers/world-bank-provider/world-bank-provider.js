@@ -7,7 +7,7 @@ import reducers, { initialState } from './world-bank-provider-reducers';
 
 const { COUNTRY_ISO } = process.env;
 
-class LoginProvider extends PureComponent {
+class WorldBankProvider extends PureComponent {
   componentDidMount() {
     const { fetchWorldBank, iso } = this.props;
     fetchWorldBank({ iso });
@@ -18,12 +18,12 @@ class LoginProvider extends PureComponent {
   }
 }
 
-LoginProvider.propTypes = {
+WorldBankProvider.propTypes = {
   fetchWorldBank: PropTypes.func.isRequired,
   iso: PropTypes.string
 };
 
-LoginProvider.defaultProps = { iso: COUNTRY_ISO };
+WorldBankProvider.defaultProps = { iso: COUNTRY_ISO };
 
 export const reduxModule = { actions, reducers, initialState };
-export default connect(null, actions)(LoginProvider);
+export default connect(null, actions)(WorldBankProvider);
