@@ -1,3 +1,9 @@
+import { connect } from 'react-redux';
+
+import { getClimateRisksData } from './climate-risks-selector';
+
 import Component from './climate-risks-component';
 
-export default Component;
+const mapStateToProps = getClimateRisksData;
+
+export default connect(mapStateToProps, null)(Component);

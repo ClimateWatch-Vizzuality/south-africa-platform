@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import ModalMetadata from 'components/modal-metadata';
+import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import {
   Section,
@@ -79,7 +80,10 @@ class TotalGhgEmissions extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <h2 className={styles.title}>Historical Emissions</h2>
+          <SectionTitle
+            title="Historical Emissions"
+            theme={{ sectionTitle: styles.title }}
+          />
           <TabletLandscape>
             {matches => {
               if (matches) {
