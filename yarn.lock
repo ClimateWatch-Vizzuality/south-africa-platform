@@ -2670,7 +2670,7 @@ currently-unhandled@^0.4.1:
 
 "cw-components@github:ClimateWatch-Vizzuality/climate-watch-components#build":
   version "0.1.0"
-  resolved "https://codeload.github.com/ClimateWatch-Vizzuality/climate-watch-components/tar.gz/f76d376d60bc981b775b198dc9da31113f978674"
+  resolved "https://codeload.github.com/ClimateWatch-Vizzuality/climate-watch-components/tar.gz/0d2f7c4a908bc1b5cca374dbabc8c1b4a2eb6ca3"
   dependencies:
     d3-format "1.3.0"
     react-addons-shallow-compare "15.6.0"
