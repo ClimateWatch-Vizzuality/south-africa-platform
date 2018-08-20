@@ -28,7 +28,7 @@ export const fetchClimateRisksData = createThunkAction(
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchClimateRisksDataFail(error));
+          dispatch(fetchClimateRisksDataFail(error && error.message));
         });
     }
   }

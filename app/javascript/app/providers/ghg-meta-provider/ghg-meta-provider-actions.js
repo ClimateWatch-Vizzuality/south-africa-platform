@@ -53,7 +53,7 @@ export const fetchGHGMeta = createThunkAction('fetchGHGMeta', () =>
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchGHGMetaFail(error));
+          dispatch(fetchGHGMetaFail(error && error.message));
         });
     }
   });

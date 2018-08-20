@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
+import GHGInventoryProvider from 'providers/ghg-inventory-provider';
 
 import styles from './inventory-styles.scss';
 
@@ -26,6 +27,7 @@ class GHGInventory extends PureComponent {
       <div className={styles.row}>
         <SectionTitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher tabs={this.tabs} activeTabValue={COMPLETE_KEY} />
+        <GHGInventoryProvider />
       </div>
     );
   }

@@ -20,7 +20,7 @@ export const fetchGHGEmissions = createThunkAction(
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchGHGEmissionsFail(error));
+          dispatch(fetchGHGEmissionsFail(error && error.message));
         });
     }
   }
