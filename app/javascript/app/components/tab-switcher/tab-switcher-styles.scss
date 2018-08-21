@@ -4,6 +4,7 @@
 .toolbar {
   display: flex;
   justify-content: space-between;
+  margin-bottom: $gutter-padding;
 }
 
 .toolbarActions {

@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, ButtonGroup, Button, Icon, Input } from 'cw-components';
+import ModalMetadata from 'components/modal-metadata';
 
 import iconInfo from 'assets/icons/info';
 import downloadIcon from 'assets/icons/download';
@@ -24,7 +25,7 @@ class TabSwitcher extends PureComponent {
         <div className={styles.toolbar}>
           <Switch
             options={tabs.map(o => ({ name: o.name, value: o.value }))}
-            selectedOption={activeTabValue}
+            selectedOption={activeTabValue || tabs[0].value}
             onClick={onTabChange}
             theme={{
               wrapper: styles.switch,
@@ -63,6 +64,7 @@ class TabSwitcher extends PureComponent {
           </div>
             )
         }
+        <ModalMetadata />
       </div>
     );
   }
