@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import GHGInventoryProvider from 'providers/ghg-inventory-provider';
+import { Loading, Table } from 'cw-components';
 
 import styles from './inventory-styles.scss';
 
@@ -9,32 +11,73 @@ const COMPLETE_KEY = 'completeProjects';
 const UNDER_IMPLEMENTATION_KEY = 'underImplementation';
 
 class GHGInventory extends PureComponent {
-  tabs = [
-    {
-      name: 'COMPLETED PROJECTS',
-      value: COMPLETE_KEY,
-      component: <p>My complete component</p>
-    },
-    {
-      name: 'UNDER IMPLEMENTATION',
-      value: UNDER_IMPLEMENTATION_KEY,
-      component: <p>My under implementation component</p>
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabs: [
+        {
+          name: 'COMPLETED PROJECTS',
+          value: COMPLETE_KEY,
+          component: <Loading />
+        },
+        {
+          name: 'UNDER IMPLEMENTATION',
+          value: UNDER_IMPLEMENTATION_KEY,
+          component: <Loading />
+        }
+      ]
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.tableData.data) {
+      return {
+        ...state,
+        tabs: state.tabs.map(tab => {
+          if (tab.value === props.activeTabValue) {
+            return {
+              ...tab,
+              component: (
+                <Table hasColumnSelect horizontalScroll {...props.tableData} />
+              )
+            };
+          }
+          return tab;
+        })
+      };
     }
-  ];
+    return state;
+  }
+
+  handleTabChange = ({ value }) => {
+    this.props.updateTabActive({ section: 'inventory', query: { tab: value } });
+  };
 
   render() {
     return (
       <div className={styles.row}>
         <SectionTitle title="GHG Inventory Improvement Programme" />
-        <TabSwitcher tabs={this.tabs} activeTabValue={COMPLETE_KEY} />
+        <TabSwitcher
+          onTabChange={this.handleTabChange}
+          tabs={this.state.tabs}
+          activeTabValue={this.props.activeTabValue}
+        />
         <GHGInventoryProvider />
       </div>
     );
   }
 }
 
-GHGInventory.propTypes = {};
+GHGInventory.propTypes = {
+  tableData: PropTypes.shape({
+    data: PropTypes.array,
+    defaultColumns: PropTypes.array,
+    ellipsisColumns: PropTypes.array
+  }),
+  activeTabValue: PropTypes.string.isRequired,
+  updateTabActive: PropTypes.func.isRequired
+};
 
-GHGInventory.defaultProps = {};
+GHGInventory.defaultProps = { tableData: {} };
 
 export default GHGInventory;
