@@ -31,10 +31,11 @@ class GHGInventory extends PureComponent {
 
   static getDerivedStateFromProps(props, state) {
     if (props.tableData.data) {
+      const activeTabValue = props.activeTabValue || state.tabs[0].value;
       return {
         ...state,
         tabs: state.tabs.map(tab => {
-          if (tab.value === props.activeTabValue) {
+          if (tab.value === activeTabValue) {
             return {
               ...tab,
               component: (

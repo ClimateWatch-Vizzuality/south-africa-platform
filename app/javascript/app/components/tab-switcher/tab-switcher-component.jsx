@@ -18,14 +18,16 @@ class TabSwitcher extends PureComponent {
       onDownloadClick,
       onFilterChange
     } = this.props;
-    const activeTab = tabs.find(t => t.value === activeTabValue);
+    const activeTab = activeTabValue
+      ? tabs.find(t => t.value === activeTabValue)
+      : tabs[0];
 
     return (
       <div className={styles.wrapper}>
         <div className={styles.toolbar}>
           <Switch
             options={tabs.map(o => ({ name: o.name, value: o.value }))}
-            selectedOption={activeTabValue || tabs[0].value}
+            selectedOption={activeTab.value}
             onClick={onTabChange}
             theme={{
               wrapper: styles.switch,
