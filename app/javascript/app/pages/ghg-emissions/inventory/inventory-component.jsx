@@ -18,12 +18,12 @@ class GHGInventory extends PureComponent {
         {
           name: 'COMPLETED PROJECTS',
           value: COMPLETE_KEY,
-          component: <Loading />
+          component: <Loading height="660" />
         },
         {
           name: 'UNDER IMPLEMENTATION',
           value: UNDER_IMPLEMENTATION_KEY,
-          component: <Loading />
+          component: <Loading height="660" />
         }
       ]
     };
@@ -39,7 +39,12 @@ class GHGInventory extends PureComponent {
             return {
               ...tab,
               component: (
-                <Table hasColumnSelect horizontalScroll {...props.tableData} />
+                <Table
+                  hasColumnSelect
+                  horizontalScroll
+                  tableHeight={660}
+                  {...props.tableData}
+                />
               )
             };
           }
@@ -75,10 +80,10 @@ GHGInventory.propTypes = {
     defaultColumns: PropTypes.array,
     ellipsisColumns: PropTypes.array
   }),
-  activeTabValue: PropTypes.string.isRequired,
+  activeTabValue: PropTypes.string,
   updateTabActive: PropTypes.func.isRequired
 };
 
-GHGInventory.defaultProps = { tableData: {} };
+GHGInventory.defaultProps = { tableData: {}, activeTabValue: null };
 
 export default GHGInventory;

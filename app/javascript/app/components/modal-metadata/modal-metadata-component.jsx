@@ -17,7 +17,7 @@ class ModalMetadata extends PureComponent {
     if (loading) {
       return <Loading className={styles.loadingContainer} />;
     }
-    if (!data) return <NoContent />;
+    if (!data) return <NoContent message="There is no data available" />;
     if (data === 'error') {
       return <NoContent message="There was an error getting the metadata" />;
     }
@@ -54,11 +54,13 @@ class ModalMetadata extends PureComponent {
 }
 
 ModalMetadata.propTypes = {
-  title: PropTypes.string.isRequired,
-  data: PropTypes.array.isRequired,
+  title: PropTypes.string,
+  data: PropTypes.array,
   isOpen: PropTypes.bool.isRequired,
   onRequestClose: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool
 };
+
+ModalMetadata.defaultProps = { title: '', data: [], loading: false };
 
 export default ModalMetadata;

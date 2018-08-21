@@ -27,7 +27,7 @@ class Header extends PureComponent {
               </a>
             </div>
             <div className={cx(styles.navElement, styles.pageTitleContainer)}>
-              <Link to="/">
+              <Link to="/" onTouchStart={undefined} onMouseDown={undefined}>
                 <span className={styles.climatText}>Climate</span>
                 <span className={styles.reportText}>Report</span>
               </Link>
