@@ -1,42 +1,43 @@
 import camelCase from 'lodash/camelCase';
+import sortBy from 'lodash/sortBy';
 import * as actions from './metadata-provider-actions';
 
 export const initialState = {
-  sectors: { loading: false, loaded: false, error: false, data: null },
   ghg: { loading: false, loaded: false, error: false, data: null }
 };
 
 function parseDataByMeta(data, meta) {
   switch (meta) {
-    case 'sectors':
-      return data;
     case 'ghg': {
       const dataParsed = {};
       Object.keys(data).forEach(
         key => {
           const camelCasedkey = camelCase(key);
-          dataParsed[camelCasedkey] = data[key].map(item => {
-            let newItem = {
-              value: item.id,
-              label: key === 'location'
-                ? item.wri_standard_name.trim()
-                : item.name.trim()
-            };
-            if (key === 'location') {
-              newItem = { ...newItem, iso: item.iso_code3 };
-            }
-            if (key === 'data_source') {
-              newItem = {
-                ...newItem,
-                location: item.location_ids,
-                sector: item.sector_ids,
-                gas: item.gas_ids,
-                gwp: item.gwp_ids,
-                source: item.source
+          dataParsed[camelCasedkey] = sortBy(
+            data[key].map(item => {
+              let newItem = {
+                value: item.id,
+                label: key === 'location'
+                  ? item.wri_standard_name.trim()
+                  : item.name.trim()
               };
-            }
-            return newItem;
-          });
+              if (key === 'location') {
+                newItem = { ...newItem, iso: item.iso_code3 };
+              }
+              if (key === 'data_source') {
+                newItem = {
+                  ...newItem,
+                  location: item.location_ids,
+                  sector: item.sector_ids,
+                  gas: item.gas_ids,
+                  gwp: item.gwp_ids,
+                  source: item.source
+                };
+              }
+              return newItem;
+            }),
+            'label'
+          );
         },
         this
       );

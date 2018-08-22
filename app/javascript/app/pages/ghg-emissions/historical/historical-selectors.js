@@ -14,13 +14,14 @@ import {
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'CAIT' };
 const excludedSectors = [ 'Total excluding LUCF', 'Total including LUCF' ];
+
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
 const getQueryParams = ({ location }) => location.query || null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
-const getDataSourceParam = ({ location }) =>
-  location.query ? parseInt(location.query.dataSource, 10) : null;
+const getSectorParam = ({ location }) =>
+  location.query ? parseInt(location.query.sector, 10) : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
@@ -64,17 +65,19 @@ export const getMetricSelected = createSelector(
   }
 );
 
-export const getDataSourceOptions = createSelector([ getMetaData ], meta => {
-  if (!meta || !meta.dataSource) return null;
-  return meta.dataSource.map(d => ({ label: d.label, value: d.value }));
+export const getSectorOptions = createSelector([ getMetaData ], meta => {
+  if (!meta || !meta.sector) return null;
+  return meta.sector
+    .filter(s => !excludedSectors.includes(s.label))
+    .map(d => ({ label: d.label, value: d.value }));
 });
 
-export const getDataSourceSelected = createSelector(
-  [ getDataSourceOptions, getDataSourceParam ],
-  (dataSources, dataSource) => {
-    if (!dataSources) return null;
-    if (!dataSource) return dataSources[0];
-    return dataSources.find(m => m.value === dataSource);
+export const getSectorSelected = createSelector(
+  [ getSectorOptions, getSectorParam ],
+  (sectors, sector) => {
+    if (!sectors) return null;
+    if (!sector) return sectors[0];
+    return sectors.find(s => s.value === sector);
   }
 );
 
@@ -125,7 +128,7 @@ export const getChartConfig = createSelector(
   (data, metricSelected) => {
     if (!data) return null;
     const yColumns = data
-      .filter(d => !excludedSectors.includes(d.sector))
+      .filter(s => !excludedSectors.includes(s.sector))
       .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const theme = getThemeConfig(yColumns);
     const tooltip = getTooltipConfig(yColumns);
@@ -163,8 +166,8 @@ export const getChartData = createStructuredSelector({
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
-  sourceOptions: getDataSourceOptions,
-  sourceSelected: getDataSourceSelected,
+  sectorOptions: getSectorOptions,
+  sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,
   metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,

@@ -120,7 +120,7 @@ class GHGHistoricalEmissions extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        <MetadataProvider meta={[ 'sectors', 'ghg' ]} />
+        <MetadataProvider meta="ghg" />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
         <ModalMetadata />
