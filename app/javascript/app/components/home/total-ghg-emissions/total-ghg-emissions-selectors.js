@@ -17,15 +17,16 @@ const defaults = {
   source: 'CAIT',
   sector: 'Total excluding LUCF'
 };
-const getMetaData = ({ GHGMeta = {} }) => GHGMeta.data || null;
+const getMetaData = ({ metadata = {} }) =>
+  metadata.ghg ? metadata.ghg.data : null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
 
-const getChartLoading = ({ GHGMeta = {}, GHGEmissions = {} }) =>
-  GHGMeta.loading || GHGEmissions.loading;
+const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
+  metadata.ghg.loading || GHGEmissions.loading;
 
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;

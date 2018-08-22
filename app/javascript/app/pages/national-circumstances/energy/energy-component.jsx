@@ -11,7 +11,7 @@ import {
   Dropdown,
   Chart
 } from 'cw-components';
-import GHGMetaProvider from 'providers/ghg-meta-provider';
+import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import iconInfo from 'assets/icons/info';
@@ -117,7 +117,7 @@ class Energy extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        <GHGMetaProvider />
+        <MetadataProvider meta="ghg" />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
         <ModalMetadata />
