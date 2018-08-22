@@ -114,7 +114,7 @@ class GHGHistoricalEmissions extends PureComponent {
               height={450}
               dots={false}
               customMessage="Emissions data not available"
-              hideRemoveOptions
+              onLegendChange={this.handleSectorChange}
               {...chartData}
             />
           </div>

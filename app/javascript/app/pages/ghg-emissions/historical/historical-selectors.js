@@ -164,17 +164,12 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector([ getChartConfig ], config => {
-  if (!config || !config.columns || !config.columns.y) return [];
-  return config.columns.y.map(c => ({ label: c.label }));
-});
-
 export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
   loading: getChartLoading,
-  dataOptions: getChartFilters,
-  dataSelected: getChartFilters
+  dataOptions: getSectorOptions,
+  dataSelected: getSectorSelected
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
