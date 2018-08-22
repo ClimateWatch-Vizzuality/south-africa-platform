@@ -21,7 +21,7 @@ const getQueryParams = ({ location }) => location.query || null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getSectorParam = ({ location }) =>
-  location.query ? parseInt(location.query.sector, 10) : null;
+  location.query ? location.query.sector : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
@@ -65,19 +65,30 @@ export const getMetricSelected = createSelector(
   }
 );
 
-export const getSectorOptions = createSelector([ getMetaData ], meta => {
-  if (!meta || !meta.sector) return null;
-  return meta.sector
-    .filter(s => !excludedSectors.includes(s.label))
-    .map(d => ({ label: d.label, value: d.value }));
+export const getDataSectors = createSelector([ getEmissionsData ], data => {
+  if (!data) return null;
+  return data.map(d => d.sector);
 });
+
+export const getSectorOptions = createSelector(
+  [ getMetaData, getDataSectors ],
+  (meta, dataSectors) => {
+    if (!meta || !meta.sector || !dataSectors) return null;
+    return meta.sector
+      .filter(
+        s => !excludedSectors.includes(s.label) && dataSectors.includes(s.label)
+      )
+      .map(d => ({ label: d.label, value: d.value }));
+  }
+);
 
 export const getSectorSelected = createSelector(
   [ getSectorOptions, getSectorParam ],
-  (sectors, sector) => {
+  (sectors, sectorsSelected) => {
     if (!sectors) return null;
-    if (!sector) return sectors[0];
-    return sectors.find(s => s.value === sector);
+    if (!sectorsSelected) return sectors;
+    const sectorsParsed = sectorsSelected.split(',').map(s => parseInt(s, 10));
+    return sectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
   }
 );
 
@@ -124,11 +135,12 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getMetricSelected ],
-  (data, metricSelected) => {
-    if (!data) return null;
+  [ getEmissionsData, getSectorSelected, getMetricSelected ],
+  (data, sectorSelected, metricSelected) => {
+    if (!data || !sectorSelected) return null;
+    const sectorSelectedLabels = sectorSelected.map(s => s.label);
     const yColumns = data
-      .filter(s => !excludedSectors.includes(s.sector))
+      .filter(s => sectorSelectedLabels.includes(s.sector))
       .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const theme = getThemeConfig(yColumns);
     const tooltip = getTooltipConfig(yColumns);

@@ -5,6 +5,7 @@ import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import {
   Section,
+  Multiselect,
   ButtonGroup,
   Button,
   Icon,
@@ -20,9 +21,11 @@ import downloadIcon from 'assets/icons/download';
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
-  handleSectorChange = ({ value }) => {
+  handleSectorChange = values => {
     const { onFilterChange } = this.props;
-    onFilterChange({ sector: value });
+    if (values && values.length > 0) {
+      onFilterChange({ sector: values.map(v => v.value).join(',') });
+    }
   };
 
   handleMetricChange = ({ value }) => {
@@ -50,14 +53,13 @@ class GHGHistoricalEmissions extends PureComponent {
       emissionsParams,
       chartData
     } = this.props;
-
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
-        <Dropdown
+        <Multiselect
           label="Sector"
           theme={{ wrapper: styles.dropdown }}
-          options={sectorOptions}
-          value={sectorSelected}
+          values={sectorSelected || []}
+          options={sectorOptions || []}
           onValueChange={this.handleSectorChange}
           hideResetButton
         />
@@ -132,7 +134,7 @@ class GHGHistoricalEmissions extends PureComponent {
 GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
   sectorOptions: PropTypes.array,
-  sectorSelected: PropTypes.object,
+  sectorSelected: PropTypes.array,
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
