@@ -36,7 +36,16 @@ class ProjectedEmissions extends PureComponent {
             handleInfoClick={this.handleInfoClick}
           />
         </div>
-        <LineDottedLineAreaComposedChart height={500} {...chartData} />
+        {
+          chartData &&
+            (
+              <LineDottedLineAreaComposedChart
+                height={500}
+                {...chartData}
+                onLegendChange={this.handleLegendChange}
+              />
+            )
+        }
         <ProjectedEmissionsProvider />
         <ModalMetadata />
       </div>
