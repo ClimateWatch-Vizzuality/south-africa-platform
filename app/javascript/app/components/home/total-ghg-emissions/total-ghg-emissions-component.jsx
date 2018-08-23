@@ -12,7 +12,7 @@ import {
   Dropdown,
   Chart
 } from 'cw-components';
-import GHGMetaProvider from 'providers/ghg-meta-provider';
+import MetaProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import iconInfo from 'assets/icons/info';
@@ -56,7 +56,9 @@ class TotalGhgEmissions extends PureComponent {
     const toolbar = (
       <div className={styles.toolbarButtons}>
         <Button
-          link={<Link to="/ghg-emissions" />}
+          link={
+            <Link to="/ghg-emissions" onTouchStart={null} onMouseDown={null} />
+          }
           theme={{ button: styles.button }}
         >
           Explore GHG Emissions
@@ -110,7 +112,7 @@ class TotalGhgEmissions extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        <GHGMetaProvider />
+        <MetaProvider meta="ghg" />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
         <ModalMetadata />

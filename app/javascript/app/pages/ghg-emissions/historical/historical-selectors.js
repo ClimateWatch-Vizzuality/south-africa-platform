@@ -1,5 +1,4 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import uniqBy from 'lodash/uniqBy';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import intersection from 'lodash/intersection';
@@ -7,23 +6,25 @@ import { METRIC_OPTIONS } from 'utils/data';
 import {
   DEFAULT_AXES_CONFIG,
   getMetricRatio,
+  getThemeConfig,
   getYColumnValue,
   getTooltipConfig
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = {
-  gas: 'All GHG',
-  source: 'CAIT',
-  sector: 'Total excluding LUCF'
-};
+const defaults = { gas: 'All GHG', source: 'CAIT' };
+const excludedSectors = [ 'Total excluding LUCF', 'Total including LUCF' ];
+
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
+const getQueryParams = ({ location }) => location.query || null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
+const getSectorParam = ({ location }) =>
+  location.query ? location.query.sector : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
-  isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
+  isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
 
 const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
   metadata.ghg.loading || GHGEmissions.loading;
@@ -33,6 +34,7 @@ const getGas = createSelector(getMetaData, meta => {
   const selected = meta.gas.find(gas => gas.label === defaults.gas);
   return selected.value || null;
 });
+
 const getSource = createSelector(getMetaData, meta => {
   if (!meta || !meta.dataSource) return null;
   const selected = meta.dataSource.find(
@@ -40,19 +42,15 @@ const getSource = createSelector(getMetaData, meta => {
   );
   return selected.value || null;
 });
-const getSector = createSelector(getMetaData, meta => {
-  if (!meta || !meta.sector) return null;
-  const selected = meta.sector.find(source => source.label === defaults.sector);
-  return selected.value || null;
-});
 
-export const getEmissionsParams = createSelector(
-  [ getSource, getGas, getSector ],
-  (source, gas, sector) => {
-    if (!source || !gas || !sector) return null;
-    return { location: COUNTRY_ISO, gas, source, sector };
-  }
-);
+export const getEmissionsParams = createSelector([ getSource, getGas ], (
+  source,
+  gas
+) =>
+  {
+    if (!source || !gas) return null;
+    return { location: COUNTRY_ISO, gas, source };
+  });
 
 export const getMetricOptions = createSelector(
   [],
@@ -64,6 +62,33 @@ export const getMetricSelected = createSelector(
   (metrics, metric) => {
     if (!metric) return metrics[0];
     return metrics.find(m => m.value === metric);
+  }
+);
+
+export const getDataSectors = createSelector([ getEmissionsData ], data => {
+  if (!data) return null;
+  return data.map(d => d.sector);
+});
+
+export const getSectorOptions = createSelector(
+  [ getMetaData, getDataSectors ],
+  (meta, dataSectors) => {
+    if (!meta || !meta.sector || !dataSectors) return null;
+    return meta.sector
+      .filter(
+        s => !excludedSectors.includes(s.label) && dataSectors.includes(s.label)
+      )
+      .map(d => ({ label: d.label, value: d.value }));
+  }
+);
+
+export const getSectorSelected = createSelector(
+  [ getSectorOptions, getSectorParam ],
+  (sectors, sectorsSelected) => {
+    if (!sectors) return null;
+    if (!sectorsSelected) return sectors;
+    const sectorsParsed = sectorsSelected.split(',').map(s => parseInt(s, 10));
+    return sectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
   }
 );
 
@@ -90,7 +115,7 @@ export const parseChartData = createSelector(
     const dataParsed = xValues.map(x => {
       const yItems = {};
       emissionsData.forEach(d => {
-        const yKey = getYColumnValue(data.gas);
+        const yKey = getYColumnValue(d.sector);
         const yData = d.emissions.find(e => e.year === x);
         const calculationRatio = getMetricRatio(
           metricSelected.value,
@@ -110,20 +135,14 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getMetricSelected ],
-  (data, metricSelected) => {
-    if (!data) return null;
-    const yColumns = data.map(d => ({
-      label: d.gas,
-      value: getYColumnValue(d.gas)
-    }));
-    const theme = yColumns.reduce(
-      (acc, next) => ({
-        ...acc,
-        [next.value]: { stroke: '#00955f', fill: '#00955f' }
-      }),
-      {}
-    );
+  [ getEmissionsData, getSectorSelected, getMetricSelected ],
+  (data, sectorSelected, metricSelected) => {
+    if (!data || !sectorSelected) return null;
+    const sectorSelectedLabels = sectorSelected.map(s => s.label);
+    const yColumns = data
+      .filter(s => sectorSelectedLabels.includes(s.sector))
+      .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
+    const theme = getThemeConfig(yColumns);
     const tooltip = getTooltipConfig(yColumns);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
@@ -145,23 +164,20 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector(() => [ { label: 'All GHG' } ]);
-
-export const getChartFilterSelected = createSelector(() => [
-  { label: 'All GHG' }
-]);
-
 export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
   loading: getChartLoading,
-  dataOptions: getChartFilters,
-  dataSelected: getChartFilterSelected
+  dataOptions: getSectorOptions,
+  dataSelected: getSectorSelected
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
+  sectorOptions: getSectorOptions,
+  sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,
   metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,
-  chartData: getChartData
+  chartData: getChartData,
+  query: getQueryParams
 });

@@ -32,3 +32,31 @@ export const getMetricRatio = (selected, calculationData, x) => {
   }
   return 1;
 };
+
+export const CHART_COLORS = [
+  '#00B4D2',
+  '#0677B3',
+  '#D2187C',
+  '#FFB400',
+  '#FF7800',
+  '#FF88AA',
+  '#AB0000',
+  '#20D5B7',
+  '#383F45',
+  '#CACCD0'
+];
+
+export const getThemeConfig = (columns, colors = CHART_COLORS) => {
+  const theme = {};
+  columns.forEach((column, i) => {
+    const index = column.index || i;
+    const correctedIndex = index < colors.length
+      ? index
+      : index - colors.length;
+    theme[column.value] = {
+      stroke: colors[correctedIndex],
+      fill: colors[correctedIndex]
+    };
+  });
+  return theme;
+};
