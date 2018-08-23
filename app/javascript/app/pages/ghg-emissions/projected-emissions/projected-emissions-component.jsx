@@ -21,6 +21,11 @@ class ProjectedEmissions extends PureComponent {
     console.info('TODO: link todownload data endpoint', this.props);
   };
 
+  handleLegendChange = filtersSelected => {
+    const { updateFilters } = this.props;
+    updateFilters({ dataSelected: filtersSelected });
+  };
+
   render() {
     const { chartData } = this.props;
 
@@ -55,7 +60,7 @@ class ProjectedEmissions extends PureComponent {
 
 ProjectedEmissions.propTypes = {
   setModalMetadata: PropTypes.func.isRequired,
-  handleLegendChange: PropTypes.func.isRequired,
+  updateFilters: PropTypes.func.isRequired,
   chartData: PropTypes.object.isRequired
 };
 

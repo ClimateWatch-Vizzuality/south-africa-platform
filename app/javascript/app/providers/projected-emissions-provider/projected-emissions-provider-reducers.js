@@ -18,5 +18,10 @@ export default {
     ...state,
     loading: false,
     error: payload
+  }),
+  [actions.updateFilters]: (state, { payload }) => ({
+    ...state,
+    loading: false,
+    data: { ...state.data, ...payload }
   })
 };

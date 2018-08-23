@@ -3,6 +3,8 @@ import { createAction, createThunkAction } from 'redux-tools';
 import isEmpty from 'lodash/isEmpty';
 import data from './dummy-data.json';
 
+export const updateFilters = createAction('updateFilters');
+
 export const fetchProjectedEmissionsInit = createAction(
   'fetchProjectedEmissionsInit'
 );

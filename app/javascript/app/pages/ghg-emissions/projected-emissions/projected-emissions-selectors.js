@@ -4,15 +4,41 @@ import isEmpty from 'lodash/isEmpty';
 const getProjectedEmissionsData = ({ ProjectedEmissions = {} }) =>
   isEmpty(ProjectedEmissions.data) ? null : ProjectedEmissions.data;
 
-const getProjectedEmissions = createSelector(
-  getProjectedEmissionsData,
-  projectedEmissions => projectedEmissions
-);
+const filterColumns = (array, filterIds) =>
+  array.filter(col => filterIds.includes(col.label));
 
-// const getChartLoading = ({ ProjectedEmissions = {} }) => ProjectedEmissions.loading;
-const getChartData = createSelector(getProjectedEmissions, data => {
+const selectChartColumns = data => {
+  const {
+    initialLineWithDotsColumns,
+    initialRangedAreaColumns,
+    initialDotsColumns,
+    initialLineColumns,
+    config,
+    dataSelected
+  } = data;
+
+  const filterIds = dataSelected.map(f => f.label);
+
+  config.columns.lineWithDots = filterColumns(
+    initialLineWithDotsColumns,
+    filterIds
+  );
+  config.columns.rangedArea = filterColumns(
+    initialRangedAreaColumns,
+    filterIds
+  );
+  config.columns.dots = filterColumns(initialDotsColumns, filterIds);
+  config.columns.line = filterColumns(initialLineColumns, filterIds);
+
+  return config;
+};
+
+const getChartData = createSelector(getProjectedEmissionsData, data => {
   if (!data) return null;
-  return { ...data };
+
+  const config = selectChartColumns(data);
+
+  return { ...data, config };
 });
 
 export const getDummyData = createStructuredSelector({
