@@ -12,7 +12,6 @@ class TabSwitcher extends PureComponent {
   render() {
     const {
       tabs,
-      disabled,
       searchFilter,
       activeTabValue,
       onTabChange,
@@ -28,10 +27,13 @@ class TabSwitcher extends PureComponent {
       <div className={styles.wrapper}>
         <div className={styles.toolbar}>
           <Switch
-            options={tabs.map(o => ({ name: o.name, value: o.value }))}
+            options={tabs.map(o => ({
+              name: o.name,
+              value: o.value,
+              disabled: o.disabled
+            }))}
             selectedOption={activeTab.value}
             onClick={onTabChange}
-            disabled={disabled}
             theme={{
               wrapper: styles.switch,
               option: styles.switchOption,
@@ -85,7 +87,6 @@ TabSwitcher.propTypes = {
       component: PropTypes.node
     })
   ),
-  disabled: PropTypes.bool,
   activeTabValue: PropTypes.string,
   searchFilter: PropTypes.string,
   onInfoClick: PropTypes.func,
@@ -96,7 +97,6 @@ TabSwitcher.propTypes = {
 
 TabSwitcher.defaultProps = {
   tabs: [],
-  disabled: false,
   activeTabValue: null,
   searchFilter: '',
   onInfoClick: () => {
