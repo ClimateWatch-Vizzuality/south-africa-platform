@@ -23,7 +23,7 @@ export const fetchWorldBank = createThunkAction('fetchWorldBank', ({ iso }) =>
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchWorldBankFail(error));
+          dispatch(fetchWorldBankFail(error && error.message));
         });
     }
   });

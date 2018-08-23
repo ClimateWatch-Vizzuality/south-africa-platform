@@ -1,0 +1,39 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+}
+
+.buttonWrapper {
+  width: 90px;
+}
+
+.inputWrapper {
+  width: 270px;
+  margin-left: $gutter-padding / 2;
+}
+
+.switch {
+  height: 40px;
+}
+
+.switchOption {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switchSelected {
+  background-color: $theme-color;
+}

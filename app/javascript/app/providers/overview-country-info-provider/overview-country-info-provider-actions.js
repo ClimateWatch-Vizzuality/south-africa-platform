@@ -26,7 +26,7 @@ export const fetchCountryOverviewInfo = createThunkAction(
         })
         .catch(error => {
           console.warn(error);
-          dispatch(fetchCountryOverviewInfoFail(error));
+          dispatch(fetchCountryOverviewInfoFail(error && error.message));
         });
     }
   }

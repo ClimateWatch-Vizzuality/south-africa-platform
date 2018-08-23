@@ -17,6 +17,8 @@ class Nav extends PureComponent {
             key={route.label}
             to={route.link || route.path}
             activeClassName={styles.active}
+            onTouchStart={undefined}
+            onMouseDown={undefined}
           >
             {route.label}
           </NavLink>

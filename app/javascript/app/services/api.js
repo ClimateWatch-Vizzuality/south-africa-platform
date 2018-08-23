@@ -1,6 +1,7 @@
 import isFunction from 'lodash/isFunction';
 import qs from 'query-string';
 
+const { API_URL } = process.env;
 const { CW_API_URL } = process.env;
 
 function handleResponse(d) {
@@ -51,10 +52,5 @@ class API {
   }
 }
 
-// const cwApiConfig = {
-//   headers: {
-//     Accept: 'application/json',
-//     'Content-Type': 'application/json'
-//   }
-// };
 export const CWAPI = new API(CW_API_URL);
+export const SAAPI = new API(API_URL);
