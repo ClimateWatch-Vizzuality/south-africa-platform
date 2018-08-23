@@ -16,23 +16,8 @@ class TabSwitcherContainer extends PureComponent {
     });
   };
 
-  handleDownloadClick = () => {
-    console.info('TODO: open download link of', this.state.activeTabValue);
-  };
-
-  handleDownloadClick = filter => {
-    console.info('TODO: filtler table with', filter);
-  };
-
   render() {
-    return (
-      <TabSwitcher
-        {...this.props}
-        onInfoClick={this.handleInfoClick}
-        onDownloadClick={this.handleDownloadClick}
-        onFilterChange={this.handleDownloadClick}
-      />
-    );
+    return <TabSwitcher {...this.props} onInfoClick={this.handleInfoClick} />;
   }
 }
 

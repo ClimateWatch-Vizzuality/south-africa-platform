@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import GHGInventoryProvider from 'providers/ghg-inventory-provider';
-import { Loading, Table } from 'cw-components';
+import { NoContent, Loading, Table } from 'cw-components';
 
 import styles from './inventory-styles.scss';
 
@@ -36,16 +36,29 @@ class GHGInventory extends PureComponent {
         ...state,
         tabs: state.tabs.map(tab => {
           if (tab.value === activeTabValue) {
+            const hasContent = props.tableData.data &&
+              props.tableData.data.length > 0;
             return {
               ...tab,
-              component: (
-                <Table
-                  hasColumnSelect
-                  horizontalScroll
-                  tableHeight={660}
-                  {...props.tableData}
-                />
-              )
+              component: hasContent
+                ? (
+                  <Table
+                    horizontalScroll
+                    tableHeight={660}
+                    hasColumnSelect={false}
+                    {...props.tableData}
+                  />
+)
+                : (
+                  <NoContent
+                    minHeight={330}
+                    message={
+                    props.searchFilter
+                      ? 'No data found with this search'
+                      : 'No data available'
+                  }
+                  />
+)
             };
           }
           return tab;
@@ -56,7 +69,16 @@ class GHGInventory extends PureComponent {
   }
 
   handleTabChange = ({ value }) => {
-    this.props.updateTabActive({ section: 'inventory', query: { tab: value } });
+    const { updateQueryParam, query } = this.props;
+    updateQueryParam({ section: 'inventory', query: { ...query, tab: value } });
+  };
+
+  handleFilterChange = value => {
+    const { updateQueryParam, query } = this.props;
+    updateQueryParam({
+      section: 'inventory',
+      query: { ...query, search: value }
+    });
   };
 
   render() {
@@ -64,8 +86,11 @@ class GHGInventory extends PureComponent {
       <div className={styles.row}>
         <SectionTitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher
-          onTabChange={this.handleTabChange}
+          disabled
           tabs={this.state.tabs}
+          searchFilter={this.props.searchFilter}
+          onTabChange={this.handleTabChange}
+          onFilterChange={this.handleFilterChange}
           activeTabValue={this.props.activeTabValue}
         />
         <GHGInventoryProvider />
@@ -75,15 +100,22 @@ class GHGInventory extends PureComponent {
 }
 
 GHGInventory.propTypes = {
+  query: PropTypes.object,
+  searchFilter: PropTypes.string,
   tableData: PropTypes.shape({
     data: PropTypes.array,
     defaultColumns: PropTypes.array,
     ellipsisColumns: PropTypes.array
   }),
   activeTabValue: PropTypes.string,
-  updateTabActive: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired
 };
 
-GHGInventory.defaultProps = { tableData: {}, activeTabValue: null };
+GHGInventory.defaultProps = {
+  searchFilter: '',
+  query: null,
+  tableData: {},
+  activeTabValue: null
+};
 
 export default GHGInventory;

@@ -12,6 +12,8 @@ class TabSwitcher extends PureComponent {
   render() {
     const {
       tabs,
+      disabled,
+      searchFilter,
       activeTabValue,
       onTabChange,
       onInfoClick,
@@ -29,6 +31,7 @@ class TabSwitcher extends PureComponent {
             options={tabs.map(o => ({ name: o.name, value: o.value }))}
             selectedOption={activeTab.value}
             onClick={onTabChange}
+            disabled={disabled}
             theme={{
               wrapper: styles.switch,
               option: styles.switchOption,
@@ -44,6 +47,7 @@ class TabSwitcher extends PureComponent {
                 <Icon icon={iconInfo} />
               </Button>
               <Button
+                disabled
                 onClick={onDownloadClick}
                 theme={{ button: styles.infobutton }}
               >
@@ -51,6 +55,7 @@ class TabSwitcher extends PureComponent {
               </Button>
             </ButtonGroup>
             <Input
+              value={searchFilter}
               placeholder="Search"
               theme={{ wrapper: styles.inputWrapper }}
               onChange={onFilterChange}
@@ -80,7 +85,9 @@ TabSwitcher.propTypes = {
       component: PropTypes.node
     })
   ),
+  disabled: PropTypes.bool,
   activeTabValue: PropTypes.string,
+  searchFilter: PropTypes.string,
   onInfoClick: PropTypes.func,
   onDownloadClick: PropTypes.func,
   onFilterChange: PropTypes.func.isRequired,
@@ -89,7 +96,9 @@ TabSwitcher.propTypes = {
 
 TabSwitcher.defaultProps = {
   tabs: [],
+  disabled: false,
   activeTabValue: null,
+  searchFilter: '',
   onInfoClick: () => {
   },
   onDownloadClick: () => {
