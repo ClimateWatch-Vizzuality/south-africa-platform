@@ -87,7 +87,6 @@ class GHGInventory extends PureComponent {
       <div className={styles.row}>
         <SectionTitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher
-          disabled
           tabs={this.state.tabs}
           searchFilter={this.props.searchFilter}
           onTabChange={this.handleTabChange}
