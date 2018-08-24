@@ -1,6 +1,8 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 
 const getQueryParams = ({ location = {} }) => location.query || null;
+
+// TODO: { geometryId: [array of priorities] } once the API is ready
 const selectMitigations = () => [
   'Energy efficiency',
   'Development of renewable and alternate sustainable energy resources',
