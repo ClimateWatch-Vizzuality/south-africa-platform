@@ -1,6 +1,6 @@
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
-import { METRIC_OPTIONS } from 'utils/data';
+import { METRIC_OPTIONS } from 'utils/defaults';
 
 export const DEFAULT_AXES_CONFIG = {
   xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },

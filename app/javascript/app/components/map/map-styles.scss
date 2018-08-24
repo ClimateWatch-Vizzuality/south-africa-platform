@@ -1,0 +1,21 @@
+@import '~styles/settings.scss';
+
+.wrapper {
+  width: 100%;
+  position: relative;
+
+  :global {
+    .mapTooltip {
+      padding: 15px;
+      color: $theme-color;
+      background-color: $white;
+      font-size: $font-size-xs;
+      letter-spacing: -0.1px;
+      box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+
+      &::after { // Hides the arrow
+        display: none;
+      }
+    }
+  }
+}

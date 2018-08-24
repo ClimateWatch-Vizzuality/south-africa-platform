@@ -1,0 +1,24 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.columns {
+  @include columns(6);
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+  margin-bottom: $gutter-padding;
+}
+
+.list {
+  list-style-type: disc;
+
+  > li {
+    font-size: $font-size-sm;
+    letter-spacing: normal;
+    line-height: 1.43;
+    color: $theme-color;
+    margin: 8px 0;
+  }
+}
