@@ -10,10 +10,8 @@ import ProjectedEmissionsProvider from 'providers/projected-emissions-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 // Charts
-import RangedArea from 'components/charts/ranged-area';
-import LineWithDots from 'components/charts/line-with-dots';
-import PlainLine from 'components/charts/plain-line';
-import DotsLine from 'components/charts/dots-line';
+import { Area, Line } from 'recharts';
+import isUndefined from 'lodash/isUndefined';
 
 import styles from './projected-emissions-styles.scss';
 
@@ -32,61 +30,85 @@ class ProjectedEmissions extends PureComponent {
     updateFilters({ dataSelected: filtersSelected });
   };
 
-  rangedAreas = () => {
+  renderRangedAreas = () => {
     const { config } = this.props.chartData;
 
     return config.columns && config.columns.rangedArea.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
-          <RangedArea
-            column={column}
-            color={color}
+          <Area
+            key={column.value}
+            dataKey={column.value}
+            dot={false}
+            stroke={color}
+            strokeWidth={2}
+            isAnimationActive={
+              isUndefined(config.animation) ? true : config.animation
+            }
             fill={config.theme[column.value].fill || ''}
-            animation={config.animation}
+            type="linear"
           />
         );
       });
   };
 
-  linesWithDots = () => {
+  renderLinesWithDots = () => {
     const { config } = this.props.chartData;
 
     return config.columns && config.columns.lineWithDots.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
-          <LineWithDots
-            column={column}
-            color={color}
-            animation={config.animation}
+          <Line
+            key={column.value}
+            isAnimationActive={
+              isUndefined(config.animation) ? true : config.animation
+            }
+            dot={{ strokeWidth: 0, fill: color, radius: 0.5 }}
+            dataKey={column.value}
+            stroke={color}
+            strokeWidth={2}
+            type="monotone"
           />
         );
       });
   };
 
-  dotsLines = () => {
+  renderDotsLines = () => {
     const { config } = this.props.chartData;
 
     return config.columns &&
       config.columns.dots.map(column => (
-        <DotsLine
-          column={column}
-          color="#000000"
-          animation={config.animation}
+        <Line
+          key={column.value}
+          isAnimationActive={
+            isUndefined(config.animation) ? true : config.animation
+          }
+          dataKey={column.value}
+          stroke="#000000"
+          strokeDasharray="1,09"
+          strokeWidth="5"
+          strokeLinecap="round"
+          type="monotone"
         />
       ));
   };
 
-  plainLines = () => {
+  renderPlainLines = () => {
     const { config } = this.props.chartData;
 
     return config.columns.line.map(column => {
       const color = config.theme[column.value].stroke || '';
       return (
-        <PlainLine
+        <Line
           key={column.value}
-          column={column}
-          color={color}
-          animation={config.animation}
+          isAnimationActive={
+            isUndefined(config.animation) ? true : config.animation
+          }
+          dot={false}
+          dataKey={column.value}
+          stroke={color}
+          strokeWidth={2}
+          type="monotone"
         />
       );
     });
@@ -114,7 +136,10 @@ class ProjectedEmissions extends PureComponent {
             {...chartData}
             onLegendChange={this.handleLegendChange}
           >
-            {this.plainLines()}
+            {this.renderRangedAreas()}
+            {this.renderLinesWithDots()}
+            {this.renderDotsLines()}
+            {this.renderPlainLines()}
           </ChartComposed>
             )
         }
