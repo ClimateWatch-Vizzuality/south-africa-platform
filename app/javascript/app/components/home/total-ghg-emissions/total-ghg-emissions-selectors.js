@@ -3,7 +3,7 @@ import uniqBy from 'lodash/uniqBy';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import intersection from 'lodash/intersection';
-import { METRIC_OPTIONS } from 'utils/data';
+import { METRIC_OPTIONS } from 'utils/defaults';
 import {
   DEFAULT_AXES_CONFIG,
   getMetricRatio,

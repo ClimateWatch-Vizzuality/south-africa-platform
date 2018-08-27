@@ -12,7 +12,9 @@ class TabSwitcher extends PureComponent {
   render() {
     const {
       tabs,
+      searchActive,
       searchFilter,
+      actionsActive,
       activeTabValue,
       onTabChange,
       onInfoClick,
@@ -41,27 +43,36 @@ class TabSwitcher extends PureComponent {
             }}
           />
           <div className={styles.toolbarActions}>
-            <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
-              <Button
-                onClick={onInfoClick}
-                theme={{ button: styles.infobutton }}
-              >
-                <Icon icon={iconInfo} />
-              </Button>
-              <Button
-                disabled
-                onClick={onDownloadClick}
-                theme={{ button: styles.infobutton }}
-              >
-                <Icon icon={downloadIcon} />
-              </Button>
-            </ButtonGroup>
-            <Input
-              value={searchFilter}
-              placeholder="Search"
-              theme={{ wrapper: styles.inputWrapper }}
-              onChange={onFilterChange}
-            />
+            {
+              actionsActive && (
+              <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
+                <Button
+                  onClick={onInfoClick}
+                  theme={{ button: styles.infobutton }}
+                >
+                  <Icon icon={iconInfo} />
+                </Button>
+                <Button
+                  disabled
+                  onClick={onDownloadClick}
+                  theme={{ button: styles.infobutton }}
+                >
+                  <Icon icon={downloadIcon} />
+                </Button>
+              </ButtonGroup>
+                )
+            }
+            {
+              searchActive &&
+                (
+                  <Input
+                    value={searchFilter}
+                    placeholder="Search"
+                    theme={{ wrapper: styles.inputWrapper }}
+                    onChange={onFilterChange}
+                  />
+                )
+            }
           </div>
         </div>
         {
@@ -89,9 +100,11 @@ TabSwitcher.propTypes = {
   ),
   activeTabValue: PropTypes.string,
   searchFilter: PropTypes.string,
+  searchActive: PropTypes.bool,
+  actionsActive: PropTypes.bool,
   onInfoClick: PropTypes.func,
   onDownloadClick: PropTypes.func,
-  onFilterChange: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func,
   onTabChange: PropTypes.func.isRequired
 };
 
@@ -99,9 +112,13 @@ TabSwitcher.defaultProps = {
   tabs: [],
   activeTabValue: null,
   searchFilter: '',
+  searchActive: true,
+  actionsActive: true,
   onInfoClick: () => {
   },
   onDownloadClick: () => {
+  },
+  onFilterChange: () => {
   }
 };
 
