@@ -1,6 +1,22 @@
+@import '~styles/settings.scss';
 @import '~styles/layout.scss';
+
+.grid {
+  @include row();
+}
+
+.title {
+  margin-top: 0 !important;
+}
 
 .logo {
   width: 136px;
   height: 13px;
+}
+
+.toolbarWithSectionTitle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+  margin-top: $gutter-padding;
 }

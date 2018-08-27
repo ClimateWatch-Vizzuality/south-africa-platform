@@ -15,6 +15,9 @@ import {
 import {
   reduxModule as climateRisksData
 } from 'providers/climate-risks-data-provider';
+import {
+  reduxModule as projectedEmissions
+} from 'providers/projected-emissions-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -26,7 +29,8 @@ const providersReducers = {
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),
   climateRisksData: handleModule(climateRisksData),
-  modalMetadata: handleModule(modalMetadata)
+  modalMetadata: handleModule(modalMetadata),
+  ProjectedEmissions: handleModule(projectedEmissions)
 };
 
 export default combineReducers({
