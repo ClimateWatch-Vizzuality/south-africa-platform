@@ -21,10 +21,6 @@ class ProjectedEmissions extends PureComponent {
     setModalMetadata({ slugs: 'historical_emissions_cait', open: true });
   };
 
-  handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
-  };
-
   handleLegendChange = filtersSelected => {
     const { updateFilters } = this.props;
     updateFilters({ dataSelected: filtersSelected });
@@ -125,7 +121,7 @@ class ProjectedEmissions extends PureComponent {
             theme={{ sectionTitle: styles.title }}
           />
           <InfoDownloadToolbox
-            handleDownloadClick={this.handleDownloadClick}
+            slug="projected_emissions"
             handleInfoClick={this.handleInfoClick}
           />
         </div>
