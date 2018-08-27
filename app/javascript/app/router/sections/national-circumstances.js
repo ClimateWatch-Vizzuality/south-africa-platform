@@ -6,6 +6,11 @@ export default [
     exact: true,
     default: true
   },
+  {
+    slug: 'population',
+    label: 'Population',
+    path: '/national-circumstances/population'
+  },
   { slug: 'energy', label: 'energy', path: '/national-circumstances/energy' },
   {
     slug: 'climate-risks',
