@@ -7,12 +7,13 @@ import downloadIcon from 'assets/icons/download';
 import styles from './info-download-toolbox-styles.scss';
 
 class InfoDownloadToolbox extends PureComponent {
-  handleDownloadClick = slug => {
+  handleDownloadClick = () => {
+    const { slug } = this.props;
     console.info('TODO: Download ', slug);
   };
 
   render() {
-    const { theme, handleInfoClick, slug } = this.props;
+    const { theme, handleInfoClick } = this.props;
     return (
       <ButtonGroup
         theme={{ wrapper: cx(styles.buttonWrapper, theme.buttonWrapper) }}
@@ -24,7 +25,7 @@ class InfoDownloadToolbox extends PureComponent {
           <Icon icon={iconInfo} />
         </Button>
         <Button
-          onClick={() => this.handleDownloadClick(slug)}
+          onClick={this.handleDownloadClick}
           theme={{ button: cx(styles.infobutton, theme.infobutton) }}
         >
           <Icon icon={downloadIcon} />
