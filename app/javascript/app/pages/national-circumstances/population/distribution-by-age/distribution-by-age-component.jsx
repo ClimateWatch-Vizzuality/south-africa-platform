@@ -22,7 +22,11 @@ class PopulationTab extends PureComponent {
   };
 
   render() {
-    const { yearsOptions, yearSelected, data, domain, config } = this.props;
+    const { yearsOptions, yearSelected, barChartData } = this.props;
+
+    const data = barChartData && barChartData.data || null;
+    const config = barChartData && barChartData.config || null;
+    const domain = barChartData && barChartData.domain || null;
 
     const dropdown = (
       <Dropdown
@@ -77,17 +81,13 @@ PopulationTab.propTypes = {
   yearSelected: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
   setModalMetadata: PropTypes.func.isRequired,
-  data: PropTypes.array,
-  config: PropTypes.object,
-  domain: PropTypes.object
+  barChartData: PropTypes.object
 };
 
 PopulationTab.defaultProps = {
   yearsOptions: [],
   yearSelected: {},
-  data: [],
-  config: {},
-  domain: {}
+  barChartData: {}
 };
 
 export default PopulationTab;
