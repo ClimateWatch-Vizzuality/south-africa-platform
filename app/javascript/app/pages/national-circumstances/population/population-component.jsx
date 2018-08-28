@@ -2,9 +2,10 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import { NoContent } from 'cw-components';
 
 import PopulationTab from './population-tab';
+import DistributionByAge from './distribution-by-age';
+
 import styles from './population-styles.scss';
 
 const POPULATION_KEY = 'population';
@@ -30,7 +31,12 @@ class Population extends PureComponent {
         {
           name: 'Distribution by age',
           value: DISTRIBUTION_BY_AGE_KEY,
-          component: <NoContent message="Section not ready yet" />
+          component: (
+            <DistributionByAge
+              yearsOptions={props.yearsOptions}
+              yearSelected={props.yearSelected}
+            />
+          )
         }
       ]
     };
@@ -38,7 +44,10 @@ class Population extends PureComponent {
 
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;
-    updateQueryParam({ query: { ...query, tab: value } });
+    updateQueryParam({
+      section: 'population',
+      query: { ...query, tab: value }
+    });
   };
 
   render() {

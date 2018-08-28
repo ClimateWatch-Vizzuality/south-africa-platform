@@ -23,7 +23,6 @@ class GHGInventory extends PureComponent {
         {
           name: 'UNDER IMPLEMENTATION',
           value: UNDER_IMPLEMENTATION_KEY,
-          disabled: true,
           component: <Loading height="660" />
         }
       ]
