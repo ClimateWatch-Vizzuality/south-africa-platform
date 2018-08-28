@@ -11,6 +11,11 @@ export default [
     label: 'Population',
     path: '/national-circumstances/population'
   },
+  {
+    slug: 'economy',
+    label: 'economy',
+    path: '/national-circumstances/economy'
+  },
   { slug: 'energy', label: 'energy', path: '/national-circumstances/energy' },
   {
     slug: 'climate-risks',
