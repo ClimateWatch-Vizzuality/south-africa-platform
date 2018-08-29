@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from './economy-actions';
 
 import Component from './economy-component';
-// import { getProvincial } from './provincial-selectors';
-// const mapStateToProps = getProvincial;
-export default connect(null, actions)(Component);
+import { getEconomy } from './economy-selectors';
+
+const mapStateToProps = getEconomy;
+
+export default connect(mapStateToProps, actions)(Component);

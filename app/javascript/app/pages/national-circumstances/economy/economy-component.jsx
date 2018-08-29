@@ -4,6 +4,7 @@ import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { NoContent } from 'cw-components';
 import GDP from './gdp';
+import HumanDevelopmentIndex from './human-development-index';
 
 import styles from './economy-styles.scss';
 
@@ -25,7 +26,7 @@ class Economy extends PureComponent {
         {
           name: 'Human Development Index',
           value: HUMAN_DEVELOPMENT_INDEX_KEY,
-          component: <NoContent message="Section not ready yet" />
+          component: <HumanDevelopmentIndex />
         }
       ]
     };
