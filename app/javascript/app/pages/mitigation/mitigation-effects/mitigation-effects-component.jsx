@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Loading } from 'cw-components';
+import Summary from './summary';
 
 import styles from './mitigation-effects-styles';
 
@@ -13,11 +14,7 @@ class MitigationEffects extends PureComponent {
     super(props);
     this.state = {
       tabs: [
-        {
-          name: 'SUMMARY',
-          value: SUMMARY_KEY,
-          component: <Loading height="660" />
-        },
+        { name: 'SUMMARY', value: SUMMARY_KEY, component: <Summary /> },
         {
           name: 'SUSTAINABLE DEVELOPMENT BENEFITS',
           value: SUSTAINABLE_DEVELOPMENT_KEY,
