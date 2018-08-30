@@ -1,5 +1,13 @@
 @import '~styles/layout.scss';
 
-.row {
-  @include row();
+.columns {
+  @include columns(2);
+
+  align-items: flex-end;
+}
+
+.buttonGroupWrapper {
+  @include column-offset(4);
+
+  width: 90px;
 }
