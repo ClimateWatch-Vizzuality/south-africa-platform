@@ -19,7 +19,8 @@ class MitigationEffects extends PureComponent {
         {
           name: 'SUSTAINABLE DEVELOPMENT BENEFITS',
           value: SUSTAINABLE_DEVELOPMENT_KEY,
-          component: <Loading height="660" />
+          component: <Loading height="660" />,
+          disabled: true
         }
       ]
     };
