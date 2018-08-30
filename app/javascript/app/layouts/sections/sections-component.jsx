@@ -31,7 +31,7 @@ class Planning extends PureComponent {
   handleStickyChange =  (status) => {
     // Workaround fo fix bad height calculations
     // https://github.com/yahoo/react-stickynode/issues/102#issuecomment-362502692
-    if (Sticky.STATUS_FIXED === status.status) {
+    if (Sticky.STATUS_FIXED === status.status && this.stickyRef) {
       this.stickyRef.updateInitialDimension();
       this.stickyRef.update();
     }
