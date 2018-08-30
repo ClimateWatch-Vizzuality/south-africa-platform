@@ -8,7 +8,7 @@ import { NoContent, Loading, Table } from 'cw-components';
 import styles from './mitigation-actions-styles.scss';
 
 const ALL_ACTIONS_KEY = 'allActions';
-const WITH_QUANTIFIED_EFFECTS_KEY = 'quentifiedEffects';
+const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
 
 class GHGInventory extends PureComponent {
   constructor(props) {
@@ -81,15 +81,17 @@ class GHGInventory extends PureComponent {
   };
 
   render() {
+    const { tabs } = this.state;
+    const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
         <SectionTitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher
-          tabs={this.state.tabs}
-          searchFilter={this.props.searchFilter}
+          tabs={tabs}
+          searchFilter={searchFilter}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
-          activeTabValue={this.props.activeTabValue}
+          activeTabValue={activeTabValue}
         />
         <GHGInventoryProvider />
       </div>
