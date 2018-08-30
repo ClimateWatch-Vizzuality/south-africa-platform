@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import BubbleChart from 'components/bubble-chart';
 import { Dropdown, ButtonGroup, Button, Icon } from 'cw-components';
 
 import iconInfo from 'assets/icons/info';
@@ -26,36 +27,46 @@ class Summary extends PureComponent {
       visTypeOptions
     } = this.props;
     return (
-      <div className={styles.columns}>
-        <Dropdown
-          label="Theme"
-          value={themeSelected}
-          options={themeOptions}
-          onValueChange={this.handleThemeChange}
-          hideResetButton
-        />
-        <Dropdown
-          label="GHG Emissions Reduction?? "
-          value={{ label: '???', value: '???' }}
-          options={{ label: '???', value: '???' }}
-          onValueChange={this.handleThemeChange}
-          hideResetButton
-        />
-        <Dropdown
-          label="Visualization"
-          value={visTypeSelected}
-          options={visTypeOptions}
-          onValueChange={this.handleVisTypeChange}
-          hideResetButton
-        />
-        <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
-          <Button onClick={() => console.info('Clicked on info')}>
-            <Icon icon={iconInfo} />
-          </Button>
-          <Button onClick={() => console.info('Clicked on download')} disabled>
-            <Icon icon={iconDownload} />
-          </Button>
-        </ButtonGroup>
+      <div>
+        <div className={styles.columns}>
+          <Dropdown
+            label="Theme"
+            value={themeSelected}
+            options={themeOptions}
+            onValueChange={this.handleThemeChange}
+            hideResetButton
+          />
+          <Dropdown
+            label="GHG Emissions Reduction?? "
+            value={{ label: '???', value: '???' }}
+            options={{ label: '???', value: '???' }}
+            onValueChange={this.handleThemeChange}
+            hideResetButton
+          />
+          <Dropdown
+            label="Visualization"
+            value={visTypeSelected}
+            options={visTypeOptions}
+            onValueChange={this.handleVisTypeChange}
+            hideResetButton
+          />
+          <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
+            <Button onClick={() => console.info('Clicked on info')}>
+              <Icon icon={iconInfo} />
+            </Button>
+            <Button
+              onClick={() => console.info('Clicked on download')}
+              disabled
+            >
+              <Icon icon={iconDownload} />
+            </Button>
+          </ButtonGroup>
+        </div>
+        {
+          visTypeSelected.value === 'bubble-chart'
+            ? <BubbleChart />
+            : <div>TABLE</div>
+        }
       </div>
     );
   }
