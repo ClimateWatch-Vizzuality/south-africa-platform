@@ -2,8 +2,7 @@ export default [
   {
     slug: 'support-needed',
     label: 'Support needed',
-    path: '/support-needed',
-    exact: true,
+    path: '/financial-resources/support-needed',
     default: true
   }
 ];
