@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import MitigationEffectsProvider from 'providers/mitigation-effects-provider';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Loading } from 'cw-components';
@@ -36,6 +37,7 @@ class MitigationEffects extends PureComponent {
           }}
           /* activeTabValue={this.props.activeTabValue} */
         />
+        <MitigationEffectsProvider />
       </div>
     );
   }
