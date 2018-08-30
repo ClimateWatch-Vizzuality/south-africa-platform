@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import SupportNeededTable from '../support-needed-table';
+import DataTable from 'components/data-table';
 import styles from './support-needed-styles.scss';
 
 const FINANCIAL_SUPPORT_NEEDED_KEY = 'financialSupportNeeded';
@@ -26,20 +26,14 @@ class SupportNeeded extends PureComponent {
         name: 'FINANCIAL SUPPORT NEEDED',
         value: FINANCIAL_SUPPORT_NEEDED_KEY,
         component: (
-          <SupportNeededTable
-            tableData={tableData}
-            searchFilter={searchFilter}
-          />
+          <DataTable tableData={tableData} searchFilter={searchFilter} />
         )
       },
       {
         name: 'NON MONETIZED NEEDS',
         value: NON_MONETIZED_NEEDS,
         component: (
-          <SupportNeededTable
-            tableData={tableData}
-            searchFilter={searchFilter}
-          />
+          <DataTable tableData={tableData} searchFilter={searchFilter} />
         ),
         disabled: true
       }

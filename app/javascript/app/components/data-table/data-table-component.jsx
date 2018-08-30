@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NoContent, Loading, Table } from 'cw-components';
 
-const SupportNeededTable = ({ tableData, searchFilter }) => {
+const DataTable = ({ tableData, searchFilter }) => {
   if (!tableData.data) return <Loading height="660" />;
   const hasContent = tableData.data && tableData.data.length > 0;
   return hasContent
@@ -25,10 +25,10 @@ const SupportNeededTable = ({ tableData, searchFilter }) => {
 );
 };
 
-SupportNeededTable.propTypes = {
+DataTable.propTypes = {
   tableData: PropTypes.object,
   searchFilter: PropTypes.string
 };
 
-SupportNeededTable.defaultProps = { tableData: {}, searchFilter: null };
-export default SupportNeededTable;
+DataTable.defaultProps = { tableData: {}, searchFilter: null };
+export default DataTable;
