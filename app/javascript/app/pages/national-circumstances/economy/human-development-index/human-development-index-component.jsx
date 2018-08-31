@@ -4,6 +4,7 @@ import ModalMetadata from 'components/modal-metadata';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Chart } from 'cw-components';
 import HumanDevelopmentIndexProvider from 'providers/human-development-index-provider';
+import { CustomYAxisTick } from './axis-ticks';
 
 import styles from './human-development-index-styles';
 
@@ -32,9 +33,11 @@ class HumanDevelopmentIndex extends PureComponent {
         <div className={styles.chart}>
           <Chart
             type="line"
+            lineType="linear"
             dots={false}
             customMessage="Emissions data not available"
             hideRemoveOptions
+            customYAxisTick={<CustomYAxisTick />}
             {...chartData}
           />
         </div>

@@ -78,6 +78,16 @@
         "yW": 0.3
       }
     ],
-    "domain": { "x": ["auto", "auto"], "y": [0, "auto"] }
+    "domain": { "x": ["auto", "auto"], "y": [0, "auto"] },
+    "dataSelected": [
+      { "value": 1, "label": "South Africa" },
+      { "value": 2, "label": "South Saharan Africa" },
+      { "value": 3, "label": "World" }
+    ],
+    "dataOptions": [
+      { "value": 1, "label": "South Africa" },
+      { "value": 2, "label": "South Saharan Africa" },
+      { "value": 3, "label": "World" }
+    ]
   }
   
