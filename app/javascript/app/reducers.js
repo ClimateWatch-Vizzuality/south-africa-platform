@@ -21,6 +21,9 @@ import {
 import {
   reduxModule as projectedEmissions
 } from 'providers/projected-emissions-provider';
+import {
+  reduxModule as distributionByAge
+} from 'providers/distribution-by-age-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -34,7 +37,8 @@ const providersReducers = {
   countriesOverviewData: handleModule(countriesOverview),
   climateRisksData: handleModule(climateRisksData),
   modalMetadata: handleModule(modalMetadata),
-  ProjectedEmissions: handleModule(projectedEmissions)
+  ProjectedEmissions: handleModule(projectedEmissions),
+  DistributionByAge: handleModule(distributionByAge)
 };
 
 export default combineReducers({
