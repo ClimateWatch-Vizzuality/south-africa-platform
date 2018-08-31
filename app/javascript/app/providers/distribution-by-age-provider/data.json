@@ -19,6 +19,6 @@
       "x": [{ "label": "year", "value": "x" }],
       "y": [{ "label": "", "value": "y" }]
     },
-    "theme": { "y": { "stroke": "", "fill": "" } }
+    "theme": { "y": { "stroke": "", "fill": "#f5b335" } }
   }
 }
