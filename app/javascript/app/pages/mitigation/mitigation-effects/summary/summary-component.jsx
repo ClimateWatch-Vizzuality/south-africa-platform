@@ -64,6 +64,7 @@ class Summary extends PureComponent {
             options={visTypeOptions}
             onValueChange={this.handleVisTypeChange}
             hideResetButton
+            disabled
           />
           <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
             <Button onClick={this.handleInfoClick}>

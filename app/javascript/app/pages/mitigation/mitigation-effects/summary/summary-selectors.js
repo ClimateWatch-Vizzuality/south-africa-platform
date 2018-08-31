@@ -30,7 +30,7 @@ const getChartData = createSelector(
   (summary, themeSelected, selectedId) => {
     if (!summary) return null;
     if (!themeSelected) {
-      const chartData = summary
+      return summary
         .filter(s => s.theme === DEFAULT_THEME)
         .map(e => ({
           ...e,
@@ -38,9 +38,8 @@ const getChartData = createSelector(
             ? setBubbleColor(selectedId, e.id)
             : setInitialColor(e, summary)
         }));
-      return chartData;
     }
-    const chartData = summary
+    return summary
       .filter(s => s.theme === themeSelected)
       .map(e => ({
         ...e,
@@ -48,7 +47,6 @@ const getChartData = createSelector(
           ? setBubbleColor(selectedId, e.id)
           : setInitialColor(e, summary, themeSelected)
       }));
-    return chartData;
   }
 );
 
