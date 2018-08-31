@@ -1,0 +1,13 @@
+@import '~styles/layout.scss';
+
+.row {
+  @include row();
+}
+
+.dropdown {
+  margin-right: $gutter-padding / 2;
+
+  @media #{$tablet-landscape} {
+    width: 200px;
+  }
+}
