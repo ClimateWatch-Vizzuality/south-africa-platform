@@ -36,7 +36,6 @@ class MitigationEffects extends PureComponent {
           actionsActive={false}
           onTabChange={() => {
           }}
-          /* activeTabValue={this.props.activeTabValue} */
         />
         <MitigationEffectsProvider />
       </div>

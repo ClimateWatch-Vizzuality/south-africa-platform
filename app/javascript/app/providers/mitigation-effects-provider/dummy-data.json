@@ -1,6 +1,7 @@
 [
   {
     "theme": "Energy Efficiency",
+    "id": 1,
     "policy": "National Energy Efficiency Strategy (NEES)",
     "objectives": "The NEES, approved by Cabinet in 2005, sets energy intensity reduction target for various sectors, as reflected in the 1st BUR.",
     "type of instrument": "Existing measure",
@@ -12,6 +13,7 @@
   },
   {
     "theme": "Energy Efficiency",
+    "id": 2,
     "policy": "Integrated Demand Management (IDM) Programme",
     "objectives": "The IDM covers a range of funding and awareness programmes, which promote energy efficiency and load management.",
     "type of instrument": "Existing measure",
@@ -23,6 +25,7 @@
   },
   {
     "theme": "Energy Efficiency",
+    "id": 3,
     "policy": "Municipal Energy Efficiency and Demand Side Management (EEDSM)",
     "objectives": "The EEDSM programme is a grant fund disbursed to 68 municipalities since 2009, to implement energy efficient retrofits within the municipal infrastruc- ture.",
     "type of instrument": "Existing measure",
@@ -34,6 +37,7 @@
   },
   {
     "theme": "Energy Efficiency",
+    "id": 4,
     "policy": "Industrial Energy Efficiency Improvement (IEEI) Project",
     "objectives": "The NCPC develops programmes that reduce pollution and improve resource efficiency in the private sector. The NCPC has identified programmes with a total potential saving of R65 million",
     "type of instrument": "Existing measure",
@@ -45,6 +49,7 @@
   },
   {
     "theme": "Energy Efficiency",
+    "id": 5,
     "policy": "SASOL energy efficiency projects",
     "objectives": "Since 2003 SASOL has implemented a series of energy efficiency programmes, including waste energy utilization, steam compressor upgrades and heat recovery, new energy efficient equipment, and process improvements.",
     "type of instrument": "Existing measure",
@@ -56,6 +61,7 @@
   },
   {
     "theme": "Electricity generation",
+    "id": 6,
     "policy": "White Paper Renewable Energy (DME, 2003b)",
     "objectives": "The Minister of Energy determined that 3,725 MW was required from renewable energy sources during the first phase of the REIPPP programme, to ensure the continued uninterrupted supply of electricity. ",
     "type of instrument": "Existing measure",
@@ -67,6 +73,7 @@
   },
   {
     "theme": "Electricity generation",
+    "id": 7,
     "policy": "Eskom Open Cycle Gas Turbines (OCGT)",
     "objectives": "Between 2007 and 2014 a total of 7,827 net GWh of electricity was generated from Eskom’s OCGT plants",
     "type of instrument": "Existing measure",
@@ -78,6 +85,7 @@
   },
   {
     "theme": "Electricity generation",
+    "id": 8,
     "policy": "Sasol Gas Turbines",
     "objectives": "SASOL installed 420 MWs of combined cycle gas turbines between 2010 and 2011.",
     "type of instrument": "Existing measure",
