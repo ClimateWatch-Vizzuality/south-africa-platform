@@ -15,6 +15,7 @@
     "classnames": "2.2.5",
     "core-js": "2.5.3",
     "cw-components": "github:ClimateWatch-Vizzuality/climate-watch-components#0.2.0",
+    "d3": "^5.7.0",
     "dotenv": "4.0.0",
     "foundation-sites": "6.4.3",
     "history": "4.7.2",
