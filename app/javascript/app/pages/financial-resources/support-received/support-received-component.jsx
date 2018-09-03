@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import styles from './support-received-styles.scss';
+import International from './international';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -19,30 +20,21 @@ class SupportReceived extends PureComponent {
     updateQueryParam({ query: { ...query, search: value } });
   };
 
-  // const dropdowns = (
-  //   <div className={styles.dropdowWrapper}>
-  //     <Dropdown
-  //       theme={{ wrapper: styles.dropdown }}
-  //       options={sourceOptions}
-  //       value={sourceSelected}
-  //       onValueChange={this.handleSourceChange}
-  //       hideResetButton
-  //     />
-  //     <Dropdown
-  //       theme={{ wrapper: styles.dropdown }}
-  //       options={metricOptions}
-  //       value={metricSelected}
-  //       onValueChange={this.handleMetricChange}
-  //       hideResetButton
-  //     />
-  //   </div>
-  // );
   render() {
     const { searchFilter, activeTabValue } = this.props;
     const renderTabs = [
-      { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component: null },
+      {
+        name: 'INTERNATIONAL',
+        value: INTERNATIONAL_KEY,
+        component: <International />
+      },
       { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
-      { name: 'NON-MONETIZED', value: NON_MONETIZED_KEY, component: null }
+      {
+        name: 'NON-MONETIZED',
+        value: NON_MONETIZED_KEY,
+        component: null,
+        disabled: true
+      }
     ];
 
     return (
@@ -54,7 +46,6 @@ class SupportReceived extends PureComponent {
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
-          actionsActive={false}
         />
       </div>
     );
