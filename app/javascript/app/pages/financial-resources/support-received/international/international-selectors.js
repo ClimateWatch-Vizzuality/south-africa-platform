@@ -9,10 +9,10 @@ const data = {
     { name: 'Grants' }
   ],
   links: [
-    { source: 0, target: 2, value: 24.729 },
-    { source: 1, target: 3, value: 15.597 },
-    { source: 1, target: 3, value: 19.597 },
-    { source: 0, target: 3, value: 57.597 }
+    { source: 0, target: 2, value: 24 },
+    { source: 1, target: 3, value: 15 },
+    { source: 1, target: 3, value: 19 },
+    { source: 0, target: 3, value: 57 }
   ]
 };
 
