@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
@@ -25,11 +25,18 @@ class SupportReceived extends PureComponent {
       values
     } = this.props;
 
+    const WithDropdowns = ({ content }) => (
+      <Fragment>
+        {dropdowns}
+        {content}
+      </Fragment>
+    );
+
     const renderTabs = [
       {
         name: 'INTERNATIONAL',
         value: INTERNATIONAL_KEY,
-        component: <International />
+        component: <WithDropdowns content={<International />} />
       },
       { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
       {
@@ -84,7 +91,6 @@ class SupportReceived extends PureComponent {
     return (
       <div className={styles.row}>
         <SectionTitle title="Support Received" />
-        {dropdowns}
         <TabSwitcher
           tabs={renderTabs}
           searchFilter={searchFilter}
