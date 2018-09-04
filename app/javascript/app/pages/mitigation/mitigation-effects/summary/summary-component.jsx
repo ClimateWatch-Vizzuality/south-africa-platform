@@ -88,6 +88,7 @@ class Summary extends PureComponent {
                     height={400}
                     data={chartData}
                     handleNodeClick={this.handleNodeClick}
+                    tooltipClassName="global_SATooltip"
                   />
                 </div>
                 <div className={styles.infoContainer}>

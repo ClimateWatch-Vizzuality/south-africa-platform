@@ -15,7 +15,13 @@ class BubbleChart extends PureComponent {
   }
 
   render() {
-    const { width, height, handleNodeClick, data } = this.props;
+    const {
+      width,
+      height,
+      handleNodeClick,
+      data,
+      tooltipClassName
+    } = this.props;
     const charData = data && chartDataCalculation(width, data);
     return (
       <Fragment>
@@ -38,7 +44,11 @@ class BubbleChart extends PureComponent {
               ))
           }
         </svg>
-        <ReactTooltip place="left" id="chartTooltip" className="chartTooltip" />
+        <ReactTooltip
+          place="left"
+          id="chartTooltip"
+          className={tooltipClassName}
+        />
       </Fragment>
     );
   }
@@ -48,9 +58,10 @@ BubbleChart.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   handleNodeClick: PropTypes.func.isRequired,
-  data: PropTypes.array
+  data: PropTypes.array,
+  tooltipClassName: PropTypes.string
 };
 
-BubbleChart.defaultProps = { data: [] };
+BubbleChart.defaultProps = { data: [], tooltipClassName: 'bubbleChartTooltip' };
 
 export default BubbleChart;
