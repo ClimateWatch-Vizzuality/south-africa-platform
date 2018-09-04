@@ -58,9 +58,12 @@ class GDPGrowth extends PureComponent {
         <div className={styles.chart}>
           {
             chartData && (
-            <ChartComposed height={500} {...chartData}>
+            <ChartComposed
+              height={500}
+              {...chartData}
+              areaAsBackgroundForCartesianGrid={greyArea}
+            >
               {lineChart}
-              {greyArea}
             </ChartComposed>
               )
           }
