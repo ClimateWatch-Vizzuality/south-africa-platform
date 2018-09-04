@@ -2,6 +2,7 @@
 
 .columns {
   align-items: flex-end;
+
   @include columns(12);
 
   > div {
