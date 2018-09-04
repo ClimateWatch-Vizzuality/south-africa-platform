@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import { NoContent } from 'cw-components';
 import GDP from './gdp';
 import HumanDevelopmentIndex from './human-development-index';
+import GDPGrowth from './gdp-growth';
 
 import styles from './economy-styles.scss';
 
@@ -18,11 +18,7 @@ class Economy extends PureComponent {
     this.state = {
       tabs: [
         { name: 'GDP', value: GDP_KEY, component: <GDP /> },
-        {
-          name: 'GDP Growth',
-          value: GDP_GROWTH_KEY,
-          component: <NoContent message="Section not ready yet" />
-        },
+        { name: 'GDP Growth', value: GDP_GROWTH_KEY, component: <GDPGrowth /> },
         {
           name: 'Human Development Index',
           value: HUMAN_DEVELOPMENT_INDEX_KEY,
