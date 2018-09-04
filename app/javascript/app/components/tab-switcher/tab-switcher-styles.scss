@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: $gutter-padding;
+  flex-wrap: wrap;
 }
 
 .toolbarActions {
@@ -24,6 +25,11 @@
 
 .switch {
   height: 40px;
+  margin-bottom: $gutter-padding;
+
+  @media #{$tablet-landscape} {
+    margin-bottom: 0;
+  }
 }
 
 .switchOption {
