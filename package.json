@@ -15,6 +15,7 @@
     "classnames": "2.2.5",
     "core-js": "2.5.3",
     "cw-components": "github:ClimateWatch-Vizzuality/climate-watch-components#0.5.0",
+    "d3": "^5.7.0",
     "dotenv": "4.0.0",
     "foundation-sites": "6.4.3",
     "history": "4.7.2",
@@ -34,7 +35,7 @@
     "redux-first-router": "0.0.20-next",
     "redux-first-router-link": "0.0.3-next",
     "redux-thunk": "2.2.0",
-    "redux-tools": "github:vizzuality/redux-tools#v3.3.1",
+    "redux-tools": "github:vizzuality/redux-tools#v3.3.1 --exact",
     "reselect": "3.0.1",
     "topojson-client": "3.0.0"
   },
