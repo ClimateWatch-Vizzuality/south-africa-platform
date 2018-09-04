@@ -3,11 +3,6 @@ import { createSelector, createStructuredSelector } from 'reselect';
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSection = ({ location = {} }) => location.payload.section || null;
 
-const getSearchValue = createSelector(
-  getQueryParams,
-  query => query ? query.search : ''
-);
-
 const getActiveTabValue = createSelector(
   getQueryParams,
   query => query ? query.tab : null
@@ -85,7 +80,6 @@ const getOptions = createStructuredSelector({
 export const getSupportReceived = createStructuredSelector({
   section: getSection,
   query: getQueryParams,
-  searchFilter: getSearchValue,
   activeTabValue: getActiveTabValue,
   options: getOptions,
   values: getValues

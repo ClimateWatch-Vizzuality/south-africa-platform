@@ -17,13 +17,7 @@ class SupportReceived extends PureComponent {
   };
 
   render() {
-    const {
-      searchFilter,
-      activeTabValue,
-      handleFilterChange,
-      options,
-      values
-    } = this.props;
+    const { activeTabValue, handleFilterChange, options, values } = this.props;
 
     const WithDropdowns = ({ content }) => (
       <Fragment>
@@ -93,7 +87,7 @@ class SupportReceived extends PureComponent {
         <SectionTitle title="Support Received" />
         <TabSwitcher
           tabs={renderTabs}
-          searchFilter={searchFilter}
+          searchActive={false}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
@@ -106,7 +100,6 @@ class SupportReceived extends PureComponent {
 SupportReceived.propTypes = {
   query: PropTypes.object,
   section: PropTypes.string,
-  searchFilter: PropTypes.string,
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
@@ -115,7 +108,6 @@ SupportReceived.propTypes = {
 };
 
 SupportReceived.defaultProps = {
-  searchFilter: '',
   query: null,
   section: null,
   activeTabValue: null,
