@@ -35,7 +35,7 @@
     "redux-first-router": "0.0.20-next",
     "redux-first-router-link": "0.0.3-next",
     "redux-thunk": "2.2.0",
-    "redux-tools": "github:vizzuality/redux-tools#v3.3.1",
+    "redux-tools": "github:vizzuality/redux-tools#v3.3.1 --exact",
     "reselect": "3.0.1",
     "topojson-client": "3.0.0"
   },
