@@ -10,8 +10,8 @@ const NON_MONETIZED_NEEDS = 'nonMonetizedNeeds';
 
 class SupportNeeded extends PureComponent {
   handleTabChange = ({ value }) => {
-    const { updateQueryParam, query } = this.props;
-    updateQueryParam({ query: { ...query, tab: value } });
+    const { updateQueryParam, query, section } = this.props;
+    updateQueryParam({ query: { ...query, tab: value }, section });
   };
 
   handleFilterChange = value => {
@@ -59,6 +59,7 @@ class SupportNeeded extends PureComponent {
 }
 
 SupportNeeded.propTypes = {
+  section: PropTypes.string,
   query: PropTypes.object,
   searchFilter: PropTypes.string,
   activeTabValue: PropTypes.string,
@@ -69,6 +70,7 @@ SupportNeeded.propTypes = {
 SupportNeeded.defaultProps = {
   searchFilter: '',
   query: null,
+  section: null,
   activeTabValue: null,
   tableData: {}
 };

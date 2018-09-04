@@ -12,8 +12,8 @@ const NON_MONETIZED_KEY = 'nonMonetized';
 
 class SupportReceived extends PureComponent {
   handleTabChange = ({ value }) => {
-    const { updateQueryParam, query } = this.props;
-    updateQueryParam({ query: { ...query, tab: value } });
+    const { updateQueryParam, query, section } = this.props;
+    updateQueryParam({ query: { ...query, tab: value }, section });
   };
 
   render() {
@@ -105,6 +105,7 @@ class SupportReceived extends PureComponent {
 
 SupportReceived.propTypes = {
   query: PropTypes.object,
+  section: PropTypes.string,
   searchFilter: PropTypes.string,
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
@@ -116,6 +117,7 @@ SupportReceived.propTypes = {
 SupportReceived.defaultProps = {
   searchFilter: '',
   query: null,
+  section: null,
   activeTabValue: null,
   options: {},
   values: {}
