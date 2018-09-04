@@ -6,6 +6,8 @@ import { ChartComposed } from 'cw-components';
 import { Area, Line } from 'recharts';
 import MetaProvider from 'providers/metadata-provider';
 import GdpGrowthProvider from 'providers/gdp-growth-provider';
+import { CustomYAxisTick } from './axis-ticks';
+import GdpTooltip from './gdp-tooltip-chart';
 
 import styles from './gdp-growth-styles';
 
@@ -61,6 +63,8 @@ class GDPGrowth extends PureComponent {
             <ChartComposed
               height={500}
               {...chartData}
+              customYAxisTick={<CustomYAxisTick />}
+              customTooltip={<GdpTooltip />}
               areaAsBackgroundForCartesianGrid={greyArea}
             >
               {lineChart}

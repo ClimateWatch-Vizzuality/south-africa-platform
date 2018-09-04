@@ -5,6 +5,7 @@ import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Chart } from 'cw-components';
 import HumanDevelopmentIndexProvider from 'providers/human-development-index-provider';
 import { CustomYAxisTick } from './axis-ticks';
+import HdiTooltip from './hdi-tooltip-chart';
 
 import styles from './human-development-index-styles';
 
@@ -38,6 +39,7 @@ class HumanDevelopmentIndex extends PureComponent {
             customMessage="Emissions data not available"
             hideRemoveOptions
             customYAxisTick={<CustomYAxisTick />}
+            customTooltip={<HdiTooltip />}
             {...chartData}
           />
         </div>

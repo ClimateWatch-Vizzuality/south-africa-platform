@@ -3,7 +3,7 @@
       "axes": {
         "xBottom": { "name": "Year", "unit": "date", "format": "YYYY" },
         "yLeft": {
-          "name": "Human Development Index",
+          "name": "HDI",
           "unit": "",
           "format": "number"
         }

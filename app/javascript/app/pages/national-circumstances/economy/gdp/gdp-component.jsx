@@ -7,6 +7,7 @@ import { Dropdown, Chart } from 'cw-components';
 import MetaProvider from 'providers/metadata-provider';
 import GdpProvider from 'providers/gdp-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
+import { CustomYAxisTick } from './axis-ticks';
 
 import styles from './gdp-styles';
 
@@ -68,6 +69,7 @@ class GDP extends PureComponent {
             dots={false}
             customMessage="GDP data not available"
             hideRemoveOptions
+            customYAxisTick={<CustomYAxisTick />}
             {...chartData}
           />
         </div>
