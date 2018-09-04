@@ -19,7 +19,9 @@ const getSummaryData = ({ mitigationEffects = {} }) =>
   isEmpty(mitigationEffects.data) ? null : mitigationEffects.data;
 
 const setBubbleColor = (selectedId, id) =>
-  selectedId === id ? CHART_COLORS.selected : CHART_COLORS.default;
+  parseInt(selectedId, 10) === id
+    ? CHART_COLORS.selected
+    : CHART_COLORS.default;
 const setInitialColor = (e, summary, themeSelected = DEFAULT_THEME) =>
   e.id === summary.filter(s => s.theme === themeSelected)[0].id
     ? CHART_COLORS.selected

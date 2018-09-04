@@ -34,9 +34,9 @@ class SummaryContainer extends PureComponent {
 
 SummaryContainer.propTypes = {
   updateFiltersSelected: PropTypes.func.isRequired,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object
 };
 
-SummaryContainer.defaultProps = {};
+SummaryContainer.defaultProps = { query: {} };
 
 export default connect(mapStateToProps, actions)(SummaryContainer);
