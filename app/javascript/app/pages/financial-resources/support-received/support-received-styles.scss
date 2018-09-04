@@ -4,10 +4,16 @@
   @include row();
 }
 
+.dropdownWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: $gutter-padding;
+}
+
 .dropdown {
   margin-right: $gutter-padding / 2;
+  width: 200px;
 
   @media #{$tablet-landscape} {
-    width: 200px;
   }
 }
