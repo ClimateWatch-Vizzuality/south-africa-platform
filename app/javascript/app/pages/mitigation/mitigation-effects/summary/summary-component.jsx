@@ -66,17 +66,19 @@ class Summary extends PureComponent {
             hideResetButton
             disabled
           />
-          <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
-            <Button onClick={this.handleInfoClick}>
-              <Icon icon={iconInfo} />
-            </Button>
-            <Button
-              onClick={() => console.info('Clicked on download')}
-              disabled
-            >
-              <Icon icon={iconDownload} />
-            </Button>
-          </ButtonGroup>
+          <div className={styles.buttonGroupContainer}>
+            <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
+              <Button onClick={this.handleInfoClick}>
+                <Icon icon={iconInfo} />
+              </Button>
+              <Button
+                onClick={() => console.info('Clicked on download')}
+                disabled
+              >
+                <Icon icon={iconDownload} />
+              </Button>
+            </ButtonGroup>
+          </div>
         </div>
         {
           visTypeSelected.value === 'bubble-chart'
