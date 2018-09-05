@@ -5,6 +5,7 @@ import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import styles from './support-received-styles.scss';
 import International from './international';
+import Domestic from './domestic';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -62,7 +63,7 @@ class SupportReceived extends PureComponent {
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, handleFilterChange } = this.props;
 
     const WithDropdowns = ({ content }) => (
       <Fragment>
@@ -77,7 +78,15 @@ class SupportReceived extends PureComponent {
         value: INTERNATIONAL_KEY,
         component: <WithDropdowns content={<International />} />
       },
-      { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
+      {
+        name: 'DOMESTIC',
+        value: DOMESTIC_KEY,
+        component: (
+          <WithDropdowns
+            content={<Domestic handleFilterChange={handleFilterChange} />}
+          />
+        )
+      },
       {
         name: 'NON-MONETIZED',
         value: NON_MONETIZED_KEY,
