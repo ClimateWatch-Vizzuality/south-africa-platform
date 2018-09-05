@@ -10,7 +10,7 @@ $flag-height: 40px;
 }
 
 .header {
-  padding-top: 20px;
+  padding-top: 40px;
 
   @include row();
 }
@@ -112,6 +112,7 @@ $flag-height: 40px;
 
 // Tabs Container
 
+// TODO: Create a more responsive tabs container (the active link is sometimes not visible)
 .tabsContainer {
   display: flex;
   align-items: center;
@@ -119,7 +120,10 @@ $flag-height: 40px;
     top: 20px;
   }
 
+  overflow-x: scroll;
+
   @media #{$tablet-landscape} {
+    overflow-x: hidden;
     justify-content: center;
   }
 }
