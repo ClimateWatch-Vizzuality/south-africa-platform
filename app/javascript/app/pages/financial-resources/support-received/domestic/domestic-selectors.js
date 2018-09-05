@@ -3,8 +3,8 @@ import isEmpty from 'lodash/isEmpty';
 
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
 
-const getData = ({ mitigationEffects = {} }) =>
-  isEmpty(mitigationEffects.data) ? null : mitigationEffects.data;
+const getData = ({ financialResources = {} }) =>
+  isEmpty(financialResources.data) ? null : financialResources.data;
 
 const getDomesticIdParam = ({ location }) =>
   location.query ? location.query.domesticId : null;

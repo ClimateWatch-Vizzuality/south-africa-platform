@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import BubbleChart from 'components/bubble-chart';
-import MitigationEffectsProvider from 'providers/mitigation-effects-provider';
+import FinancialResourcesProvider from 'providers/financial-resources-provider';
 
 class Domestic extends PureComponent {
   handleNodeClick = (e, id) => {
@@ -26,7 +26,7 @@ class Domestic extends PureComponent {
               />
             )
         }
-        <MitigationEffectsProvider />
+        <FinancialResourcesProvider />
       </div>
     );
   }
