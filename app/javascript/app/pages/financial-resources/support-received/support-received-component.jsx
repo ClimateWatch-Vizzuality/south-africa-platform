@@ -18,52 +18,26 @@ class SupportReceived extends PureComponent {
   };
 
   renderDropdowns() {
-    const { handleFilterChange, options, values } = this.props;
-
+    const { handleFilterChange, options, values, dropdownConfig } = this.props;
     return (
       <div className={styles.dropdownWrapper}>
-        <Dropdown
-          label="Origin of funds"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.fundOrigin}
-          value={values.fundOrigin}
-          onValueChange={option =>
-            handleFilterChange('fundOrigin', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Financial flows"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.financialFlow}
-          value={values.financialFlow}
-          onValueChange={option =>
-            handleFilterChange('financialFlows', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Country"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.country}
-          value={values.country}
-          onValueChange={option =>
-            handleFilterChange('countryValue', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Chart type"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.chartType}
-          value={values.chartType}
-          onValueChange={option =>
-            handleFilterChange('chartType', option.value)}
-          hideResetButton
-        />
+        {dropdownConfig.map(d => (
+          <Dropdown
+            key={d.label}
+            label={d.label}
+            theme={{ wrapper: styles.dropdown }}
+            options={options[d.slug]}
+            value={values[d.slug]}
+            onValueChange={option => handleFilterChange(d.slug, option.value)}
+            hideResetButton
+          />
+        ))}
       </div>
     );
   }
 
   render() {
-    const { activeTabValue, handleFilterChange } = this.props;
+    const { activeTabValue, handleFilterChange, values } = this.props;
 
     const WithDropdowns = ({ content }) => (
       <Fragment>
@@ -83,7 +57,14 @@ class SupportReceived extends PureComponent {
         value: DOMESTIC_KEY,
         component: (
           <WithDropdowns
-            content={<Domestic handleFilterChange={handleFilterChange} />}
+            content={
+              (
+                <Domestic
+                  selectedValues={values}
+                  handleFilterChange={handleFilterChange}
+                />
+              )
+            }
           />
         )
       },
@@ -117,11 +98,13 @@ SupportReceived.propTypes = {
   updateQueryParam: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   options: PropTypes.object,
-  values: PropTypes.object
+  values: PropTypes.object,
+  dropdownConfig: PropTypes.array
 };
 
 SupportReceived.defaultProps = {
   query: null,
+  dropdownConfig: [],
   section: null,
   activeTabValue: null,
   options: {},
