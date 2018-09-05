@@ -88,7 +88,7 @@ class HdiTooltipChart extends PureComponent {
                   : null
             )
         }
-        {content && !content.payload && <div>No data fool</div>}
+        {content && !content.payload && <div>No data</div>}
       </div>
     );
   }
