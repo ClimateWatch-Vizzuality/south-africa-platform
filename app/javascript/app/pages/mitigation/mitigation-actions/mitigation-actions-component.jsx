@@ -10,7 +10,6 @@ const ALL_ACTIONS_KEY = 'allActions';
 const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
 const WITHOUT_QUANTIFIED_EFFECTS_KEY = 'withoutQuantifiedEffects';
 
-
 class GHGInventory extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;

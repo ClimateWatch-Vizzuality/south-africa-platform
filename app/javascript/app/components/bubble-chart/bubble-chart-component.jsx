@@ -28,19 +28,19 @@ class BubbleChart extends PureComponent {
         <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
           {
             charData && charData.children.map(d => (
-              <g
-                key={d.value}
-                transform={`translate(${d.x},${d.y})`}
-                onClick={e => handleNodeClick(e, d.data.id)}
-              >
-                <circle
-                  r={d.r}
-                  data-for="chartTooltip"
-                  data-tip={`${d.data.value} ${d.data.unit}`}
-                  fill={d.data.color}
-                  className={styles.circle}
-                />
-              </g>
+                <g
+                  key={d.value}
+                  transform={`translate(${d.x},${d.y})`}
+                  onClick={e => handleNodeClick(e, d.data.id)}
+                >
+                  <circle
+                    r={d.r}
+                    data-for="chartTooltip"
+                    data-tip={`${d.data.value} ${d.data.unit}`}
+                    fill={d.data.color}
+                    className={styles.circle}
+                  />
+                </g>
               ))
           }
         </svg>
