@@ -1,15 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { ChartComposed } from 'cw-components';
-
+import Chart from 'components/chart';
 import SectionTitle from 'components/section-title';
 import ModalMetadata from 'components/modal-metadata';
 import ProjectedEmissionsProvider from 'providers/projected-emissions-provider';
 
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 
-// Charts
 import { Area, Line } from 'recharts';
 import isUndefined from 'lodash/isUndefined';
 
@@ -112,7 +110,6 @@ class ProjectedEmissions extends PureComponent {
 
   render() {
     const { chartData } = this.props;
-
     return (
       <div className={styles.grid}>
         <div className={styles.toolbarWithSectionTitle}>
@@ -127,7 +124,8 @@ class ProjectedEmissions extends PureComponent {
         </div>
         {
           chartData && (
-          <ChartComposed
+          <Chart
+            chartType="composed"
             height={500}
             {...chartData}
             onLegendChange={this.handleLegendChange}
@@ -136,7 +134,7 @@ class ProjectedEmissions extends PureComponent {
             {this.renderLinesWithDots()}
             {this.renderDotsLines()}
             {this.renderPlainLines()}
-          </ChartComposed>
+          </Chart>
             )
         }
         <ProjectedEmissionsProvider />

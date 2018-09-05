@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown, Chart } from 'cw-components';
+import { Dropdown } from 'cw-components';
+import Chart from 'components/chart';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import DistributionByAgeProvider from 'providers/distribution-by-age-provider';

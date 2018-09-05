@@ -9,9 +9,9 @@ import {
   ButtonGroup,
   Button,
   Icon,
-  Dropdown,
-  Chart
+  Dropdown
 } from 'cw-components';
+import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
