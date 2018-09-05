@@ -1,0 +1,51 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.columns {
+  @include columns();
+  > div { margin-bottom: 50px; }
+
+  @media #{$tablet-landscape} {
+    @include columns(6);
+    > div { margin-bottom: 0; }
+  }
+}
+
+.title {
+  font-weight: $font-weight-bold;
+  margin-bottom: $gutter-padding;
+}
+
+.data {
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: $font-size-large;
+}
+
+.cards {
+  @include columns();
+  > div { margin-bottom: 50px; &:last-child { margin-bottom: 0; } }
+
+  @media #{$tablet-landscape} {
+    @include columns(6);
+    > div { margin-bottom: 0; }
+  }
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+}
+
+.dropdown {
+  margin-bottom: 50px;
+
+  @media #{$tablet-landscape} {
+    width: 200px;
+    margin-bottom: 0;
+  }
+}

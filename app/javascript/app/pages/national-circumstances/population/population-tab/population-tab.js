@@ -4,20 +4,17 @@ import { connect } from 'react-redux';
 import {
   setModalMetadata
 } from 'components/modal-metadata/modal-metadata-actions';
+import * as ownActions from './population-tab-actions';
 
-import Component from './energy-component';
-import { getTotalGHGEMissions } from './energy-selectors';
-import * as ownActions from './energy-actions';
+import Component from './population-tab-component';
 
 const actions = { ...ownActions, setModalMetadata };
 
-const mapStateToProps = getTotalGHGEMissions;
-
-class EnergyContainer extends PureComponent {
+class PopulationTabContainer extends PureComponent {
   onFilterChange = filter => {
     const { updateFiltersSelected, query } = this.props;
     updateFiltersSelected({
-      section: 'energy',
+      section: 'population',
       query: { ...query, ...filter }
     });
   };
@@ -27,11 +24,11 @@ class EnergyContainer extends PureComponent {
   }
 }
 
-EnergyContainer.propTypes = {
+PopulationTabContainer.propTypes = {
   updateFiltersSelected: PropTypes.func.isRequired,
   query: PropTypes.object.isRequired
 };
 
-EnergyContainer.defaultProps = {};
+PopulationTabContainer.defaultProps = {};
 
-export default connect(mapStateToProps, actions)(EnergyContainer);
+export default connect(null, actions)(PopulationTabContainer);

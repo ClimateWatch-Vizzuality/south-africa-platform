@@ -7,6 +7,9 @@ import router from 'router';
 // Providers
 import { reduxModule as ghgEmissions } from 'providers/ghg-emissions-provider';
 import { reduxModule as ghgInventory } from 'providers/ghg-inventory-provider';
+import {
+  reduxModule as mitigationEffects
+} from 'providers//mitigation-effects-provider';
 import { reduxModule as worldBank } from 'providers/world-bank-provider';
 import { reduxModule as metadata } from 'providers/metadata-provider';
 import {
@@ -18,6 +21,9 @@ import {
 import {
   reduxModule as projectedEmissions
 } from 'providers/projected-emissions-provider';
+import {
+  reduxModule as distributionByAge
+} from 'providers/distribution-by-age-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -25,12 +31,14 @@ import { reduxModule as modalMetadata } from 'components/modal-metadata';
 const providersReducers = {
   GHGEmissions: handleModule(ghgEmissions),
   GHGInventory: handleModule(ghgInventory),
+  mitigationEffects: handleModule(mitigationEffects),
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),
   climateRisksData: handleModule(climateRisksData),
   modalMetadata: handleModule(modalMetadata),
-  ProjectedEmissions: handleModule(projectedEmissions)
+  ProjectedEmissions: handleModule(projectedEmissions),
+  DistributionByAge: handleModule(distributionByAge)
 };
 
 export default combineReducers({
