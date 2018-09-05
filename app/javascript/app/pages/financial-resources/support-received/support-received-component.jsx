@@ -16,32 +16,10 @@ class SupportReceived extends PureComponent {
     updateQueryParam({ query: { ...query, tab: value }, section });
   };
 
-  render() {
-    const { activeTabValue, handleFilterChange, options, values } = this.props;
+  renderDropdowns() {
+    const { handleFilterChange, options, values } = this.props;
 
-    const WithDropdowns = ({ content }) => (
-      <Fragment>
-        {dropdowns}
-        {content}
-      </Fragment>
-    );
-
-    const renderTabs = [
-      {
-        name: 'INTERNATIONAL',
-        value: INTERNATIONAL_KEY,
-        component: <WithDropdowns content={<International />} />
-      },
-      { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
-      {
-        name: 'NON-MONETIZED',
-        value: NON_MONETIZED_KEY,
-        component: null,
-        disabled: true
-      }
-    ];
-
-    const dropdowns = (
+    return (
       <div className={styles.dropdownWrapper}>
         <Dropdown
           label="Origin of funds"
@@ -81,6 +59,32 @@ class SupportReceived extends PureComponent {
         />
       </div>
     );
+  }
+
+  render() {
+    const { activeTabValue } = this.props;
+
+    const WithDropdowns = ({ content }) => (
+      <Fragment>
+        {this.renderDropdowns()}
+        {content}
+      </Fragment>
+    );
+
+    const renderTabs = [
+      {
+        name: 'INTERNATIONAL',
+        value: INTERNATIONAL_KEY,
+        component: <WithDropdowns content={<International />} />
+      },
+      { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
+      {
+        name: 'NON-MONETIZED',
+        value: NON_MONETIZED_KEY,
+        component: null,
+        disabled: true
+      }
+    ];
 
     return (
       <div className={styles.row}>
