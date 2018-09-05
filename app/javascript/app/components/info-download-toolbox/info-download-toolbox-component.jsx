@@ -26,6 +26,7 @@ class InfoDownloadToolbox extends PureComponent {
         </Button>
         <Button
           onClick={this.handleDownloadClick}
+          disabled
           theme={{ button: cx(styles.infobutton, theme.infobutton) }}
         >
           <Icon icon={downloadIcon} />

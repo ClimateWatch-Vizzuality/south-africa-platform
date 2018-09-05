@@ -26,10 +26,6 @@ class GDP extends PureComponent {
     });
   };
 
-  handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
-  };
-
   render() {
     const { metricSelected, metricOptions, gdpParams, chartData } = this.props;
 

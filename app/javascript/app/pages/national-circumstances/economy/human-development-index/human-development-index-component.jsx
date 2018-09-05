@@ -36,7 +36,7 @@ class HumanDevelopmentIndex extends PureComponent {
             type="line"
             lineType="linear"
             dots={false}
-            customMessage="Emissions data not available"
+            customMessage="Economy data not available"
             hideRemoveOptions
             customYAxisTick={<CustomYAxisTick />}
             customTooltip={<HdiTooltip />}
