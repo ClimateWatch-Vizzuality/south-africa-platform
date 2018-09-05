@@ -3,14 +3,8 @@ import PropTypes from 'prop-types';
 import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
-import {
-  Section,
-  ButtonGroup,
-  Button,
-  Icon,
-  Dropdown,
-  Chart
-} from 'cw-components';
+import { Section, ButtonGroup, Button, Icon, Dropdown } from 'cw-components';
+import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';

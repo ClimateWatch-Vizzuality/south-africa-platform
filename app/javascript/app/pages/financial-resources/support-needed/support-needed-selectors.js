@@ -3,6 +3,7 @@ import { supportNeededData } from 'data/mocks/financial-resources';
 import { deburrUpper } from 'utils/utils';
 
 const getQueryParams = ({ location = {} }) => location.query || null;
+const getSection = ({ location = {} }) => location.payload.section || null;
 
 const getSearchValue = createSelector(
   getQueryParams,
@@ -51,5 +52,6 @@ export const getSupportNeeded = createStructuredSelector({
   query: getQueryParams,
   searchFilter: getSearchValue,
   activeTabValue: getActiveTabValue,
-  tableData: getTableData
+  tableData: getTableData,
+  section: getSection
 });
