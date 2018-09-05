@@ -6,11 +6,17 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: $gutter-padding;
+  flex-wrap: wrap;
 }
 
 .toolbarActions {
   display: flex;
   align-items: center;
+  margin-bottom: $gutter-padding;
+
+  @media #{$tablet-landscape} {
+    margin-bottom: 0;
+  }
 }
 
 .buttonWrapper {
@@ -22,8 +28,18 @@
   margin-left: $gutter-padding / 2;
 }
 
+// TODO: Create a more responsive tab switcher
 .switch {
-  height: 40px;
+  height: 60px;
+  margin-bottom: $gutter-padding;
+
+  @media #{$tablet-portrait} {
+    height: 40px;
+  }
+
+  @media #{$tablet-landscape} {
+    margin-bottom: 0;
+  }
 }
 
 .switchOption {

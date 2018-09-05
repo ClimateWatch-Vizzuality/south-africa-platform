@@ -82,37 +82,35 @@ class Summary extends PureComponent {
         </div>
         {
           visTypeSelected.value === 'bubble-chart'
-            ? (
-              <div className={styles.contentContainer}>
-                <div className={styles.chartContainer}>
-                  <BubbleChart
-                    width={400}
-                    height={400}
-                    data={chartData}
-                    handleNodeClick={this.handleNodeClick}
-                    tooltipClassName="global_SATooltip"
-                  />
-                </div>
-                <div className={styles.infoContainer}>
-                  {
+            ? <div className={styles.contentContainer}>
+              <div className={styles.chartContainer}>
+                <BubbleChart
+                  width={400}
+                  height={400}
+                  data={chartData}
+                  handleNodeClick={this.handleNodeClick}
+                  tooltipClassName="global_SATooltip"
+                />
+              </div>
+              <div className={styles.infoContainer}>
+                {
                   summarySelected && (
-                  <div>
-                    <p className={styles.label}>Policy</p>
-                    <h2 className={styles.policy}>
-                      {summarySelected.policy}
-                    </h2>
-                    <p className={styles.label}>Objectives</p>
-                    <p className={styles.text}>
-                      {summarySelected.objectives}
-                    </p>
-                    <p className={styles.label}>Actor</p>
-                    <p className={styles.text}>{summarySelected.actor}</p>
-                  </div>
+                      <div>
+                        <p className={styles.label}>Policy</p>
+                        <h2 className={styles.policy}>
+                          {summarySelected.policy}
+                        </h2>
+                        <p className={styles.label}>Objectives</p>
+                        <p className={styles.text}>
+                          {summarySelected.objectives}
+                        </p>
+                        <p className={styles.label}>Actor</p>
+                        <p className={styles.text}>{summarySelected.actor}</p>
+                      </div>
                     )
                 }
-                </div>
               </div>
-)
+            </div>
             : <div>TABLE</div>
         }
         <ModalMetadata />

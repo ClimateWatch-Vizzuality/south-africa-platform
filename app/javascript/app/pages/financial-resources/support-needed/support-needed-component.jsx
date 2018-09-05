@@ -2,15 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import GHGInventoryProvider from 'providers/ghg-inventory-provider';
 import DataTable from 'components/data-table';
-import styles from './mitigation-actions-styles.scss';
+import styles from './support-needed-styles.scss';
 
-const ALL_ACTIONS_KEY = 'allActions';
-const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
-const WITHOUT_QUANTIFIED_EFFECTS_KEY = 'withoutQuantifiedEffects';
+const FINANCIAL_SUPPORT_NEEDED_KEY = 'financialSupportNeeded';
+const NON_MONETIZED_NEEDS = 'nonMonetizedNeeds';
 
-class GHGInventory extends PureComponent {
+class SupportNeeded extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;
     updateQueryParam({ query: { ...query, tab: value } });
@@ -25,27 +23,19 @@ class GHGInventory extends PureComponent {
     const { tableData, searchFilter } = this.props;
     return [
       {
-        name: 'ALL ACTIONS',
-        value: ALL_ACTIONS_KEY,
+        name: 'FINANCIAL SUPPORT NEEDED',
+        value: FINANCIAL_SUPPORT_NEEDED_KEY,
         component: (
           <DataTable tableData={tableData} searchFilter={searchFilter} />
         )
       },
       {
-        name: 'WITH QUANTIFIED EFFECTS',
-        value: WITH_QUANTIFIED_EFFECTS_KEY,
-        disabled: true,
+        name: 'NON MONETIZED NEEDS',
+        value: NON_MONETIZED_NEEDS,
         component: (
           <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
-      },
-      {
-        name: 'WITHOUT QUANTIFIED EFFECTS',
-        value: WITHOUT_QUANTIFIED_EFFECTS_KEY,
-        disabled: true,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
+        ),
+        disabled: true
       }
     ];
   }
@@ -54,37 +44,33 @@ class GHGInventory extends PureComponent {
     const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle title="GHG Inventory Improvement Programme" />
+        <SectionTitle title="Support Needed" />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
+          actionsActive={false}
         />
-        <GHGInventoryProvider />
       </div>
     );
   }
 }
 
-GHGInventory.propTypes = {
+SupportNeeded.propTypes = {
   query: PropTypes.object,
   searchFilter: PropTypes.string,
-  tableData: PropTypes.shape({
-    data: PropTypes.array,
-    defaultColumns: PropTypes.array,
-    ellipsisColumns: PropTypes.array
-  }),
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  tableData: PropTypes.object
 };
 
-GHGInventory.defaultProps = {
+SupportNeeded.defaultProps = {
   searchFilter: '',
   query: null,
-  tableData: {},
-  activeTabValue: null
+  activeTabValue: null,
+  tableData: {}
 };
 
-export default GHGInventory;
+export default SupportNeeded;

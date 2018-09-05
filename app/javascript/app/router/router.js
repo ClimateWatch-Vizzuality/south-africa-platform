@@ -5,6 +5,7 @@ import queryString from 'query-string';
 import NationalSections from './sections/national-circumstances';
 import GHGSections from './sections/ghg-emissions';
 import MitigationSections from './sections/mitigation';
+import FinancialSections from './sections/financial-resources';
 
 const history = createHistory();
 
@@ -12,6 +13,7 @@ export const HOME = 'location/HOME';
 export const NATIONAL_CIRCUMSTANCES = 'location/NATIONAL_CIRCUMSTANCES';
 export const GHG_EMISSIONS = 'location/GHG_EMISSIONS';
 export const MITIGATIONS = 'location/MITIGATIONS';
+export const FINANCIAL_RESOURCES = 'location/FINANCIAL_RESOURCES';
 
 export const routes = {
   [HOME]: {
@@ -45,6 +47,14 @@ export const routes = {
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',
     sections: MitigationSections
+  },
+  [FINANCIAL_RESOURCES]: {
+    nav: true,
+    label: 'Financial Resources',
+    link: '/financial-resources',
+    path: '/financial-resources/:section?',
+    component: 'layouts/sections/sections',
+    sections: FinancialSections
   },
   [NOT_FOUND]: {
     path: '/404',
