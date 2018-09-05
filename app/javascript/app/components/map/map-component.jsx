@@ -52,7 +52,11 @@ class Map extends Component {
             </Geographies>
           </ZoomableGroup>
         </ComposableMap>
-        <ReactTooltip place="right" id="mapTooltip" className="mapTooltip" />
+        <ReactTooltip
+          place="right"
+          id="mapTooltip"
+          className="global_SATooltip"
+        />
       </div>
     );
   }

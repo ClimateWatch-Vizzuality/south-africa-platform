@@ -8,6 +8,8 @@ import styles from './mitigation-actions-styles.scss';
 
 const ALL_ACTIONS_KEY = 'allActions';
 const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
+const WITHOUT_QUANTIFIED_EFFECTS_KEY = 'withoutQuantifiedEffects';
+
 
 class GHGInventory extends PureComponent {
   handleTabChange = ({ value }) => {
@@ -33,6 +35,14 @@ class GHGInventory extends PureComponent {
       {
         name: 'WITH QUANTIFIED EFFECTS',
         value: WITH_QUANTIFIED_EFFECTS_KEY,
+        disabled: true,
+        component: (
+          <DataTable tableData={tableData} searchFilter={searchFilter} />
+        )
+      },
+      {
+        name: 'WITHOUT QUANTIFIED EFFECTS',
+        value: WITHOUT_QUANTIFIED_EFFECTS_KEY,
         disabled: true,
         component: (
           <DataTable tableData={tableData} searchFilter={searchFilter} />
