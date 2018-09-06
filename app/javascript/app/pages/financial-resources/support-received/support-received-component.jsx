@@ -38,34 +38,32 @@ class SupportReceived extends PureComponent {
 
   render() {
     const { activeTabValue, handleFilterChange, values } = this.props;
-
-    const WithDropdowns = ({ content }) => (
+    const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
-        {content}
+        {children}
       </Fragment>
     );
-
     const renderTabs = [
       {
         name: 'INTERNATIONAL',
         value: INTERNATIONAL_KEY,
-        component: <WithDropdowns content={<International />} />
+        component: (
+          <WithDropdowns>
+            <International />
+          </WithDropdowns>
+        )
       },
       {
         name: 'DOMESTIC',
         value: DOMESTIC_KEY,
         component: (
-          <WithDropdowns
-            content={
-              (
-                <Domestic
-                  selectedValues={values}
-                  handleFilterChange={handleFilterChange}
-                />
-              )
-            }
-          />
+          <WithDropdowns>
+            <Domestic
+              selectedValues={values}
+              handleFilterChange={handleFilterChange}
+            />
+          </WithDropdowns>
         )
       },
       {
