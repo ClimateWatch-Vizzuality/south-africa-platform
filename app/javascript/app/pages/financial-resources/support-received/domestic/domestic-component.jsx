@@ -56,7 +56,7 @@ class Domestic extends PureComponent {
 
 Domestic.propTypes = {
   data: PropTypes.array,
-  selectedValues: PropTypes.array,
+  selectedValues: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired
 };
 

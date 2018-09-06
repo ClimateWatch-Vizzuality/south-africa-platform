@@ -94,17 +94,18 @@ const getOptions = createStructuredSelector({
 });
 
 const getDropdownConfig = createSelector(getQueryParams, query => {
-  const { tab } = query;
   const dropdownConfig = [
     { label: 'Origin of funds', slug: 'fundOrigin' },
     { label: 'Financial flows', slug: 'financialFlow' },
     { label: 'Chart type', slug: 'chartType' }
   ];
-  let tabSpecificDropdown = { label: 'Country', slug: 'country' };
+  let tabSpecificDropdowns = [ { label: 'Country', slug: 'country' } ];
+  if (!query) return dropdownConfig.concat(tabSpecificDropdowns);
+  const { tab } = query;
   if (tab === 'domestic') {
-    tabSpecificDropdown = { label: 'Donor', slug: 'donor' };
+    tabSpecificDropdowns = [ { label: 'Donor', slug: 'donor' } ];
   }
-  return dropdownConfig.concat(tabSpecificDropdown);
+  return dropdownConfig.concat(tabSpecificDropdowns);
 });
 
 export const getSupportReceived = createStructuredSelector({
