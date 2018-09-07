@@ -5,6 +5,7 @@ import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import styles from './support-received-styles.scss';
 import International from './international';
+import Domestic from './domestic';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -17,67 +18,54 @@ class SupportReceived extends PureComponent {
   };
 
   renderDropdowns() {
-    const { handleFilterChange, options, values } = this.props;
-
+    const { handleFilterChange, options, values, dropdownConfig } = this.props;
     return (
       <div className={styles.dropdownWrapper}>
-        <Dropdown
-          label="Origin of funds"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.fundOrigin}
-          value={values.fundOrigin}
-          onValueChange={option =>
-            handleFilterChange('fundOrigin', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Financial flows"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.financialFlow}
-          value={values.financialFlow}
-          onValueChange={option =>
-            handleFilterChange('financialFlows', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Country"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.country}
-          value={values.country}
-          onValueChange={option =>
-            handleFilterChange('countryValue', option.value)}
-          hideResetButton
-        />
-        <Dropdown
-          label="Chart type"
-          theme={{ wrapper: styles.dropdown }}
-          options={options.chartType}
-          value={values.chartType}
-          onValueChange={option =>
-            handleFilterChange('chartType', option.value)}
-          hideResetButton
-        />
+        {dropdownConfig.map(d => (
+          <Dropdown
+            key={d.label}
+            label={d.label}
+            theme={{ wrapper: styles.dropdown }}
+            options={options[d.slug]}
+            value={values[d.slug]}
+            onValueChange={option => handleFilterChange(d.slug, option.value)}
+            hideResetButton
+          />
+        ))}
       </div>
     );
   }
 
   render() {
-    const { activeTabValue } = this.props;
-
-    const WithDropdowns = ({ content }) => (
+    const { activeTabValue, handleFilterChange, values } = this.props;
+    const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
-        {content}
+        {children}
       </Fragment>
     );
-
     const renderTabs = [
       {
         name: 'INTERNATIONAL',
         value: INTERNATIONAL_KEY,
-        component: <WithDropdowns content={<International />} />
+        component: (
+          <WithDropdowns>
+            <International />
+          </WithDropdowns>
+        )
       },
-      { name: 'DOMESTIC', value: DOMESTIC_KEY, component: null },
+      {
+        name: 'DOMESTIC',
+        value: DOMESTIC_KEY,
+        component: (
+          <WithDropdowns>
+            <Domestic
+              selectedValues={values}
+              handleFilterChange={handleFilterChange}
+            />
+          </WithDropdowns>
+        )
+      },
       {
         name: 'NON-MONETIZED',
         value: NON_MONETIZED_KEY,
@@ -108,11 +96,13 @@ SupportReceived.propTypes = {
   updateQueryParam: PropTypes.func.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   options: PropTypes.object,
-  values: PropTypes.object
+  values: PropTypes.object,
+  dropdownConfig: PropTypes.array
 };
 
 SupportReceived.defaultProps = {
   query: null,
+  dropdownConfig: [],
   section: null,
   activeTabValue: null,
   options: {},

@@ -22,13 +22,7 @@ class SummaryContainer extends PureComponent {
   };
 
   render() {
-    return (
-      <Component
-        {...this.props}
-        onFilterChange={this.onFilterChange}
-        updateDataColor={this.updateDataColor}
-      />
-    );
+    return <Component {...this.props} onFilterChange={this.onFilterChange} />;
   }
 }
 
