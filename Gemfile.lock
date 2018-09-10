@@ -91,6 +91,10 @@ GEM
       ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     ffi (1.9.25)
     globalid (0.4.1)
@@ -213,6 +217,7 @@ DEPENDENCIES
   climate_watch_engine (~> 1.0.1)!
   cw_historical_emissions (~> 1.0.3)!
   cw_locations (~> 1.0.3)!
+  dotenv-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
