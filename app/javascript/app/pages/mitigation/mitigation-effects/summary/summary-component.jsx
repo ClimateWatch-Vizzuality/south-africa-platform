@@ -1,9 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import BubbleChart from 'components/bubble-chart';
 import ModalMetadata from 'components/modal-metadata';
-import { Dropdown, ButtonGroup, Button, Icon } from 'cw-components';
-
+import {
+  Dropdown,
+  ButtonGroup,
+  Button,
+  Icon,
+  BubbleChart
+} from 'cw-components';
 import iconInfo from 'assets/icons/info';
 import iconDownload from 'assets/icons/download';
 
