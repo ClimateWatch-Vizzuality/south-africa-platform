@@ -1,3 +1,24 @@
+GIT
+  remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
+  revision: 80a9046475fb35940161866d46ebeed8f24e5baf
+  specs:
+    climate_watch_engine (1.0.0)
+      aws-sdk (~> 2)
+      rails (~> 5.1.5)
+    cw_historical_emissions (1.0.1)
+      active_model_serializers (~> 0.10.0)
+      aws-sdk (~> 2)
+      climate_watch_engine (~> 1.0.0)
+      cw_locations (~> 1.0.0)
+      pg
+      rails (~> 5.1.5)
+    cw_locations (1.0.1)
+      active_model_serializers (~> 0.10.0)
+      aws-sdk (~> 2)
+      climate_watch_engine (~> 1.0.0)
+      pg
+      rails (~> 5.1.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -24,6 +45,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_model_serializers (0.10.7)
+      actionpack (>= 4.1, < 6)
+      activemodel (>= 4.1, < 6)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (5.1.6)
       activesupport (= 5.1.6)
       globalid (>= 0.3.6)
@@ -41,6 +67,14 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    aws-sdk (2.11.108)
+      aws-sdk-resources (= 2.11.108)
+    aws-sdk-core (2.11.108)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.11.108)
+      aws-sdk-core (= 2.11.108)
+    aws-sigv4 (1.0.3)
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.2)
@@ -51,6 +85,8 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
+    case_transform (0.2)
+      activesupport
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     concurrent-ruby (1.0.5)
@@ -59,11 +95,13 @@ GEM
     ffi (1.9.25)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
-    i18n (1.0.1)
+    i18n (1.1.0)
       concurrent-ruby (~> 1.0)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jmespath (1.4.0)
+    jsonapi-renderer (0.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -74,7 +112,7 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
-    mini_mime (1.0.0)
+    mini_mime (1.0.1)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
@@ -168,8 +206,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
+  aws-sdk (~> 2)
   byebug
   capybara (~> 2.13)
+  climate_watch_engine (~> 1.0.0)!
+  cw_historical_emissions (~> 1.0.1)!
+  cw_locations (~> 1.0.1)!
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
@@ -182,6 +225,9 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 3.3.0)
   webpacker
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.16.3
