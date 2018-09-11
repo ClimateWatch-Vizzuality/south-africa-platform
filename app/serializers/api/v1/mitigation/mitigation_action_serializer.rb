@@ -22,8 +22,8 @@ module Api
         attributes :name, :objectives, :status, :actor,
                    :time_horizon, :ghg, :estimated_emission_reduction
 
-        belongs_to :mitigation_category,
-                   serializer: Api::V1::Mitigation::MitigationCategorySerializer
+        belongs_to :mitigation_theme,
+                   serializer: Api::V1::Mitigation::MitigationThemeSerializer
       end
     end
   end

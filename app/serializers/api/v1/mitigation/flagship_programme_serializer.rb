@@ -17,8 +17,8 @@ module Api
       class FlagshipProgrammeSerializer < ActiveModel::Serializer
         attributes :title, :description, :position
 
-        belongs_to :mitigation_category,
-                   serializer: Api::V1::Mitigation::MitigationCategorySerializer
+        belongs_to :mitigation_theme,
+                   serializer: Api::V1::Mitigation::MitigationThemeSerializer
       end
     end
   end

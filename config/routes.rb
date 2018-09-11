@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       namespace :mitigation do
         resources :flagship_programmes, only: [:index], controller: :flagship_programmes
         resources :mitigation_actions, only: [:index], controller: :mitigation_actions
-        resources :mitigation_categories, only: [:index], controller: :mitigation_categories
+        resources :mitigation_themes, only: [:index], controller: :mitigation_themes
+        resources :mitigation_sectors, only: [:index], controller: :mitigation_sectors
       end
       get '(*endpoint)', controller: :api, action: :route_not_found
     end

@@ -1,13 +1,9 @@
 class ImportMitigation
-  # rubocop:disable LineLength
-  MITIGATION_CATEGORIES_FILEPATH = 'public/mocks/mitigation_categories.json'.freeze
-  MITIGATION_ACTIONS_FILEPATH = "#{CW_FILES_PREFIX}3. Mitigation/Table 27 - Additional mitigation actions in energy sector not in BUR1 - Sheet1.csv".freeze
-  FLAGSHIP_PROGRAMMES_FILEPATH = nil # FIXME: Still no data available
-  # rubocop:enable LineLength
+  MITIGATION_ACTIONS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions.csv".freeze
+  FLAGSHIP_PROGRAMMES_FILEPATH = "#{CW_FILES_PREFIX}flagship_programmes.csv".freeze
 
   def call
     cleanup
-    create_categories
     import_actions(S3CSVReader.read(MITIGATION_ACTIONS_FILEPATH))
   end
 
@@ -16,34 +12,44 @@ class ImportMitigation
   def cleanup
     Mitigation::FlagshipProgramme.delete_all
     Mitigation::MitigationAction.delete_all
-    Mitigation::MitigationCategory.delete_all
+    Mitigation::MitigationTheme.delete_all
+    Mitigation::MitigationSector.delete_all
   end
 
-  def create_categories
-    json = JSON.parse(File.read(File.join(Rails.root, MITIGATION_CATEGORIES_FILEPATH)))
-    json.each do |category|
-      ::Mitigation::MitigationCategory.create(category)
-    end
-  end
-
-  def action_attributes(row)
+  def action_attributes(row, mitigation_theme_id)
     {
-      # mitigation_category_id: ::Mitigation::MitigationCategory.find_by(name: row[0]),
-      mitigation_category_id: 1, # FIXME: Mock. To replace when the csv are final
-      name: row[0],
-      objectives: row[1],
-      status: row[2],
-      actor: row[3],
-      time_horizon: row[4],
-      ghg: row[5],
-      estimated_emission_reduction: row[6]
+      mitigation_theme_id: mitigation_theme_id,
+      name: row[:name],
+      objectives: row[:objective],
+      mitigation_type: row[:type],
+      status: row[:status],
+      actor: row[:agency],
+      time_horizon: row[:timehorizon],
+      ghg: row[:ghg],
+      estimated_emission_reduction: row[:reductions],
+      cobenefits: row[:cobenefits]
     }
+  end
+
+  def mitigation_theme(mitigation_sector, row)
+    mitigation_theme = ::Mitigation::MitigationTheme.find_by(title: row[:theme],
+                                                             mitigation_sector: mitigation_sector)
+    return mitigation_theme if mitigation_theme
+    position = ::Mitigation::MitigationTheme.order(position: :desc)&.first&.position || 0
+    position += 1
+    Mitigation::MitigationTheme.create!(
+      title: row[:theme],
+      position: position,
+      mitigation_sector: mitigation_sector
+    )
   end
 
   def import_actions(content)
     content.each do |row|
       begin
-        ::Mitigation::MitigationAction.create!(action_attributes(row))
+        mitigation_sector = ::Mitigation::MitigationSector.first_or_create!(name: row[:sector])
+        mitigation_theme = mitigation_theme(mitigation_sector, row)
+        ::Mitigation::MitigationAction.create!(action_attributes(row, mitigation_theme.id))
       rescue ActiveRecord::RecordInvalid => invalid
         STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
       end
