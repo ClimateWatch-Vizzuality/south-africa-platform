@@ -14,5 +14,9 @@ FactoryBot.define do
   factory :mitigation_theme, class: 'Mitigation::MitigationTheme' do
     sequence(:position)
     sequence(:title) { |n| ('A'..'Z').to_a[n] }
+
+    factory :mitigation_theme_complete, class: 'Mitigation::MitigationTheme' do
+      association :mitigation_sector, factory: :mitigation_sector, strategy: :build
+    end
   end
 end

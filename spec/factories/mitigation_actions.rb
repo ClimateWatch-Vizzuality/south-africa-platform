@@ -30,5 +30,9 @@ FactoryBot.define do
     sequence(:estimated_emission_reduction) { |n| ('AA'..'ZZ').to_a[n] }
     sequence(:cobenefits) { |n| ('AA'..'ZZ').to_a[n] }
     sequence(:bur1) { true }
+
+    factory :mitigation_action_complete, class: 'Mitigation::MitigationAction' do
+      association :mitigation_theme, factory: :mitigation_theme_complete, strategy: :build
+    end
   end
 end

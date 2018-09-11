@@ -18,7 +18,7 @@ RSpec.describe Mitigation::MitigationTheme, type: :model do
     ).to have(1).error_on(:mitigation_sector)
   end
   let(:sector) {
-    FactoryBot.create(:mitigation_sector)
+    FactoryBot.build(:mitigation_sector)
   }
   it 'should be valid' do
     expect(FactoryBot.build(:mitigation_theme, mitigation_sector: sector)).to be_valid
