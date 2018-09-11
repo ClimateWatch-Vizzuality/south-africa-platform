@@ -13,6 +13,9 @@ Rails.application.routes.draw do
         resources :mitigation_themes, only: [:index], controller: :mitigation_themes
         resources :mitigation_sectors, only: [:index], controller: :mitigation_sectors
       end
+      resources :inventory_improvement_projects,
+                only: [:index],
+                defaults: { format: 'json' }
       get '(*endpoint)', controller: :api, action: :route_not_found
     end
   end
