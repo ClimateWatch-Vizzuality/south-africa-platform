@@ -13,7 +13,7 @@ export const fetchNaturalDisastersDataFail = createAction(
   'fetchNaturalDisastersDataFail'
 );
 
-const URL_FOR_CLIMATE_RISKS_DATA = '';
+const URL_FOR_NATURAL_DISASTERS_DATA = '';
 
 export const fetchNaturalDisastersData = createThunkAction(
   'fetchNaturalDisastersData',
@@ -22,7 +22,7 @@ export const fetchNaturalDisastersData = createThunkAction(
     if (isEmpty(naturalDisastersData.data) && !naturalDisastersData.loading) {
       dispatch(fetchNaturalDisastersDataInit());
       CWAPI
-        .get(URL_FOR_CLIMATE_RISKS_DATA)
+        .get(URL_FOR_NATURAL_DISASTERS_DATA)
         .then((data = {}) => {
           dispatch(fetchNaturalDisastersDataReady(data));
         })
