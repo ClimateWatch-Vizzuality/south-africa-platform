@@ -18,9 +18,17 @@
 #  updated_at                   :datetime         not null
 #
 
-module Mitigation
-  class MitigationAction < ApplicationRecord
-    validates_presence_of :name
-    belongs_to :mitigation_theme
+FactoryBot.define do
+  factory :mitigation_action, class: 'Mitigation::MitigationAction' do
+    sequence(:name) { |n| ('A'..'Z').to_a[n] }
+    sequence(:objectives) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:mitigation_type) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:status) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:actor) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:time_horizon) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:ghg) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:estimated_emission_reduction) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:cobenefits) { |n| ('AA'..'ZZ').to_a[n] }
+    sequence(:bur1) { true }
   end
 end
