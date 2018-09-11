@@ -12,8 +12,10 @@
 .titleContainer {
   @media #{$tablet-landscape} {
     @include columns(6);
+
     margin-bottom: $gutter-padding;
   }
+
   .actionContainer {
     display: flex;
     justify-content: flex-end;

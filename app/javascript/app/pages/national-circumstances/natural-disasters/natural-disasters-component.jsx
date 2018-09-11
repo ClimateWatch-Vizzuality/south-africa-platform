@@ -2,22 +2,22 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'cw-components';
 import SectionTitle from 'components/section-title';
-import ClimateRisksDataProvider from 'providers/climate-risks-data-provider';
-import styles from './climate-risks-styles.scss';
+import NaturalDisastersDataProvider from 'providers/natural-disasters-data-provider';
+import styles from './natural-disasters-styles.scss';
 
 function createMarkup(description) {
   return { __html: description };
 }
 
-class ClimateRisks extends PureComponent {
+class NaturalDisasters extends PureComponent {
   render() {
-    const { climateRisksData } = this.props;
+    const { naturalDisastersData } = this.props;
     return (
       <div className={styles.sectionWrapper}>
-        <SectionTitle isSubtitle title="Climate Risks" />
+        <SectionTitle isSubtitle title="Natural Disasters" />
         <div className={styles.cardsContainer}>
           {
-            climateRisksData && climateRisksData.map(card => (
+            naturalDisastersData && naturalDisastersData.map(card => (
               <div key={card.title} className={styles.cardElement}>
                 <Card title={card.title} theme={styles}>
                   <div
@@ -29,14 +29,14 @@ class ClimateRisks extends PureComponent {
               ))
           }
         </div>
-        <ClimateRisksDataProvider />
+        <NaturalDisastersDataProvider />
       </div>
     );
   }
 }
 
-ClimateRisks.propTypes = { climateRisksData: PropTypes.array };
+NaturalDisasters.propTypes = { naturalDisastersData: PropTypes.array };
 
-ClimateRisks.defaultProps = { climateRisksData: [] };
+NaturalDisasters.defaultProps = { naturalDisastersData: [] };
 
-export default ClimateRisks;
+export default NaturalDisasters;
