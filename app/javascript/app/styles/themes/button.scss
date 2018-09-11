@@ -10,12 +10,14 @@
 
 .white {
   @extend .default;
+
   color: $action-color;
   background-color: $white;
 }
 
 .primary {
   @extend .default;
+
   color: $white;
   background-color: $action-color;
 }

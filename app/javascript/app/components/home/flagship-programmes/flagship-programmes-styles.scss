@@ -4,6 +4,7 @@
 .flagshipContainer {
   @include row();
 }
+
 .titleContainer {
   @include columns(6);
 
@@ -11,6 +12,7 @@
     margin-top: 0;
   }
 }
+
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
