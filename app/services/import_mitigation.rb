@@ -5,6 +5,7 @@ class ImportMitigation
   def call
     cleanup
     import_actions(S3CSVReader.read(MITIGATION_ACTIONS_FILEPATH))
+    import_programmes(S3CSVReader.read(FLAGSHIP_PROGRAMMES_FILEPATH))
   end
 
   private
@@ -55,4 +56,7 @@ class ImportMitigation
       end
     end
   end
+
+  # TODO: The documents provided don't contain enough information to import the programmes
+  def import_programmes(content); end
 end
