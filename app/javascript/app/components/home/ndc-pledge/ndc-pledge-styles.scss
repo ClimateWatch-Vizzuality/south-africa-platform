@@ -3,6 +3,7 @@
 
 .row {
   @include row();
+
   justify-content: center;
 }
 
@@ -33,26 +34,19 @@
   .ndcTextContainer {
     padding-left: $gutter-padding;
 
-    .ndcTitle {
-      font-size: $font-size-x-large;
-      font-weight: $font-weight-light;
-      line-height: $line-height-small;
-      color: $midnightblue;
-      padding-bottom: $gutter-padding;
-    }
-
     .ndcDescription {
-      line-height: 1.63;
       color: $midnightblue;
       padding-bottom: $gutter-padding;
+      line-height: $line-height;
     }
   }
 
   .learnMoreButton {
-    background-color: $white;
+    background-color: $theme-color;
+    width: 100%;
 
-    @media #{$tablet-landscape} {
-      width: 50%;
+    @media #{$tablet-portrait} {
+      width: 270px;
     }
   }
 }

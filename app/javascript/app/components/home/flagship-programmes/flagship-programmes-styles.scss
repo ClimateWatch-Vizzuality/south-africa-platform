@@ -4,9 +4,20 @@
 .flagshipContainer {
   @include row();
 }
+.titleContainer {
+  @include columns(6);
 
-.flagshipProgrammesTitle {
-  margin-top: 0;
+  .flagshipProgrammesTitle {
+    margin-top: 0;
+  }
+}
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+
+  .flagshipProgrammesButton {
+    margin-top: 10px;
+  }
 }
 
 .container {
@@ -23,6 +34,18 @@
 
 .title {
   display: none;
+}
+
+.description {
+  width: 100%;
+  line-height: $line-height;
+
+  @media #{$tablet-landscape} {
+    width: 50%;
+  }
+
+  color: $midnightblue;
+  padding-bottom: $gutter-padding;
 }
 
 .grid {
