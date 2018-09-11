@@ -2,17 +2,12 @@
 @import '~styles/layout.scss';
 
 .section {
-  padding-top: 0;
-  padding-bottom: 60px;
+  padding-top: $gutter-padding;
+  padding-bottom: $gutter-padding * 2;
 
   @media #{$tablet-landscape} {
-    padding-top: 60px;
+    padding-top: $gutter-padding * 2;
     padding-bottom: 0;
-
-    &.extraPadding {
-      padding-top: 110px;
-      padding-bottom: 120px;
-    }
   }
 }
 
@@ -20,7 +15,7 @@
   @include row();
 
   @media #{$tablet-landscape} {
-    height: 700px;
+    height: 490px;
   }
 }
 
@@ -48,4 +43,5 @@
   color: $white;
   font-size: $font-size-large;
   line-height: 1.5;
+  text-align: center;
 }
