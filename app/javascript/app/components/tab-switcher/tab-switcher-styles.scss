@@ -9,6 +9,14 @@
   flex-wrap: wrap;
 }
 
+.flexEnd {
+  justify-content: flex-end;
+
+  .switch {
+    border: 0;
+  }
+}
+
 .toolbarActions {
   display: flex;
   align-items: center;

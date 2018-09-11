@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, ButtonGroup, Button, Icon, Input } from 'cw-components';
+import cx from 'classnames';
 import ModalMetadata from 'components/modal-metadata';
 
 import iconInfo from 'assets/icons/info';
@@ -24,10 +25,10 @@ class TabSwitcher extends PureComponent {
     const activeTab = activeTabValue
       ? tabs.find(t => t.value === activeTabValue)
       : tabs[0];
-
+    const onlyOneTab = tabs.length < 2;
     return (
       <div className={styles.wrapper}>
-        <div className={styles.toolbar}>
+        <div className={cx(styles.toolbar, { [styles.flexEnd]: onlyOneTab })}>
           <Switch
             options={tabs.map(o => ({
               name: o.name,
