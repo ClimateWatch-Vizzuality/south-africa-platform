@@ -1,0 +1,58 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.row {
+  @include row();
+  justify-content: center;
+}
+
+.section {
+  background-color: $porcelain;
+  padding: $gutter-padding 0;
+}
+
+.ndcContainer {
+  @include columns();
+
+  @media #{$tablet-landscape} {
+    @include columns(6);
+  }
+
+  .ndcImage {
+    max-width: 100%;
+    object-fit: cover;
+    height: auto;
+    padding-bottom: $gutter-padding;
+    display: block;
+
+    @media #{$tablet-landscape} {
+      padding-bottom: 0;
+    }
+  }
+
+  .ndcTextContainer {
+    padding-left: $gutter-padding;
+
+    .ndcTitle {
+      font-size: $font-size-x-large;
+      font-weight: $font-weight-light;
+      line-height: $line-height-small;
+      color: $midnightblue;
+      padding-bottom: $gutter-padding;
+    }
+
+    .ndcDescription {
+      line-height: 1.63;
+      color: $midnightblue;
+      padding-bottom: $gutter-padding;
+    }
+  }
+
+  .learnMoreButton {
+    background-color: $white;
+
+    @media #{$tablet-landscape} {
+      width: 50%;
+    }
+  }
+}

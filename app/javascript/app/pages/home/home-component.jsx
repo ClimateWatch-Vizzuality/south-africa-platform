@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Section } from 'cw-components';
 import background from 'assets/hero';
+import NDCPledge from 'components/home/ndc-pledge';
 import TotalGHGEmissions from 'components/home/total-ghg-emissions';
 import FlagshipProgrammes from 'components/home/flagship-programmes';
+
 import styles from './home-styles.scss';
 
 class Home extends PureComponent {
@@ -18,6 +20,7 @@ class Home extends PureComponent {
             </div>
           </div>
         </Section>
+        <NDCPledge />
         <TotalGHGEmissions />
         <FlagshipProgrammes />
       </div>
