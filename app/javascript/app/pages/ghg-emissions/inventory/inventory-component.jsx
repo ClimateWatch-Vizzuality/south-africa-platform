@@ -41,20 +41,24 @@ class GHGInventory extends PureComponent {
             return {
               ...tab,
               component: hasContent
-                ? <Table
-                  horizontalScroll
-                  tableHeight={660}
-                  hasColumnSelect={false}
-                  {...props.tableData}
-                />
-                : <NoContent
-                  minHeight={330}
-                  message={
+                ? (
+                  <Table
+                    horizontalScroll
+                    tableHeight={660}
+                    hasColumnSelect={false}
+                    {...props.tableData}
+                  />
+)
+                : (
+                  <NoContent
+                    minHeight={330}
+                    message={
                     props.searchFilter
                       ? 'No data found with this search'
                       : 'No data available'
                   }
-                />
+                  />
+)
             };
           }
           return tab;
@@ -80,7 +84,7 @@ class GHGInventory extends PureComponent {
   render() {
     return (
       <div className={styles.row}>
-        <SectionTitle title="GHG Inventory Improvement Programme" />
+        <SectionTitle isSubtitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher
           tabs={this.state.tabs}
           searchFilter={this.props.searchFilter}

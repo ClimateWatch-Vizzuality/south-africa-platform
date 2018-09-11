@@ -54,7 +54,7 @@ class GHGInventory extends PureComponent {
     const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle title="GHG Inventory Improvement Programme" />
+        <SectionTitle isSubtitle title="GHG Inventory Improvement Programme" />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}

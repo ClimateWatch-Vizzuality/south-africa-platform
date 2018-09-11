@@ -94,7 +94,7 @@ class GHGHistoricalEmissions extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle title="Historical emissions" />
+          <SectionTitle isSubtitle title="Historical emissions" />
           <TabletLandscape>
             {matches => {
               if (matches) {

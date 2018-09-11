@@ -84,7 +84,7 @@ class Energy extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle title="Energy supply" />
+          <SectionTitle isSubtitle title="Energy supply" />
           <TabletLandscape>
             {matches => {
               if (matches) {

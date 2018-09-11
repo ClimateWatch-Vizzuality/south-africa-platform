@@ -14,7 +14,7 @@ class ClimateRisks extends PureComponent {
     const { climateRisksData } = this.props;
     return (
       <div className={styles.sectionWrapper}>
-        <SectionTitle title="Climate Risks" />
+        <SectionTitle isSubtitle title="Climate Risks" />
         <div className={styles.cardsContainer}>
           {
             climateRisksData && climateRisksData.map(card => (
