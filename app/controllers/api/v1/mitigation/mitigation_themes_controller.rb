@@ -17,7 +17,6 @@ module Api
                         disposition: 'attachment'
             end
           end
-
         end
       end
     end
