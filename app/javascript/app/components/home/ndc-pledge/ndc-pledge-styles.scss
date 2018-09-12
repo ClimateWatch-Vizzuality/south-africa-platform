@@ -33,6 +33,14 @@
 
   .ndcTextContainer {
     padding-left: $gutter-padding;
+    display: flex;
+    flex-direction: column;
+
+    .ndcTitle {
+      margin-top: 0;
+      font-weight: bold;
+      line-height: $line-height;
+    }
 
     .ndcDescription {
       color: $midnightblue;
@@ -42,11 +50,6 @@
   }
 
   .learnMoreButton {
-    background-color: $theme-color;
-    width: 100%;
-
-    @media #{$tablet-portrait} {
-      width: 270px;
-    }
+    margin-top: auto;
   }
 }
