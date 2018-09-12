@@ -14,6 +14,8 @@
 
 module Mitigation
   class FlagshipProgramme < ApplicationRecord
+    include ::GenericToCsv
+
     self.table_name = 'flagship_programmes'
     validates_presence_of :position, :title
     belongs_to :mitigation_theme

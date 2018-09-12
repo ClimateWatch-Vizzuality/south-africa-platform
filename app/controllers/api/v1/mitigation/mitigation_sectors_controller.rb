@@ -5,8 +5,18 @@ module Api
         def index
           values = ::Mitigation::MitigationSector.all
 
-          render json: values,
-                 each_serializer: Api::V1::Mitigation::MitigationSectorSerializer
+          respond_to do |format|
+            format.json do
+              render json: values,
+                     each_serializer: Api::V1::Mitigation::MitigationSectorSerializer
+            end
+            format.csv do
+              send_data values.to_csv,
+                        type: 'text/csv',
+                        filename: 'mitigation_sectors.csv',
+                        disposition: 'attachment'
+            end
+          end
         end
       end
     end

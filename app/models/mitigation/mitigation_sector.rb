@@ -12,6 +12,8 @@
 
 module Mitigation
   class MitigationSector < ApplicationRecord
+    include ::GenericToCsv
+
     validates_presence_of :name
     has_many :mitigation_themes
   end

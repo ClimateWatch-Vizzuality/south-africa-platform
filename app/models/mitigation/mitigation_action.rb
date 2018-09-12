@@ -20,6 +20,8 @@
 
 module Mitigation
   class MitigationAction < ApplicationRecord
+    include ::GenericToCsv
+
     validates_presence_of :name
     belongs_to :mitigation_theme
   end

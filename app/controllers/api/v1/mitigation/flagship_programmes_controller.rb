@@ -5,8 +5,18 @@ module Api
         def index
           values = ::Mitigation::FlagshipProgramme.all
 
-          render json: values,
-                 each_serializer: Api::V1::Mitigation::FlagshipProgrammeSerializer
+          respond_to do |format|
+            format.json do
+              render json: values,
+                     each_serializer: Api::V1::Mitigation::FlagshipProgrammeSerializer
+            end
+            format.csv do
+              send_data values.to_csv,
+                        type: 'text/csv',
+                        filename: 'flagship_programmes.csv',
+                        disposition: 'attachment'
+            end
+          end
         end
       end
     end

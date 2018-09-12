@@ -12,6 +12,8 @@
 
 module Mitigation
   class MitigationTheme < ApplicationRecord
+    include ::GenericToCsv
+
     validates_presence_of :position
     belongs_to :mitigation_sector
     has_many :mitigation_actions
