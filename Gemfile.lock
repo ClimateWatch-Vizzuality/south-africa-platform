@@ -8,8 +8,8 @@ GIT
     cw_historical_emissions (1.1.0)
       active_model_serializers (~> 0.10.0)
       aws-sdk (~> 2)
-      climate_watch_engine (~> 1.0.0)
-      cw_locations (~> 1.0.1)
+      climate_watch_engine (~> 1.1.0)
+      cw_locations (~> 1.1.0)
       pg
       rails (~> 5.1.5)
     cw_locations (1.1.0)
@@ -267,8 +267,8 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 3.7)
   rails (~> 5.1.6)
-  responders
   rails-controller-testing
+  responders
   rspec-collection_matchers
   rspec-rails (~> 3.5)
   sass-rails (~> 5.0)
@@ -279,9 +279,6 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 3.3.0)
   webpacker
-
-RUBY VERSION
-   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.4
