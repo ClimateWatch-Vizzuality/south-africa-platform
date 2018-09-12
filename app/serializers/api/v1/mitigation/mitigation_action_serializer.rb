@@ -19,7 +19,7 @@ module Api
   module V1
     module Mitigation
       class MitigationActionSerializer < ActiveModel::Serializer
-        attributes :name, :objectives, :status, :actor,
+        attributes :name, :objectives, :mitigation_type, :status, :actor,
                    :time_horizon, :ghg, :estimated_emission_reduction
 
         belongs_to :mitigation_theme,

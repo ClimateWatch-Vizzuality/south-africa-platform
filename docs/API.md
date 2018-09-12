@@ -131,6 +131,7 @@ Mitigation theme | Name | Objectives | Mitigation type | Status | Actor | Time h
     {
         "name": "Eskom Open Cycle Gas Turbines (OCGT)",
         "objectives": "Between 2007 and 2014 a total of 7,827 net GWh of electricity was generated from Eskom’s OCGT plants",
+        "mitigation_type": "Economic",
         "status": "Existing measure",
         "actor": "Eskom",
         "time_horizon": null,
