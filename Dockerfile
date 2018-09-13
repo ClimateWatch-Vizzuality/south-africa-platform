@@ -6,6 +6,7 @@ ENV RAKE_ENV production
 ENV RAILS_ENV production
 ENV COUNTRY_ISO=ZAF
 ENV CW_API_URL=https://climate-watch.vizzuality.com/api/v1
+ENV S3_BUCKET_NAME climate-watch-dev
 
 # Install dependencies
 RUN apt-get update \

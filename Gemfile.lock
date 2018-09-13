@@ -1,18 +1,18 @@
 GIT
   remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
-  revision: 3c7e12464d3263b3ef5a846b50c840cc39f3f9ae
+  revision: b3cd22e949d476273a29057a28d6aef72b5c708e
   specs:
     climate_watch_engine (1.0.0)
       aws-sdk (~> 2)
       rails (~> 5.1.5)
-    cw_historical_emissions (1.0.1)
+    cw_historical_emissions (1.0.2)
       active_model_serializers (~> 0.10.0)
       aws-sdk (~> 2)
       climate_watch_engine (~> 1.0.0)
       cw_locations (~> 1.0.1)
       pg
       rails (~> 5.1.5)
-    cw_locations (1.0.1)
+    cw_locations (1.0.2)
       active_model_serializers (~> 0.10.0)
       aws-sdk (~> 2)
       climate_watch_engine (~> 1.0.0)
@@ -211,8 +211,8 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   climate_watch_engine (~> 1.0.0)!
-  cw_historical_emissions (~> 1.0.1)!
-  cw_locations (~> 1.0.1)!
+  cw_historical_emissions (~> 1.0.2)!
+  cw_locations (~> 1.0.2)!
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
@@ -227,7 +227,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.4

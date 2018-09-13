@@ -1,0 +1,93 @@
+{
+    "config": {
+      "axes": {
+        "xBottom": { "name": "Year", "unit": "date", "format": "YYYY" },
+        "yLeft": {
+          "name": "HDI",
+          "unit": "",
+          "format": "number"
+        }
+      },
+      "theme": {
+        "ySA": { "stroke": "#0E9560", "fill": "#0E9560" },
+        "ySSA": { "stroke": "#F33A37", "fill": "#F33A37" },
+        "yW": { "stroke": "#3897D9", "fill": "#3897D9" }
+      },
+      "tooltip": {
+        "ySA": { "label": "South Africa" },
+        "ySSA": { "label": "South Saharan Africa" },
+        "yW": { "label": "World" }
+      },
+      "animation": false,
+      "columns": {
+        "x": [{ "label": "year", "value": "x" }],
+        "y": [
+          { "label": "South Africa", "value": "ySA" },
+          { "label": "South Saharan Africa", "value": "ySSA" },
+          { "label": "World", "value": "yW" }
+        ]
+      }
+    },
+    "data": [
+      {
+        "x": 1980,
+        "ySA": 0.65,
+        "ySSA": 0.5,
+        "yW": 0.4
+      },
+      {
+        "x": 1990,
+        "ySA": 0.85,
+        "ySSA": 0.55,
+        "yW": 0.3
+      },
+      {
+        "x": 2000,
+        "ySA": 0.7,
+        "ySSA": 0.4,
+        "yW": 0.8
+      },
+      {
+        "x": 2005,
+        "ySA": 0.9,
+        "ySSA": 0.3,
+        "yW": 0.7
+      },
+      {
+        "x": 2007,
+        "ySA": 0.85,
+        "ySSA": 0.55,
+        "yW": 0.3
+      },
+      {
+        "x": 2010,
+        "ySA": 0.3,
+        "ySSA": 0.4,
+        "yW": 0.5
+      },
+      {
+        "x": 2011,
+        "ySA": 0.6,
+        "ySSA": 0.5,
+        "yW": 0.4
+      },
+      {
+        "x": 2012,
+        "ySA": 0.7,
+        "ySSA": 0.6,
+        "yW": 0.3
+      }
+    ],
+    "domain": { "x": ["auto", "auto"], "y": [0, "auto"] },
+    "dataSelected": [
+      { "value": 1, "label": "South Africa" },
+      { "value": 2, "label": "South Saharan Africa" },
+      { "value": 3, "label": "World" }
+    ],
+    "dataOptions": [
+      { "value": 1, "label": "South Africa" },
+      { "value": 2, "label": "South Saharan Africa" },
+      { "value": 3, "label": "World" }
+    ]
+  }
+  

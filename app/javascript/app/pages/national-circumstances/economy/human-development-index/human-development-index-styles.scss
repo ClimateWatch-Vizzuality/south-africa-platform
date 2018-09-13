@@ -1,0 +1,9 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: $gutter-padding;
+}
