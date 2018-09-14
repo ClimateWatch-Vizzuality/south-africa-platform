@@ -3,3 +3,38 @@
 .row {
   @include row();
 }
+
+.icon {
+  margin-left: 10px;
+  fill: $white;
+}
+
+.titleContainer {
+  @media #{$tablet-landscape} {
+    @include columns(6);
+
+    margin-bottom: $gutter-padding;
+  }
+
+  .actionContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: $gutter-padding * 2;
+    margin-bottom: $gutter-padding;
+
+    @media #{$tablet-landscape} {
+      margin-bottom: 0;
+    }
+
+    .downloadDescription {
+      color: $raven;
+      padding: 10px $gutter-padding / 2 0;
+    }
+
+    .downloadButton {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+  }
+}

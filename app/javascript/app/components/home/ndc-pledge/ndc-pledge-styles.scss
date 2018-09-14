@@ -1,0 +1,55 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.row {
+  @include row();
+
+  justify-content: center;
+}
+
+.section {
+  background-color: $porcelain;
+  padding: $gutter-padding 0;
+}
+
+.ndcContainer {
+  @include columns();
+
+  @media #{$tablet-landscape} {
+    @include columns(6);
+  }
+
+  .ndcImage {
+    max-width: 100%;
+    object-fit: cover;
+    height: auto;
+    padding-bottom: $gutter-padding;
+    display: block;
+
+    @media #{$tablet-landscape} {
+      padding-bottom: 0;
+    }
+  }
+
+  .ndcTextContainer {
+    padding-left: $gutter-padding;
+    display: flex;
+    flex-direction: column;
+
+    .ndcTitle {
+      margin-top: 0;
+      font-weight: bold;
+      line-height: $line-height;
+    }
+
+    .ndcDescription {
+      color: $midnightblue;
+      padding-bottom: $gutter-padding;
+      line-height: $line-height;
+    }
+  }
+
+  .learnMoreButton {
+    margin-top: auto;
+  }
+}

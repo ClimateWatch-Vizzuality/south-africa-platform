@@ -21,7 +21,7 @@ const getActiveTabValue = createSelector(
 const defaultColumns = [ 'name', 'definition', 'unit', 'composite_name' ];
 const ellipsisColumns = [ 'composite_name' ];
 
-const getParsedInventory = createSelector([ getInventory, getSearchValue ], (
+const getParsedMitigation = createSelector([ getInventory, getSearchValue ], (
   data,
   searchFilter
 ) =>
@@ -38,13 +38,13 @@ const getParsedInventory = createSelector([ getInventory, getSearchValue ], (
         )
     );
   });
-const getTableData = createSelector(getParsedInventory, data => ({
+const getTableData = createSelector(getParsedMitigation, data => ({
   data,
   defaultColumns,
   ellipsisColumns
 }));
 
-export const getGHGInventory = createStructuredSelector({
+export const getMitigationActions = createStructuredSelector({
   query: getQueryParams,
   tableData: getTableData,
   searchFilter: getSearchValue,

@@ -1,6 +1,6 @@
 import { createStructuredSelector } from 'reselect';
 
-const climateRisksData = () => [
+const naturalDisastersData = () => [
   {
     title: 'Mitigation: Greenhouse Gas Targets',
     description: `“South Africa’s emissions by 2025 and 2030 will be in a range between 398 and 614 Mt CO2–eq, as defined in national policy.”`
@@ -12,6 +12,6 @@ const climateRisksData = () => [
     description: 'Intense wild fies: significant damages caused...'
   }
 ];
-export const getClimateRisksData = createStructuredSelector({
-  climateRisksData
+export const getNaturalDisastersData = createStructuredSelector({
+  naturalDisastersData
 });

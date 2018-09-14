@@ -53,7 +53,7 @@ class Population extends PureComponent {
   render() {
     return (
       <div className={styles.row}>
-        <SectionTitle title="Provincial Development Priorities" />
+        <SectionTitle isSubtitle title="Population" />
         <TabSwitcher
           tabs={this.state.tabs}
           actionsActive={false}

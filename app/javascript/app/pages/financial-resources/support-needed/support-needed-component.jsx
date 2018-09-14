@@ -44,7 +44,7 @@ class SupportNeeded extends PureComponent {
     const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle title="Support Needed" />
+        <SectionTitle isSubtitle title="Support Needed" />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}

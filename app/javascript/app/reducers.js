@@ -19,8 +19,8 @@ import {
   reduxModule as countriesOverview
 } from 'providers/overview-country-info-provider';
 import {
-  reduxModule as climateRisksData
-} from 'providers/climate-risks-data-provider';
+  reduxModule as naturalDisastersData
+} from 'providers/natural-disasters-data-provider';
 import {
   reduxModule as projectedEmissions
 } from 'providers/projected-emissions-provider';
@@ -44,7 +44,7 @@ const providersReducers = {
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),
-  climateRisksData: handleModule(climateRisksData),
+  naturalDisastersData: handleModule(naturalDisastersData),
   modalMetadata: handleModule(modalMetadata),
   ProjectedEmissions: handleModule(projectedEmissions),
   DistributionByAge: handleModule(distributionByAge),
