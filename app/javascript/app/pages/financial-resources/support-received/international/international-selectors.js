@@ -24,13 +24,14 @@ export const getData = () => {
   return { ...data, nodes: nodesWithColors };
 };
 
-export const getTooltipConfig = () => {
+export const getConfig = () => {
   const unit = 'USD million';
+  const suffix = 'm';
   const focus = 'Mitigation, capacity building';
-  return { unit, focus };
+  return { tooltip: { unit, focus }, node: { unit, suffix } };
 };
 
 export const getInternational = createStructuredSelector({
   data: getData,
-  tooltipConfig: getTooltipConfig
+  config: getConfig
 });
