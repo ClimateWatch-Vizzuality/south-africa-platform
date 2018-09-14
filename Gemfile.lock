@@ -66,14 +66,17 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arel (8.0.0)
-    aws-sdk (2.11.127)
-      aws-sdk-resources (= 2.11.127)
-    aws-sdk-core (2.11.127)
+    aws-sdk (2.11.130)
+      aws-sdk-resources (= 2.11.130)
+    aws-sdk-core (2.11.130)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.11.127)
-      aws-sdk-core (= 2.11.127)
+    aws-sdk-resources (2.11.130)
+      aws-sdk-core (= 2.11.130)
     aws-sigv4 (1.0.3)
     bindex (0.5.0)
     builder (3.2.3)
@@ -250,6 +253,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers (~> 0.10.0)
+  annotate
   aws-sdk (~> 2)
   byebug
   capybara (~> 2.13)
@@ -275,9 +279,6 @@ DEPENDENCIES
   tzinfo-data
   web-console (>= 3.3.0)
   webpacker
-
-RUBY VERSION
-   ruby 2.5.1p57
 
 BUNDLED WITH
    1.16.4
