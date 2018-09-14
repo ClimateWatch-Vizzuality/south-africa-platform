@@ -1,6 +1,6 @@
 class ImportInventoryImprovement
   DATA_FILEPATH =
-    "#{CW_FILES_PREFIX}2. GHG Emissions/inventory_improvement_projects.csv".freeze
+    "#{CW_FILES_PREFIX}inventory_improvement_projects.csv".freeze
 
   def call
     cleanup
