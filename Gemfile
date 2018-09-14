@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.7'
 gem 'webpacker'
@@ -52,9 +52,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git' do
-  gem 'climate_watch_engine', '~> 1.1.0'
-  gem 'cw_locations', '~> 1.1.0', require: 'locations'
-  gem 'cw_historical_emissions', '~> 1.1.0', require: 'historical_emissions'
+  gem 'climate_watch_engine', '~> 1.2.0'
+  gem 'cw_locations', '~> 1.2.0', require: 'locations'
+  gem 'cw_historical_emissions', '~> 1.2.0', require: 'historical_emissions'
 end
 
 # for debugging
