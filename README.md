@@ -176,3 +176,7 @@ npx release 'major' | 'minor' | 'patch'
 ```
 
 and push to master!
+
+## API
+
+[docs](docs/API.md)
