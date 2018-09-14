@@ -176,3 +176,11 @@ npx release 'major' | 'minor' | 'patch'
 ```
 
 and push to master!
+
+### Deploy
+To deploy an app to staging, checkout to staging branch, merge develop into staging and push the changes to the repo. Next, go to jenkins and deploy from there (respectively from staging branch).
+```
+git checkout staging
+git merge develop
+git push
+```
