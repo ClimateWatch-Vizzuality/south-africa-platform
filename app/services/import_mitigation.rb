@@ -28,7 +28,8 @@ class ImportMitigation
       time_horizon: row[:timehorizon],
       ghg: row[:ghg],
       estimated_emission_reduction: row[:reductions],
-      cobenefits: row[:cobenefits]
+      cobenefits: row[:cobenefits],
+      quantified_effect: row[:quantified_effect].eql?('yes')
     }
   end
 

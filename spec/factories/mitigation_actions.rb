@@ -13,7 +13,7 @@
 #  ghg                          :string
 #  estimated_emission_reduction :string
 #  cobenefits                   :string
-#  bur1                         :boolean
+#  quantified_effect            :boolean
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #
@@ -29,7 +29,7 @@ FactoryBot.define do
     sequence(:ghg) { |n| ('AA'..'ZZ').to_a[n] }
     sequence(:estimated_emission_reduction) { |n| ('AA'..'ZZ').to_a[n] }
     sequence(:cobenefits) { |n| ('AA'..'ZZ').to_a[n] }
-    sequence(:bur1) { true }
+    sequence(:quantified_effect) { true }
 
     factory :mitigation_action_complete, class: 'Mitigation::MitigationAction' do
       association :mitigation_theme, factory: :mitigation_theme_complete, strategy: :build
