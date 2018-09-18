@@ -122,35 +122,6 @@ ActiveRecord::Schema.define(version: 2018_09_18_101143) do
     t.index ["status"], name: "index_mitigation_actions_on_status"
   end
 
-  create_table "mitigation_effects", force: :cascade do |t|
-    t.string "theme"
-    t.string "name"
-    t.string "coordinator"
-    t.string "effects_1"
-    t.string "effects_2"
-    t.string "effects_3"
-    t.string "effects_4"
-    t.string "effects_5"
-    t.string "effects_6"
-    t.string "effects_7"
-    t.string "effects_8"
-    t.string "effects_9"
-    t.string "effects_10"
-    t.string "effects_11"
-    t.string "effects_12"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "mitigation_indicators", force: :cascade do |t|
-    t.string "code"
-    t.string "indicator"
-    t.string "unit"
-    t.string "cautions"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "mitigation_sectors", force: :cascade do |t|
     t.string "name"
     t.text "description"
