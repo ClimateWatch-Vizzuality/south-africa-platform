@@ -9,7 +9,7 @@
 
 .section {
   background-color: $porcelain;
-  padding: $gutter-padding 0;
+  padding: 0;
 }
 
 .ndcContainer {
@@ -37,7 +37,6 @@
     flex-direction: column;
 
     .ndcTitle {
-      margin-top: 0;
       font-weight: bold;
       line-height: $line-height;
     }
@@ -50,6 +49,12 @@
   }
 
   .learnMoreButton {
-    margin-top: auto;
+    margin-top: 0;
+    margin-bottom: $gutter-padding;
+
+    @media #{$tablet-landscape} {
+      margin-top: $gutter-padding;
+      margin-bottom: 0;
+    }
   }
 }
