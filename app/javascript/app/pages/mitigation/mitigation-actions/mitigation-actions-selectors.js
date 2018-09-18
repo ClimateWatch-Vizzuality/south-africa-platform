@@ -3,7 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
 
 const getMitigationData = ({ mitigationActions = {} }) =>
-  isEmpty(mitigationActions.data) ? null : mitigationActions.data;
+  isEmpty(mitigationActions.data['mitigation::MitigationActions'])
+    ? null
+    : mitigationActions.data['mitigation::MitigationActions'];
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSearchValue = createSelector(
   getQueryParams,
@@ -49,11 +51,23 @@ const renameMitigationColumns = createSelector(getParsedMitigation, data => {
   return data.map(d => {
     const updatedD = d;
     Object.keys(d).forEach(key => {
-      if (key === 'mitigation_theme') {
-        updatedD.theme = d.mitigation_theme.title;
-      } else if (key === 'mitigation_type') {
-        updatedD.type = d.mitigation_type;
-      } else updatedD[key] = d[key];
+      switch (key) {
+        case 'mitigationTheme':
+          updatedD.theme = d.mitigationTheme.title;
+          break;
+        case 'estimatedEmissionReduction':
+          updatedD.estimated_emission_reduction = d.estimatedEmissionReduction;
+          break;
+        case 'timeHorizon':
+          updatedD.time_horizon = d.timeHorizon;
+          break;
+        case 'mitigationType':
+          updatedD.type = d.mitigationType;
+          break;
+        default:
+          updatedD[key] = d[key];
+          break;
+      }
     });
     return updatedD;
   });
