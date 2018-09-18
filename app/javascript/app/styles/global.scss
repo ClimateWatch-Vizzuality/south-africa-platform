@@ -14,4 +14,14 @@
       display: none;
     }
   }
+  .global_blueTooltip {
+    padding: 15px;
+    color: $theme-color !important;
+    font-size: $font-size-xs;
+    background-color: $pale-gray !important;
+
+    &::after {
+      border-top-color: $pale-gray !important;
+    }
+  }
 }

@@ -34,6 +34,7 @@
 .inputWrapper {
   width: 270px;
   margin-left: $gutter-padding / 2;
+  border: solid 1px $border-color;
 }
 
 // TODO: Create a more responsive tab switcher
