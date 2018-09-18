@@ -20,6 +20,9 @@ Rails.application.routes.draw do
         resources :mitigation_sectors, only: [:index],
                   controller: :mitigation_sectors,
                   defaults: { format: 'json' }
+        resources :mitigation_effects, only: [:index],
+                  controller: :mitigation_effects,
+                  defaults: { format: 'json' }
       end
       resources :inventory_improvement_projects,
                 only: [:index],

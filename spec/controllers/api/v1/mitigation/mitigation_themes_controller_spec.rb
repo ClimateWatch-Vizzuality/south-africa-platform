@@ -15,7 +15,7 @@ describe Api::V1::Mitigation::MitigationThemesController, type: :controller do
       it 'lists all adaptation variables' do
         get :index, format: :json
         parsed_body = JSON.parse(response.body)
-        expect(parsed_body.length).to eq(3)
+        expect(parsed_body[parsed_body.keys.first].length).to eq(3)
       end
     end
   end
