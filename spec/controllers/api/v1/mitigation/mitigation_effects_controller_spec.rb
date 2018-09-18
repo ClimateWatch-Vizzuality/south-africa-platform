@@ -1,9 +1,12 @@
 require 'rails_helper'
 
-describe Api::V1::Mitigation::MitigationSectorsController, type: :controller do
+describe Api::V1::Mitigation::MitigationEffectsController, type: :controller do
   context do
-    let!(:some_sectors) {
-      FactoryBot.create_list(:mitigation_sector, 3)
+    let!(:some_indicators) {
+      FactoryBot.create_list(:mitigation_indicator, 5)
+    }
+    let!(:some_effects) {
+      FactoryBot.create_list(:mitigation_effect, 3)
     }
 
     describe 'GET index' do
@@ -16,6 +19,12 @@ describe Api::V1::Mitigation::MitigationSectorsController, type: :controller do
         get :index, format: :json
         parsed_body = JSON.parse(response.body)
         expect(parsed_body[parsed_body.keys.first].length).to eq(3)
+      end
+
+      it 'lists the metadata' do
+        get :index, format: :json
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body['meta'].length).to eq(5)
       end
     end
   end
