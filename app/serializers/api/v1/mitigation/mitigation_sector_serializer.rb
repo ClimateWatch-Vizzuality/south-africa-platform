@@ -12,7 +12,7 @@
 module Api
   module V1
     module Mitigation
-      class MitigationSectorSerializer < ActiveModel::Serializer
+      class MitigationSectorSerializer < ApplicationSerializer
         attributes :name, :description
 
         has_many :mitigation_themes,
