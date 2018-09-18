@@ -24,6 +24,11 @@ Rails.application.routes.draw do
                   controller: :mitigation_effects,
                   defaults: { format: 'json' }
       end
+      namespace :financial_resource do
+        resources :support_needs, only: [:index],
+                  controller: :support_needs,
+                  defaults: { format: 'json' }
+      end
       resources :inventory_improvement_projects,
                 only: [:index],
                 defaults: { format: 'json' }

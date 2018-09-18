@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_09_18_101143) do
+ActiveRecord::Schema.define(version: 2018_09_18_153922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +163,16 @@ ActiveRecord::Schema.define(version: 2018_09_18_101143) do
     t.string "title"
     t.integer "position"
     t.integer "mitigation_sector_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "support_needs", force: :cascade do |t|
+    t.string "category"
+    t.string "focus_area"
+    t.string "reference"
+    t.string "support_type"
+    t.string "scheme"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
