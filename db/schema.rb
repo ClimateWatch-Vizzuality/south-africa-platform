@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180910123227) do
+ActiveRecord::Schema.define(version: 2018_09_18_101143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20180910123227) do
     t.string "ghg"
     t.string "estimated_emission_reduction"
     t.string "cobenefits"
-    t.boolean "bur1"
+    t.boolean "quantified_effect"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["actor"], name: "index_mitigation_actions_on_actor"

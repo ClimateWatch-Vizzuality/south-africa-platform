@@ -13,7 +13,7 @@
 #  ghg                          :string
 #  estimated_emission_reduction :string
 #  cobenefits                   :string
-#  bur1                         :boolean
+#  quantified_effect            :boolean
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
 #
