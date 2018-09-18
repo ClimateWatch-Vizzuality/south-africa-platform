@@ -18,7 +18,7 @@ class DownloadBox extends PureComponent {
         </div>
         <div className={styles.downloadRow}>
           <span className={styles.fileTitle}>
-            South Africas 1st Biennial Update Report
+            South Africas 2nd Biennial Update Report
           </span>
           <Icon icon={downloadIcon} />
         </div>

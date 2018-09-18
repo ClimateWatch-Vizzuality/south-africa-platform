@@ -10,7 +10,7 @@ const ALL_ACTIONS_KEY = 'allActions';
 const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
 const WITHOUT_QUANTIFIED_EFFECTS_KEY = 'withoutQuantifiedEffects';
 
-class GHGInventory extends PureComponent {
+class MitigationActions extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;
     updateQueryParam({ query: { ...query, tab: value } });
@@ -54,7 +54,7 @@ class GHGInventory extends PureComponent {
     const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle title="GHG Inventory Improvement Programme" />
+        <SectionTitle isSubtitle title="Mitigation actions" />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}
@@ -68,7 +68,7 @@ class GHGInventory extends PureComponent {
   }
 }
 
-GHGInventory.propTypes = {
+MitigationActions.propTypes = {
   query: PropTypes.object,
   searchFilter: PropTypes.string,
   tableData: PropTypes.shape({
@@ -80,11 +80,11 @@ GHGInventory.propTypes = {
   updateQueryParam: PropTypes.func.isRequired
 };
 
-GHGInventory.defaultProps = {
+MitigationActions.defaultProps = {
   searchFilter: '',
   query: null,
   tableData: {},
   activeTabValue: null
 };
 
-export default GHGInventory;
+export default MitigationActions;

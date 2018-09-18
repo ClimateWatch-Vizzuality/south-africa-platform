@@ -114,6 +114,7 @@ class ProjectedEmissions extends PureComponent {
       <div className={styles.grid}>
         <div className={styles.toolbarWithSectionTitle}>
           <SectionTitle
+            isSubtitle
             title="Projected Emissions"
             theme={{ sectionTitle: styles.title }}
           />

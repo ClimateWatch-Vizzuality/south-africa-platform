@@ -1,72 +1,19 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import GHGInventoryProvider from 'providers/ghg-inventory-provider';
-import { NoContent, Loading, Table } from 'cw-components';
-
+import downloadIcon from 'assets/icons/download';
+import { Button, Icon } from 'cw-components';
+import DataTable from 'components/data-table';
+import button from 'styles/themes/button';
+import { GHG_NATIONAL_REPORT } from 'constants/links';
 import styles from './inventory-styles.scss';
 
-const COMPLETE_KEY = 'completeProjects';
-const UNDER_IMPLEMENTATION_KEY = 'underImplementation';
-
 class GHGInventory extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tabs: [
-        {
-          name: 'COMPLETED PROJECTS',
-          value: COMPLETE_KEY,
-          component: <Loading height="660" />
-        },
-        {
-          name: 'UNDER IMPLEMENTATION',
-          value: UNDER_IMPLEMENTATION_KEY,
-          component: <Loading height="660" />
-        }
-      ]
-    };
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (props.tableData.data) {
-      const activeTabValue = props.activeTabValue || state.tabs[0].value;
-      return {
-        ...state,
-        tabs: state.tabs.map(tab => {
-          if (tab.value === activeTabValue) {
-            const hasContent = props.tableData.data &&
-              props.tableData.data.length > 0;
-            return {
-              ...tab,
-              component: hasContent
-                ? <Table
-                  horizontalScroll
-                  tableHeight={660}
-                  hasColumnSelect={false}
-                  {...props.tableData}
-                />
-                : <NoContent
-                  minHeight={330}
-                  message={
-                    props.searchFilter
-                      ? 'No data found with this search'
-                      : 'No data available'
-                  }
-                />
-            };
-          }
-          return tab;
-        })
-      };
-    }
-    return state;
-  }
-
-  handleTabChange = ({ value }) => {
-    const { updateQueryParam, query } = this.props;
-    updateQueryParam({ section: 'inventory', query: { ...query, tab: value } });
+  handleDownloadClick = () => {
+    window.open(GHG_NATIONAL_REPORT, '_blank');
   };
 
   handleFilterChange = value => {
@@ -77,16 +24,46 @@ class GHGInventory extends PureComponent {
     });
   };
 
+  renderTabs() {
+    const { tableData, searchFilter } = this.props;
+    return [
+      {
+        component: (
+          <DataTable tableData={tableData} searchFilter={searchFilter} />
+        )
+      }
+    ];
+  }
+
   render() {
+    const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle title="GHG Inventory Improvement Programme" />
+        <div className="layout-container">
+          <div className={styles.titleContainer}>
+            <SectionTitle
+              isSubtitle
+              title="GHG Inventory Improvement Programme"
+            />
+            <div className={styles.actionContainer}>
+              <div className={styles.downloadDescription}>
+                Download a full Inventory Report
+              </div>
+              <Button
+                onClick={this.handleDownloadClick}
+                theme={{ button: cx(button.primary, styles.downloadButton) }}
+              >
+                GHG NIR
+                <Icon icon={downloadIcon} theme={{ icon: styles.icon }} />
+              </Button>
+            </div>
+          </div>
+        </div>
         <TabSwitcher
-          tabs={this.state.tabs}
-          searchFilter={this.props.searchFilter}
-          onTabChange={this.handleTabChange}
+          tabs={this.renderTabs()}
+          searchFilter={searchFilter}
           onFilterChange={this.handleFilterChange}
-          activeTabValue={this.props.activeTabValue}
+          activeTabValue={activeTabValue}
         />
         <GHGInventoryProvider />
       </div>

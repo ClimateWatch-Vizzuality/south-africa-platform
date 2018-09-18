@@ -6,9 +6,16 @@ import styles from './section-title-styles.scss';
 
 class SectionTitle extends PureComponent {
   render() {
-    const { theme, title } = this.props;
+    const { theme, title, isSubtitle, className } = this.props;
     return (
-      <h2 className={cx(styles.sectionTitle, theme.sectionTitle)}>
+      <h2
+        className={cx(
+          styles.sectionTitle,
+          { [styles.sectionSubtitle]: isSubtitle },
+          theme.sectionTitle,
+          className
+        )}
+      >
         {title}
       </h2>
     );
@@ -17,9 +24,16 @@ class SectionTitle extends PureComponent {
 
 SectionTitle.propTypes = {
   theme: PropTypes.shape({ sectionTitle: PropTypes.string }),
-  title: PropTypes.string
+  title: PropTypes.string,
+  className: PropTypes.string,
+  isSubtitle: PropTypes.bool
 };
 
-SectionTitle.defaultProps = { theme: {}, title: '' };
+SectionTitle.defaultProps = {
+  theme: {},
+  title: '',
+  isSubtitle: false,
+  className: null
+};
 
 export default SectionTitle;

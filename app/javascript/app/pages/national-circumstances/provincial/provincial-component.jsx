@@ -43,7 +43,7 @@ class Provincial extends PureComponent {
   render() {
     return (
       <div className={styles.row}>
-        <SectionTitle title="Provincial Development Priorities" />
+        <SectionTitle isSubtitle title="Provincial Development Priorities" />
         <TabSwitcher
           tabs={this.state.tabs}
           actionsActive={false}

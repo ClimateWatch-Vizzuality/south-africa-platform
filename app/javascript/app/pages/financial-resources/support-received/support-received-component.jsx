@@ -76,7 +76,7 @@ class SupportReceived extends PureComponent {
 
     return (
       <div className={styles.row}>
-        <SectionTitle title="Support Received" />
+        <SectionTitle isSubtitle title="Support Received" />
         <TabSwitcher
           tabs={renderTabs}
           searchActive={false}
