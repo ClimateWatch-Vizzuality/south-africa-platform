@@ -1,8 +1,6 @@
 import { createAction, createThunkAction } from 'redux-tools';
-// import { SAAPI } from 'services/api';
+import { SAAPI } from 'services/api';
 import isEmpty from 'lodash/isEmpty';
-
-import data from './dummy-data.json';
 
 export const fetchMitigationEffectsInit = createAction(
   'fetchMitigationEffectsInit'
@@ -19,22 +17,15 @@ export const fetchMitigationEffects = createThunkAction(
   () => (dispatch, state) => {
     const { mitigationEffects } = state();
     if (isEmpty(mitigationEffects.data) && !mitigationEffects.loading) {
-      dispatch(fetchMitigationEffectsInit());
-      setTimeout(
-        () => {
+      SAAPI
+        .get('mitigation/mitigation_effects')
+        .then((data = {}) => {
           dispatch(fetchMitigationEffectsReady(data));
-        },
-        400
-      );
-      // SAAPI
-      //   .get('mitigation/effects', params)
-      //   .then((data = {}) => {
-      //     dispatch(fetchMitigationEffectsReady(data));
-      //   })
-      //   .catch(error => {
-      //     console.warn(error);
-      //     dispatch(fetchMitigationEffectsFail(error && error.message));
-      //   });
+        })
+        .catch(error => {
+          console.warn(error);
+          dispatch(fetchMitigationEffectsFail(error && error.message));
+        });
     }
   }
 );

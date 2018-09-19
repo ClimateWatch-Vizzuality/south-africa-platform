@@ -1,5 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { isEmpty, uniqBy } from 'lodash';
+import { isEmpty, uniqBy, snakeCase } from 'lodash';
 
 const VIS_TYPE_OPTIONS = [
   { label: 'Bubble Chart', value: 'bubble-chart' },
@@ -13,44 +13,25 @@ const getThemeParam = ({ location }) =>
   location.query ? location.query.theme : null;
 const getVisTypeParam = ({ location }) =>
   location.query ? location.query.visType : null;
+const getGHGParam = ({ location }) =>
+  location.query ? location.query.ghgEmissionsReduction : null;
 const getSummaryIdParam = ({ location }) =>
   location.query ? location.query.summaryId : null;
 const getSummaryData = ({ mitigationEffects = {} }) =>
-  isEmpty(mitigationEffects.data) ? null : mitigationEffects.data;
+  isEmpty(mitigationEffects.data['mitigation::MitigationEffects'])
+    ? null
+    : mitigationEffects.data['mitigation::MitigationEffects'];
+const getSummaryMeta = ({ mitigationEffects = {} }) =>
+  isEmpty(mitigationEffects.data) || isEmpty(mitigationEffects.data.meta)
+    ? null
+    : mitigationEffects.data.meta;
 
 const setBubbleColor = (selectedId, id) =>
-  parseInt(selectedId, 10) === id
+  selectedId === id ? CHART_COLORS.selected : CHART_COLORS.default;
+const setInitialColor = (slug, summary, themeSelected = DEFAULT_THEME) =>
+  slug === snakeCase(summary.filter(s => s.theme === themeSelected)[0].name)
     ? CHART_COLORS.selected
     : CHART_COLORS.default;
-const setInitialColor = (e, summary, themeSelected = DEFAULT_THEME) =>
-  e.id === summary.filter(s => s.theme === themeSelected)[0].id
-    ? CHART_COLORS.selected
-    : CHART_COLORS.default;
-
-const getChartData = createSelector(
-  [ getSummaryData, getThemeParam, getSummaryIdParam ],
-  (summary, themeSelected, selectedId) => {
-    if (!summary) return null;
-    if (!themeSelected) {
-      return summary
-        .filter(s => s.theme === DEFAULT_THEME)
-        .map(e => ({
-          ...e,
-          color: selectedId
-            ? setBubbleColor(selectedId, e.id)
-            : setInitialColor(e, summary)
-        }));
-    }
-    return summary
-      .filter(s => s.theme === themeSelected)
-      .map(e => ({
-        ...e,
-        color: selectedId
-          ? setBubbleColor(selectedId, e.id)
-          : setInitialColor(e, summary, themeSelected)
-      }));
-  }
-);
 
 const getThemeOptions = createSelector(getSummaryData, summary => {
   if (!summary) return null;
@@ -70,6 +51,13 @@ export const getThemeSelected = createSelector(
 );
 const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
 
+const getGHGOptions = createSelector(getSummaryMeta, meta => {
+  if (!meta) return null;
+
+  const effectMeta = meta.filter(m => m.code.startsWith('effects'));
+  return effectMeta.map(o => ({ label: o.indicator, value: o.code }));
+});
+
 export const getVisTypeSelected = createSelector(
   [ getVisTypeOptions, getVisTypeParam ],
   (visTypes, visType) => {
@@ -79,22 +67,87 @@ export const getVisTypeSelected = createSelector(
   }
 );
 
+export const getGHGSelected = createSelector([ getGHGOptions, getGHGParam ], (
+  options,
+  selected
+) =>
+  {
+    if (!options) return null;
+    if (!selected) return options[0];
+    return options.find(t => t.value === selected);
+  });
+
+const getChartData = createSelector(
+  [ getSummaryData, getThemeParam, getSummaryIdParam ],
+  (summary, themeSelected, selectedId) => {
+    if (!summary) return null;
+    if (!themeSelected) {
+      return summary
+        .filter(s => s.theme === DEFAULT_THEME)
+        .map(e => ({
+          ...e,
+          color: selectedId
+            ? setBubbleColor(selectedId, slug(e))
+            : setInitialColor(e, summary)
+        }));
+    }
+    return summary
+      .filter(s => s.theme === themeSelected)
+      .map(e => ({
+        ...e,
+        color: selectedId
+          ? setBubbleColor(selectedId, slug(e))
+          : setInitialColor(slug(e), summary, themeSelected)
+      }));
+  }
+);
+
+const slug = e => e && snakeCase(e.name);
+
+const parseChartData = createSelector(
+  [ getChartData, getSummaryMeta, getGHGSelected ],
+  (data, meta, GHGSelected) => {
+    if (!data || !meta || isEmpty(meta) || !GHGSelected) return null;
+
+    const parsedData = data.map(d => {
+      const effectKey = GHGSelected.value.replace('_', '');
+      const effectNumber = effectKey.replace('effects', '');
+      const effectValue = parseInt(d[effectKey], 10);
+      const value = Number.isNaN(effectValue) ? null : effectValue;
+      const metaInfo = meta.find(m => m.code === `effects_${effectNumber}`);
+      return {
+        theme: d.theme,
+        id: slug(d),
+        action: d.name,
+        color: d.color,
+        actor: d.coordinator,
+        value,
+        cautions: metaInfo.cautions,
+        unit: metaInfo.unit
+      };
+    });
+    return parsedData;
+  }
+);
+
 export const getSummarySelected = createSelector(
-  [ getChartData, getSummaryIdParam ],
+  [ parseChartData, getSummaryIdParam ],
   (data, summaryId) => {
     if (!data) return null;
     if (!summaryId) return data[0];
-    return data.find(d => d.id === parseInt(summaryId, 10));
+    return data.find(d => snakeCase(d.name) === summaryId);
   }
 );
 
 export const getSummary = createStructuredSelector({
-  chartData: getChartData,
+  chartData: parseChartData,
   summarySelected: getSummarySelected,
   themeOptions: getThemeOptions,
   themeSelected: getThemeSelected,
   visTypeOptions: getVisTypeOptions,
   visTypeSelected: getVisTypeSelected,
+  GHGOptions: getGHGOptions,
+  GHGSelected: getGHGSelected,
   tableData: getSummaryData,
   query: getQueryParams
 });

@@ -24,6 +24,11 @@ class Summary extends PureComponent {
     onFilterChange({ theme: value, summaryId: '' });
   };
 
+  handleGHGChange = ({ value }) => {
+    const { onFilterChange } = this.props;
+    onFilterChange({ ghgEmissionsReduction: value });
+  };
+
   handleVisTypeChange = ({ value }) => {
     const { onFilterChange } = this.props;
     onFilterChange({ visType: value });
@@ -42,7 +47,9 @@ class Summary extends PureComponent {
       themeOptions,
       themeSelected,
       visTypeSelected,
-      visTypeOptions
+      visTypeOptions,
+      GHGSelected,
+      GHGOptions
     } = this.props;
     return (
       <div>
@@ -56,11 +63,10 @@ class Summary extends PureComponent {
           />
           <Dropdown
             label="GHG Emissions Reduction"
-            value={{}}
-            options={{}}
-            onValueChange={this.handleThemeChange}
+            value={GHGSelected}
+            options={GHGOptions}
+            onValueChange={this.handleGHGChange}
             hideResetButton
-            disabled
           />
           <Dropdown
             label="Visualization"
@@ -132,6 +138,8 @@ Summary.propTypes = {
   themeSelected: PropTypes.object,
   visTypeOptions: PropTypes.array,
   visTypeSelected: PropTypes.object,
+  GHGOptions: PropTypes.array,
+  GHGSelected: PropTypes.object,
   setModalMetadata: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired
 };
@@ -142,7 +150,9 @@ Summary.defaultProps = {
   themeOptions: [],
   themeSelected: null,
   visTypeOptions: [],
-  visTypeSelected: null
+  visTypeSelected: null,
+  GHGOptions: [],
+  GHGSelected: null
 };
 
 export default Summary;
