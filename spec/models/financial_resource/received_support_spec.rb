@@ -21,6 +21,8 @@
 #  purpose_funds :text
 #  program_funds :text
 #  outcome_funds :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require 'rails_helper'
@@ -37,11 +39,6 @@ RSpec.describe FinancialResource::ReceivedSupport, type: :model do
     expect(
       FactoryBot.build(:received_support, donor: donor, finance_flow: nil)
     ).to have(1).error_on(:finance_flow)
-  end
-  it 'should be invalid when type_funds not present' do
-    expect(
-      FactoryBot.build(:received_support, donor: donor, type_funds: nil)
-    ).to have(1).error_on(:type_funds)
   end
   it 'should be valid' do
     expect(FactoryBot.build(:received_support, donor: donor)).to be_valid

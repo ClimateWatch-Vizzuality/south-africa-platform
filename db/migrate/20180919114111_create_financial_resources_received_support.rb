@@ -3,7 +3,7 @@ class CreateFinancialResourcesReceivedSupport < ActiveRecord::Migration[5.2]
     create_table :received_supports do |t|
       t.integer :donor_id, optional: false
       t.string :finance_flow, optional: false
-      t.string :type_funds, optional: false
+      t.string :type_funds
       t.integer :amount_zar
       t.integer :amount_usd
       t.string :timeframes

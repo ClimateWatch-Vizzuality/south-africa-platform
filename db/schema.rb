@@ -193,6 +193,8 @@ ActiveRecord::Schema.define(version: 2018_09_19_114111) do
     t.text "purpose_funds"
     t.text "program_funds"
     t.text "outcome_funds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["finance_flow"], name: "index_received_supports_on_finance_flow"
     t.index ["type_funds"], name: "index_received_supports_on_type_funds"
   end

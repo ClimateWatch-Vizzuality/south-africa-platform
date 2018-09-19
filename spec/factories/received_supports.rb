@@ -21,6 +21,8 @@
 #  purpose_funds :text
 #  program_funds :text
 #  outcome_funds :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 FactoryBot.define do

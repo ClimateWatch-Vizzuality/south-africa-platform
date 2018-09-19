@@ -21,6 +21,8 @@
 #  purpose_funds :text
 #  program_funds :text
 #  outcome_funds :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 module FinancialResource
@@ -29,6 +31,6 @@ module FinancialResource
 
     belongs_to :donor
 
-    validates_presence_of :finance_flow, :type_funds
+    validates_presence_of :finance_flow
   end
 end
