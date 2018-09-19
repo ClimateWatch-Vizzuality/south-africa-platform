@@ -32,7 +32,7 @@ module Api
                    :focus_area_5, :focus_area_6, :focus_area_7, :focus_area_8,
                    :cofinancing, :purpose_funds, :program_funds, :outcome_funds
 
-        belongs_to :donors,
+        belongs_to :donor,
                    serializer: Api::V1::FinancialResource::DonorSerializer
       end
     end
