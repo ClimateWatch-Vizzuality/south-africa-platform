@@ -52,14 +52,33 @@ export const getThemeSelected = createSelector(
 );
 const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
 
-const getGHGOptions = createSelector(getSummaryMeta, meta => {
-  if (!meta || isEmpty(meta)) return null;
-  const effectMetas = meta.filter(m => m.code.startsWith('effects'));
-  return effectMetas.map(o => ({
-    label: o.indicator,
-    value: snakeCase(o.indicator)
-  }));
-});
+const getGHGOptions = createSelector(
+  [ getSummaryData, getSummaryMeta, getThemeSelected ],
+  (data, meta, theme) => {
+    if (!meta || isEmpty(meta) || !theme) return null;
+    const selectedThemeData = data.filter(
+      d => snakeCase(d.theme) === theme.value
+    );
+    const optionMeta = [];
+    selectedThemeData.forEach(
+      d => Object.keys(d).forEach(key => {
+        const parsedValue = parseFloat(d[key], 10);
+        if (
+          key.startsWith('effects') &&
+            parsedValue &&
+            parsedValue !== 0 &&
+            !Number.isNaN(parsedValue)
+        ) {
+          optionMeta.push(meta.find(m => m.code === key));
+        }
+      })
+    );
+    return uniqBy(
+      optionMeta,
+      'code'
+    ).map(o => ({ label: o.indicator, value: snakeCase(o.indicator) }));
+  }
+);
 
 export const getVisTypeSelected = createSelector(
   [ getVisTypeOptions, getVisTypeParam ],
@@ -106,9 +125,9 @@ const parseChartData = createSelector(
     );
     const parsedData = [];
     data.forEach(d => {
-      const effectValue = parseInt(d[metaInfo.code], 10);
+      const effectValue = parseFloat(d[metaInfo.code], 10);
       const value = Number.isNaN(effectValue) ? null : effectValue;
-      if (value) {
+      if (value && value !== 0) {
         parsedData.push({
           theme: d.theme,
           id: slug(d),

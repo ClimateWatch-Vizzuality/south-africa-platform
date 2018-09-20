@@ -22,7 +22,7 @@ class Summary extends PureComponent {
 
   handleThemeChange = ({ value }) => {
     const { onFilterChange } = this.props;
-    onFilterChange({ theme: value, summaryId: '' });
+    onFilterChange({ theme: value, summaryId: '', ghgEmissionsReduction: '' });
   };
 
   handleGHGChange = ({ value }) => {
