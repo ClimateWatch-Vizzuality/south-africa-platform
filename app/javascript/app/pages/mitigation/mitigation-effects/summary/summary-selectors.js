@@ -104,11 +104,9 @@ const parseChartData = createSelector(
     const metaInfo = meta.find(
       m => snakeCase(m.indicator) === GHGSelected.value
     );
-    const effectKey = metaInfo.code.replace('_', '');
-
     const parsedData = [];
     data.forEach(d => {
-      const effectValue = parseInt(d[effectKey], 10);
+      const effectValue = parseInt(d[metaInfo.code], 10);
       const value = Number.isNaN(effectValue) ? null : effectValue;
       if (value) {
         parsedData.push({
