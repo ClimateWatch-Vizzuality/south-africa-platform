@@ -1,7 +1,18 @@
+# == Schema Information
+#
+# Table name: donors
+#
+#  id          :bigint(8)        not null, primary key
+#  name        :string
+#  description :text
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 module Api
   module V1
     module FinancialResource
-      class DonorSerializer < ActiveModel::Serializer
+      class DonorSerializer < ApplicationSerializer
         attributes :name, :description
 
         has_many :received_supports,
