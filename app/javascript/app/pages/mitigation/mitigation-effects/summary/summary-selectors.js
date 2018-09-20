@@ -18,9 +18,9 @@ const getGHGParam = ({ location }) =>
 const getSummaryIdParam = ({ location }) =>
   location.query ? location.query.summaryId : null;
 const getSummaryData = ({ mitigationEffects = {} }) =>
-  isEmpty(mitigationEffects.data['mitigation::MitigationEffects'])
+  isEmpty(mitigationEffects.data) || isEmpty(mitigationEffects.data.data)
     ? null
-    : mitigationEffects.data['mitigation::MitigationEffects'];
+    : mitigationEffects.data.data;
 const getSummaryMeta = ({ mitigationEffects = {} }) =>
   isEmpty(mitigationEffects.data) || isEmpty(mitigationEffects.data.meta)
     ? null
