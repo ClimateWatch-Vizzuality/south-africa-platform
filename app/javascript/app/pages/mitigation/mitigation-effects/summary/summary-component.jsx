@@ -107,14 +107,10 @@ class Summary extends PureComponent {
                   {
                   summarySelected && (
                   <div>
-                    <p className={styles.label}>Policy</p>
-                    <h2 className={styles.policy}>
-                      {summarySelected.policy}
+                    <p className={styles.label}>Action</p>
+                    <h2 className={styles.action}>
+                      {summarySelected.action}
                     </h2>
-                    <p className={styles.label}>Objectives</p>
-                    <p className={styles.text}>
-                      {summarySelected.objectives}
-                    </p>
                     <p className={styles.label}>Actor</p>
                     <p className={styles.text}>{summarySelected.actor}</p>
                   </div>

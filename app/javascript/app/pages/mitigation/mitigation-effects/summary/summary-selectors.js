@@ -5,7 +5,7 @@ const VIS_TYPE_OPTIONS = [
   { label: 'Bubble Chart', value: 'bubble-chart' },
   { label: 'Table', value: 'table' }
 ];
-const DEFAULT_THEME = 'Energy Efficiency';
+const DEFAULT_THEME = 'energy_efficiency';
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
 
 const getQueryParams = ({ location }) => location.query || null;
@@ -29,7 +29,8 @@ const getSummaryMeta = ({ mitigationEffects = {} }) =>
 const setBubbleColor = (selectedId, id) =>
   selectedId === id ? CHART_COLORS.selected : CHART_COLORS.default;
 const setInitialColor = (slug, summary, themeSelected = DEFAULT_THEME) =>
-  slug === snakeCase(summary.filter(s => s.theme === themeSelected)[0].name)
+  slug ===
+    snakeCase(summary.filter(s => snakeCase(s.theme) === themeSelected)[0].name)
     ? CHART_COLORS.selected
     : CHART_COLORS.default;
 
@@ -38,7 +39,7 @@ const getThemeOptions = createSelector(getSummaryData, summary => {
   return uniqBy(
     summary,
     'theme'
-  ).map(theme => ({ label: theme.theme, value: theme.theme }));
+  ).map(theme => ({ label: theme.theme, value: snakeCase(theme.theme) }));
 });
 
 export const getThemeSelected = createSelector(
@@ -46,16 +47,18 @@ export const getThemeSelected = createSelector(
   (themes, theme) => {
     if (!themes) return null;
     if (!theme) return themes[0];
-    return themes.find(t => t.value === theme);
+    return themes.find(t => t.value === snakeCase(theme));
   }
 );
 const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
 
 const getGHGOptions = createSelector(getSummaryMeta, meta => {
-  if (!meta) return null;
-
-  const effectMeta = meta.filter(m => m.code.startsWith('effects'));
-  return effectMeta.map(o => ({ label: o.indicator, value: o.code }));
+  if (!meta || isEmpty(meta)) return null;
+  const effectMetas = meta.filter(m => m.code.startsWith('effects'));
+  return effectMetas.map(o => ({
+    label: o.indicator,
+    value: snakeCase(o.indicator)
+  }));
 });
 
 export const getVisTypeSelected = createSelector(
@@ -81,23 +84,14 @@ const getChartData = createSelector(
   [ getSummaryData, getThemeParam, getSummaryIdParam ],
   (summary, themeSelected, selectedId) => {
     if (!summary) return null;
-    if (!themeSelected) {
-      return summary
-        .filter(s => s.theme === DEFAULT_THEME)
-        .map(e => ({
-          ...e,
-          color: selectedId
-            ? setBubbleColor(selectedId, slug(e))
-            : setInitialColor(e, summary)
-        }));
-    }
+    const initialColor = e => setInitialColor(slug(e), summary, themeSelected);
     return summary
-      .filter(s => s.theme === themeSelected)
+      .filter(s => snakeCase(s.theme) === DEFAULT_THEME)
       .map(e => ({
         ...e,
         color: selectedId
           ? setBubbleColor(selectedId, slug(e))
-          : setInitialColor(slug(e), summary, themeSelected)
+          : initialColor(e)
       }));
   }
 );
@@ -108,13 +102,13 @@ const parseChartData = createSelector(
   [ getChartData, getSummaryMeta, getGHGSelected ],
   (data, meta, GHGSelected) => {
     if (!data || !meta || isEmpty(meta) || !GHGSelected) return null;
-
     const parsedData = data.map(d => {
-      const effectKey = GHGSelected.value.replace('_', '');
-      const effectNumber = effectKey.replace('effects', '');
+      const metaInfo = meta.find(
+        m => snakeCase(m.indicator) === GHGSelected.value
+      );
+      const effectKey = metaInfo.code.replace('_', '');
       const effectValue = parseInt(d[effectKey], 10);
       const value = Number.isNaN(effectValue) ? null : effectValue;
-      const metaInfo = meta.find(m => m.code === `effects_${effectNumber}`);
       return {
         theme: d.theme,
         id: slug(d),
@@ -134,8 +128,7 @@ export const getSummarySelected = createSelector(
   [ parseChartData, getSummaryIdParam ],
   (data, summaryId) => {
     if (!data) return null;
-    if (!summaryId) return data[0];
-    return data.find(d => snakeCase(d.name) === summaryId);
+    return data.find(d => d.id === summaryId);
   }
 );
 
