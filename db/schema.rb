@@ -10,11 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_09_18_101143) do
+ActiveRecord::Schema.define(version: 2018_09_20_101416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "donors", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "financial_indicators", force: :cascade do |t|
+    t.string "code"
+    t.string "indicator"
+    t.string "category"
+    t.string "indicator_type"
+    t.string "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "flagship_programmes", force: :cascade do |t|
     t.integer "mitigation_theme_id"
@@ -168,6 +184,41 @@ ActiveRecord::Schema.define(version: 2018_09_18_101143) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "received_supports", force: :cascade do |t|
+    t.integer "donor_id"
+    t.string "finance_flow"
+    t.string "type_funds"
+    t.integer "amount_zar"
+    t.integer "amount_usd"
+    t.string "timeframes"
+    t.boolean "focus_area_1", default: false
+    t.boolean "focus_area_2", default: false
+    t.boolean "focus_area_3", default: false
+    t.boolean "focus_area_4", default: false
+    t.boolean "focus_area_5", default: false
+    t.boolean "focus_area_6", default: false
+    t.boolean "focus_area_7", default: false
+    t.boolean "focus_area_8", default: false
+    t.integer "cofinancing"
+    t.text "purpose_funds"
+    t.text "program_funds"
+    t.text "outcome_funds"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["finance_flow"], name: "index_received_supports_on_finance_flow"
+    t.index ["type_funds"], name: "index_received_supports_on_type_funds"
+  end
+
+  create_table "support_needs", force: :cascade do |t|
+    t.string "category"
+    t.string "focus_area"
+    t.string "reference"
+    t.string "support_type"
+    t.string "scheme"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "flagship_programmes", "mitigation_themes"
   add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade
@@ -180,4 +231,5 @@ ActiveRecord::Schema.define(version: 2018_09_18_101143) do
   add_foreign_key "location_members", "locations", on_delete: :cascade
   add_foreign_key "mitigation_actions", "mitigation_themes"
   add_foreign_key "mitigation_themes", "mitigation_sectors"
+  add_foreign_key "received_supports", "donors"
 end
