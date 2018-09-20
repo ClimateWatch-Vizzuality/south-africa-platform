@@ -1,11 +1,13 @@
 class ImportFinancialResource
   SUPPORT_NEEDS_FILEPATH = "#{CW_FILES_PREFIX}support_needs.csv".freeze
   RECEIVED_SUPPORTS_FILEPATH = "#{CW_FILES_PREFIX}support_received.csv".freeze
+  INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}financial_indicators.csv".freeze
 
   def call
     cleanup
     import_support_needs(S3CSVReader.read(SUPPORT_NEEDS_FILEPATH))
     import_received_supports(S3CSVReader.read(RECEIVED_SUPPORTS_FILEPATH))
+    import_indicators(S3CSVReader.read(INDICATORS_FILEPATH))
   end
 
   private
@@ -13,6 +15,7 @@ class ImportFinancialResource
   def cleanup
     FinancialResource::SupportNeed.delete_all
     FinancialResource::ReceivedSupport.delete_all
+    FinancialResource::Indicator.delete_all
   end
 
   def positive_cell?(cell)
@@ -57,6 +60,16 @@ class ImportFinancialResource
     content.each do |row|
       begin
         ::FinancialResource::ReceivedSupport.create!(received_support_attributes(row))
+      rescue ActiveRecord::RecordInvalid => invalid
+        STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
+      end
+    end
+  end
+
+  def import_indicators(content)
+    content.each do |row|
+      begin
+        ::FinancialResource::Indicator.create!(row.to_h)
       rescue ActiveRecord::RecordInvalid => invalid
         STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
       end
