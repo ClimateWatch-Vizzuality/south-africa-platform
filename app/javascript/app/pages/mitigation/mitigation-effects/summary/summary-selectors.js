@@ -28,11 +28,10 @@ const getSummaryMeta = ({ mitigationEffects = {} }) =>
 
 const setBubbleColor = (selectedId, id) =>
   selectedId === id ? CHART_COLORS.selected : CHART_COLORS.default;
-const setInitialColor = (slug, summary, themeSelected = DEFAULT_THEME) =>
-  slug ===
-    snakeCase(summary.filter(s => snakeCase(s.theme) === themeSelected)[0].name)
-    ? CHART_COLORS.selected
-    : CHART_COLORS.default;
+const setInitialColor = (slug, summary) => {
+  const selected = summary.find(s => snakeCase(s.name) === slug);
+  return selected ? CHART_COLORS.default : CHART_COLORS.selected;
+};
 
 const getThemeOptions = createSelector(getSummaryData, summary => {
   if (!summary) return null;
@@ -46,8 +45,9 @@ export const getThemeSelected = createSelector(
   [ getThemeOptions, getThemeParam ],
   (themes, theme) => {
     if (!themes) return null;
-    if (!theme) return themes[0];
-    return themes.find(t => t.value === snakeCase(theme));
+    return themes.find(
+      t => t.value === snakeCase(theme) || t.value === DEFAULT_THEME
+    );
   }
 );
 const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
@@ -84,15 +84,14 @@ const getChartData = createSelector(
   [ getSummaryData, getThemeParam, getSummaryIdParam ],
   (summary, themeSelected, selectedId) => {
     if (!summary) return null;
-    const initialColor = e => setInitialColor(slug(e), summary, themeSelected);
-    return summary
-      .filter(s => snakeCase(s.theme) === DEFAULT_THEME)
-      .map(e => ({
-        ...e,
-        color: selectedId
-          ? setBubbleColor(selectedId, slug(e))
-          : initialColor(e)
-      }));
+    const initialColor = e => setInitialColor(slug(e), summary);
+    const themeFilteredData = summary.filter(
+      d => snakeCase(d.theme) === (themeSelected || DEFAULT_THEME)
+    );
+    return themeFilteredData.map(e => ({
+      ...e,
+      color: selectedId ? setBubbleColor(selectedId, slug(e)) : initialColor(e)
+    }));
   }
 );
 
@@ -102,25 +101,29 @@ const parseChartData = createSelector(
   [ getChartData, getSummaryMeta, getGHGSelected ],
   (data, meta, GHGSelected) => {
     if (!data || !meta || isEmpty(meta) || !GHGSelected) return null;
-    const parsedData = data.map(d => {
-      const metaInfo = meta.find(
-        m => snakeCase(m.indicator) === GHGSelected.value
-      );
-      const effectKey = metaInfo.code.replace('_', '');
+    const metaInfo = meta.find(
+      m => snakeCase(m.indicator) === GHGSelected.value
+    );
+    const effectKey = metaInfo.code.replace('_', '');
+
+    const parsedData = [];
+    data.forEach(d => {
       const effectValue = parseInt(d[effectKey], 10);
       const value = Number.isNaN(effectValue) ? null : effectValue;
-      return {
-        theme: d.theme,
-        id: slug(d),
-        action: d.name,
-        color: d.color,
-        actor: d.coordinator,
-        value,
-        cautions: metaInfo.cautions,
-        unit: metaInfo.unit
-      };
+      if (value) {
+        parsedData.push({
+          theme: d.theme,
+          id: slug(d),
+          action: d.name,
+          color: d.color,
+          actor: d.coordinator,
+          value,
+          cautions: metaInfo.cautions,
+          unit: metaInfo.unit
+        });
+      }
     });
-    return parsedData;
+    return parsedData.length ? parsedData : null;
   }
 );
 

@@ -6,7 +6,8 @@ import {
   ButtonGroup,
   Button,
   Icon,
-  BubbleChart
+  BubbleChart,
+  NoContent
 } from 'cw-components';
 import iconInfo from 'assets/icons/info';
 import iconDownload from 'assets/icons/download';
@@ -95,13 +96,19 @@ class Summary extends PureComponent {
             ? (
               <div className={styles.contentContainer}>
                 <div className={styles.chartContainer}>
-                  <BubbleChart
-                    width={400}
-                    height={400}
-                    data={chartData}
-                    handleNodeClick={this.handleNodeClick}
-                    tooltipClassName="global_SATooltip"
-                  />
+                  {
+                  chartData
+                    ? (
+                      <BubbleChart
+                        width={400}
+                        height={400}
+                        data={chartData}
+                        handleNodeClick={this.handleNodeClick}
+                        tooltipClassName="global_SATooltip"
+                      />
+)
+                    : <NoContent minHeight={400} message="No data available" />
+                }
                 </div>
                 <div className={styles.infoContainer}>
                   {
