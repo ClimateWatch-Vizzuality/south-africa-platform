@@ -10,7 +10,7 @@ module Api
               render json: values,
                      each_serializer: Api::V1::FinancialResource::ReceivedSupportSerializer,
                      meta: ::FinancialResource::Indicator.all.
-                       select(:code, :indicator, :category, :indicator_type, :unit)
+                       as_json(except: [:id, :created_at, :updated_at])
             end
             format.csv do
               send_data values.to_csv,

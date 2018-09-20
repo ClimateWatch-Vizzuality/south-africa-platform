@@ -13,7 +13,7 @@ module Api
   module V1
     module FinancialResource
       class DonorSerializer < ApplicationSerializer
-        attributes :name, :description
+        attributes :id, :name, :description
 
         has_many :received_supports,
                  serializer: Api::V1::FinancialResource::ReceivedSupportSerializer

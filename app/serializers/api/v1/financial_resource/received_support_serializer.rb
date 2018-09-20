@@ -27,7 +27,7 @@ module Api
   module V1
     module FinancialResource
       class ReceivedSupportSerializer < ApplicationSerializer
-        attributes :finance_flow, :amount_zar, :amount_usd, :timeframes,
+        attributes :id,:finance_flow, :amount_zar, :amount_usd, :timeframes,
                    :focus_area_1, :focus_area_2, :focus_area_3, :focus_area_4,
                    :focus_area_5, :focus_area_6, :focus_area_7, :focus_area_8,
                    :cofinancing, :purpose_funds, :program_funds, :outcome_funds

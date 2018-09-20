@@ -8,7 +8,9 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::FinancialResource::SupportNeedSerializer
+                     each_serializer: Api::V1::FinancialResource::SupportNeedSerializer,
+                     meta: ::FinancialResource::Indicator.all.
+                       as_json(except: [:id, :created_at, :updated_at])
             end
             format.csv do
               send_data values.to_csv,
