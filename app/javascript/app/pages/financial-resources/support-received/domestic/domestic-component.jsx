@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import { BubbleChart } from 'cw-components';
-import FinancialResourcesProvider from 'providers/financial-resources-provider';
+import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider';
 import styles from './domestic-styles.scss';
 
 class Domestic extends PureComponent {
@@ -48,7 +48,7 @@ class Domestic extends PureComponent {
               )
           }
         </div>
-        <FinancialResourcesProvider />
+        <FinancialResourcesReceivedProvider />
       </div>
     );
   }

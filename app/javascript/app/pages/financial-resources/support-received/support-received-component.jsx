@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
+import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
 import styles from './support-received-styles.scss';
 import International from './international';
 import Domestic from './domestic';
@@ -84,6 +85,7 @@ class SupportReceived extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
         />
+        <FinancialResourcesReceivedProvider />
       </div>
     );
   }
