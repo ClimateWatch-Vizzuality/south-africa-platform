@@ -52,11 +52,17 @@ const renameMitigationColumns = createSelector(getParsedMitigation, data => {
     const updatedD = d;
     Object.keys(d).forEach(key => {
       switch (key) {
-        case 'mitigation_theme':
-          updatedD.theme = d.mitigation_theme.title;
+        case 'mitigationTheme':
+          updatedD.theme = d.mitigationTheme.title;
           break;
-        case 'mitigation_type':
-          updatedD.type = d.mitigation_type;
+        case 'mitigationType':
+          updatedD.type = d.mitigationType;
+          break;
+        case 'timeHorizon':
+          updatedD.time_horizon = d.timeHorizon;
+          break;
+        case 'estimatedEmissionReduction':
+          updatedD.estimated_emission_reduction = d.estimatedEmissionReduction;
           break;
         default:
           updatedD[key] = d[key];
