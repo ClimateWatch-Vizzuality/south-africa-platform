@@ -3,7 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
 
 const getInventoryData = ({ GHGInventory = {} }) =>
-  isEmpty(GHGInventory.data) ? null : GHGInventory.data;
+  isEmpty(GHGInventory.data) || isEmpty(GHGInventory.data.data)
+    ? null
+    : GHGInventory.data.data;
 const getQueryParams = ({ location = {} }) => location.query || null;
 
 const getSearchValue = createSelector(
