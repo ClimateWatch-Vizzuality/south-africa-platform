@@ -7,8 +7,7 @@ module Api
 
           respond_to do |format|
             format.json do
-              render json: values,
-                     each_serializer: serializer
+              render json: ProjectedEmissionSerializer.new(values).to_json
             end
             format.csv do
               send_data values.to_csv,
@@ -18,10 +17,6 @@ module Api
             end
           end
         end
-
-        private
-
-        def serializer; end
       end
     end
   end

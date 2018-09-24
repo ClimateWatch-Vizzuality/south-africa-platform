@@ -14,6 +14,7 @@
 module Ghg
   class ProjectedEmission < ApplicationRecord
     abstract_class
+    include ::GenericToCsv
 
     validates_presence_of :name, :type
     has_many :projected_emission_years
