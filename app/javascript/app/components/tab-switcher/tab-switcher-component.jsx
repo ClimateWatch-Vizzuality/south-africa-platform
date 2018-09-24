@@ -16,7 +16,6 @@ class TabSwitcher extends PureComponent {
       actionsActive,
       activeTabValue,
       onTabChange,
-      onInfoClick,
       onFilterChange
     } = this.props;
     const activeTab = activeTabValue
@@ -43,7 +42,12 @@ class TabSwitcher extends PureComponent {
           <div className={styles.toolbarActions}>
             {
               actionsActive &&
-                <InfoDownloadToolbox handleInfoClick={onInfoClick} />
+                (
+                  <InfoDownloadToolbox
+                    slugs="historical_emissions_cait"
+                    className={styles.buttonWrapper}
+                  />
+                )
             }
             {
               searchActive &&
@@ -85,8 +89,6 @@ TabSwitcher.propTypes = {
   searchFilter: PropTypes.string,
   searchActive: PropTypes.bool,
   actionsActive: PropTypes.bool,
-  onInfoClick: PropTypes.func,
-  onDownloadClick: PropTypes.func,
   onFilterChange: PropTypes.func,
   onTabChange: PropTypes.func.isRequired
 };
@@ -97,10 +99,6 @@ TabSwitcher.defaultProps = {
   searchFilter: '',
   searchActive: true,
   actionsActive: true,
-  onInfoClick: () => {
-  },
-  onDownloadClick: () => {
-  },
   onFilterChange: () => {
   }
 };

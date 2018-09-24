@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
-import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Button, Dropdown } from 'cw-components';
@@ -14,19 +13,9 @@ import InfoDownloadToolbox from 'components/info-download-toolbox';
 import styles from './total-ghg-emissions-styles';
 
 class TotalGhgEmissions extends PureComponent {
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleMetricChange = metric => {
-    this.props.updateMetricSelected({ query: { metric: metric.value } });
-  };
-
-  handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
+    const { updateMetricSelected } = this.props;
+    updateMetricSelected({ query: { metric: metric.value } });
   };
 
   render() {
@@ -57,7 +46,7 @@ class TotalGhgEmissions extends PureComponent {
           Explore GHG Emissions
         </Button>
         <InfoDownloadToolbox
-          handleInfoClick={this.handleInfoClick}
+          slugs="historical_emissions_cait"
           className={styles.buttonWrapper}
         />
       </div>
@@ -98,7 +87,6 @@ class TotalGhgEmissions extends PureComponent {
         <MetaProvider meta="ghg" />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
-        <ModalMetadata />
       </React.Fragment>
     );
   }
@@ -109,7 +97,6 @@ TotalGhgEmissions.propTypes = {
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired,
   updateMetricSelected: PropTypes.func.isRequired
 };
 

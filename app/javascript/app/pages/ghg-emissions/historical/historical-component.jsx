@@ -25,13 +25,6 @@ class GHGHistoricalEmissions extends PureComponent {
     onFilterChange({ metric: value });
   };
 
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleDownloadClick = () => {
     console.info('TODO: link todownload data endpoint', this.props);
   };
@@ -68,7 +61,7 @@ class GHGHistoricalEmissions extends PureComponent {
     const toolbar = (
       <div className={styles.toolbarButtons}>
         <InfoDownloadToolbox
-          handleInfoClick={this.handleInfoClick}
+          slugs="historical_emissions_cait"
           className={styles.buttonWrapper}
         />
       </div>
@@ -121,7 +114,6 @@ GHGHistoricalEmissions.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  setModalMetadata: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired
 };
 

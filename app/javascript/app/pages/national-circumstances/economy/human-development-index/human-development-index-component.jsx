@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ModalMetadata from 'components/modal-metadata';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Chart } from 'cw-components';
 import HumanDevelopmentIndexProvider from 'providers/human-development-index-provider';
@@ -10,13 +9,6 @@ import HdiTooltip from './hdi-tooltip-chart';
 import styles from './human-development-index-styles';
 
 class HumanDevelopmentIndex extends PureComponent {
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleDownloadClick = () => {
     console.info('TODO: link todownload data endpoint', this.props);
   };
@@ -26,10 +18,7 @@ class HumanDevelopmentIndex extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox
-            slug="economy"
-            handleInfoClick={this.handleInfoClick}
-          />
+          <InfoDownloadToolbox slugs="economy" />
         </div>
         <div className={styles.chart}>
           <Chart
@@ -43,7 +32,6 @@ class HumanDevelopmentIndex extends PureComponent {
             {...chartData}
           />
         </div>
-        <ModalMetadata />
         <HumanDevelopmentIndexProvider />
       </React.Fragment>
     );
@@ -52,8 +40,7 @@ class HumanDevelopmentIndex extends PureComponent {
 
 HumanDevelopmentIndex.propTypes = {
   chartData: PropTypes.object,
-  humanDevelopmentIndexParams: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired
+  humanDevelopmentIndexParams: PropTypes.object
 };
 
 HumanDevelopmentIndex.defaultProps = {

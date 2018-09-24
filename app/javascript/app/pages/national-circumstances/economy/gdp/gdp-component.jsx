@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ModalMetadata from 'components/modal-metadata';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Dropdown, Chart } from 'cw-components';
@@ -12,15 +11,9 @@ import { CustomYAxisTick } from './axis-ticks';
 import styles from './gdp-styles';
 
 class GDP extends PureComponent {
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleMetricChange = metric => {
-    this.props.updateMetricSelected({
+    const { updateMetricSelected } = this.props;
+    updateMetricSelected({
       section: 'economy',
       query: { metric: metric.value }
     });
@@ -38,12 +31,7 @@ class GDP extends PureComponent {
         hideResetButton
       />
     );
-    const toolbar = (
-      <InfoDownloadToolbox
-        slug="economy"
-        handleInfoClick={this.handleInfoClick}
-      />
-    );
+    const toolbar = <InfoDownloadToolbox slugs="economy" />;
     return (
       <React.Fragment>
         <TabletLandscape>
@@ -75,7 +63,6 @@ class GDP extends PureComponent {
         <MetaProvider meta="ghg" />
         {gdpParams && <GdpProvider params={gdpParams} />}
         <WorldBankProvider />
-        <ModalMetadata />
       </React.Fragment>
     );
   }
@@ -86,7 +73,6 @@ GDP.propTypes = {
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   gdpParams: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired,
   updateMetricSelected: PropTypes.func.isRequired
 };
 

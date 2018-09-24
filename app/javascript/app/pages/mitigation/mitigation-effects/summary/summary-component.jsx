@@ -1,17 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ModalMetadata from 'components/modal-metadata';
 import { Dropdown, BubbleChart } from 'cw-components';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './summary-styles';
 
 class Summary extends PureComponent {
-  handleInfoClick = () => {
-    const { setModalMetadata } = this.props;
-    setModalMetadata({ slugs: 'mitigation_effects', open: true });
-  };
-
   handleThemeChange = ({ value }) => {
     const { onFilterChange } = this.props;
     onFilterChange({ theme: value, summaryId: '' });
@@ -65,7 +59,7 @@ class Summary extends PureComponent {
           />
           <div className={styles.buttonGroupContainer}>
             <InfoDownloadToolbox
-              handleInfoClick={this.handleInfoClick}
+              slugs="historical_emissions_cait"
               className={styles.buttonWrapper}
             />
           </div>
@@ -105,7 +99,6 @@ class Summary extends PureComponent {
 )
             : <div>TABLE</div>
         }
-        <ModalMetadata />
       </div>
     );
   }
@@ -118,7 +111,6 @@ Summary.propTypes = {
   themeSelected: PropTypes.object,
   visTypeOptions: PropTypes.array,
   visTypeSelected: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired
 };
 

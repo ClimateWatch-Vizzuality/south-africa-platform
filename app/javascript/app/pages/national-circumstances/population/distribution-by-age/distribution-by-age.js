@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setModalMetadata
-} from 'components/modal-metadata/modal-metadata-actions';
-import * as ownActions from './distribution-by-age-actions';
+import * as actions from './distribution-by-age-actions';
 
 import Component from './distribution-by-age-component';
 import { getDummyData } from './distribution-by-age-selectors';
 
-const actions = { ...ownActions, setModalMetadata };
 const mapStateToProps = getDummyData;
 
 class DistributionByAgeContainer extends PureComponent {

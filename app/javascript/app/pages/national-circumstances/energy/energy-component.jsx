@@ -5,7 +5,6 @@ import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Dropdown } from 'cw-components';
 import Chart from 'components/chart';
-import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
@@ -21,13 +20,6 @@ class Energy extends PureComponent {
   handleMetricChange = metric => {
     const { onFilterChange } = this.props;
     onFilterChange({ metric: metric.value });
-  };
-
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
   };
 
   handleDownloadClick = () => {
@@ -64,10 +56,7 @@ class Energy extends PureComponent {
     );
     const toolbar = (
       <div className={styles.toolbarButtons}>
-        <InfoDownloadToolbox
-          handleInfoClick={this.handleInfoClick}
-          className={styles.buttonWrapper}
-        />
+        <InfoDownloadToolbox slugs="energy" className={styles.buttonWrapper} />
       </div>
     );
     return (
@@ -100,7 +89,6 @@ class Energy extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        <MetadataProvider meta="ghg" />
         {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
         <WorldBankProvider />
         <ModalMetadata />
@@ -117,7 +105,6 @@ Energy.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  setModalMetadata: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired
 };
 

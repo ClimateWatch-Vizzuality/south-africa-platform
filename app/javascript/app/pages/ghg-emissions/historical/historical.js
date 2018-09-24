@@ -1,15 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setModalMetadata
-} from 'components/modal-metadata/modal-metadata-actions';
 
 import Component from './historical-component';
 import { getTotalGHGEMissions } from './historical-selectors';
-import * as ownActions from './historical-actions';
-
-const actions = { ...ownActions, setModalMetadata };
+import * as actions from './historical-actions';
 
 const mapStateToProps = getTotalGHGEMissions;
 

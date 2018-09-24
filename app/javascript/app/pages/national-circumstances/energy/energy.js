@@ -1,15 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setModalMetadata
-} from 'components/modal-metadata/modal-metadata-actions';
-
 import Component from './energy-component';
 import { getTotalGHGEMissions } from './energy-selectors';
-import * as ownActions from './energy-actions';
-
-const actions = { ...ownActions, setModalMetadata };
+import * as actions from './energy-actions';
 
 const mapStateToProps = getTotalGHGEMissions;
 

@@ -6,23 +6,30 @@ import iconInfo from 'assets/icons/info';
 import downloadIcon from 'assets/icons/download';
 import buttonThemes from 'styles/themes/button';
 import ReactTooltip from 'react-tooltip';
+import ModalMetadata from 'components/modal-metadata';
 import styles from './info-download-toolbox-styles.scss';
 
 class InfoDownloadToolbox extends PureComponent {
   handleDownloadClick = () => {
-    const { slug } = this.props;
-    console.info('TODO: Download ', slug);
+    console.info('TODO: Download ');
+  };
+
+  handleInfoClick = () => {
+    const { slugs, setModalMetadata } = this.props;
+    if (slugs) {
+      setModalMetadata({ slugs, open: true });
+    }
   };
 
   render() {
-    const { theme, handleInfoClick } = this.props;
+    const { theme } = this.props;
     return (
       <ButtonGroup
         theme={{ wrapper: cx(styles.buttonWrapper, theme.buttonWrapper) }}
       >
         <div data-for="blueTooltip" data-tip="Chart information">
           <Button
-            onClick={handleInfoClick}
+            onClick={this.handleInfoClick}
             theme={{
               button: cx(buttonThemes.outline, styles.button, theme.infobutton)
             }}
@@ -46,6 +53,7 @@ class InfoDownloadToolbox extends PureComponent {
           effect="solid"
           className="global_blueTooltip"
         />
+        <ModalMetadata />
       </ButtonGroup>
     );
   }
@@ -56,14 +64,10 @@ InfoDownloadToolbox.propTypes = {
     buttonWrapper: PropTypes.string,
     infobutton: PropTypes.string
   }),
-  slug: PropTypes.string.isRequired,
-  handleInfoClick: PropTypes.func
+  slugs: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
+  setModalMetadata: PropTypes.func.isRequired
 };
 
-InfoDownloadToolbox.defaultProps = {
-  theme: {},
-  handleInfoClick: () => {
-  }
-};
+InfoDownloadToolbox.defaultProps = { theme: {}, slugs: null };
 
 export default InfoDownloadToolbox;
