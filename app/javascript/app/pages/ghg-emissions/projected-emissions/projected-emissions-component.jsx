@@ -14,11 +14,6 @@ import isUndefined from 'lodash/isUndefined';
 import styles from './projected-emissions-styles.scss';
 
 class ProjectedEmissions extends PureComponent {
-  handleInfoClick = () => {
-    const { setModalMetadata } = this.props;
-    setModalMetadata({ slugs: 'historical_emissions_cait', open: true });
-  };
-
   handleLegendChange = filtersSelected => {
     const { updateFilters } = this.props;
     updateFilters({ dataSelected: filtersSelected });
@@ -118,10 +113,7 @@ class ProjectedEmissions extends PureComponent {
             title="Projected Emissions"
             theme={{ sectionTitle: styles.title }}
           />
-          <InfoDownloadToolbox
-            slug="projected_emissions"
-            handleInfoClick={this.handleInfoClick}
-          />
+          <InfoDownloadToolbox slugs="projected_emissions" />
         </div>
         {
           chartData && (
@@ -146,7 +138,6 @@ class ProjectedEmissions extends PureComponent {
 }
 
 ProjectedEmissions.propTypes = {
-  setModalMetadata: PropTypes.func.isRequired,
   updateFilters: PropTypes.func.isRequired,
   chartData: PropTypes.object.isRequired
 };

@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { Switch, ButtonGroup, Button, Icon, Input } from 'cw-components';
+import { Switch, Input } from 'cw-components';
 import cx from 'classnames';
 import ModalMetadata from 'components/modal-metadata';
-
-import iconInfo from 'assets/icons/info';
-import downloadIcon from 'assets/icons/download';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './tab-switcher-styles';
 
@@ -18,8 +16,6 @@ class TabSwitcher extends PureComponent {
       actionsActive,
       activeTabValue,
       onTabChange,
-      onInfoClick,
-      onDownloadClick,
       onFilterChange
     } = this.props;
     const activeTab = activeTabValue
@@ -45,22 +41,12 @@ class TabSwitcher extends PureComponent {
           />
           <div className={styles.toolbarActions}>
             {
-              actionsActive && (
-              <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
-                <Button
-                  onClick={onInfoClick}
-                  theme={{ button: styles.infobutton }}
-                >
-                  <Icon icon={iconInfo} />
-                </Button>
-                <Button
-                  disabled
-                  onClick={onDownloadClick}
-                  theme={{ button: styles.infobutton }}
-                >
-                  <Icon icon={downloadIcon} />
-                </Button>
-              </ButtonGroup>
+              actionsActive &&
+                (
+                  <InfoDownloadToolbox
+                    slugs="historical_emissions_cait"
+                    className={styles.buttonWrapper}
+                  />
                 )
             }
             {
@@ -103,8 +89,6 @@ TabSwitcher.propTypes = {
   searchFilter: PropTypes.string,
   searchActive: PropTypes.bool,
   actionsActive: PropTypes.bool,
-  onInfoClick: PropTypes.func,
-  onDownloadClick: PropTypes.func,
   onFilterChange: PropTypes.func,
   onTabChange: PropTypes.func.isRequired
 };
@@ -115,10 +99,6 @@ TabSwitcher.defaultProps = {
   searchFilter: '',
   searchActive: true,
   actionsActive: true,
-  onInfoClick: () => {
-  },
-  onDownloadClick: () => {
-  },
   onFilterChange: () => {
   }
 };

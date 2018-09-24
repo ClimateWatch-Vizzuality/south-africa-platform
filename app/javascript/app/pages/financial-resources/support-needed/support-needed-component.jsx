@@ -15,8 +15,8 @@ class SupportNeeded extends PureComponent {
   };
 
   handleFilterChange = value => {
-    const { updateQueryParam, query } = this.props;
-    updateQueryParam({ query: { ...query, search: value } });
+    const { updateQueryParam, query, section } = this.props;
+    updateQueryParam({ query: { ...query, search: value }, section });
   };
 
   renderTabs() {

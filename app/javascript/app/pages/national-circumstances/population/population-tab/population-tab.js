@@ -26,9 +26,9 @@ class PopulationTabContainer extends PureComponent {
 
 PopulationTabContainer.propTypes = {
   updateFiltersSelected: PropTypes.func.isRequired,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object
 };
 
-PopulationTabContainer.defaultProps = {};
+PopulationTabContainer.defaultProps = { query: {} };
 
 export default connect(null, actions)(PopulationTabContainer);

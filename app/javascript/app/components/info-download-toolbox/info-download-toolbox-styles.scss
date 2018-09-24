@@ -1,7 +1,11 @@
-.buttonWrapper {
-  width: 90px;
+@import '~styles/settings.scss';
+
+.button {
+  width: 50px;
+  border: 0;
 }
 
-.infobutton {
-  width: 50px;
+.buttonWrapper {
+  border: solid 1px $border-color;
+  box-sizing: content-box;
 }

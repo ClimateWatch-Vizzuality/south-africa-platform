@@ -1,25 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ModalMetadata from 'components/modal-metadata';
-import {
-  Dropdown,
-  ButtonGroup,
-  Button,
-  Icon,
-  BubbleChart,
-  NoContent
-} from 'cw-components';
-import iconInfo from 'assets/icons/info';
-import iconDownload from 'assets/icons/download';
+import { Dropdown, BubbleChart, NoContent } from 'cw-components';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './summary-styles';
 
 class Summary extends PureComponent {
-  handleInfoClick = () => {
-    const { setModalMetadata } = this.props;
-    setModalMetadata({ slugs: 'mitigation_effects', open: true });
-  };
-
   handleThemeChange = ({ value }) => {
     const { onFilterChange } = this.props;
     onFilterChange({ theme: value, summaryId: '', ghgEmissionsReduction: '' });
@@ -78,17 +64,10 @@ class Summary extends PureComponent {
             disabled
           />
           <div className={styles.buttonGroupContainer}>
-            <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
-              <Button onClick={this.handleInfoClick}>
-                <Icon icon={iconInfo} />
-              </Button>
-              <Button
-                onClick={() => console.info('Clicked on download')}
-                disabled
-              >
-                <Icon icon={iconDownload} />
-              </Button>
-            </ButtonGroup>
+            <InfoDownloadToolbox
+              slugs="historical_emissions_cait"
+              className={styles.buttonWrapper}
+            />
           </div>
         </div>
         {
@@ -128,7 +107,6 @@ class Summary extends PureComponent {
 )
             : <div>TABLE</div>
         }
-        <ModalMetadata />
       </div>
     );
   }
@@ -143,7 +121,6 @@ Summary.propTypes = {
   visTypeSelected: PropTypes.object,
   GHGOptions: PropTypes.array,
   GHGSelected: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired
 };
 

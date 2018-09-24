@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import ModalMetadata from 'components/modal-metadata';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { ChartComposed } from 'cw-components';
 import { Area, Line } from 'recharts';
@@ -12,13 +11,6 @@ import GdpTooltip from './gdp-tooltip-chart';
 import styles from './gdp-growth-styles';
 
 class GDPGrowth extends PureComponent {
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleDownloadClick = () => {
     console.info('TODO: link todownload data endpoint', this.props);
   };
@@ -52,10 +44,7 @@ class GDPGrowth extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox
-            slug="economy"
-            handleInfoClick={this.handleInfoClick}
-          />
+          <InfoDownloadToolbox slugs="economy" />
         </div>
         <div className={styles.chart}>
           {
@@ -74,16 +63,12 @@ class GDPGrowth extends PureComponent {
         </div>
         <MetaProvider meta="ghg" />
         <GdpGrowthProvider />
-        <ModalMetadata />
       </React.Fragment>
     );
   }
 }
 
-GDPGrowth.propTypes = {
-  chartData: PropTypes.object,
-  setModalMetadata: PropTypes.func.isRequired
-};
+GDPGrowth.propTypes = { chartData: PropTypes.object };
 
 GDPGrowth.defaultProps = { chartData: {} };
 
