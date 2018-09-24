@@ -46,9 +46,8 @@ export const getThemeSelected = createSelector(
   [ getThemeOptions, getThemeParam ],
   (themes, theme) => {
     if (!themes) return null;
-    return themes.find(
-      t => t.value === snakeCase(theme) || t.value === DEFAULT_THEME
-    );
+    return themes.find(t => t.value === theme) ||
+      themes.find(t => t.value === DEFAULT_THEME);
   }
 );
 const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
