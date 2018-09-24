@@ -2,7 +2,7 @@ import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as actions from './financial-resources-provider-actions';
+import * as actions from './financial-resources-needed-provider-actions';
 import reducers, {
   initialState
 } from './financial-resources-needed-provider-reducers';

@@ -1,7 +1,14 @@
 import { createSelector, createStructuredSelector } from 'reselect';
+import isEmpty from 'lodash/isEmpty';
+import uniq from 'lodash/uniq';
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSection = ({ location = {} }) => location.payload.section || null;
+
+const getData = ({ financialResourcesReceived = {} }) =>
+  isEmpty(financialResourcesReceived.data.data)
+    ? null
+    : financialResourcesReceived.data.data;
 
 const getActiveTabValue = createSelector(
   getQueryParams,
@@ -25,14 +32,17 @@ const getFundOriginOptions = createSelector(
   getMockedData,
   data => data && data.fundOrigin && parseOptions(data.fundOrigin) || null
 );
-const getFinancialFlowOptions = createSelector(
-  getMockedData,
-  data => data && data.financialFlow && parseOptions(data.financialFlow) || null
-);
-const getCountryOptions = createSelector(
-  getMockedData,
-  data => data && data.country && parseOptions(data.country) || null
-);
+const getFinancialFlowOptions = createSelector(getData, data => {
+  if (!data) return null;
+  const financeFlows = uniq(data.map(d => d.financeFlow));
+  return financeFlows.length > 0 && parseOptions(financeFlows) || null;
+});
+
+const getCountryOptions = createSelector(getData, data => {
+  if (!data) return null;
+  const countries = uniq(data.map(d => d.donor.name));
+  return countries.length > 0 && parseOptions(countries) || null;
+});
 const getChartTypeOptions = createSelector(
   getMockedData,
   data => data && data.chartType && parseOptions(data.chartType) || null
@@ -54,13 +64,16 @@ const getDonorValues = createSelector([ getQueryParams, getDonorOptions ], (
     if (!query || !query.donor) return options && options[0];
     return options.find(o => o.value === query.donor) || null;
   });
+
 const getFinancialFlowValues = createSelector(
   [ getQueryParams, getFinancialFlowOptions ],
   (query, options) => {
+    if (!options) return null;
     if (!query || !query.financialFlow) return options && options[0];
     return options.find(o => o.value === query.financialFlow) || null;
   }
 );
+
 const getCountryValues = createSelector([ getQueryParams, getCountryOptions ], (
   query,
   options
@@ -69,6 +82,7 @@ const getCountryValues = createSelector([ getQueryParams, getCountryOptions ], (
     if (!query || !query.country) return options && options[0];
     return options.find(o => o.value === query.country) || null;
   });
+
 const getChartTypeValues = createSelector(
   [ getQueryParams, getChartTypeOptions ],
   (query, options) => {
@@ -108,7 +122,18 @@ const getDropdownConfig = createSelector(getQueryParams, query => {
   return dropdownConfig.concat(tabSpecificDropdowns);
 });
 
+const filterData = createSelector([ getData, getValues ], (data, values) => {
+  if (!data) return null;
+  let updatedData = data;
+  updatedData = updatedData.filter(
+    d => d.financeFlow === values.financialFlow.value
+  );
+  updatedData = updatedData.filter(d => d.donor.name === values.country.value);
+  return updatedData;
+});
+
 export const getSupportReceived = createStructuredSelector({
+  data: filterData,
   section: getSection,
   query: getQueryParams,
   activeTabValue: getActiveTabValue,

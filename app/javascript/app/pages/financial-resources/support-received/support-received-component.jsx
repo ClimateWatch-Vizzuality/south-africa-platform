@@ -38,7 +38,7 @@ class SupportReceived extends PureComponent {
   }
 
   render() {
-    const { activeTabValue, handleFilterChange, values } = this.props;
+    const { activeTabValue, handleFilterChange, values, data } = this.props;
     const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
@@ -51,7 +51,7 @@ class SupportReceived extends PureComponent {
         value: INTERNATIONAL_KEY,
         component: (
           <WithDropdowns>
-            <International />
+            <International data={data} />
           </WithDropdowns>
         )
       },
@@ -61,6 +61,7 @@ class SupportReceived extends PureComponent {
         component: (
           <WithDropdowns>
             <Domestic
+              data={data}
               selectedValues={values}
               handleFilterChange={handleFilterChange}
             />
@@ -99,10 +100,12 @@ SupportReceived.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   options: PropTypes.object,
   values: PropTypes.object,
-  dropdownConfig: PropTypes.array
+  dropdownConfig: PropTypes.array,
+  data: PropTypes.array
 };
 
 SupportReceived.defaultProps = {
+  data: null,
   query: null,
   dropdownConfig: [],
   section: null,
