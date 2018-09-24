@@ -1,28 +1,56 @@
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector, createSelector } from 'reselect';
 import { CHART_COLORS } from 'utils/graphs';
+import uniq from 'lodash/uniq';
 
-const data = {
-  nodes: [
-    { name: 'Germany' },
-    { name: 'France' },
-    { name: 'Loans' },
-    { name: 'Grants' }
-  ],
-  links: [
-    { source: 0, target: 2, value: 24 },
-    { source: 1, target: 3, value: 15 },
-    { source: 1, target: 3, value: 19 },
-    { source: 0, target: 3, value: 57 }
-  ]
+const getData = createSelector(props => props.data, data => data || null);
+
+const getNodes = data => {
+  const nodes = [];
+  data.forEach(d => {
+    nodes.push(d.donor.name);
+    if (d.typeFunds) nodes.push(d.typeFunds);
+  });
+  return uniq(nodes);
+};
+const getLinks = (data, nodes) => {
+  const links = [];
+  data.forEach(d => {
+    const source = nodes.indexOf(d.donor.name);
+    const target = nodes.indexOf(d.typeFunds);
+    if (d.typeFunds) {
+      const linkToUpdate = links.find(
+        l => l.source === source && l.target === target
+      );
+      if (linkToUpdate) links.splice(links.indexOf(linkToUpdate), 1);
+      const value = linkToUpdate && linkToUpdate.value + d.amountUsd ||
+        d.amountUsd;
+      links.push({
+        source: nodes.indexOf(d.donor.name),
+        target: nodes.indexOf(d.typeFunds),
+        value
+      });
+    }
+  });
+  return links;
 };
 
-export const getData = () => {
+const filterData = createSelector([ getData ], data => {
+  if (!data) return null;
+  const nodes = getNodes(data);
+  const links = getLinks(data, nodes);
+  return links.length > 0
+    ? { nodes: nodes.map(n => ({ name: n })), links: getLinks(data, nodes) }
+    : null;
+});
+
+export const addColorToData = createSelector(filterData, data => {
+  if (!data || !data.nodes) return null;
   const nodesWithColors = data.nodes.map((node, i) => ({
     ...node,
     color: CHART_COLORS[i % 10]
   }));
   return { ...data, nodes: nodesWithColors };
-};
+});
 
 export const getConfig = () => {
   const unit = 'USD million';
@@ -31,7 +59,8 @@ export const getConfig = () => {
   return { tooltip: { unit, focus }, node: { unit, suffix } };
 };
 
-export const getInternational = createStructuredSelector({
-  data: getData,
-  config: getConfig
-});
+export const getInternational = data =>
+  createStructuredSelector({
+    data: () => addColorToData(data),
+    config: getConfig
+  });

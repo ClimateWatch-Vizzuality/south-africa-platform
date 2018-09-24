@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { Sankey } from 'cw-components';
+import { Sankey, NoContent } from 'cw-components';
 import styles from './international-selectors-styles.scss';
 
 class International extends PureComponent {
@@ -18,14 +18,15 @@ class International extends PureComponent {
     return (
       <div>
         {
-          data &&
-            (
+          data
+            ? (
               <Sankey
                 data={data}
                 config={config}
                 tooltipChildren={this.renderTooltipChildren()}
               />
-            )
+)
+            : <NoContent minHeight={660} message="No data available" />
         }
       </div>
     );
