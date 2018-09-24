@@ -12,7 +12,7 @@
 module Api
   module V1
     module Mitigation
-      class MitigationThemeSerializer < ActiveModel::Serializer
+      class MitigationThemeSerializer < ApplicationSerializer
         attributes :title, :position
 
         has_many :flagship_programmes,

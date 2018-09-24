@@ -25,7 +25,7 @@
 module Api
   module V1
     module Mitigation
-      class MitigationEffectSerializer < ActiveModel::Serializer
+      class MitigationEffectSerializer < ApplicationSerializer
         attributes :theme, :name, :coordinator, :effects_1, :effects_2,
                    :effects_3, :effects_4, :effects_5, :effects_6, :effects_7,
                    :effects_8, :effects_9, :effects_10, :effects_11, :effects_12
