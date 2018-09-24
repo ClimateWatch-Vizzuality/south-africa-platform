@@ -28,7 +28,8 @@ const getSummaryMeta = ({ mitigationEffects = {} }) =>
 
 const setBubbleColor = (selectedId, id) =>
   selectedId === id ? CHART_COLORS.selected : CHART_COLORS.default;
-const setInitialColor = (slug, summary) => {
+const setInitialColor = (slug, summary, isFirstElement) => {
+  if (isFirstElement) return CHART_COLORS.selected;
   const selected = summary.find(s => snakeCase(s.name) === slug);
   return selected ? CHART_COLORS.default : CHART_COLORS.selected;
 };
@@ -103,14 +104,16 @@ const getChartData = createSelector(
   [ getSummaryData, getThemeParam, getSummaryIdParam ],
   (summary, themeSelected, selectedId) => {
     if (!summary) return null;
-    const initialColor = e => setInitialColor(slug(e), summary);
+    const initialColor = (e, isFirstElement) =>
+      setInitialColor(slug(e), summary, isFirstElement);
     const themeFilteredData = summary.filter(
       d => snakeCase(d.theme) === (themeSelected || DEFAULT_THEME)
     );
-    return themeFilteredData.map(e => ({
-      ...e,
-      color: selectedId ? setBubbleColor(selectedId, slug(e)) : initialColor(e)
-    }));
+    const getColor = (e, i) =>
+      selectedId
+        ? setBubbleColor(selectedId, slug(e))
+        : initialColor(e, i === 0);
+    return themeFilteredData.map((e, i) => ({ ...e, color: getColor(e, i) }));
   }
 );
 
@@ -148,6 +151,7 @@ export const getSummarySelected = createSelector(
   [ parseChartData, getSummaryIdParam ],
   (data, summaryId) => {
     if (!data) return null;
+    if (!summaryId) return data[0];
     return data.find(d => d.id === summaryId);
   }
 );
