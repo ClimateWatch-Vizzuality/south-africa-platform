@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ModalMetadata from 'components/modal-metadata';
-import {
-  Dropdown,
-  ButtonGroup,
-  Button,
-  Icon,
-  BubbleChart
-} from 'cw-components';
-import iconInfo from 'assets/icons/info';
-import iconDownload from 'assets/icons/download';
+import { Dropdown, BubbleChart } from 'cw-components';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './summary-styles';
 
@@ -71,17 +64,10 @@ class Summary extends PureComponent {
             disabled
           />
           <div className={styles.buttonGroupContainer}>
-            <ButtonGroup theme={{ wrapper: styles.buttonGroupWrapper }}>
-              <Button onClick={this.handleInfoClick}>
-                <Icon icon={iconInfo} />
-              </Button>
-              <Button
-                onClick={() => console.info('Clicked on download')}
-                disabled
-              >
-                <Icon icon={iconDownload} />
-              </Button>
-            </ButtonGroup>
+            <InfoDownloadToolbox
+              handleInfoClick={this.handleInfoClick}
+              className={styles.buttonWrapper}
+            />
           </div>
         </div>
         {

@@ -4,11 +4,14 @@
   .global_SATooltip {
     font-family: $font-family-3;
     padding: 15px;
-    color: $theme-color !important;
-    background-color: $white !important;
     font-size: $font-size-xs;
     letter-spacing: -0.1px;
     box-shadow: 0 5px 15px 0 rgba(17, 55, 80, 0.15);
+
+    &.__react_component_tooltip.type-dark {
+      color: $theme-color;
+      background-color: $white;
+    }
 
     &::after { // Hides the arrow
       display: none;
@@ -17,12 +20,15 @@
 
   .global_blueTooltip {
     padding: 15px;
-    color: $theme-color !important;
     font-size: $font-size-xs;
-    background-color: $pale-gray !important;
 
-    &::after {
-      border-top-color: $pale-gray !important;
+    &.__react_component_tooltip.type-dark {
+      color: $theme-color;
+      background-color: $pale-gray;
+
+      &::after {
+        border-top-color: $pale-gray;
+      }
     }
   }
 }

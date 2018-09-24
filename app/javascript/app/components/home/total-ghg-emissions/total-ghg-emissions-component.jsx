@@ -4,13 +4,12 @@ import Link from 'redux-first-router-link';
 import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
-import { Section, ButtonGroup, Button, Icon, Dropdown } from 'cw-components';
+import { Section, Button, Dropdown } from 'cw-components';
 import Chart from 'components/chart';
 import MetaProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
-import iconInfo from 'assets/icons/info';
-import downloadIcon from 'assets/icons/download';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './total-ghg-emissions-styles';
 
@@ -57,20 +56,10 @@ class TotalGhgEmissions extends PureComponent {
         >
           Explore GHG Emissions
         </Button>
-        <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
-          <Button
-            onClick={this.handleInfoClick}
-            theme={{ button: styles.infobutton }}
-          >
-            <Icon icon={iconInfo} />
-          </Button>
-          <Button
-            onClick={this.handleDownloadClick}
-            theme={{ button: styles.infobutton }}
-          >
-            <Icon icon={downloadIcon} />
-          </Button>
-        </ButtonGroup>
+        <InfoDownloadToolbox
+          handleInfoClick={this.handleInfoClick}
+          className={styles.buttonWrapper}
+        />
       </div>
     );
     return (
