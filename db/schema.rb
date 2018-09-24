@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_140010) do
+ActiveRecord::Schema.define(version: 2018_09_24_151857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,31 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "flagship_components", force: :cascade do |t|
+    t.integer "flagship_programme_id"
+    t.string "name"
+    t.text "main_activities"
+    t.string "lead"
+    t.string "status"
+    t.text "milestone"
+    t.text "barriers"
+    t.text "next_steps"
+    t.string "timeframe"
+    t.text "support"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "flagship_programmes", force: :cascade do |t|
     t.integer "mitigation_theme_id"
     t.string "title"
-    t.text "example"
+    t.text "sub_programs"
     t.text "description"
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "work_package"
+    t.text "outcomes"
   end
 
   create_table "historical_emissions_data_sources", force: :cascade do |t|
@@ -235,6 +252,7 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "flagship_components", "flagship_programmes"
   add_foreign_key "flagship_programmes", "mitigation_themes"
   add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade

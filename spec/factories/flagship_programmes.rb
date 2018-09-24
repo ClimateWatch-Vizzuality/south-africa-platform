@@ -14,13 +14,13 @@
 #  outcomes            :text
 #
 
-module Mitigation
-  class FlagshipProgramme < ApplicationRecord
-    include ::GenericToCsv
-
-    self.table_name = 'flagship_programmes'
-    validates_presence_of :position, :title
-    belongs_to :mitigation_theme
-    has_many :flagship_components
+FactoryBot.define do
+  factory :flagship_programme, class: 'Mitigation::FlagshipProgramme' do
+    sequence(:title) { |n| ('A'..'Z').to_a[n] }
+    sequence(:sub_programs) { |n| ('A'..'Z').to_a[n] }
+    sequence(:description) { |n| ('A'..'Z').to_a[n] }
+    sequence(:position) { |n| n }
+    sequence(:work_package) { |n| ('A'..'Z').to_a[n] }
+    sequence(:outcomes) { |n| ('A'..'Z').to_a[n] }
   end
 end
