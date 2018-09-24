@@ -3,10 +3,10 @@ import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
 
 const getInventoryData = ({ GHGInventory = {} }) =>
-  isEmpty(GHGInventory.data) ? null : GHGInventory.data;
+  isEmpty(GHGInventory.data) || isEmpty(GHGInventory.data.data)
+    ? null
+    : GHGInventory.data.data;
 const getQueryParams = ({ location = {} }) => location.query || null;
-
-const getInventory = createSelector(getInventoryData, inventory => inventory);
 
 const getSearchValue = createSelector(
   getQueryParams,
@@ -18,14 +18,21 @@ const getActiveTabValue = createSelector(
   query => query ? query.tab : null
 );
 
-const defaultColumns = [ 'name', 'definition', 'unit', 'composite_name' ];
-const ellipsisColumns = [ 'composite_name' ];
+const defaultColumns = [
+  'project',
+  'objective',
+  'partner',
+  'donor',
+  'outcome',
+  'timelines',
+  'sector',
+  'status'
+];
+const ellipsisColumns = [];
 
-const getParsedInventory = createSelector([ getInventory, getSearchValue ], (
-  data,
-  searchFilter
-) =>
-  {
+const getParsedInventory = createSelector(
+  [ getInventoryData, getSearchValue ],
+  (data, searchFilter) => {
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
@@ -37,7 +44,8 @@ const getParsedInventory = createSelector([ getInventory, getSearchValue ], (
           false
         )
     );
-  });
+  }
+);
 const getTableData = createSelector(getParsedInventory, data => ({
   data,
   defaultColumns,

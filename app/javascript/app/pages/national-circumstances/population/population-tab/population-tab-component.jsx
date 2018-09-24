@@ -22,13 +22,6 @@ class PopulationTab extends PureComponent {
     }
   };
 
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleYearChange = year => {
     const { onFilterChange } = this.props;
     onFilterChange({ year: year.value });
@@ -48,12 +41,7 @@ class PopulationTab extends PureComponent {
       />
     );
 
-    const toolbar = (
-      <InfoDownloadToolbox
-        slug="populations"
-        handleInfoClick={this.handleInfoClick}
-      />
-    );
+    const toolbar = <InfoDownloadToolbox slugs="populations" />;
 
     return (
       <div className="section">
@@ -104,8 +92,7 @@ PopulationTab.propTypes = {
   populations: PropTypes.object,
   yearsOptions: PropTypes.array,
   yearSelected: PropTypes.object,
-  onFilterChange: PropTypes.func.isRequired,
-  setModalMetadata: PropTypes.func.isRequired
+  onFilterChange: PropTypes.func.isRequired
 };
 
 PopulationTab.defaultProps = {

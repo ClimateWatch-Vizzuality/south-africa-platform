@@ -27,11 +27,12 @@ class MitigationEffects extends PureComponent {
   }
 
   render() {
+    const { tabs } = this.state;
     return (
       <div className={styles.row}>
         <SectionTitle isSubtitle title="Mitigation Effects" />
         <TabSwitcher
-          tabs={this.state.tabs}
+          tabs={tabs}
           searchActive={false}
           actionsActive={false}
           onTabChange={() => {
