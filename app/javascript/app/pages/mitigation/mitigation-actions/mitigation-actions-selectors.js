@@ -3,7 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
 
 const getMitigationData = ({ mitigationActions = {} }) =>
-  isEmpty(mitigationActions.data) ? null : mitigationActions.data;
+  isEmpty(mitigationActions.data) || isEmpty(mitigationActions.data.data)
+    ? null
+    : mitigationActions.data.data;
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSearchValue = createSelector(
   getQueryParams,
