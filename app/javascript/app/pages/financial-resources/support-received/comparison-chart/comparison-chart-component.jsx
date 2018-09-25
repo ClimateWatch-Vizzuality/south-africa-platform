@@ -12,7 +12,7 @@ class ComparisonChart extends PureComponent {
   };
 
   render() {
-    const { data, selectedValues } = this.props;
+    const { data, selectedData, selectedValues } = this.props;
     return (
       <div className={styles.contentContainer}>
         <div className={styles.chartContainer}>
@@ -33,17 +33,25 @@ class ComparisonChart extends PureComponent {
           {
             selectedValues && (
             <div>
-              <h2 className={styles.label}>
-                {selectedValues.financialFlow.label}
+              <h2 className={styles.title}>
+                {
+                      selectedValues.financialFlow &&
+                        selectedValues.financialFlow.label
+                    }
                 {' '}by{' '}
                 {selectedValues.donor && selectedValues.donor.label}
               </h2>
+              <p className={styles.text}>
+                {selectedData && selectedData.purposeFunds}
+              </p>
               <p className={styles.label}>Principal focus</p>
               <p className={styles.text}>Principal focus</p>
               <p className={styles.label}>Support commited</p>
               <p className={styles.text}>Support commited</p>
               <p className={styles.label}>Type of funding</p>
-              <p className={styles.text}>Type of funding</p>
+              <p className={styles.text}>
+                {selectedData && selectedData.typeFunds}
+              </p>
             </div>
               )
           }
@@ -56,10 +64,15 @@ class ComparisonChart extends PureComponent {
 
 ComparisonChart.propTypes = {
   data: PropTypes.array,
+  selectedData: PropTypes.object,
   selectedValues: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired
 };
 
-ComparisonChart.defaultProps = { data: null, selectedValues: null };
+ComparisonChart.defaultProps = {
+  data: null,
+  selectedData: null,
+  selectedValues: null
+};
 
 export default ComparisonChart;

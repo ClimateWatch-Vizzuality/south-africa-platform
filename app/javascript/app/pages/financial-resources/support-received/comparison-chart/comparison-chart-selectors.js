@@ -3,17 +3,22 @@ import isEmpty from 'lodash/isEmpty';
 
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
 
-const getData = () => null;
+const getData = createSelector(state => state.data, data => data || null);
+const getComparisonId = createSelector([ state => state.location, getData ], (
+  location,
+  data
+) =>
+  {
+    if (!data || !location) return null;
+    return location.query && location.query.comparisonId || data[0].id;
+  });
 
-// const getData = ({ financialResourcesReceived = {} }) =>
-//   isEmpty(financialResourcesReceived.data.data) ? null : financialResourcesReceived.data.data;
-const getComparisonIdParam = ({ location }) =>
-  location.query ? location.query.comparisonId : null;
 const setBubbleColor = (selectedId, id) =>
   parseInt(selectedId, 10) === id
     ? CHART_COLORS.selected
     : CHART_COLORS.default;
-const getChartData = createSelector([ getData, getComparisonIdParam ], (
+
+const getChartData = createSelector([ getData, getComparisonId ], (
   data,
   selectedId
 ) =>
@@ -21,10 +26,25 @@ const getChartData = createSelector([ getData, getComparisonIdParam ], (
     if (!data || isEmpty(data)) return null;
     return data.map(e => ({
       ...e,
+      value: e.amountUsd,
+      unit: 'Dollars',
       color: selectedId
         ? setBubbleColor(selectedId, e.id)
         : CHART_COLORS.default
     }));
   });
 
-export const getComparison = createStructuredSelector({ data: getChartData });
+const getSelectedDataInfo = createSelector([ getChartData, getComparisonId ], (
+  data,
+  selectedId
+) =>
+  {
+    if (!data || !selectedId) return null;
+    return data.find(d => d.id === parseInt(selectedId, 10));
+  });
+
+export const getComparison = data =>
+  createStructuredSelector({
+    data: () => getChartData(data),
+    selectedData: () => getSelectedDataInfo(data)
+  });

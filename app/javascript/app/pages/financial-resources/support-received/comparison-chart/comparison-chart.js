@@ -4,21 +4,21 @@ import { PropTypes } from 'prop-types';
 import Component from './comparison-chart-component';
 import { getComparison } from './comparison-chart-selectors';
 
-const mapStateToProps = getComparison;
+const mapStateToProps = (state, props) =>
+  getComparison({ location: state.location, data: props.data });
 
-class CopmarisonChartContainer extends PureComponent {
+class ComparisonChartContainer extends PureComponent {
   render() {
     const { handleFilterChange } = this.props;
     return <Component {...this.props} onFilterChange={handleFilterChange} />;
   }
 }
 
-CopmarisonChartContainer.propTypes = {
-  updateFiltersSelected: PropTypes.func.isRequired,
+ComparisonChartContainer.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   query: PropTypes.object
 };
 
-CopmarisonChartContainer.defaultProps = { query: {} };
+ComparisonChartContainer.defaultProps = { query: {} };
 
-export default connect(mapStateToProps, null)(CopmarisonChartContainer);
+export default connect(mapStateToProps, null)(ComparisonChartContainer);

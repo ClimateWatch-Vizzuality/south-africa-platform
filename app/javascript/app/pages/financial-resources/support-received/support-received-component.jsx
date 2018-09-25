@@ -15,7 +15,10 @@ const NON_MONETIZED_KEY = 'nonMonetized';
 class SupportReceived extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query, section } = this.props;
-    updateQueryParam({ query: { ...query, tab: value }, section });
+    updateQueryParam({
+      query: { ...query, tab: value, comparisonId: '' },
+      section
+    });
   };
 
   renderDropdowns() {
