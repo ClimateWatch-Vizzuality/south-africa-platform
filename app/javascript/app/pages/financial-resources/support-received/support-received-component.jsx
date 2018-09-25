@@ -5,7 +5,8 @@ import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
 import styles from './support-received-styles.scss';
-import SupportReceivedChart from './support-received-chart';
+import FlowsChart from './flows-chart';
+import ComparisonChart from './comparison-chart';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -36,19 +37,34 @@ class SupportReceived extends PureComponent {
     );
   }
 
-  render() {
-    const { activeTabValue, data } = this.props;
+  renderChartComponent() {
+    const { data, values, handleFilterChange } = this.props;
     const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
         {children}
       </Fragment>
     );
-    const component = (
+    return (
       <WithDropdowns>
-        <SupportReceivedChart data={data} />
+        {
+          values && values.chartType.value === 'Comparison'
+            ? (
+              <ComparisonChart
+                selectedValues={values}
+                handleFilterChange={handleFilterChange}
+                data={data}
+              />
+)
+            : <FlowsChart data={data} />
+        }
       </WithDropdowns>
     );
+  }
+
+  render() {
+    const { activeTabValue } = this.props;
+    const component = this.renderChartComponent();
     const renderTabs = [
       { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
       { name: 'DOMESTIC', value: DOMESTIC_KEY, component },
