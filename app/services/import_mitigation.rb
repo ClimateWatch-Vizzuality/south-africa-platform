@@ -55,7 +55,7 @@ class ImportMitigation
   def import_actions(content)
     content.each do |row|
       begin
-        mitigation_sector = ::Mitigation::MitigationSector.first_or_create!(name: row[:sector])
+        mitigation_sector = ::Mitigation::MitigationSector.find_or_create_by!(name: row[:sector])
         mitigation_theme = mitigation_theme(mitigation_sector, row)
         ::Mitigation::MitigationAction.create!(action_attributes(row, mitigation_theme.id))
       rescue ActiveRecord::RecordInvalid => invalid

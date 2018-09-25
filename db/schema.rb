@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_140010) do
+ActiveRecord::Schema.define(version: 2018_09_25_170517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,35 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "flagship_components", force: :cascade do |t|
+    t.integer "flagship_programme_id"
+    t.string "name", null: false
+    t.text "main_activities"
+    t.string "lead"
+    t.string "status"
+    t.text "milestone"
+    t.text "barriers"
+    t.text "next_steps"
+    t.string "timeframe"
+    t.text "support"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "flagship_programmes", force: :cascade do |t|
-    t.integer "mitigation_theme_id"
-    t.string "title"
-    t.text "example"
+    t.text "sub_programs"
     t.text "description"
     t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "work_package"
+    t.text "outcomes"
+    t.integer "flagship_theme_id"
+  end
+
+  create_table "flagship_themes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -204,8 +227,8 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.integer "donor_id"
     t.string "finance_flow"
     t.string "type_funds"
-    t.integer "amount_zar"
-    t.integer "amount_usd"
+    t.bigint "amount_zar"
+    t.bigint "amount_usd"
     t.string "timeframes"
     t.boolean "focus_area_1", default: false
     t.boolean "focus_area_2", default: false
@@ -235,7 +258,8 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "flagship_programmes", "mitigation_themes"
+  add_foreign_key "flagship_components", "flagship_programmes"
+  add_foreign_key "flagship_programmes", "flagship_themes"
   add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gwps", column: "gwp_id", on_delete: :cascade
