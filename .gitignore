@@ -55,3 +55,6 @@ bower.json
 
 # Node version
 .nvmrc
+
+# We are using yarn lock so package lock is not needed
+package-lock.json
