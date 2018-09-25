@@ -32,6 +32,11 @@ Rails.application.routes.draw do
                   controller: :received_supports,
                   defaults: { format: 'json' }
       end
+      namespace :ghg do
+        resources :projected_emissions, only: [:index],
+                  controller: :projected_emissions,
+                  defaults: { format: 'json' }
+      end
       resources :inventory_improvement_projects,
                 only: [:index],
                 defaults: { format: 'json' }
