@@ -7,13 +7,13 @@ const getData = () => null;
 
 // const getData = ({ financialResourcesReceived = {} }) =>
 //   isEmpty(financialResourcesReceived.data.data) ? null : financialResourcesReceived.data.data;
-const getDomesticIdParam = ({ location }) =>
-  location.query ? location.query.domesticId : null;
+const getComparisonIdParam = ({ location }) =>
+  location.query ? location.query.comparisonId : null;
 const setBubbleColor = (selectedId, id) =>
   parseInt(selectedId, 10) === id
     ? CHART_COLORS.selected
     : CHART_COLORS.default;
-const getChartData = createSelector([ getData, getDomesticIdParam ], (
+const getChartData = createSelector([ getData, getComparisonIdParam ], (
   data,
   selectedId
 ) =>
@@ -27,4 +27,4 @@ const getChartData = createSelector([ getData, getDomesticIdParam ], (
     }));
   });
 
-export const getDomestic = createStructuredSelector({ data: getChartData });
+export const getComparison = createStructuredSelector({ data: getChartData });

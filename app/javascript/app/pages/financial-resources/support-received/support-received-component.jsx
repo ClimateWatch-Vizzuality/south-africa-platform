@@ -5,8 +5,7 @@ import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
 import styles from './support-received-styles.scss';
-import International from './international';
-import Domestic from './domestic';
+import SupportReceivedChart from './support-received-chart';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -27,7 +26,7 @@ class SupportReceived extends PureComponent {
             key={d.label}
             label={d.label}
             theme={{ wrapper: styles.dropdown }}
-            options={options[d.slug]}
+            options={options[d.slug] || []}
             value={values[d.slug]}
             onValueChange={option => handleFilterChange(d.slug, option.value)}
             hideResetButton
@@ -38,42 +37,22 @@ class SupportReceived extends PureComponent {
   }
 
   render() {
-    const { activeTabValue, handleFilterChange, values, data } = this.props;
+    const { activeTabValue, data } = this.props;
     const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
         {children}
       </Fragment>
     );
+    const component = (
+      <WithDropdowns>
+        <SupportReceivedChart data={data} />
+      </WithDropdowns>
+    );
     const renderTabs = [
-      {
-        name: 'INTERNATIONAL',
-        value: INTERNATIONAL_KEY,
-        component: (
-          <WithDropdowns>
-            <International data={data} />
-          </WithDropdowns>
-        )
-      },
-      {
-        name: 'DOMESTIC',
-        value: DOMESTIC_KEY,
-        component: (
-          <WithDropdowns>
-            <Domestic
-              data={data}
-              selectedValues={values}
-              handleFilterChange={handleFilterChange}
-            />
-          </WithDropdowns>
-        )
-      },
-      {
-        name: 'NON-MONETIZED',
-        value: NON_MONETIZED_KEY,
-        component: null,
-        disabled: true
-      }
+      { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
+      { name: 'DOMESTIC', value: DOMESTIC_KEY, component },
+      { name: 'NON-MONETIZED', value: NON_MONETIZED_KEY, component }
     ];
 
     return (

@@ -108,11 +108,7 @@ const getOptions = createStructuredSelector({
 });
 
 const getDropdownConfig = createSelector(getQueryParams, query => {
-  const dropdownConfig = [
-    { label: 'Origin of funds', slug: 'fundOrigin' },
-    { label: 'Financial flows', slug: 'financialFlow' },
-    { label: 'Chart type', slug: 'chartType' }
-  ];
+  const dropdownConfig = [ { label: 'Chart type', slug: 'chartType' } ];
   let tabSpecificDropdowns = [ { label: 'Country', slug: 'country' } ];
   if (!query) return dropdownConfig.concat(tabSpecificDropdowns);
   const { tab } = query;
@@ -122,15 +118,35 @@ const getDropdownConfig = createSelector(getQueryParams, query => {
   return dropdownConfig.concat(tabSpecificDropdowns);
 });
 
-const filterData = createSelector([ getData, getValues ], (data, values) => {
-  if (!data) return null;
-  let updatedData = data;
-  updatedData = updatedData.filter(
-    d => d.financeFlow === values.financialFlow.value
-  );
-  updatedData = updatedData.filter(d => d.donor.name === values.country.value);
-  return updatedData;
-});
+const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
+  data,
+  tab
+) =>
+  {
+    if (!data) return null;
+    const financeFlows = {
+      international: [
+        'Additional support received',
+        'Multilater funds received'
+      ],
+      domestic: [ 'Domestic finance' ],
+      nonMonetized: [ 'Non-monetary support received' ]
+    };
+    return data.filter(d => financeFlows[tab].includes(d.financeFlow));
+  });
+
+const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
+  data,
+  values
+) =>
+  {
+    if (!data) return null;
+    let updatedData = data;
+    updatedData = updatedData.filter(
+      d => d.donor.name === values.country.value
+    );
+    return updatedData;
+  });
 
 export const getSupportReceived = createStructuredSelector({
   data: filterData,

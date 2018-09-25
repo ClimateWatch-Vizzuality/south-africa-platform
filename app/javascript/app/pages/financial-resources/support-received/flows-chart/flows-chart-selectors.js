@@ -34,7 +34,7 @@ const getLinks = (data, nodes) => {
   return links;
 };
 
-const filterData = createSelector([ getData ], data => {
+const filterData = createSelector(getData, data => {
   if (!data) return null;
   const nodes = getNodes(data);
   const links = getLinks(data, nodes);
@@ -59,7 +59,7 @@ export const getConfig = () => {
   return { tooltip: { unit, focus }, node: { unit, suffix } };
 };
 
-export const getInternational = data =>
+export const getFlowsChart = data =>
   createStructuredSelector({
     data: () => addColorToData(data),
     config: getConfig

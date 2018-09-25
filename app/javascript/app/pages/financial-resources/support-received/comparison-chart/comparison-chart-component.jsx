@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import { BubbleChart } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider';
-import styles from './domestic-styles.scss';
+import styles from './comparison-chart-styles.scss';
 
-class Domestic extends PureComponent {
+class ComparisonChart extends PureComponent {
   handleNodeClick = (e, id) => {
     e.preventDefault();
     const { onFilterChange } = this.props;
-    onFilterChange('domesticId', id);
+    onFilterChange('comparisonId', id);
   };
 
   render() {
@@ -54,12 +54,12 @@ class Domestic extends PureComponent {
   }
 }
 
-Domestic.propTypes = {
+ComparisonChart.propTypes = {
   data: PropTypes.array,
   selectedValues: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired
 };
 
-Domestic.defaultProps = { data: null, selectedValues: null };
+ComparisonChart.defaultProps = { data: null, selectedValues: null };
 
-export default Domestic;
+export default ComparisonChart;

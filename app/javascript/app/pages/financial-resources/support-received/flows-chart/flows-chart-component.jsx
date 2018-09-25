@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import { Sankey, NoContent } from 'cw-components';
-import styles from './international-selectors-styles.scss';
+import styles from './flows-chart-styles.scss';
 
-class International extends PureComponent {
+class FlowsChart extends PureComponent {
   renderTooltipChildren() {
     const { config } = this.props;
     return (
@@ -33,8 +33,8 @@ class International extends PureComponent {
   }
 }
 
-International.propTypes = { data: PropTypes.object, config: PropTypes.object };
+FlowsChart.propTypes = { data: PropTypes.object, config: PropTypes.object };
 
-International.defaultProps = { data: null, config: null };
+FlowsChart.defaultProps = { data: null, config: null };
 
-export default International;
+export default FlowsChart;
