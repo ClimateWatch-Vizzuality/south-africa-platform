@@ -2,7 +2,7 @@ class CreateFlagshipComponents < ActiveRecord::Migration[5.2]
   def change
     create_table :flagship_components do |t|
       t.integer :flagship_programme_id
-      t.string :name, optional: false
+      t.string :name, null: false
       t.text :main_activities
       t.string :lead
       t.string :status

@@ -2,16 +2,15 @@
 #
 # Table name: flagship_programmes
 #
-#  id                  :bigint(8)        not null, primary key
-#  mitigation_theme_id :integer
-#  title               :string
-#  sub_programs        :text
-#  description         :text
-#  position            :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  work_package        :text
-#  outcomes            :text
+#  id                :bigint(8)        not null, primary key
+#  sub_programs      :text
+#  description       :text
+#  position          :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  work_package      :text
+#  outcomes          :text
+#  flagship_theme_id :integer
 #
 
 module Mitigation
@@ -19,8 +18,8 @@ module Mitigation
     include ::GenericToCsv
 
     self.table_name = 'flagship_programmes'
-    validates_presence_of :position, :title
-    belongs_to :mitigation_theme
+    validates_presence_of :position
+    belongs_to :flagship_theme
     has_many :flagship_components
   end
 end

@@ -17,6 +17,5 @@ module Mitigation
     validates_presence_of :position
     belongs_to :mitigation_sector
     has_many :mitigation_actions
-    has_many :flagship_programmes
   end
 end

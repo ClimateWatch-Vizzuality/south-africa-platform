@@ -4,7 +4,7 @@
 #
 #  id                    :bigint(8)        not null, primary key
 #  flagship_programme_id :integer
-#  name                  :string
+#  name                  :string           not null
 #  main_activities       :text
 #  lead                  :string
 #  status                :string

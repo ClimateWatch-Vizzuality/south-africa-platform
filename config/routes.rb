@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         resources :flagship_programmes, only: [:index],
                   controller: :flagship_programmes,
                   defaults: { format: 'json' }
+        resources :flagship_themes, only: [:index],
+                  controller: :flagship_themes,
+                  defaults: { format: 'json' }
         resources :mitigation_actions, only: [:index],
                   controller: :mitigation_actions,
                   defaults: { format: 'json' }
