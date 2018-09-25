@@ -42,29 +42,4 @@ class ImportGhg
     end
   end
   # rubocop:enable Metrics/AbcSize
-
-  def mitigation_theme(mitigation_sector, row)
-    mitigation_theme = ::Mitigation::MitigationTheme.find_by(title: row[:theme],
-                                                             mitigation_sector: mitigation_sector)
-    return mitigation_theme if mitigation_theme
-    position = ::Mitigation::MitigationTheme.order(position: :desc)&.first&.position || 0
-    position += 1
-    Mitigation::MitigationTheme.create!(
-      title: row[:theme],
-      position: position,
-      mitigation_sector: mitigation_sector
-    )
-  end
-
-  def import_actions(content)
-    content.each do |row|
-      begin
-        mitigation_sector = ::Mitigation::MitigationSector.first_or_create!(name: row[:sector])
-        mitigation_theme = mitigation_theme(mitigation_sector, row)
-        ::Mitigation::MitigationAction.create!(action_attributes(row, mitigation_theme.id))
-      rescue ActiveRecord::RecordInvalid => invalid
-        STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
-      end
-    end
-  end
 end
