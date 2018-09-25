@@ -14,11 +14,11 @@ export const fetchMitigationEffectsFail = createAction(
 
 export const fetchMitigationEffects = createThunkAction(
   'fetchMitigationEffects',
-  params => (dispatch, state) => {
+  () => (dispatch, state) => {
     const { mitigationEffects } = state();
     if (isEmpty(mitigationEffects.data) && !mitigationEffects.loading) {
       SAAPI
-        .get('mitigation/effects', params)
+        .get('mitigation/mitigation_effects')
         .then((data = {}) => {
           dispatch(fetchMitigationEffectsReady(data));
         })

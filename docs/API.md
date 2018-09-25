@@ -22,8 +22,8 @@ Project | Sector | Objective | Partner | Donor | Outcome | Status | Timelines
 
 ```
 
-[  
-   {  
+[
+   {
       "project":"long string",
       "sector":"Energy",
       "objective":"long string",
@@ -59,7 +59,7 @@ Title | Position | Mitigation sector | Created at | Updated at
 
 ```
 
-[  
+[
     {
         "title": "Diversification of energy resources (Electricity generation and liquid fuels)",
         "position": 1,
@@ -90,7 +90,7 @@ Name | Description | Position | Created at | Updated at
 
 ```
 
-[  
+[
     {
         "name": "Energy",
         "description": "test",
@@ -127,7 +127,7 @@ Mitigation theme | Name | Objectives | Mitigation type | Status | Actor | Time h
 
 ```
 
-[  
+[
     {
         "name": "Eskom Open Cycle Gas Turbines (OCGT)",
         "objectives": "Between 2007 and 2014 a total of 7,827 net GWh of electricity was generated from Eskom’s OCGT plants",
@@ -142,5 +142,55 @@ Mitigation theme | Name | Objectives | Mitigation type | Status | Actor | Time h
             "position": 4
         }
     }
+]
+```
+
+## Mitigation Effects
+
+### Parameters
+- none
+
+### CSV download endpoint
+
+`/api/v1/mitigation/mitigation_effects.csv`
+
+
+File format:
+
+theme | Name | Coordinator | Effects1 ... Effects12 | Created at | Updated at
+
+### JSON API endpoint
+
+#### Data
+
+`/api/v1/mitigation/mitigation_effects`
+
+```
+
+[
+  "data": [{
+		"theme": "Green Transport",
+		"name": "Biofuels",
+		"coordinator": "Biofuel producers",
+		"effects1": "0.3-3",
+		"effects2": "0.7-3",
+		"effects3": "0.1-2",
+		"effects4": "not estimated",
+		"effects5": "not applicable",
+		"effects6": "not estimated",
+		"effects7": "not estimated",
+		"effects8": "not estimated",
+		"effects9": "not estimated",
+		"effects10": "not estimated",
+		"effects11": "not estimated",
+		"effects12": "not estimated"
+	},
+  "meta": [{
+		"id": null,
+		"code": "theme",
+		"indicator": "Theme",
+		"unit": null,
+		"cautions": null
+	},
 ]
 ```
