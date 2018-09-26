@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import DataTable from 'components/data-table';
+import FinancialResourcesNeededProvider from 'providers/financial-resources-needed-provider';
 import styles from './support-needed-styles.scss';
 
 const FINANCIAL_SUPPORT_NEEDED_KEY = 'financialSupportNeeded';
@@ -57,6 +58,7 @@ class SupportNeeded extends PureComponent {
           activeTabValue={activeTabValue}
           actionsActive={false}
         />
+        <FinancialResourcesNeededProvider />
       </div>
     );
   }

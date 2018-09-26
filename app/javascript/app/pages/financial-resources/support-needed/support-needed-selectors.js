@@ -1,6 +1,12 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { supportNeededData } from 'data/mocks/financial-resources';
+import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'utils/utils';
+
+const getData = ({ financialResourcesNeeded = {} }) =>
+  isEmpty(financialResourcesNeeded.data) ||
+    isEmpty(financialResourcesNeeded.data.data)
+    ? null
+    : financialResourcesNeeded.data.data;
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSection = ({ location = {} }) => location.payload.section || null;
@@ -15,11 +21,11 @@ const getActiveTabValue = createSelector(
   query => query ? query.tab : null
 );
 
-const getSupportNeededData = () => supportNeededData || null;
-
-const getParsedSupportNeededData = createSelector(
-  [ getSupportNeededData, getSearchValue ],
-  (data, searchFilter) => {
+const getParsedSupportNeededData = createSelector([ getData, getSearchValue ], (
+  data,
+  searchFilter
+) =>
+  {
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
@@ -31,15 +37,16 @@ const getParsedSupportNeededData = createSelector(
           false
         )
     );
-  }
-);
+  });
 
-const defaultColumns = [
-  'type',
-  'preferred_type',
-  'sector_and_activity',
-  'reference_to_policies_and_measures'
-];
+const defaultColumns = [ 'category', 'scheme', 'focusArea', 'reference' ];
+
+// const defaultColumns = [
+//   'type',
+//   'preferred_type',
+//   'sector_and_activity',
+//   'reference_to_policies_and_measures'
+// ];
 const ellipsisColumns = [];
 
 const getTableData = createSelector(getParsedSupportNeededData, data => ({
