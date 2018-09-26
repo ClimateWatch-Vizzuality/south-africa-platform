@@ -13,7 +13,7 @@ const getData = ({ financialResourcesReceived = {} }) =>
 
 const getActiveTabValue = createSelector(
   getQueryParams,
-  query => query ? query.tab : 'international'
+  query => query && query.tab || 'international'
 );
 
 const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
@@ -21,7 +21,7 @@ const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
   tab
 ) =>
   {
-    if (!data || !tab) return null;
+    if (!data) return null;
     const financeFlows = {
       international: [
         'Additional support received',
