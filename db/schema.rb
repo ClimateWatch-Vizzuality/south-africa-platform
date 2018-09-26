@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_151857) do
+
+ActiveRecord::Schema.define(version: 2018_09_25_170517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -211,8 +212,8 @@ ActiveRecord::Schema.define(version: 2018_09_24_151857) do
     t.integer "donor_id"
     t.string "finance_flow"
     t.string "type_funds"
-    t.integer "amount_zar"
-    t.integer "amount_usd"
+    t.bigint "amount_zar"
+    t.bigint "amount_usd"
     t.string "timeframes"
     t.boolean "focus_area_1", default: false
     t.boolean "focus_area_2", default: false
