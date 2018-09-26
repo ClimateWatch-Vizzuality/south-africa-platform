@@ -3,20 +3,12 @@ import PropTypes from 'prop-types';
 import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
-import {
-  Section,
-  Multiselect,
-  ButtonGroup,
-  Button,
-  Icon,
-  Dropdown
-} from 'cw-components';
+import { Section, Multiselect, Dropdown } from 'cw-components';
 import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
-import iconInfo from 'assets/icons/info';
-import downloadIcon from 'assets/icons/download';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './historical-styles';
 
@@ -31,13 +23,6 @@ class GHGHistoricalEmissions extends PureComponent {
   handleMetricChange = ({ value }) => {
     const { onFilterChange } = this.props;
     onFilterChange({ metric: value });
-  };
-
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
   };
 
   handleDownloadClick = () => {
@@ -75,20 +60,10 @@ class GHGHistoricalEmissions extends PureComponent {
     );
     const toolbar = (
       <div className={styles.toolbarButtons}>
-        <ButtonGroup theme={{ wrapper: styles.buttonWrapper }}>
-          <Button
-            onClick={this.handleInfoClick}
-            theme={{ button: styles.infobutton }}
-          >
-            <Icon icon={iconInfo} />
-          </Button>
-          <Button
-            onClick={this.handleDownloadClick}
-            theme={{ button: styles.infobutton }}
-          >
-            <Icon icon={downloadIcon} />
-          </Button>
-        </ButtonGroup>
+        <InfoDownloadToolbox
+          slugs="historical_emissions_cait"
+          className={styles.buttonWrapper}
+        />
       </div>
     );
     return (
@@ -139,7 +114,6 @@ GHGHistoricalEmissions.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  setModalMetadata: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired
 };
 

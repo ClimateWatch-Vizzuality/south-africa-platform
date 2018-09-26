@@ -3,19 +3,21 @@ class ImportMitigation
   MITIGATION_EFFECTS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_effects.csv".freeze
   MITIGATION_INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_indicators.csv".freeze
   FLAGSHIP_PROGRAMMES_FILEPATH = "#{CW_FILES_PREFIX}flagship_programmes.csv".freeze
+  FLAGSHIP_COMPONENTS_FILEPATH = "#{CW_FILES_PREFIX}flagship_components.csv".freeze
 
   def call
     cleanup
     import_actions(S3CSVReader.read(MITIGATION_ACTIONS_FILEPATH))
-    import_programmes(S3CSVReader.read(FLAGSHIP_PROGRAMMES_FILEPATH))
     import_effects(S3CSVReader.read(MITIGATION_EFFECTS_FILEPATH))
     import_indicators(S3CSVReader.read(MITIGATION_INDICATORS_FILEPATH))
+    import_programmes(S3CSVReader.read(FLAGSHIP_PROGRAMMES_FILEPATH))
   end
 
   private
 
   def cleanup
     Mitigation::FlagshipProgramme.delete_all
+    Mitigation::FlagshipTheme.delete_all
     Mitigation::MitigationAction.delete_all
     Mitigation::MitigationTheme.delete_all
     Mitigation::MitigationSector.delete_all
@@ -39,6 +41,16 @@ class ImportMitigation
     }
   end
 
+  def flagship_programme_attributes(row, flagship_theme_id, position)
+    {
+      flagship_theme_id: flagship_theme_id,
+      sub_programs: row[:sub_programs],
+      work_package: row[:work_package],
+      outcomes: row[:outcomes],
+      position: position
+    }
+  end
+
   def mitigation_theme(mitigation_sector, row)
     mitigation_theme = ::Mitigation::MitigationTheme.find_by(title: row[:theme],
                                                              mitigation_sector: mitigation_sector)
@@ -55,7 +67,7 @@ class ImportMitigation
   def import_actions(content)
     content.each do |row|
       begin
-        mitigation_sector = ::Mitigation::MitigationSector.first_or_create!(name: row[:sector])
+        mitigation_sector = ::Mitigation::MitigationSector.find_or_create_by!(name: row[:sector])
         mitigation_theme = mitigation_theme(mitigation_sector, row)
         ::Mitigation::MitigationAction.create!(action_attributes(row, mitigation_theme.id))
       rescue ActiveRecord::RecordInvalid => invalid
@@ -84,6 +96,20 @@ class ImportMitigation
     end
   end
 
-  # TODO: The documents provided don't contain enough information to import the programmes
-  def import_programmes(content); end
+  def import_programmes(content)
+    content.each do |row|
+      begin
+        theme_position = ::Mitigation::FlagshipTheme.order(position: :desc)&.first&.position || 0
+        flagship_theme = ::Mitigation::FlagshipTheme.
+          where(name: row[:name]).first_or_create!(position: theme_position + 1)
+        programme_position = ::Mitigation::FlagshipProgramme.
+          order(position: :desc)&.first&.position || 0
+        ::Mitigation::FlagshipProgramme.create!(
+          flagship_programme_attributes(row, flagship_theme.id, programme_position + 1)
+        )
+      rescue ActiveRecord::RecordInvalid => invalid
+        STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
+      end
+    end
+  end
 end

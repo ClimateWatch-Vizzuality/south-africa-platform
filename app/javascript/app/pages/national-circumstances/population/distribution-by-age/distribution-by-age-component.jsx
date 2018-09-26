@@ -9,13 +9,6 @@ import DistributionByAgeProvider from 'providers/distribution-by-age-provider';
 import styles from './distribution-by-age-styles.scss';
 
 class PopulationTab extends PureComponent {
-  handleInfoClick = () => {
-    this.props.setModalMetadata({
-      slugs: 'historical_emissions_cait',
-      open: true
-    });
-  };
-
   handleYearChange = year => {
     const { onFilterChange } = this.props;
     onFilterChange({ year: year.value });
@@ -38,12 +31,7 @@ class PopulationTab extends PureComponent {
       />
     );
 
-    const toolbar = (
-      <InfoDownloadToolbox
-        slug="distribution-by-age"
-        handleInfoClick={this.handleInfoClick}
-      />
-    );
+    const toolbar = <InfoDownloadToolbox slugs="distribution-by-age" />;
 
     return (
       <div className="section">
@@ -80,7 +68,6 @@ PopulationTab.propTypes = {
   yearsOptions: PropTypes.array,
   yearSelected: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  setModalMetadata: PropTypes.func.isRequired,
   barChartData: PropTypes.object
 };
 

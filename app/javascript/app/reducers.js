@@ -13,6 +13,9 @@ import {
 import {
   reduxModule as financialResourcesReceived
 } from 'providers/financial-resources-received-provider';
+import {
+  reduxModule as mitigationActions
+} from 'providers/mitigation-actions-provider';
 import { reduxModule as worldBank } from 'providers/world-bank-provider';
 import { reduxModule as metadata } from 'providers/metadata-provider';
 import {
@@ -41,6 +44,7 @@ const providersReducers = {
   GHGInventory: handleModule(ghgInventory),
   mitigationEffects: handleModule(mitigationEffects),
   financialResourcesReceived: handleModule(financialResourcesReceived),
+  mitigationActions: handleModule(mitigationActions),
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),

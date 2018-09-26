@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import GHGInventoryProvider from 'providers/ghg-inventory-provider';
+import MitigationActionsProvider from 'providers/mitigation-actions-provider';
 import DataTable from 'components/data-table';
 import styles from './mitigation-actions-styles.scss';
 
@@ -62,7 +62,7 @@ class MitigationActions extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
         />
-        <GHGInventoryProvider />
+        <MitigationActionsProvider />
       </div>
     );
   }

@@ -25,7 +25,7 @@ class ImportFinancialResource
   # rubocop:disable Metrics/AbcSize
   def received_support_attributes(row)
     {
-      donor: FinancialResource::Donor.first_or_create!(name: row[:donor]),
+      donor: FinancialResource::Donor.find_or_create_by!(name: row[:donor]),
       finance_flow: row[:finance_flow],
       type_funds: row[:type_funds],
       amount_zar: row[:amount_zar],

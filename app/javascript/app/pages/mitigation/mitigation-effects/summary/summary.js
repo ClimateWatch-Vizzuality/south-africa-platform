@@ -1,15 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  setModalMetadata
-} from 'components/modal-metadata/modal-metadata-actions';
 import { getSummary } from './summary-selectors';
 import Component from './summary-component';
 
-import * as ownActions from './summary-actions';
+import * as actions from './summary-actions';
 
-const actions = { ...ownActions, setModalMetadata };
 const mapStateToProps = getSummary;
 
 class SummaryContainer extends PureComponent {

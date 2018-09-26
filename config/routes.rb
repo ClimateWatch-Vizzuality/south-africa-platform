@@ -11,6 +11,9 @@ Rails.application.routes.draw do
         resources :flagship_programmes, only: [:index],
                   controller: :flagship_programmes,
                   defaults: { format: 'json' }
+        resources :flagship_themes, only: [:index],
+                  controller: :flagship_themes,
+                  defaults: { format: 'json' }
         resources :mitigation_actions, only: [:index],
                   controller: :mitigation_actions,
                   defaults: { format: 'json' }
@@ -30,6 +33,11 @@ Rails.application.routes.draw do
                   defaults: { format: 'json' }
         resources :received_supports, only: [:index],
                   controller: :received_supports,
+                  defaults: { format: 'json' }
+      end
+      namespace :ghg do
+        resources :projected_emissions, only: [:index],
+                  controller: :projected_emissions,
                   defaults: { format: 'json' }
       end
       resources :inventory_improvement_projects,
