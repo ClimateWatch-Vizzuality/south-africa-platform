@@ -2,12 +2,11 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
 
-const getInventoryData = ({ GHGInventory = {} }) =>
-  isEmpty(GHGInventory.data) ? null : GHGInventory.data;
+const getMitigationData = ({ mitigationActions = {} }) =>
+  isEmpty(mitigationActions.data) || isEmpty(mitigationActions.data.data)
+    ? null
+    : mitigationActions.data.data;
 const getQueryParams = ({ location = {} }) => location.query || null;
-
-const getInventory = createSelector(getInventoryData, inventory => inventory);
-
 const getSearchValue = createSelector(
   getQueryParams,
   query => query ? query.search : ''
@@ -18,14 +17,22 @@ const getActiveTabValue = createSelector(
   query => query ? query.tab : null
 );
 
-const defaultColumns = [ 'name', 'definition', 'unit', 'composite_name' ];
-const ellipsisColumns = [ 'composite_name' ];
+const defaultColumns = [
+  'theme',
+  'name',
+  'objectives',
+  'type',
+  'status',
+  'actor',
+  'time_horizon',
+  'ghg',
+  'estimated_emission_reduction'
+];
+const ellipsisColumns = [];
 
-const getParsedMitigation = createSelector([ getInventory, getSearchValue ], (
-  data,
-  searchFilter
-) =>
-  {
+const getParsedMitigation = createSelector(
+  [ getMitigationData, getSearchValue ],
+  (data, searchFilter) => {
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
@@ -37,8 +44,36 @@ const getParsedMitigation = createSelector([ getInventory, getSearchValue ], (
           false
         )
     );
+  }
+);
+const renameMitigationColumns = createSelector(getParsedMitigation, data => {
+  if (!data) return null;
+  return data.map(d => {
+    const updatedD = d;
+    Object.keys(d).forEach(key => {
+      switch (key) {
+        case 'mitigationTheme':
+          updatedD.theme = d.mitigationTheme.title;
+          break;
+        case 'mitigationType':
+          updatedD.type = d.mitigationType;
+          break;
+        case 'timeHorizon':
+          updatedD.time_horizon = d.timeHorizon;
+          break;
+        case 'estimatedEmissionReduction':
+          updatedD.estimated_emission_reduction = d.estimatedEmissionReduction;
+          break;
+        default:
+          updatedD[key] = d[key];
+          break;
+      }
+    });
+    return updatedD;
   });
-const getTableData = createSelector(getParsedMitigation, data => ({
+});
+
+const getTableData = createSelector(renameMitigationColumns, data => ({
   data,
   defaultColumns,
   ellipsisColumns

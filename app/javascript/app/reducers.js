@@ -11,6 +11,9 @@ import {
   reduxModule as mitigationEffects
 } from 'providers/mitigation-effects-provider';
 import {
+  reduxModule as mitigationActions
+} from 'providers/mitigation-actions-provider';
+import {
   reduxModule as financialResources
 } from 'providers/financial-resources-provider';
 import { reduxModule as worldBank } from 'providers/world-bank-provider';
@@ -40,6 +43,7 @@ const providersReducers = {
   GHGEmissions: handleModule(ghgEmissions),
   GHGInventory: handleModule(ghgInventory),
   mitigationEffects: handleModule(mitigationEffects),
+  mitigationActions: handleModule(mitigationActions),
   financialResources: handleModule(financialResources),
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
