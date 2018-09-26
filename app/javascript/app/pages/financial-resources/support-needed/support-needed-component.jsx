@@ -15,26 +15,30 @@ class SupportNeeded extends PureComponent {
   };
 
   handleFilterChange = value => {
-    const { updateQueryParam, query } = this.props;
-    updateQueryParam({ query: { ...query, search: value } });
+    const { updateQueryParam, query, section } = this.props;
+    updateQueryParam({ query: { ...query, search: value }, section });
   };
 
   renderTabs() {
     const { tableData, searchFilter } = this.props;
+    const columnWidth = 250;
+    const component = (
+      <DataTable
+        tableData={tableData}
+        searchFilter={searchFilter}
+        setColumnWidth={() => columnWidth}
+      />
+    );
     return [
       {
         name: 'FINANCIAL SUPPORT NEEDED',
         value: FINANCIAL_SUPPORT_NEEDED_KEY,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
+        component
       },
       {
         name: 'NON MONETIZED NEEDS',
         value: NON_MONETIZED_NEEDS,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        ),
+        component,
         disabled: true
       }
     ];
