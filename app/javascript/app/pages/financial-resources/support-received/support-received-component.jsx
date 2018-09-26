@@ -71,7 +71,12 @@ class SupportReceived extends PureComponent {
     const renderTabs = [
       { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
       { name: 'DOMESTIC', value: DOMESTIC_KEY, component },
-      { name: 'NON-MONETIZED', value: NON_MONETIZED_KEY, component }
+      {
+        name: 'NON-MONETIZED',
+        value: NON_MONETIZED_KEY,
+        component,
+        disabled: true
+      }
     ];
 
     return (
