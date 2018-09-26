@@ -15,8 +15,8 @@ module Api
       class MitigationThemeSerializer < ApplicationSerializer
         attributes :title, :position
 
-        has_many :flagship_programmes,
-                 serializer: Api::V1::Mitigation::FlagshipProgrammeSerializer
+        has_many :mitigation_actions,
+                 serializer: Api::V1::Mitigation::MitigationActionSerializer
       end
     end
   end

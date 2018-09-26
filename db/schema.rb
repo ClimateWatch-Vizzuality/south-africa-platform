@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_140010) do
+ActiveRecord::Schema.define(version: 2018_09_24_151857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,12 +32,35 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "flagship_components", force: :cascade do |t|
+    t.integer "flagship_programme_id"
+    t.string "name", null: false
+    t.text "main_activities"
+    t.string "lead"
+    t.string "status"
+    t.text "milestone"
+    t.text "barriers"
+    t.text "next_steps"
+    t.string "timeframe"
+    t.text "support"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "flagship_programmes", force: :cascade do |t|
-    t.integer "mitigation_theme_id"
-    t.string "title"
-    t.text "example"
+    t.text "sub_programs"
     t.text "description"
     t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "work_package"
+    t.text "outcomes"
+    t.integer "flagship_theme_id"
+  end
+
+  create_table "flagship_themes", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -184,22 +207,6 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "projected_emission_years", force: :cascade do |t|
-    t.integer "year"
-    t.integer "value"
-    t.bigint "projected_emission_id"
-    t.index ["projected_emission_id"], name: "index_projected_emission_years_on_projected_emission_id"
-  end
-
-  create_table "projected_emissions", force: :cascade do |t|
-    t.string "iso"
-    t.string "name"
-    t.string "type"
-    t.string "boundary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "received_supports", force: :cascade do |t|
     t.integer "donor_id"
     t.string "finance_flow"
@@ -235,7 +242,8 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "flagship_programmes", "mitigation_themes"
+  add_foreign_key "flagship_components", "flagship_programmes"
+  add_foreign_key "flagship_programmes", "flagship_themes"
   add_foreign_key "historical_emissions_records", "historical_emissions_data_sources", column: "data_source_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gases", column: "gas_id", on_delete: :cascade
   add_foreign_key "historical_emissions_records", "historical_emissions_gwps", column: "gwp_id", on_delete: :cascade
@@ -247,6 +255,5 @@ ActiveRecord::Schema.define(version: 2018_09_21_140010) do
   add_foreign_key "location_members", "locations", on_delete: :cascade
   add_foreign_key "mitigation_actions", "mitigation_themes"
   add_foreign_key "mitigation_themes", "mitigation_sectors"
-  add_foreign_key "projected_emission_years", "projected_emissions"
   add_foreign_key "received_supports", "donors"
 end
