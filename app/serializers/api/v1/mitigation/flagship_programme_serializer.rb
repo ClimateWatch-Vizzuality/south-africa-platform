@@ -15,10 +15,10 @@ module Api
   module V1
     module Mitigation
       class FlagshipProgrammeSerializer < ApplicationSerializer
-        attributes :title, :description, :position
+        attributes :description, :position
 
-        belongs_to :mitigation_theme,
-                   serializer: Api::V1::Mitigation::MitigationThemeSerializer
+        belongs_to :flagship_theme,
+                   serializer: Api::V1::Mitigation::FlagshipThemeSerializer
       end
     end
   end

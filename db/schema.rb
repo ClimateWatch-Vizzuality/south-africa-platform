@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_09_25_170517) do
 
   # These are extensions that must be enabled in order to support this database
@@ -207,22 +208,6 @@ ActiveRecord::Schema.define(version: 2018_09_25_170517) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "projected_emission_years", force: :cascade do |t|
-    t.integer "year"
-    t.integer "value"
-    t.bigint "projected_emission_id"
-    t.index ["projected_emission_id"], name: "index_projected_emission_years_on_projected_emission_id"
-  end
-
-  create_table "projected_emissions", force: :cascade do |t|
-    t.string "iso"
-    t.string "name"
-    t.string "type"
-    t.string "boundary"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "received_supports", force: :cascade do |t|
     t.integer "donor_id"
     t.string "finance_flow"
@@ -271,6 +256,5 @@ ActiveRecord::Schema.define(version: 2018_09_25_170517) do
   add_foreign_key "location_members", "locations", on_delete: :cascade
   add_foreign_key "mitigation_actions", "mitigation_themes"
   add_foreign_key "mitigation_themes", "mitigation_sectors"
-  add_foreign_key "projected_emission_years", "projected_emissions"
   add_foreign_key "received_supports", "donors"
 end
