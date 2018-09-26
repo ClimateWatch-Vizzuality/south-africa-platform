@@ -27,7 +27,7 @@ const getChartData = createSelector([ getData, getComparisonId ], (
     return data.map(e => ({
       ...e,
       value: e.amountUsd,
-      unit: 'Dollars',
+      unit: 'USD million',
       color: selectedId
         ? setBubbleColor(selectedId, e.id)
         : CHART_COLORS.default
