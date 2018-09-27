@@ -1,5 +1,86 @@
 @import '~styles/layout.scss';
+@import '~styles/settings.scss';
 
 .row {
   @include row();
 }
+.flagshipProgrammes {
+  margin-top: $gutter-padding;
+
+  .generalInfoContainer {
+    @include row($columns: 6);
+    color: $midnightblue;
+
+    .title {
+      margin-top: 35px;
+    }
+
+    .generalInfo {
+      line-height: $line-height-m;
+      padding-right: 30px;
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+
+      a {
+        color: $action-color;
+        font-weight: bold;
+      }
+
+      ul {
+        padding-left: 1em;
+        list-style-type: disc;
+
+        li {
+          margin-bottom: 1em;
+        }
+      }
+    }
+
+    .priorityAreasContainer {
+      display: flex;
+      flex-direction: column;
+
+      .flagshipLogo {
+        width: 200px;
+        align-self: flex-end;
+        margin-bottom: $gutter-padding;
+      }
+
+      .priorityAreas {
+        background-color: $porcelain;
+        padding: $gutter-padding $gutter-padding $gutter-padding $gutter-padding + 15px;
+
+        .priorityAreasTitle {
+          font-size: $font-size-large;
+          font-weight: $font-weight;
+          margin-bottom: $gutter-padding;
+        }
+
+        p {
+          margin-bottom: $gutter-padding;
+        }
+
+        ul {
+          list-style: none;
+          line-height: $line-height;
+
+          li {
+            &::before {
+              content: "•";
+              font-size: $font-size-large;
+              color: $egg-yellow;
+              padding-right: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
