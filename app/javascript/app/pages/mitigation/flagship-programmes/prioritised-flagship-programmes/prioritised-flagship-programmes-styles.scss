@@ -1,0 +1,26 @@
+@import '~styles/layout.scss';
+@import '~styles/settings.scss';
+
+.prioritisedFlagshipProgrammes {
+  margin-top: $gutter-padding;
+
+  .title {
+    @include row();
+
+    margin-bottom: $gutter-padding;
+  }
+
+  .prioritisedItemsContainer {
+    @include row($columns: (3, 6, 3));
+
+    .itemsLeft,
+    .itemsRight {
+      display: flex;
+    }
+
+    .itemDescription {
+      background-color: $porcelain;
+      padding: $gutter-padding $gutter-padding + 15px;
+    }
+  }
+}

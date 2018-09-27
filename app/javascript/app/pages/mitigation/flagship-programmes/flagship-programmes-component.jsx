@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import FlagshipProgrammesInfo from './flagship-programmes-info';
+import PrioritisedFlagshipProgrammes from './prioritised-flagship-programmes';
 
 class FlagshipProgrammes extends PureComponent {
   handleFilterChange = value => {
@@ -12,6 +13,7 @@ class FlagshipProgrammes extends PureComponent {
     return (
       <div>
         <FlagshipProgrammesInfo />
+        <PrioritisedFlagshipProgrammes />
       </div>
     );
   }
