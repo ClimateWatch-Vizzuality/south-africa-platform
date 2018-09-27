@@ -35,6 +35,7 @@ $font-size-title: 1.375rem; // 22px / 16px
 
 .logo {
   width: $logo-width-mobile;
+
   @media #{$tablet-landscape} {
     width: $logo-width;
   }
@@ -75,6 +76,7 @@ $font-size-title: 1.375rem; // 22px / 16px
 
 .flag {
   height: $flag-height-mobile;
+
   @media #{$tablet-landscape} {
     height: $flag-height;
   }
