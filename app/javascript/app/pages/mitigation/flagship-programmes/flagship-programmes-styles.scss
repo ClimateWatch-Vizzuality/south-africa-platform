@@ -4,11 +4,13 @@
 .row {
   @include row();
 }
+
 .flagshipProgrammes {
   margin-top: $gutter-padding;
 
   .generalInfoContainer {
     @include row($columns: 6);
+
     color: $midnightblue;
 
     .title {
