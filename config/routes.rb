@@ -40,6 +40,11 @@ Rails.application.routes.draw do
                   controller: :projected_emissions,
                   defaults: { format: 'json' }
       end
+      namespace :national_circumstance do
+        resources :priorities, only: [:index],
+                  controller: :priorities,
+                  defaults: { format: 'json' }
+      end
       resources :inventory_improvement_projects,
                 only: [:index],
                 defaults: { format: 'json' }
