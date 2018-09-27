@@ -7,7 +7,7 @@ import environmentalAffairsLogo from 'assets/environmental-affairs-logo';
 import envAffairsLogoSmall from 'assets/environmental-affairs-logo-small';
 import SAflag from 'assets/south-africa-flag';
 import { ENVIRONMENTAL_AFFAIRS_URL } from 'constants/links.js';
-
+import { TabletLandscape } from 'components/responsive';
 import styles from './header-styles.scss';
 
 class Header extends PureComponent {
@@ -19,17 +19,23 @@ class Header extends PureComponent {
           <div className={styles.navbarContainer}>
             <div className={styles.navElement}>
               <a href={ENVIRONMENTAL_AFFAIRS_URL}>
-                <img
-                  src={environmentalAffairsLogo}
-                  alt="Environmental Affairs Logo"
-                  className={cx(styles.logo)}
-                />
+                <TabletLandscape>
+                  {matches => (
+                    <img
+                      src={
+                        matches ? environmentalAffairsLogo : envAffairsLogoSmall
+                      }
+                      alt="Environmental Affairs Logo"
+                      className={cx(styles.logo)}
+                    />
+                  )}
+                </TabletLandscape>
               </a>
             </div>
             <div className={cx(styles.navElement, styles.pageTitleContainer)}>
               <Link to="/" onTouchStart={undefined} onMouseDown={undefined}>
-                <span className={styles.climatText}>Climate</span>
-                <span className={styles.reportText}>Report</span>
+                <div className={styles.climateText}>SOUTH AFRICA BIENNIAL</div>
+                <div className={styles.reportText}>UPDATE REPORT EXPLORER</div>
               </Link>
             </div>
             <div className={cx(styles.navElement, styles.flagContainer)}>

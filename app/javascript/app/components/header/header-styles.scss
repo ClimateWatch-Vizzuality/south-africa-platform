@@ -1,8 +1,11 @@
 @import '~styles/settings.scss';
 @import '~styles/layout.scss';
 
+$logo-width-mobile: 34px;
 $logo-width: 215px;
-$flag-height: 40px;
+$flag-height: 50px;
+$flag-height-mobile: 29px;
+$font-size-title: 1.375rem; // 22px / 16px
 
 // Header wrapper
 .headerContainer {
@@ -31,25 +34,31 @@ $flag-height: 40px;
 // Left side of the header
 
 .logo {
-  width: $logo-width;
+  width: $logo-width-mobile;
+  @media #{$tablet-landscape} {
+    width: $logo-width;
+  }
 }
 
 // Center of the header
 
 .pageTitleContainer {
-  font-size: $font-size;
+  font-size: $font-size-s;
   font-family: $font-family-2;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  justify-content: center;
+  letter-spacing: 1px;
+  line-height: $line-height-small;
+  justify-content: flex-end;
+  margin-right: 10px;
   flex-grow: 3;
+  text-align: right;
 
   @media #{$tablet-landscape} {
-    font-size: 30px;
+    font-size: $font-size-title;
   }
 }
 
-.climatText {
+.climateText {
   color: $camarone;
 }
 
@@ -60,11 +69,15 @@ $flag-height: 40px;
 // Right side of the header
 
 .flagContainer {
+  flex: unset;
   justify-content: flex-end;
 }
 
 .flag {
-  height: $flag-height;
+  height: $flag-height-mobile;
+  @media #{$tablet-landscape} {
+    height: $flag-height;
+  }
 }
 
 // Link styles
