@@ -10,5 +10,10 @@ export default [
     slug: 'mitigation-effects',
     label: 'Mitigation effects',
     path: '/mitigation/mitigation-effects'
+  },
+  {
+    slug: 'flagship-programmes',
+    label: 'Flagship Programmes',
+    path: '/mitigation/flagship-programmes'
   }
 ];
