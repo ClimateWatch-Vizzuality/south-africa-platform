@@ -15,5 +15,9 @@ export default [
     slug: 'flagship-programmes',
     label: 'Flagship Programmes',
     path: '/mitigation/flagship-programmes'
+  },
+  {
+    slug: 'flagship-programmes-detail',
+    path: '/mitigation/flagship-programmes/:flagshipId'
   }
 ];

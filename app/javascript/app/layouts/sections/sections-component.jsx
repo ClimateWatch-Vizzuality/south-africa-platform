@@ -27,7 +27,15 @@ const backgrounds = {
   '/mitigation': mitigationBg,
 }
 
-class Planning extends PureComponent {
+class Sections extends PureComponent {
+  getBackgroundImage() {
+    const { route, section } = this.props;
+    if (section.slug !== 'flagship-programmes-detail') {
+      return backgrounds[route.link];
+    }
+    return null;
+  }
+
   handleStickyChange =  (status) => {
     // Workaround fo fix bad height calculations
     // https://github.com/yahoo/react-stickynode/issues/102#issuecomment-362502692
@@ -41,7 +49,7 @@ class Planning extends PureComponent {
     const { route, section } = this.props;
     return (
       <div className={styles.page}>
-        <div className={styles.section} style={{backgroundImage: `url('${backgrounds[route.link]}')`}}>
+        <div className={styles.section} style={{backgroundImage: `url('${this.getBackgroundImage()}')`}}>
           <div className={styles.row}>
             <h2 className={styles.sectionTitle}>{route.label}</h2>
           </div>
@@ -58,9 +66,9 @@ class Planning extends PureComponent {
   }
 }
 
-Planning.propTypes = {
+Sections.propTypes = {
   route: PropTypes.object.isRequired,
   section: PropTypes.object.isRequired,
 }
 
-export default Planning;
+export default Sections;
