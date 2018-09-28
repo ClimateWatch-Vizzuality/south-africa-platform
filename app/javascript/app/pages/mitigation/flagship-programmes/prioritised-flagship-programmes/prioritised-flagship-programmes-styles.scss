@@ -37,6 +37,15 @@
         background-color: $porcelain;
         padding: $gutter-padding $gutter-padding + 15px;
         margin-bottom: 10px;
+
+        .subProgrammesTitle {
+          margin-bottom: $gutter-padding;
+        }
+
+        .subProgrammesList {
+          list-style-type: disc;
+          line-height: 2em;
+        }
       }
     }
   }

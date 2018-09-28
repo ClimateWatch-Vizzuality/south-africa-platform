@@ -42,7 +42,7 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
         flagshipImages={flagshipImages}
         section={s}
         onClick={() => this.handleFilterChange(s.position)}
-        active={selectedId === s.position}
+        active={selectedId === String(s.position)}
       />
     );
   }
@@ -55,6 +55,7 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
   }
 
   render() {
+    const { selectedSection } = this.props;
     return (
       <div className={styles.prioritisedFlagshipProgrammes}>
         <SectionTitle
@@ -72,6 +73,16 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
                 <div className={styles.subProgrammesTitle}>
                   Sub-Programmes implemented:
                 </div>
+                <ul className={styles.subProgrammesList}>
+                  {
+                    selectedSection &&
+                      selectedSection.subPrograms.map(subProgram => (
+                        <li key={subProgram}>
+                          {subProgram}
+                        </li>
+                      ))
+                  }
+                </ul>
               </div>
               <Button
                 onClick={this.handleDownloadClick}
@@ -93,12 +104,14 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
 
 PrioritisedFlagshipProgrammes.propTypes = {
   sections: PropTypes.array,
+  selectedSection: PropTypes.object,
   updateQueryParam: PropTypes.func.isRequired,
   query: PropTypes.object,
   selectedId: PropTypes.string
 };
 
 PrioritisedFlagshipProgrammes.defaultProps = {
+  selectedSection: null,
   sections: [],
   query: {},
   selectedId: null
