@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_165037) do
   create_table "nc_categories", force: :cascade do |t|
     t.integer "category_group_id", null: false
     t.integer "location_id", null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -223,8 +224,7 @@ ActiveRecord::Schema.define(version: 2018_09_27_165037) do
   create_table "nc_category_years", force: :cascade do |t|
     t.integer "year", null: false
     t.integer "category_id", null: false
-    t.bigint "value_int"
-    t.float "value_float"
+    t.float "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

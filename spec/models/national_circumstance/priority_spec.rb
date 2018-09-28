@@ -10,9 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'rails_helper'
-gem_dir = Gem::Specification.find_by_name('cw_locations').gem_dir
-require(gem_dir + '/spec/factories/locations.rb')
+require 'gem_spec_helper'
 
 RSpec.describe NationalCircumstance::Priority, type: :model do
   it 'should be invalid when code is not present' do

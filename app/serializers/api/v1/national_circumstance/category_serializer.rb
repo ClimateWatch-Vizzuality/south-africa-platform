@@ -13,13 +13,13 @@ module Api
   module V1
     module NationalCircumstance
       class CategorySerializer < ApplicationSerializer
-        attributes :code, :value
+        attributes :name
 
         belongs_to :category_group,
                    serializer: NationalCircumstance::CategoryGroupSerializer
 
         belongs_to :location,
-                   serializer: Location::LocationSerializer
+                   serializer: Locations::LocationNanoSerializer
 
         has_many :category_years,
                  serializer: NationalCircumstance::CategoryYearSerializer

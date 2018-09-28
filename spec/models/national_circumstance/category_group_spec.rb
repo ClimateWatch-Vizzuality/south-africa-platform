@@ -1,4 +1,14 @@
-require 'rails_helper'
+# == Schema Information
+#
+# Table name: nc_category_groups
+#
+#  id         :bigint(8)        not null, primary key
+#  name       :string           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+require 'gem_spec_helper'
 
 RSpec.describe NationalCircumstance::CategoryGroup, type: :model do
   it 'should be invalid when name is not present' do

@@ -3,8 +3,7 @@ class CreateNationalCircumstancesCategoryYears < ActiveRecord::Migration[5.2]
     create_table :nc_category_years do |t|
       t.integer :year, null: false
       t.integer :category_id, null: false
-      t.bigint :value_int
-      t.float :value_float
+      t.float :value
 
       t.timestamps
 
