@@ -16,6 +16,7 @@ export const fetchFlagshipProgrammes = createThunkAction(
   'fetchFlagshipProgrammes',
   () => (dispatch, state) => {
     const { flagshipProgrammes } = state();
+
     if (isEmpty(flagshipProgrammes.data) && !flagshipProgrammes.loading) {
       dispatch(fetchFlagshipProgrammesInit());
       SAAPI

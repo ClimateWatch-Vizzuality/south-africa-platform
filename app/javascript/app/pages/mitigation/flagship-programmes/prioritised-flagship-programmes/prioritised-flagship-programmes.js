@@ -1,3 +1,11 @@
-import Component from './prioritised-flagship-programmes-component';
+import { connect } from 'react-redux';
 
-export default Component;
+import Component from './prioritised-flagship-programmes-component';
+import * as actions from './prioritised-flagship-programmes-actions';
+import {
+  getPrioritisedFlagshipProgrammes
+} from './prioritised-flagship-programmes-selectors';
+
+const mapStateToProps = getPrioritisedFlagshipProgrammes;
+
+export default connect(mapStateToProps, actions)(Component);

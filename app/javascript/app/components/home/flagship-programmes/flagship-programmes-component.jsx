@@ -6,7 +6,7 @@ import cx from 'classnames';
 import styles from './flagship-programmes-styles.scss';
 import { flagshipProgrammes } from './flagship-programmes-map';
 
-class FlagshipProgrammes extends PureComponent {
+class HomeFlagshipProgrammes extends PureComponent {
   render() {
     return (
       <div className={styles.flagshipContainer}>
@@ -38,4 +38,4 @@ class FlagshipProgrammes extends PureComponent {
   }
 }
 
-export default FlagshipProgrammes;
+export default HomeFlagshipProgrammes;

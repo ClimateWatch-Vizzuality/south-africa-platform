@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Icon } from 'cw-components';
 import downloadIcon from 'assets/icons/download';
+
 import {
   FIRST_BIENNIAL_UPDATE_REPORT,
   SECOND_BIENNIAL_UPDATE_REPORT

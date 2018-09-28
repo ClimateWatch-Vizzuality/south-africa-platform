@@ -10,17 +10,34 @@
     margin-bottom: $gutter-padding;
   }
 
-  .prioritisedItemsContainer {
-    @include row($columns: (3, 6, 3));
+  .itemDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-    .itemsLeft,
-    .itemsRight {
-      display: flex;
+    .subProgrammesTitle {
+      font-weight: $font-weight-bold;
     }
+  }
 
-    .itemDescription {
-      background-color: $porcelain;
-      padding: $gutter-padding $gutter-padding + 15px;
+  .prioritisedItemsContainer {
+    @include row();
+
+    .prioritisedItems {
+      @include columns((3, 6, 3));
+
+      width: 100%;
+
+      .itemsList {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .itemDescription {
+        background-color: $porcelain;
+        padding: $gutter-padding $gutter-padding + 15px;
+        margin-bottom: 10px;
+      }
     }
   }
 }
