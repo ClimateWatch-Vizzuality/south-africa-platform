@@ -10,14 +10,14 @@ class FlagshipButton extends PureComponent {
       ? (
         <button
           type="button"
-          key={section.name}
+          key={section.shortName}
           className={cx(styles.flagshipButton, { [styles.active]: active })}
           style={{
           backgroundImage: `url(${flagshipImages[`flagship${section.position}`]})`
         }}
           onClick={onClick}
         >
-          {section.name}
+          {section.shortName}
         </button>
 )
       : null;

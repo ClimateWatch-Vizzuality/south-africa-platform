@@ -34,18 +34,21 @@ class FlagshipProgrammesInfo extends PureComponent {
                 <span className={styles.bold}>
                   Igniting national-scale action at the speed required to respond to climate change,
                 </span>
+                {' '}
                 i.e. limiting GHG emissions and/or enabling adaptation to the impacts of unavoidable climate change with the necessary urgency.
               </li>
               <li>
                 <span className={styles.bold}>
                   Demonstrating the course of actions needed to respond to climate change effectively and efficiently
                 </span>
+                {' '}
                 is not only possible, but highly beneficial, unlocking and realising significant social, economic and environmental benefits;
               </li>
               <li>
                 <span className={styles.bold}>
                   Attracting resources at the scale required to enable meaningful transformation,
                 </span>
+                {' '}
                 i.e. transformation at the scale that effectively limits atmospheric GHG emissions and/or enables adaptation to the impacts of unavoidable climate change.
               </li>
             </ul>

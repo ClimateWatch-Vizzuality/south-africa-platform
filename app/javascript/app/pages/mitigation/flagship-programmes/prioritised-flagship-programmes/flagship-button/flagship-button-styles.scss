@@ -2,10 +2,11 @@
 @import '~styles/settings.scss';
 
 .flagshipButton {
-  width: 273px;
+  width: 275px;
   height: 135px;
   position: relative;
   display: flex;
+  flex-direction: column;
   color: $white;
   font-weight: $font-weight-bold;
   line-height: $line-height-m;

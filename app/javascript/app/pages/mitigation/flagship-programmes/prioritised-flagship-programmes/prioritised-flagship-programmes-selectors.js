@@ -1,4 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
+import { FLAGSHIP_NAMES } from 'constants/flagships';
 import isEmpty from 'lodash/isEmpty';
 
 const getFlagshipsData = ({ flagshipProgrammes = {} }) =>
@@ -16,6 +17,7 @@ const getFlagshipSections = createSelector(getFlagshipsData, data => {
   if (!data) return null;
   return data.map(d => ({
     ...d.flagshipTheme,
+    shortName: FLAGSHIP_NAMES[d.flagshipTheme.id - 1],
     subPrograms: parseSubprograms(d)
   }));
 });
