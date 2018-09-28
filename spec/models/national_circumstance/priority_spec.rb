@@ -3,9 +3,9 @@
 # Table name: priorities
 #
 #  id          :bigint(8)        not null, primary key
-#  location_id :integer
-#  code        :string
-#  value       :text
+#  location_id :integer          not null
+#  code        :string           not null
+#  value       :text             not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

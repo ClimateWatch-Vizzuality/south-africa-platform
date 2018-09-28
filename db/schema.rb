@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_27_152938) do
+ActiveRecord::Schema.define(version: 2018_09_27_165037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,9 +207,31 @@ ActiveRecord::Schema.define(version: 2018_09_27_152938) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "national_circumstance_indicators", force: :cascade do |t|
-    t.string "code"
-    t.string "indicator"
+  create_table "nc_categories", force: :cascade do |t|
+    t.integer "category_group_id", null: false
+    t.integer "location_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nc_category_groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nc_category_years", force: :cascade do |t|
+    t.integer "year", null: false
+    t.integer "category_id", null: false
+    t.bigint "value_int"
+    t.float "value_float"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "nc_indicators", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "indicator", null: false
     t.string "category"
     t.string "unit"
     t.text "definition"
@@ -218,9 +240,9 @@ ActiveRecord::Schema.define(version: 2018_09_27_152938) do
   end
 
   create_table "priorities", force: :cascade do |t|
-    t.integer "location_id"
-    t.string "code"
-    t.text "value"
+    t.integer "location_id", null: false
+    t.string "code", null: false
+    t.text "value", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -289,6 +311,9 @@ ActiveRecord::Schema.define(version: 2018_09_27_152938) do
   add_foreign_key "location_members", "locations", on_delete: :cascade
   add_foreign_key "mitigation_actions", "mitigation_themes"
   add_foreign_key "mitigation_themes", "mitigation_sectors"
+  add_foreign_key "nc_categories", "locations"
+  add_foreign_key "nc_categories", "nc_category_groups", column: "category_group_id"
+  add_foreign_key "nc_category_years", "nc_categories", column: "category_id"
   add_foreign_key "priorities", "locations"
   add_foreign_key "projected_emission_years", "projected_emissions"
   add_foreign_key "received_supports", "donors"

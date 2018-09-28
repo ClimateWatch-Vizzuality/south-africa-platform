@@ -1,10 +1,10 @@
 # == Schema Information
 #
-# Table name: national_circumstance_indicators
+# Table name: nc_indicators
 #
 #  id         :bigint(8)        not null, primary key
-#  code       :string
-#  indicator  :string
+#  code       :string           not null
+#  indicator  :string           not null
 #  category   :string
 #  unit       :string
 #  definition :text
@@ -14,7 +14,7 @@
 
 module NationalCircumstance
   class Indicator < ApplicationRecord
-    self.table_name = 'national_circumstance_indicators'
+    self.table_name = 'nc_indicators'
     validates_presence_of :code, :indicator
   end
 end
