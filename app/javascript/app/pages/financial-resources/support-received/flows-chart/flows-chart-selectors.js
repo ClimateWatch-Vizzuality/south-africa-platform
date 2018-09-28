@@ -33,17 +33,11 @@ const getLinks = (data, nodes, focusNames) => {
     if (d.typeFunds && d.donor.name) {
       const source = nodes.indexOf(d.donor.name);
       const target = nodes.indexOf(d.typeFunds);
-      const linkToUpdate = links.find(
-        l => l.source === source && l.target === target
-      );
-      if (linkToUpdate) links.splice(links.indexOf(linkToUpdate), 1);
-      const value = linkToUpdate && linkToUpdate.value + d.amountUsd ||
-        d.amountUsd;
       links.push({
-        source: nodes.indexOf(d.donor.name),
-        target: nodes.indexOf(d.typeFunds),
+        source,
+        target,
         focus: getFocus(focusKeys, focusNames, d),
-        value
+        value: d.amountUsd
       });
     }
   });
