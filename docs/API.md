@@ -270,3 +270,28 @@ theme | Name | Coordinator | Effects1 ... Effects12 | Created at | Updated at
 	},
 ]
 ```
+
+## Flagship Programmes
+
+### Parameters
+- none
+
+### JSON API endpoint
+
+#### Data
+
+`/api/v1/mitigation/flagship_programmes`
+
+```
+{
+  data: [
+    {
+      description: null,
+      position: 1,
+      flagshipTheme: {
+      name: "The Climate Change Response Public Works Flagship Program",
+      position: 1
+    }
+    }, ...
+{
+```
