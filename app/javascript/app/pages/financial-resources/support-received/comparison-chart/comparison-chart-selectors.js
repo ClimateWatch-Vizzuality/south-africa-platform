@@ -1,9 +1,11 @@
 import { createStructuredSelector, createSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
+import { getFocus, getFocusNames } from 'utils/financial-resources';
 
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
 
 const getData = createSelector(state => state.data, data => data || null);
+const getMeta = createSelector(state => state.meta, meta => meta || null);
 const getComparisonId = createSelector([ state => state.location, getData ], (
   location,
   data
@@ -34,14 +36,15 @@ const getChartData = createSelector([ getData, getComparisonId ], (
     }));
   });
 
-const getSelectedDataInfo = createSelector([ getChartData, getComparisonId ], (
-  data,
-  selectedId
-) =>
-  {
+const getSelectedDataInfo = createSelector(
+  [ getChartData, getMeta, getComparisonId ],
+  (data, meta, selectedId) => {
     if (!data || !selectedId) return null;
-    return data.find(d => d.id === parseInt(selectedId, 10));
-  });
+    const selectedData = data.find(d => d.id === parseInt(selectedId, 10));
+    const focus = getFocus(selectedData, getFocusNames(meta));
+    return { ...selectedData, focus };
+  }
+);
 
 export const getComparison = data =>
   createStructuredSelector({

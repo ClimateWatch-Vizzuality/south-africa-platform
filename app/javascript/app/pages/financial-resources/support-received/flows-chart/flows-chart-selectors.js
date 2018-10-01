@@ -1,19 +1,11 @@
 import { createStructuredSelector, createSelector } from 'reselect';
 import { CHART_COLORS } from 'utils/graphs';
 import uniq from 'lodash/uniq';
+import { getFocus, getFocusNames } from 'utils/financial-resources';
 
 const getData = createSelector(state => state.data, data => data || null);
 const getMeta = createSelector(state => state.meta, meta => meta || null);
-const getFocus = (focusKeys, focusNames, d) => {
-  const focus = [];
-  focusKeys.forEach(k => {
-    if (d[k]) {
-      const focusIndex = parseInt(k.substr(-1), 10) - 1;
-      focus.push(focusNames[focusIndex]);
-    }
-  });
-  return focus;
-};
+
 const getNodes = data => {
   const nodes = [];
   data.forEach(d => {
@@ -25,10 +17,6 @@ const getNodes = data => {
 
 const getLinks = (data, nodes, focusNames) => {
   const links = [];
-  const focusKeys = data &&
-    data[0] &&
-    Object.keys(data[0]).filter(k => k.startsWith('focusArea'));
-
   data.forEach(d => {
     if (d.typeFunds && d.donor.name) {
       const source = nodes.indexOf(d.donor.name);
@@ -36,7 +24,7 @@ const getLinks = (data, nodes, focusNames) => {
       links.push({
         source,
         target,
-        focus: getFocus(focusKeys, focusNames, d),
+        focus: getFocus(d, focusNames),
         value: d.amountUsd
       });
     }
@@ -44,18 +32,10 @@ const getLinks = (data, nodes, focusNames) => {
   return links;
 };
 
-const getfocusNames = meta => {
-  const focusNames = [];
-  meta.forEach(k => {
-    if (k.code.startsWith('focus_area')) focusNames.push(k.indicator);
-  });
-  return focusNames;
-};
-
 const filterData = createSelector([ getData, getMeta ], (data, meta) => {
   if (!data) return null;
   const nodes = getNodes(data);
-  const links = getLinks(data, nodes, getfocusNames(meta));
+  const links = getLinks(data, nodes, getFocusNames(meta));
   if (!links.length) return null;
   return { nodes: nodes.map(n => ({ name: n })), links };
 });

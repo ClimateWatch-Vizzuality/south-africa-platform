@@ -45,9 +45,9 @@ class ComparisonChart extends PureComponent {
                 {selectedData && selectedData.purposeFunds}
               </p>
               <p className={styles.label}>Principal focus</p>
-              <p className={styles.text}>Principal focus</p>
-              <p className={styles.label}>Support commited</p>
-              <p className={styles.text}>Support commited</p>
+              <p className={styles.text}>
+                {selectedData && selectedData.focus.join(', ')}
+              </p>
               <p className={styles.label}>Type of funding</p>
               <p className={styles.text}>
                 {selectedData && selectedData.typeFunds}

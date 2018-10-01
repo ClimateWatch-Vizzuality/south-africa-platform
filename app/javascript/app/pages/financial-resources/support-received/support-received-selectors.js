@@ -75,7 +75,7 @@ const getDonorValues = createSelector([ getQueryParams, getDonorOptions ], (
 ) =>
   {
     if (!query || !query.donor) return options && options[0];
-    return options.find(o => o.value === query.donor) || null;
+    return options && options.find(o => o.value === query.donor) || null;
   });
 
 const getFinancialFlowValues = createSelector(
@@ -83,7 +83,8 @@ const getFinancialFlowValues = createSelector(
   (query, options) => {
     if (!options) return null;
     if (!query || !query.financialFlow) return options && options[0];
-    return options.find(o => o.value === query.financialFlow) || null;
+    return options && options.find(o => o.value === query.financialFlow) ||
+      null;
   }
 );
 
@@ -93,14 +94,14 @@ const getCountryValues = createSelector([ getQueryParams, getCountryOptions ], (
 ) =>
   {
     if (!query || !query.country) return options && options[0];
-    return options.find(o => o.value === query.country) || null;
+    return options && options.find(o => o.value === query.country) || null;
   });
 
 const getChartTypeValues = createSelector(
   [ getQueryParams, getChartTypeOptions ],
   (query, options) => {
     if (!query || !query.chartType) return options && options[0];
-    return options.find(o => o.value === query.chartType) || null;
+    return options && options.find(o => o.value === query.chartType) || null;
   }
 );
 
