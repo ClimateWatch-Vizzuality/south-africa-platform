@@ -19,12 +19,6 @@ import {
 import {
   reduxModule as mitigationActions
 } from 'providers/mitigation-actions-provider';
-import {
-  reduxModule as financialResources
-} from 'providers/financial-resources-provider';
-import {
-  reduxModule as flagshipProgrammes
-} from 'providers/flagship-programmes-provider';
 import { reduxModule as worldBank } from 'providers/world-bank-provider';
 import { reduxModule as metadata } from 'providers/metadata-provider';
 import {
@@ -55,8 +49,6 @@ const providersReducers = {
   financialResourcesReceived: handleModule(financialResourcesReceived),
   financialResourcesNeeded: handleModule(financialResourcesNeeded),
   mitigationActions: handleModule(mitigationActions),
-  flagshipProgrammes: handleModule(flagshipProgrammes),
-  financialResources: handleModule(financialResources),
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),
