@@ -11,7 +11,7 @@ const getComparisonId = createSelector([ state => state.location, getData ], (
   data
 ) =>
   {
-    if (!data || !location) return null;
+    if (!data || isEmpty(data) || !location) return null;
     return location.query && location.query.comparisonId || data[0].id;
   });
 

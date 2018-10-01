@@ -3,12 +3,15 @@ const focusKeys = d =>
 
 export const getFocus = (d, focusNames) => {
   const focus = [];
-  focusKeys(d).forEach(k => {
-    if (d[k]) {
-      const focusIndex = parseInt(k.substr(-1), 10) - 1;
-      focus.push(focusNames[focusIndex]);
-    }
-  });
+  const focusKeyNames = focusKeys(d);
+  if (focusKeyNames) {
+    focusKeyNames.forEach(k => {
+      if (d[k]) {
+        const focusIndex = parseInt(k.substr(-1), 10) - 1;
+        focus.push(focusNames[focusIndex]);
+      }
+    });
+  }
   return focus;
 };
 

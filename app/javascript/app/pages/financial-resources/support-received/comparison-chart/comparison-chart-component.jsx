@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
-import { BubbleChart } from 'cw-components';
+import { BubbleChart, NoContent } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider';
 import styles from './comparison-chart-styles.scss';
 
@@ -17,8 +17,8 @@ class ComparisonChart extends PureComponent {
       <div className={styles.contentContainer}>
         <div className={styles.chartContainer}>
           {
-            data &&
-              (
+            data
+              ? (
                 <BubbleChart
                   width={400}
                   height={400}
@@ -26,12 +26,13 @@ class ComparisonChart extends PureComponent {
                   handleNodeClick={this.handleNodeClick}
                   tooltipClassName="global_SATooltip"
                 />
-              )
+)
+              : <NoContent minHeight={400} message="No data available" />
           }
         </div>
         <div className={styles.infoContainer}>
           {
-            selectedValues && (
+            selectedData && selectedValues && (
             <div>
               <h2 className={styles.title}>
                 {

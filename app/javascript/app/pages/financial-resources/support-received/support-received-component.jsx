@@ -16,7 +16,13 @@ class SupportReceived extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query, section } = this.props;
     updateQueryParam({
-      query: { ...query, tab: value, comparisonId: '' },
+      query: {
+        ...query,
+        tab: value,
+        comparisonId: undefined,
+        country: '',
+        donor: ''
+      },
       section
     });
   };
