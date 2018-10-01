@@ -1,5 +1,6 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
+import snakeCase from 'lodash/snakeCase';
 import { deburrUpper } from 'utils/utils';
 
 const getData = ({ financialResourcesNeeded = {} }) =>
@@ -39,17 +40,30 @@ const getParsedSupportNeededData = createSelector([ getData, getSearchValue ], (
     );
   });
 
-const defaultColumns = [ 'category', 'scheme', 'focusArea', 'reference' ];
+const defaultColumns = [
+  'type',
+  'preferred_type',
+  'sector_and_activity',
+  'reference_to_policies_and_measures'
+];
 
-// const defaultColumns = [
-//   'type',
-//   'preferred_type',
-//   'sector_and_activity',
-//   'reference_to_policies_and_measures'
-// ];
 const ellipsisColumns = [];
 
-const getTableData = createSelector(getParsedSupportNeededData, data => ({
+const renameColumnsToSnakeCase = createSelector(
+  getParsedSupportNeededData,
+  data => {
+    if (!data) return null;
+    return data.slice().map(d => {
+      const updatedD = {};
+      Object.keys(d).forEach(key => {
+        updatedD[snakeCase(key)] = d[key];
+      });
+      return updatedD;
+    });
+  }
+);
+
+const getTableData = createSelector(renameColumnsToSnakeCase, data => ({
   data,
   defaultColumns,
   ellipsisColumns
