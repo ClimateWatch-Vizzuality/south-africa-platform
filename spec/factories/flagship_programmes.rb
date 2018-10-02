@@ -23,6 +23,19 @@ FactoryBot.define do
 
     factory :flagship_programme_complete, class: 'Mitigation::FlagshipProgramme' do
       association :flagship_theme, factory: :flagship_theme, strategy: :build
+
+      factory :flagship_programme_complete_with_components,
+              class: 'Mitigation::FlagshipProgramme' do
+        transient do
+          components_count { 2 }
+        end
+
+        after(:create) do |programme, evaluator|
+          create_list(:flagship_component,
+                      evaluator.components_count,
+                      flagship_programme: programme)
+        end
+      end
     end
   end
 end
