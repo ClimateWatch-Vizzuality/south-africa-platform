@@ -16,7 +16,11 @@ module Api
   module V1
     module FinancialResource
       class SupportNeedSerializer < ApplicationSerializer
-        attributes :id, :category, :focus_area, :reference, :support_type, :scheme
+        attributes :id, :support_type
+        attribute :category, key: :type
+        attribute :focus_area, key: :sector_and_activity
+        attribute :reference, key: :reference_to_policies_and_measures
+        attribute :scheme, key: :preferred_type
       end
     end
   end

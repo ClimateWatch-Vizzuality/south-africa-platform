@@ -6,8 +6,8 @@
 #  donor_id      :integer
 #  finance_flow  :string
 #  type_funds    :string
-#  amount_zar    :integer
-#  amount_usd    :integer
+#  amount_zar    :bigint(8)
+#  amount_usd    :bigint(8)
 #  timeframes    :string
 #  focus_area_1  :boolean          default(FALSE)
 #  focus_area_2  :boolean          default(FALSE)

@@ -6,6 +6,21 @@ import styles from './flagship-programmes-info-styles.scss';
 
 class FlagshipProgrammesInfo extends PureComponent {
   render() {
+    const priorityAreaTexts = [
+      'Agriculture, food systems and food security',
+      'Energy efficiency and energy demand management',
+      'Carbon capture and storage',
+      'Disaster risk reduction and management',
+      'Health',
+      'Land, biodiversity and ecosystems',
+      'Low carbon, climate resilient built environment, communities and human settlements',
+      'Low carbon climate resilient spatial development',
+      'Low carbon, climate resilient transport systems',
+      'Renewable energy',
+      'Social protection systems and public works programmes',
+      'Waste management',
+      'Water conservation and water demand management'
+    ];
     return (
       <div className={styles.flagshipProgrammes}>
         <div className={styles.generalInfoContainer}>
@@ -69,45 +84,7 @@ class FlagshipProgrammesInfo extends PureComponent {
                 The priority areas for the scaled-up implementation of South Africa’s climate response are listed below:
               </p>
               <ul>
-                <li>
-                  Agriculture, food systems and food security
-                </li>
-                <li>
-                  Energy efficiency and energy demand management
-                </li>
-                <li>
-                  Carbon capture and storage
-                </li>
-                <li>
-                  Disaster risk reduction and management
-                </li>
-                <li>
-                  Health
-                </li>
-                <li>
-                  Land, biodiversity and ecosystems
-                </li>
-                <li>
-                  Low carbon, climate resilient built environment, communities and human settlements
-                </li>
-                <li>
-                  Low carbon climate resilient spatial development
-                </li>
-                <li>
-                  Low carbon, climate resilient transport systems
-                </li>
-                <li>
-                  Renewable energy
-                </li>
-                <li>
-                  Social protection systems and public works programmes
-                </li>
-                <li>
-                  Waste management
-                </li>
-                <li>
-                  Water conservation and water demand management
-                </li>
+                {priorityAreaTexts.map(t => <li key={t}>{t}</li>)}
               </ul>
             </div>
           </div>
