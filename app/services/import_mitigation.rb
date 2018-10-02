@@ -49,6 +49,7 @@ class ImportMitigation
       sub_programs: row[:sub_programs],
       work_package: row[:work_package],
       outcomes: row[:outcomes],
+      description: row[:description],
       position: position
     }
   end
