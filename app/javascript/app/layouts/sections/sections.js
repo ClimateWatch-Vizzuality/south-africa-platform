@@ -10,7 +10,7 @@ const mapStateToProps = ({ location }) => {
     const defaultSection = route.sections.find(s => s.default);
     section = route.sections.find(s => s.slug === currentSectionSlug) || defaultSection;
   }
-  return { route, section };
+  return { route, section, payload: location.payload };
 };
 
 export default connect(mapStateToProps, null)(PlanningComponent);

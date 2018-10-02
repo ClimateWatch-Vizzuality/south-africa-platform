@@ -6,6 +6,7 @@ import NationalSections from './sections/national-circumstances';
 import GHGSections from './sections/ghg-emissions';
 import MitigationSections from './sections/mitigation';
 import FinancialSections from './sections/financial-resources';
+import FlagshipSections from './sections/flagship';
 
 const history = createHistory();
 
@@ -14,6 +15,7 @@ export const NATIONAL_CIRCUMSTANCES = 'location/NATIONAL_CIRCUMSTANCES';
 export const GHG_EMISSIONS = 'location/GHG_EMISSIONS';
 export const MITIGATIONS = 'location/MITIGATIONS';
 export const FINANCIAL_RESOURCES = 'location/FINANCIAL_RESOURCES';
+export const FLAGSHIP_DETAIL = 'location/FLAGSHIP_DETAIL';
 
 export const routes = {
   [HOME]: {
@@ -47,6 +49,12 @@ export const routes = {
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',
     sections: MitigationSections
+  },
+  [FLAGSHIP_DETAIL]: {
+    link: '/mitigation/flagship-programmes-detail',
+    path: '/mitigation/flagship-programmes/:id/:section?',
+    component: 'layouts/sections/sections',
+    sections: FlagshipSections
   },
   [FINANCIAL_RESOURCES]: {
     nav: true,
