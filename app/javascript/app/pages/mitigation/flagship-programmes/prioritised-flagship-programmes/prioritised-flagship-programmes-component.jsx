@@ -1,20 +1,13 @@
 import React, { PureComponent } from 'react';
 import SectionTitle from 'components/section-title';
 import FlagshipProgrammesProvider from 'providers/flagship-programmes-provider';
+import FlagshipButtons from 'components/flagship-buttons';
 import { PropTypes } from 'prop-types';
 import { Button } from 'cw-components';
 import Link from 'redux-first-router-link';
 import button from 'styles/themes/button';
 import kebabCase from 'lodash/kebabCase';
-import flagship1 from 'assets/flagship-programmes/1.png';
-import flagship2 from 'assets/flagship-programmes/2.png';
-import flagship3 from 'assets/flagship-programmes/3.png';
-import flagship4 from 'assets/flagship-programmes/4.png';
-import flagship5 from 'assets/flagship-programmes/5.png';
-import flagship6 from 'assets/flagship-programmes/6.png';
-import flagship7 from 'assets/flagship-programmes/7.png';
-import flagship8 from 'assets/flagship-programmes/8.png';
-import FlagshipButton from './flagship-button/flagship-button';
+
 import styles from './prioritised-flagship-programmes-styles.scss';
 
 class PrioritisedFlagshipProgrammes extends PureComponent {
@@ -25,36 +18,6 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
       section: 'flagship-programmes'
     });
   };
-
-  renderButton(s) {
-    const { selectedId } = this.props;
-    const flagshipImages = {
-      flagship1,
-      flagship2,
-      flagship3,
-      flagship4,
-      flagship5,
-      flagship6,
-      flagship7,
-      flagship8
-    };
-    return (
-      <FlagshipButton
-        key={s.name}
-        flagshipImages={flagshipImages}
-        section={s}
-        onClick={() => this.handleFilterChange(s.position)}
-        active={selectedId === String(s.position)}
-      />
-    );
-  }
-
-  renderButtons(from, to) {
-    const { sections } = this.props;
-    return sections &&
-      sections.length &&
-      sections.slice(from, to).map(s => this.renderButton(s));
-  }
 
   render() {
     const { selectedSection } = this.props;
@@ -68,7 +31,11 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
         <div className={styles.prioritisedItemsContainer}>
           <div className={styles.prioritisedItems}>
             <div className={styles.itemsList}>
-              {this.renderButtons(0, 4)}
+              <FlagshipButtons
+                from={0}
+                to={4}
+                handleFilterChange={this.handleFilterChange}
+              />
             </div>
             <div className={styles.itemDescription}>
               <div className={styles.subProgrammes}>
@@ -105,7 +72,11 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
               </Button>
             </div>
             <div className={styles.itemsList}>
-              {this.renderButtons(4, 8)}
+              <FlagshipButtons
+                from={4}
+                to={8}
+                handleFilterChange={this.handleFilterChange}
+              />
             </div>
           </div>
         </div>
@@ -116,18 +87,14 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
 }
 
 PrioritisedFlagshipProgrammes.propTypes = {
-  sections: PropTypes.array,
   selectedSection: PropTypes.object,
   updateQueryParam: PropTypes.func.isRequired,
-  query: PropTypes.object,
-  selectedId: PropTypes.string
+  query: PropTypes.object
 };
 
 PrioritisedFlagshipProgrammes.defaultProps = {
   selectedSection: null,
-  sections: [],
-  query: {},
-  selectedId: null
+  query: {}
 };
 
 export default PrioritisedFlagshipProgrammes;

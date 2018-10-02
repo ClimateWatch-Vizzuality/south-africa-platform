@@ -3,9 +3,18 @@ import FlagshipProgrammesProvider from 'providers/flagship-programmes-provider';
 import { PropTypes } from 'prop-types';
 import SectionTitle from 'components/section-title';
 import cx from 'classnames';
+import FlagshipButtons from 'components/flagship-buttons';
 import styles from './flagship-programmes-detail-overview-styles';
 
 class FlagshipProgrammesDetail extends PureComponent {
+  handleFilterChange = value => {
+    const { updateQueryParam, query } = this.props;
+    updateQueryParam({
+      query: { ...query, flagshipId: value },
+      section: 'flagship-programmes'
+    });
+  };
+
   render() {
     const { flagshipDetailData } = this.props;
     return (
@@ -37,14 +46,25 @@ class FlagshipProgrammesDetail extends PureComponent {
           title="Other Flagship Programmes"
           className={styles.title}
         />
+        <FlagshipButtons
+          handleFilterChange={this.handleFilterChange}
+          className={styles.flagshipButtons}
+        />
         <FlagshipProgrammesProvider />
       </div>
     );
   }
 }
 
-FlagshipProgrammesDetail.propTypes = { flagshipDetailData: PropTypes.object };
+FlagshipProgrammesDetail.propTypes = {
+  flagshipDetailData: PropTypes.object,
+  updateQueryParam: PropTypes.func.isRequired,
+  query: PropTypes.object
+};
 
-FlagshipProgrammesDetail.defaultProps = { flagshipDetailData: null };
+FlagshipProgrammesDetail.defaultProps = {
+  flagshipDetailData: null,
+  query: null
+};
 
 export default FlagshipProgrammesDetail;
