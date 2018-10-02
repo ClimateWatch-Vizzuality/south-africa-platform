@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import kebabCase from 'lodash/kebabCase';
 // import styles from './flagship-buttons-styles.scss';
 import flagship1 from 'assets/flagship-programmes/1.png';
 import flagship2 from 'assets/flagship-programmes/2.png';
@@ -24,13 +25,14 @@ class FlagshipButtons extends PureComponent {
       flagship7,
       flagship8
     };
+    const slug = kebabCase(s.name);
     return (
       <FlagshipButton
         key={s.name}
         flagshipImages={flagshipImages}
         section={s}
-        onClick={() => handleFilterChange(s.position)}
-        active={selectedId === String(s.position)}
+        onClick={() => handleFilterChange(slug)}
+        active={selectedId === slug}
       />
     );
   }

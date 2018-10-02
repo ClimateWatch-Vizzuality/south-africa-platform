@@ -14,7 +14,7 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
   handleFilterChange = value => {
     const { updateQueryParam, query } = this.props;
     updateQueryParam({
-      query: { ...query, flagshipId: value },
+      query: { ...query, id: value },
       section: 'flagship-programmes'
     });
   };

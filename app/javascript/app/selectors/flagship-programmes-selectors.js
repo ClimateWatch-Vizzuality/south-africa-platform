@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { FLAGSHIP_NAMES } from 'constants/flagships';
 import isEmpty from 'lodash/isEmpty';
+import kebabCase from 'lodash/kebabCase';
 import { parseMarkdown } from 'utils/flagship-programmes';
 
 const getFlagshipsData = ({ flagshipProgrammes = {} }) =>
@@ -21,9 +22,9 @@ export const getFlagshipIdParam = createSelector(
   [ state => state.location, getFlagshipsData ],
   (location, data) => {
     if (!data) return null;
-    if (location.query && location.query.flagshipId)
-      return String(location.query.flagshipId);
-    return String(data[0].position);
+    if (location.query && location.query.id) return location.query.id;
+    if (location.payload && location.payload.id) return location.payload.id;
+    return kebabCase(data[0].flagshipTheme.name);
   }
 );
 
@@ -31,6 +32,6 @@ export const getSelectedSection = createSelector(
   [ getFlagshipSections, getFlagshipIdParam ],
   (sections, id) => {
     if (!sections) return null;
-    return sections.find(s => s.position === parseInt(id, 10)) || sections[0];
+    return sections.find(s => kebabCase(s.name) === id) || sections[0];
   }
 );

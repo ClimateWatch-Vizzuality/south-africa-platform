@@ -8,10 +8,10 @@ import styles from './flagship-programmes-detail-overview-styles';
 
 class FlagshipProgrammesDetail extends PureComponent {
   handleFilterChange = value => {
-    const { updateQueryParam, query } = this.props;
+    const { updateQueryParam } = this.props;
     updateQueryParam({
-      query: { ...query, flagshipId: value },
-      section: 'flagship-programmes'
+      id: value,
+      section: 'flagship-programmes-detail-overview'
     });
   };
 
@@ -58,13 +58,9 @@ class FlagshipProgrammesDetail extends PureComponent {
 
 FlagshipProgrammesDetail.propTypes = {
   flagshipDetailData: PropTypes.object,
-  updateQueryParam: PropTypes.func.isRequired,
-  query: PropTypes.object
+  updateQueryParam: PropTypes.func.isRequired
 };
 
-FlagshipProgrammesDetail.defaultProps = {
-  flagshipDetailData: null,
-  query: null
-};
+FlagshipProgrammesDetail.defaultProps = { flagshipDetailData: null };
 
 export default FlagshipProgrammesDetail;

@@ -18,13 +18,15 @@
   padding: 40px 26px 40px 18px;
   margin-bottom: $gutter-padding;
   width: 242px;
+  height: 156px;
   border-radius: 3px;
 }
 
 .flagshipButtons {
   display: flex;
   flex-wrap: wrap;
-  * {
+
+  > * {
     margin: 0 17px 17px 0;
   }
 }
