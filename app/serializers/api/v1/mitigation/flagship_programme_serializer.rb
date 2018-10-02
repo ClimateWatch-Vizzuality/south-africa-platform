@@ -22,6 +22,8 @@ module Api
 
         belongs_to :flagship_theme,
                    serializer: Api::V1::Mitigation::FlagshipThemeSerializer
+        has_many :flagship_components,
+                 serializer: Api::V1::Mitigation::FlagshipComponentSerializer
       end
     end
   end

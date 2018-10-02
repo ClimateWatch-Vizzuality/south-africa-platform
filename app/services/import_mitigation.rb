@@ -11,11 +11,13 @@ class ImportMitigation
     import_effects(S3CSVReader.read(MITIGATION_EFFECTS_FILEPATH))
     import_indicators(S3CSVReader.read(MITIGATION_INDICATORS_FILEPATH))
     import_programmes(S3CSVReader.read(FLAGSHIP_PROGRAMMES_FILEPATH))
+    import_components(S3CSVReader.read(FLAGSHIP_COMPONENTS_FILEPATH))
   end
 
   private
 
   def cleanup
+    Mitigation::FlagshipComponent.delete_all
     Mitigation::FlagshipProgramme.delete_all
     Mitigation::FlagshipTheme.delete_all
     Mitigation::MitigationAction.delete_all
@@ -48,6 +50,35 @@ class ImportMitigation
       work_package: row[:work_package],
       outcomes: row[:outcomes],
       position: position
+    }
+  end
+
+  #  id                    :bigint(8)        not null, primary key
+  #  flagship_programme_id :integer
+  #  name                  :string           not null
+  #  main_activities       :text
+  #  lead                  :string
+  #  status                :string
+  #  milestone             :text
+  #  barriers              :text
+  #  next_steps            :text
+  #  timeframe             :string
+  #  support               :text
+  #  created_at            :datetime         not null
+  #  updated_at            :datetime         not null
+  #
+  def flagship_component_attributes(row, flagship_programme_id)
+    {
+      flagship_programme_id: flagship_programme_id,
+      name: row[:component],
+      main_activities: row[:main_activities],
+      lead: row[:lead],
+      status: row[:status],
+      milestone: row[:milestone],
+      barriers: row[:barriers],
+      next_steps: row[:next_steps],
+      timeframe: row[:timeframe],
+      support: row[:support]
     }
   end
 
@@ -106,6 +137,21 @@ class ImportMitigation
           order(position: :desc)&.first&.position || 0
         ::Mitigation::FlagshipProgramme.create!(
           flagship_programme_attributes(row, flagship_theme.id, programme_position + 1)
+        )
+      rescue ActiveRecord::RecordInvalid => invalid
+        STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
+      end
+    end
+  end
+
+  def import_components(content)
+    content.each do |row|
+      begin
+        flagship_theme = ::Mitigation::FlagshipTheme.find_by(name: row[:flagship])
+        # The flagship theme only has a programme. Maybe we should merge those models
+        flagship_programme = flagship_theme.flagship_programmes.first
+        ::Mitigation::FlagshipComponent.create!(
+          flagship_component_attributes(row, flagship_programme.id)
         )
       rescue ActiveRecord::RecordInvalid => invalid
         STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
