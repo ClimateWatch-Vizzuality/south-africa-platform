@@ -1,24 +1,19 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import { FLAGSHIP_NAMES } from 'constants/flagships';
 import isEmpty from 'lodash/isEmpty';
+import { parseMarkdown } from 'utils/flagship-programmes';
 
 const getFlagshipsData = ({ flagshipProgrammes = {} }) =>
   isEmpty(flagshipProgrammes.data) || isEmpty(flagshipProgrammes.data.data)
     ? null
     : flagshipProgrammes.data.data;
 
-const parseSubprograms = d => {
-  const subPrograms = d.subPrograms
-    .split('*')
-    .map(s => s.replace(/"/g, '').trim());
-  return subPrograms.splice(1, subPrograms.length);
-};
 const getFlagshipSections = createSelector(getFlagshipsData, data => {
   if (!data) return null;
   return data.map(d => ({
     ...d.flagshipTheme,
     shortName: FLAGSHIP_NAMES[d.flagshipTheme.id - 1],
-    subPrograms: parseSubprograms(d)
+    subPrograms: parseMarkdown(d, 'subPrograms')
   }));
 });
 

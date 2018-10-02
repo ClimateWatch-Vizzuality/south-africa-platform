@@ -1,6 +1,22 @@
 @import '~styles/layout.scss';
 @import '~styles/settings.scss';
 
-.row {
+.flagshipDetail {
   @include row();
+}
+
+.text {
+  line-height: $line-height-m;
+}
+
+.twoColumns {
+  columns: 2;
+}
+
+.blueCard {
+  background-color: $porcelain;
+  padding: 40px 26px 40px 18px;
+  margin-bottom: $gutter-padding;
+  width: 242px;
+  border-radius: 3px;
 }
