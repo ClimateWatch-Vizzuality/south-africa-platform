@@ -30,15 +30,6 @@ const backgrounds = {
 }
 
 class Sections extends PureComponent {
-  getSectionsWithReplacedIds() {
-    const { route, payload } = this.props;
-    return route.sections.map(s => {
-      const updatedS = s;
-      updatedS.path = s.path.replace(':id', payload.id);
-      return updatedS;
-    })
-  }
-
   handleStickyChange =  (status) => {
     // Workaround fo fix bad height calculations
     // https://github.com/yahoo/react-stickynode/issues/102#issuecomment-362502692
@@ -60,7 +51,7 @@ class Sections extends PureComponent {
 
           <Sticky ref={el => {this.stickyRef = el}} onStateChange={this.handleStickyChange} top="#header" activeClass={styles.stickyWrapper} innerZ={6}>
             <div className={styles.row}>
-              <Nav theme={{ nav: styles.nav, link: navStyles.linkSubNav }} routes={this.getSectionsWithReplacedIds()} />
+              <Nav theme={{ nav: styles.nav, link: navStyles.linkSubNav }} routes={route.sections} />
             </div>
           </Sticky>
         </div>

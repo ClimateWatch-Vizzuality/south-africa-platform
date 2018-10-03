@@ -4,7 +4,8 @@ import kebabCase from 'lodash/kebabCase';
 import { parseMarkdown } from 'utils/flagship-programmes';
 import {
   getFlagshipSections,
-  getFlagshipIdParam
+  getFlagshipIdParam,
+  getPageSection
 } from 'selectors/flagship-programmes-selectors';
 
 const getFlagshipData = ({ flagshipProgrammes = {} }) =>
@@ -33,6 +34,5 @@ export const getFlagshipDetailInfo = createStructuredSelector({
   flagshipDetailData: parseWorkPackages,
   sections: getFlagshipSections,
   selectedId: getFlagshipIdParam,
-  pageSection: ({ location }) =>
-    location.payload && location.payload.section || null
+  pageSection: getPageSection
 });

@@ -35,3 +35,6 @@ export const getSelectedSection = createSelector(
     return sections.find(s => kebabCase(s.name) === id) || sections[0];
   }
 );
+
+export const getPageSection = ({ location }) =>
+  location.payload && location.payload.section || null;
