@@ -1,7 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import kebabCase from 'lodash/kebabCase';
-import { parseMarkdown } from 'utils/flagship-programmes';
+import { parseMarkdownField } from 'utils/flagship-programmes';
 import {
   getFlagshipSections,
   getFlagshipIdParam,
@@ -25,7 +25,7 @@ const getFlagshipDetailData = createSelector(
 const parseWorkPackages = createSelector(getFlagshipDetailData, data => {
   if (!data) return null;
   const updatedData = { ...data };
-  const parsedWorkPackage = parseMarkdown(data, 'workPackage');
+  const parsedWorkPackage = parseMarkdownField(data, 'workPackage');
   if (parsedWorkPackage) updatedData.workPackage = parsedWorkPackage;
   return updatedData;
 });

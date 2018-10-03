@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { FLAGSHIP_NAMES } from 'constants/flagships';
 import isEmpty from 'lodash/isEmpty';
 import kebabCase from 'lodash/kebabCase';
-import { parseMarkdown } from 'utils/flagship-programmes';
+import { parseMarkdownField } from 'utils/flagship-programmes';
 
 const getFlagshipsData = ({ flagshipProgrammes = {} }) =>
   isEmpty(flagshipProgrammes.data) || isEmpty(flagshipProgrammes.data.data)
@@ -14,7 +14,7 @@ export const getFlagshipSections = createSelector(getFlagshipsData, data => {
   return data.map(d => ({
     ...d.flagshipTheme,
     shortName: FLAGSHIP_NAMES[d.flagshipTheme.position - 1],
-    subPrograms: parseMarkdown(d, 'subPrograms')
+    subPrograms: parseMarkdownField(d, 'subPrograms')
   }));
 });
 

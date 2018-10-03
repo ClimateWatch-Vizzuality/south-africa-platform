@@ -2,6 +2,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import kebabCase from 'lodash/kebabCase';
 import { getPageSection } from 'selectors/flagship-programmes-selectors';
+import { parseMarkdownToHtml } from 'utils/flagship-programmes';
 
 const getFlagshipData = ({ flagshipProgrammes = {} }) =>
   isEmpty(flagshipProgrammes.data) || isEmpty(flagshipProgrammes.data.data)
@@ -39,6 +40,19 @@ const renameDataColumns = createSelector(
   }
 );
 
+const parseMarkdown = createSelector([ renameDataColumns ], data => {
+  if (!data) return null;
+  return data.slice().map(d => {
+    const updatedD = d;
+    Object.keys(d).forEach(key => {
+      if (d[key] && String(d[key]).startsWith('"')) {
+        updatedD[key] = parseMarkdownToHtml(String(d[key]));
+      }
+    });
+    return updatedD;
+  });
+});
+
 const defaultColumns = [
   'component',
   'main_activities',
@@ -52,7 +66,7 @@ const defaultColumns = [
 ];
 
 export const getFlagshipComponents = createStructuredSelector({
-  data: renameDataColumns,
+  data: parseMarkdown,
   defaultColumns: () => defaultColumns,
   pageSection: getPageSection
 });

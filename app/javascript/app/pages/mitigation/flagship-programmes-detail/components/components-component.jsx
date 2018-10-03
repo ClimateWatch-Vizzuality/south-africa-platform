@@ -20,6 +20,7 @@ class FlagshipProgrammesComponents extends PureComponent {
         <DataTable
           tableData={{ data, defaultColumns }}
           setColumnWidth={() => 180}
+          parseHtml
         />
         <SectionTitle
           isSubtitle
