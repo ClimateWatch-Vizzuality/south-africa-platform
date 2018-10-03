@@ -1,0 +1,15 @@
+@import '~styles/layout.scss';
+@import '~styles/settings.scss';
+
+.flagshipComponents {
+  @include row();
+}
+
+.flagshipButtons {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 0 17px 17px 0;
+  }
+}

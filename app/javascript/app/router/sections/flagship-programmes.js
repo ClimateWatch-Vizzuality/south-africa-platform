@@ -1,13 +1,13 @@
 export default [
   {
-    slug: 'flagship-programmes-detail-overview',
-    path: '/mitigation/flagship-programmes/:id',
+    slug: 'overview',
     label: 'Overview',
+    path: '/mitigation/flagship-programmes/:id',
     exact: true,
     default: true
   },
   {
-    slug: 'flagship-programmes-detail-components',
+    slug: 'components',
     label: 'Components',
     path: '/mitigation/flagship-programmes/:id/components'
   }

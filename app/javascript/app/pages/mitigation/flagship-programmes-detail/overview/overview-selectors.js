@@ -32,5 +32,7 @@ const parseWorkPackages = createSelector(getFlagshipDetailData, data => {
 export const getFlagshipDetailInfo = createStructuredSelector({
   flagshipDetailData: parseWorkPackages,
   sections: getFlagshipSections,
-  selectedId: getFlagshipIdParam
+  selectedId: getFlagshipIdParam,
+  pageSection: ({ location }) =>
+    location.payload && location.payload.section || null
 });

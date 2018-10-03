@@ -4,15 +4,12 @@ import { PropTypes } from 'prop-types';
 import SectionTitle from 'components/section-title';
 import cx from 'classnames';
 import FlagshipButtons from 'components/flagship-buttons';
-import styles from './flagship-programmes-detail-overview-styles';
+import styles from './overview-styles';
 
 class FlagshipProgrammesDetail extends PureComponent {
   handleFilterChange = value => {
-    const { updateQueryParam } = this.props;
-    updateQueryParam({
-      id: value,
-      section: 'flagship-programmes-detail-overview'
-    });
+    const { updateQueryParam, pageSection: section } = this.props;
+    updateQueryParam({ id: value, section });
   };
 
   render() {
@@ -58,9 +55,13 @@ class FlagshipProgrammesDetail extends PureComponent {
 
 FlagshipProgrammesDetail.propTypes = {
   flagshipDetailData: PropTypes.object,
+  pageSection: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired
 };
 
-FlagshipProgrammesDetail.defaultProps = { flagshipDetailData: null };
+FlagshipProgrammesDetail.defaultProps = {
+  flagshipDetailData: null,
+  pageSection: null
+};
 
 export default FlagshipProgrammesDetail;
