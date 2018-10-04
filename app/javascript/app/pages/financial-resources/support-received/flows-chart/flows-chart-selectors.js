@@ -21,12 +21,15 @@ const getLinks = (data, nodes, focusNames) => {
     if (d.typeFunds && d.donor.name) {
       const source = nodes.indexOf(d.donor.name);
       const target = nodes.indexOf(d.typeFunds);
-      links.push({
-        source,
-        target,
-        focus: getFocus(d, focusNames),
-        value: Math.round(d.amountUsd / 1000000 * 100) / 100
-      });
+      // data is in USD and we want to display it in million USD
+      if (d.amountUsd) {
+        links.push({
+          source,
+          target,
+          focus: getFocus(d, focusNames),
+          value: Math.round(d.amountUsd / 1000000 * 100) / 100
+        });
+      }
     }
   });
   return links;

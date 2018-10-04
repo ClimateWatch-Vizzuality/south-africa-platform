@@ -1,18 +1,19 @@
 import React, { PureComponent } from 'react';
 import { PropTypes } from 'prop-types';
 import { Sankey, NoContent } from 'cw-components';
+import has from 'lodash/has';
 import styles from './flows-chart-styles.scss';
 
-class FlowsChart extends PureComponent {
-  renderTooltipChildren() {
-    const { config } = this.props;
-    return (
+const renderTooltipChildren = selectedChildrenData =>
+  has(selectedChildrenData, 'payload.payload.focus')
+    ? (
       <p className={styles.focus}>
-        {`Focus: ${config.tooltip && config.tooltip.focus}`}
+        {`Focus: ${selectedChildrenData.payload.payload.focus}`}
       </p>
-    );
-  }
+)
+    : null;
 
+class FlowsChart extends PureComponent {
   render() {
     const { data, config } = this.props;
     return (
@@ -23,7 +24,8 @@ class FlowsChart extends PureComponent {
               <Sankey
                 data={data}
                 config={config}
-                tooltipChildren={this.renderTooltipChildren()}
+                tooltipChildren={selectedChildrenData =>
+                renderTooltipChildren(selectedChildrenData)}
               />
 )
             : <NoContent minHeight={660} message="No data available" />
