@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import kebabCase from 'lodash/kebabCase';
-// import styles from './flagship-buttons-styles.scss';
 import flagship1 from 'assets/flagship-programmes/1.png';
 import flagship2 from 'assets/flagship-programmes/2.png';
 import flagship3 from 'assets/flagship-programmes/3.png';
