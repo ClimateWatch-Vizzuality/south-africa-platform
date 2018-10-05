@@ -1,0 +1,53 @@
+@import '~styles/layout.scss';
+@import '~styles/settings.scss';
+
+.prioritisedFlagshipProgrammes {
+  margin-top: $gutter-padding;
+
+  .title {
+    @include row();
+
+    margin-bottom: $gutter-padding;
+  }
+
+  .itemDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .subProgrammesTitle {
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .prioritisedItemsContainer {
+    @include row();
+
+    .prioritisedItems {
+      @include columns((3, 6, 3));
+
+      width: 100%;
+
+      .itemsList {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .itemDescription {
+        background-color: $porcelain;
+        padding: $gutter-padding $gutter-padding + 15px;
+        margin-bottom: 10px;
+
+        .subProgrammesTitle {
+          margin-bottom: $gutter-padding;
+        }
+
+        .subProgrammesList {
+          list-style-type: disc;
+          line-height: 2em;
+          margin-left: 1em;
+        }
+      }
+    }
+  }
+}

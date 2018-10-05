@@ -11,14 +11,18 @@ import {
   reduxModule as mitigationEffects
 } from 'providers/mitigation-effects-provider';
 import {
-  reduxModule as financialResourcesReceived
-} from 'providers/financial-resources-received-provider';
+  reduxModule as mitigationActions
+} from 'providers/mitigation-actions-provider';
 import {
   reduxModule as financialResourcesNeeded
 } from 'providers/financial-resources-needed-provider';
 import {
-  reduxModule as mitigationActions
-} from 'providers/mitigation-actions-provider';
+  reduxModule as financialResourcesReceived
+} from 'providers/financial-resources-received-provider';
+
+import {
+  reduxModule as flagshipProgrammes
+} from 'providers/flagship-programmes-provider';
 import { reduxModule as worldBank } from 'providers/world-bank-provider';
 import { reduxModule as metadata } from 'providers/metadata-provider';
 import {
@@ -46,9 +50,10 @@ const providersReducers = {
   GHGEmissions: handleModule(ghgEmissions),
   GHGInventory: handleModule(ghgInventory),
   mitigationEffects: handleModule(mitigationEffects),
-  financialResourcesReceived: handleModule(financialResourcesReceived),
-  financialResourcesNeeded: handleModule(financialResourcesNeeded),
   mitigationActions: handleModule(mitigationActions),
+  flagshipProgrammes: handleModule(flagshipProgrammes),
+  financialResourcesNeeded: handleModule(financialResourcesNeeded),
+  financialResourcesReceived: handleModule(financialResourcesReceived),
   WorldBank: handleModule(worldBank),
   metadata: handleModule(metadata),
   countriesOverviewData: handleModule(countriesOverview),
