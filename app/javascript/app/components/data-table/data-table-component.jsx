@@ -20,10 +20,10 @@ const DataTable = ({ tableData, searchFilter, ...props }) => {
       <NoContent
         minHeight={330}
         message={
-        searchFilter ? 'No data found with this search' : 'No data available'
-      }
+          searchFilter ? 'No data found with this search' : 'No data available'
+        }
       />
-);
+    );
 };
 
 DataTable.propTypes = {
