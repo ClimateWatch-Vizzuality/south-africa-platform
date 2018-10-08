@@ -27,7 +27,7 @@ const getLinks = (data, nodes, focusNames) => {
           source,
           target,
           focus: getFocus(d, focusNames),
-          value: Math.round(d.amountUsd / 1000000 * 100) / 100
+          value: d.amountUsd
         });
       }
     }
@@ -54,7 +54,9 @@ export const addColorToData = createSelector(filterData, data => {
 
 export const getConfig = () => {
   const unit = 'USD million';
-  return { tooltip: { unit }, node: { unit } };
+  const scale = 1 / 1000000;
+  const suffix = 'm';
+  return { tooltip: { unit, scale, suffix }, node: { unit, scale, suffix } };
 };
 
 export const getFlowsChart = (data, meta) =>
