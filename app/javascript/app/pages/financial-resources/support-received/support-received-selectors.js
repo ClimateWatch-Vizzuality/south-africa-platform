@@ -117,7 +117,7 @@ const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
   values
 ) =>
   {
-    if (!data) return null;
+    if (!data || isEmpty(data)) return null;
     let updatedData = data;
     if (values.donor.value !== 'All selected') {
       updatedData = updatedData.filter(

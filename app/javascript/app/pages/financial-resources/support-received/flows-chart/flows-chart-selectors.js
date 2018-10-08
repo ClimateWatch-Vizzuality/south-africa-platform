@@ -2,10 +2,12 @@ import { createStructuredSelector, createSelector } from 'reselect';
 import { CHART_COLORS } from 'utils/graphs';
 import uniq from 'lodash/uniq';
 import { getFocus, getFocusNames } from 'utils/financial-resources';
+import has from 'lodash/has';
 
-const getData = createSelector(state => state.data, data => data || null);
-const getMeta = createSelector(state => state.meta, meta => meta || null);
-
+const selectData = (state, props) => props.data || null;
+const selectMeta = state =>
+  has(state, 'financialResourcesReceived.data.meta') &&
+    state.financialResourcesReceived.data.meta;
 const getNodes = data => {
   const nodes = [];
   data.forEach(d => {
@@ -35,7 +37,7 @@ const getLinks = (data, nodes, focusNames) => {
   return links;
 };
 
-const filterData = createSelector([ getData, getMeta ], (data, meta) => {
+const filterData = createSelector([ selectData, selectMeta ], (data, meta) => {
   if (!data) return null;
   const nodes = getNodes(data);
   const links = getLinks(data, nodes, getFocusNames(meta));
@@ -59,8 +61,7 @@ export const getConfig = () => {
   return { tooltip: { unit, scale, suffix }, node: { unit, scale, suffix } };
 };
 
-export const getFlowsChart = (data, meta) =>
-  createStructuredSelector({
-    data: () => addColorToData(data, meta),
-    config: getConfig
-  });
+export const getFlowsChart = createStructuredSelector({
+  data: addColorToData,
+  config: getConfig
+});

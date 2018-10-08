@@ -1,17 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import has from 'lodash/has';
 import Component from './comparison-chart-component';
 import { getComparison } from './comparison-chart-selectors';
-
-const mapStateToProps = (state, props) =>
-  getComparison({
-    location: state.location,
-    data: props.data,
-    meta: has(state, 'financialResourcesReceived.data.meta') &&
-      state.financialResourcesReceived.data.meta
-  });
 
 class ComparisonChartContainer extends PureComponent {
   render() {
@@ -27,4 +18,4 @@ ComparisonChartContainer.propTypes = {
 
 ComparisonChartContainer.defaultProps = { query: {} };
 
-export default connect(mapStateToProps, null)(ComparisonChartContainer);
+export default connect(getComparison, null)(ComparisonChartContainer);
