@@ -13,7 +13,7 @@ import FlagshipButton from './flagship-button/flagship-button';
 
 class FlagshipButtons extends PureComponent {
   renderButton(s) {
-    const { selectedId, handleFilterChange } = this.props;
+    const { selectedId, handleFilterChange, scrollToTop } = this.props;
     const flagshipImages = {
       flagship1,
       flagship2,
@@ -30,7 +30,10 @@ class FlagshipButtons extends PureComponent {
         key={s.name}
         flagshipImages={flagshipImages}
         section={s}
-        onClick={() => handleFilterChange(slug)}
+        onClick={() => {
+          if (scrollToTop) window.scrollTo(0, 0);
+          handleFilterChange(slug);
+        }}
         active={selectedId === slug}
       />
     );
@@ -54,7 +57,8 @@ FlagshipButtons.propTypes = {
   to: PropTypes.number,
   handleFilterChange: PropTypes.func.isRequired,
   selectedId: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  scrollToTop: PropTypes.bool
 };
 
 FlagshipButtons.defaultProps = {
@@ -62,7 +66,8 @@ FlagshipButtons.defaultProps = {
   from: 0,
   to: 8,
   selectedId: null,
-  className: null
+  className: null,
+  scrollToTop: false
 };
 
 export default FlagshipButtons;

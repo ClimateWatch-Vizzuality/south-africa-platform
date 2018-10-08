@@ -31,6 +31,7 @@ class FlagshipProgrammesComponents extends PureComponent {
         <FlagshipButtons
           handleFilterChange={this.handleFilterChange}
           className={styles.flagshipButtons}
+          scrollToTop
         />
         <FlagshipProgrammesProvider />
       </div>

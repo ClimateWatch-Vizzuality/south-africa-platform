@@ -62,6 +62,7 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
                         `/mitigation/flagship-programmes/${selectedSection &&
                           kebabCase(selectedSection.name)}`
                       }
+                      onClick={() => window.scrollTo(0, 0)}
                       onTouchStart={undefined}
                       onMouseDown={undefined}
                     />
