@@ -34,18 +34,12 @@ const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
   });
 
 const getMockedData = () => ({
-  financialFlow: [ 'Grants', 'Loans', 'All Selected' ],
-  country: [ 'All selected' ],
+  financialFlow: [ 'All Selected', 'Grants', 'Loans' ],
   chartType: [ 'Flows', 'Comparison' ],
   donor: [ 'Adaptation Fund' ]
 });
 
 const parseOptions = options => options.map(o => ({ label: o, value: o }));
-
-const getDomesticDonorOptions = createSelector(
-  getMockedData,
-  data => data && data.donor && parseOptions(data.donor) || null
-);
 
 const getFinancialFlowOptions = createSelector(
   filterDataByFinanceFlow,
@@ -59,30 +53,18 @@ const getFinancialFlowOptions = createSelector(
   }
 );
 
-const getInternationalDonorOptions = createSelector(
-  filterDataByFinanceFlow,
-  data => {
-    if (!data) return null;
-    const donorKeys = uniq(data.map(d => d.donor.name));
-    // just to avoid mutation
-    const donorKeysWithAll = donorKeys.slice();
-    donorKeysWithAll.unshift('All selected');
-    return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) ||
-      null;
-  }
-);
+const getDonorOptions = createSelector(filterDataByFinanceFlow, data => {
+  if (!data) return null;
+  const donorKeys = uniq(data.map(d => d.donor.name));
+  // just to avoid mutation
+  const donorKeysWithAll = donorKeys.slice();
+  donorKeysWithAll.unshift('All selected');
+  return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) || null;
+});
 
 const getChartTypeOptions = createSelector(
   getMockedData,
   data => data && data.chartType && parseOptions(data.chartType) || null
-);
-
-const getDomesticDonorValues = createSelector(
-  [ getQueryParams, getDomesticDonorOptions ],
-  (query, options) => {
-    if (!query || !query.donor) return options && options[0];
-    return options && options.find(o => o.value === query.donor) || null;
-  }
 );
 
 const getFinancialFlowValues = createSelector(
@@ -95,14 +77,14 @@ const getFinancialFlowValues = createSelector(
   }
 );
 
-const getInternationalDonorValues = createSelector(
-  [ getQueryParams, getInternationalDonorOptions ],
-  (query, options) => {
-    if (!query || !query.internationalDonor) return options && options[0];
-    return options && options.find(o => o.value === query.internationalDonor) ||
-      null;
-  }
-);
+const getDonorValues = createSelector([ getQueryParams, getDonorOptions ], (
+  query,
+  options
+) =>
+  {
+    if (!query || !query.donor) return options && options[0];
+    return options && options.find(o => o.value === query.donor) || null;
+  });
 
 const getChartTypeValues = createSelector(
   [ getQueryParams, getChartTypeOptions ],
@@ -114,35 +96,27 @@ const getChartTypeValues = createSelector(
 
 const getValues = createStructuredSelector({
   financialFlow: getFinancialFlowValues,
-  internationalDonor: getInternationalDonorValues,
-  chartType: getChartTypeValues,
-  donor: getDomesticDonorValues
+  donor: getDonorValues,
+  chartType: getChartTypeValues
 });
 
 const getOptions = createStructuredSelector({
   financialFlow: getFinancialFlowOptions,
-  internationalDonor: getInternationalDonorOptions,
-  chartType: getChartTypeOptions,
-  donor: getDomesticDonorOptions
+  donor: getDonorOptions,
+  chartType: getChartTypeOptions
 });
 
 const getDropdownConfig = createSelector(getActiveTabValue, tab => {
   const dropdowns = {
     chartType: { label: 'Chart type', slug: 'chartType' },
     financialFlow: { label: 'Financial flows', slug: 'financialFlow' },
-    internationalDonor: { label: 'Donor', slug: 'internationalDonor' },
-    domesticDonor: { label: 'Donor', slug: 'donor' }
+    donor: { label: 'Donor', slug: 'donor' }
   };
-  const {
-    chartType,
-    financialFlow,
-    internationalDonor,
-    domesticDonor
-  } = dropdowns;
+  const { chartType, financialFlow, donor } = dropdowns;
   const sectionDropdowns = {
-    international: [ financialFlow, internationalDonor, chartType ],
-    domestic: [ financialFlow, domesticDonor, chartType ],
-    nonMonetized: [ domesticDonor, chartType ]
+    international: [ financialFlow, donor, chartType ],
+    domestic: [ financialFlow, donor, chartType ],
+    nonMonetized: [ donor, chartType ]
   };
   return !tab ? sectionDropdowns.international : sectionDropdowns[tab];
 });
@@ -155,9 +129,9 @@ const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
     if (!data) return null;
     let updatedData = data;
 
-    if (values.internationalDonor.value !== 'All selected') {
+    if (values.donor.value !== 'All selected') {
       updatedData = updatedData.filter(
-        d => d.donor.name === values.internationalDonor.value
+        d => d.donor.name === values.donor.value
       );
     }
 
