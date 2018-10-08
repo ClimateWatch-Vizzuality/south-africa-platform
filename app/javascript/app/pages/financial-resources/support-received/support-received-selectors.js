@@ -107,7 +107,7 @@ const getDropdownConfig = createSelector(getActiveTabValue, tab => {
   const sectionDropdowns = {
     international: [ financialFlow, donor, chartType ],
     domestic: [ financialFlow, donor, chartType ],
-    nonMonetized: [ donor, chartType ]
+    nonMonetized: [ donor ]
   };
   return !tab ? sectionDropdowns.international : sectionDropdowns[tab];
 });
@@ -119,7 +119,6 @@ const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
   {
     if (!data) return null;
     let updatedData = data;
-
     if (values.donor.value !== 'All selected') {
       updatedData = updatedData.filter(
         d => d.donor.name === values.donor.value
