@@ -33,12 +33,6 @@ const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
     return data.filter(d => financeFlows[tab].includes(d.financeFlow));
   });
 
-const getMockedData = () => ({
-  financialFlow: [ 'All Selected', 'Grants', 'Loans' ],
-  chartType: [ 'Flows', 'Comparison' ],
-  donor: [ 'Adaptation Fund' ]
-});
-
 const parseOptions = options => options.map(o => ({ label: o, value: o }));
 
 const getFinancialFlowOptions = createSelector(
@@ -62,10 +56,7 @@ const getDonorOptions = createSelector(filterDataByFinanceFlow, data => {
   return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) || null;
 });
 
-const getChartTypeOptions = createSelector(
-  getMockedData,
-  data => data && data.chartType && parseOptions(data.chartType) || null
-);
+const getChartTypeOptions = () => parseOptions([ 'Flows', 'Comparison' ]);
 
 const getFinancialFlowValues = createSelector(
   [ getQueryParams, getFinancialFlowOptions ],
