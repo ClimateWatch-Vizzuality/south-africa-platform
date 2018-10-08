@@ -20,7 +20,7 @@ class SupportReceived extends PureComponent {
         ...query,
         tab: value,
         comparisonId: undefined,
-        country: '',
+        internationalDonor: '',
         donor: ''
       },
       section
