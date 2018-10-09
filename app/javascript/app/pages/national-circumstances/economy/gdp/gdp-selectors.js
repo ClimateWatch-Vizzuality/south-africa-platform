@@ -1,9 +1,8 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import uniqBy from 'lodash/uniqBy';
-import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import intersection from 'lodash/intersection';
 import { METRIC_OPTIONS } from 'utils/defaults';
+import has from 'lodash/has';
 import {
   DEFAULT_AXES_CONFIG,
   getMetricRatio,
@@ -22,8 +21,17 @@ const getMetaData = ({ metadata = {} }) =>
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
-const getGdpData = ({ GDP = {} }) =>
-  isEmpty(GDP.data) ? null : uniqBy(GDP.data, 'value');
+
+const selectNationalCircumstances = ({ nationalCircumstances = {} }) => {
+  if (!nationalCircumstances || !has(nationalCircumstances, 'data.data'))
+    return null;
+  return nationalCircumstances.data.data;
+};
+
+const filterGDPData = createSelector(selectNationalCircumstances, data => {
+  if (!data) return null;
+  return data.filter(d => d.name === 'GDP_usd');
+});
 
 const getChartLoading = ({ metadata = {}, GDP = {} }) =>
   metadata.ghg.loading || GDP.loading;
@@ -75,11 +83,12 @@ const getCalculationData = createSelector([ getWBData ], data => {
 });
 
 export const parseChartData = createSelector(
-  [ getGdpData, getMetricSelected, getCalculationData ],
+  [ filterGDPData, getMetricSelected, getCalculationData ],
   (gdpData, metricSelected, calculationData) => {
     if (!gdpData) return null;
     const [ data ] = gdpData;
-    let xValues = data.emissions.map(d => d.year);
+    let xValues = data.categoryYears.map(d => d.year);
+    // year and value, gas, source, sector, location, gwp
     if (
       calculationData &&
         metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
@@ -92,8 +101,8 @@ export const parseChartData = createSelector(
     const dataParsed = xValues.map(x => {
       const yItems = {};
       gdpData.forEach(d => {
-        const yKey = getYColumnValue(data.gas);
-        const yData = d.emissions.find(e => e.year === x);
+        const yKey = getYColumnValue('GDP');
+        const yData = d.categoryYears.find(e => e.year === x);
         const calculationRatio = getMetricRatio(
           metricSelected.value,
           calculationData,
@@ -112,13 +121,10 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getGdpData, getMetricSelected ],
+  [ filterGDPData, getMetricSelected ],
   (data, metricSelected) => {
     if (!data) return null;
-    const yColumns = data.map(d => ({
-      label: d.gas,
-      value: getYColumnValue(d.gas)
-    }));
+    const yColumns = [ { label: 'GDP', value: getYColumnValue('GDP') } ];
     const theme = yColumns.reduce(
       (acc, next) => ({
         ...acc,
@@ -126,16 +132,14 @@ export const getChartConfig = createSelector(
       }),
       {}
     );
-    const tooltip = getTooltipConfig(yColumns);
-    let { unit } = DEFAULT_AXES_CONFIG.yLeft;
-    if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
-      unit = `${unit}/ million $ GDP`;
-    } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
+    const tooltip = { ...getTooltipConfig(yColumns) };
+    let unit = 'USD';
+    if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `${unit} per capita`;
     }
     const axes = {
-      ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+      xBottom: DEFAULT_AXES_CONFIG.xBottom,
+      yLeft: { name: 'GDP', unit, format: 'number' }
     };
     return {
       axes,
@@ -147,10 +151,10 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector(() => [ { label: 'All GHG' } ]);
+export const getChartFilters = createSelector(() => [ { label: 'GDP' } ]);
 
 export const getChartFilterSelected = createSelector(() => [
-  { label: 'All GHG' }
+  { label: 'GDP' }
 ]);
 
 export const getChartData = createStructuredSelector({

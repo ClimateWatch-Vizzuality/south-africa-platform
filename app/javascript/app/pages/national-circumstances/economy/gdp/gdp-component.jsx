@@ -4,7 +4,7 @@ import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Dropdown, Chart } from 'cw-components';
 import MetaProvider from 'providers/metadata-provider';
-import GdpProvider from 'providers/gdp-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import { CustomYAxisTick } from './axis-ticks';
 
@@ -20,7 +20,7 @@ class GDP extends PureComponent {
   };
 
   render() {
-    const { metricSelected, metricOptions, gdpParams, chartData } = this.props;
+    const { metricSelected, metricOptions, chartData } = this.props;
 
     const dropdown = (
       <Dropdown
@@ -61,7 +61,7 @@ class GDP extends PureComponent {
           {toolbar}
         </TabletPortraitOnly>
         <MetaProvider meta="ghg" />
-        {gdpParams && <GdpProvider params={gdpParams} />}
+        <NationalCircumstancesProvider />
         <WorldBankProvider />
       </React.Fragment>
     );
