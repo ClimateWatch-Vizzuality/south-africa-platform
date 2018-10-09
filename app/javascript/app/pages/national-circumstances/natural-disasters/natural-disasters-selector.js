@@ -11,9 +11,9 @@ const filterNaturalDisasters = createSelector(
   selectNaturalDisastersData,
   data => {
     if (!data) return null;
-    const DISASTER_CODES = [ 'Flood_demage', 'Drough_demage', 'Fire_demage' ];
+    const DISASTER_CODES = [ 'Flood', 'Drough', 'Fire' ];
     return data
-      .filter(d => DISASTER_CODES.includes(d.code))
+      .filter(d => DISASTER_CODES.some(c => d.code.startsWith(c)))
       .map(d => ({ title: d.location.name, description: d.value }));
   }
 );
