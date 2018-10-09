@@ -29,7 +29,7 @@ const renameDataColumns = createSelector(
   [ getFlagshipComponentsData ],
   data => {
     if (!data) return null;
-    data.slice().map(d => {
+    data.map(d => {
       const updatedD = d;
       updatedD.main_activities = d.mainActivities;
       updatedD.next_steps = d.nextSteps;
@@ -42,7 +42,7 @@ const renameDataColumns = createSelector(
 
 const parseMarkdown = createSelector([ renameDataColumns ], data => {
   if (!data) return null;
-  return data.slice().map(d => {
+  return data.map(d => {
     const updatedD = d;
     Object.keys(d).forEach(key => {
       if (d[key] && String(d[key]).startsWith('"')) {
