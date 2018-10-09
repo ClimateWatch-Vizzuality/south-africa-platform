@@ -18,7 +18,7 @@ class NaturalDisasters extends PureComponent {
         <div className={styles.cardsContainer}>
           {
             naturalDisastersData && naturalDisastersData.map(card => (
-              <div key={card.title} className={styles.cardElement}>
+              <div key={card.description} className={styles.cardElement}>
                 <Card title={card.title} theme={styles}>
                   <div
                     className={styles.cardContent}
@@ -36,7 +36,6 @@ class NaturalDisasters extends PureComponent {
 }
 
 NaturalDisasters.propTypes = { naturalDisastersData: PropTypes.array };
-
 NaturalDisasters.defaultProps = { naturalDisastersData: [] };
 
 export default NaturalDisasters;

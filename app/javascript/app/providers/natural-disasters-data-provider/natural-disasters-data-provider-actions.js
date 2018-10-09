@@ -1,7 +1,7 @@
 import { createAction, createThunkAction } from 'redux-tools';
 import isEmpty from 'lodash/isEmpty';
 
-import { CWAPI } from 'services/api';
+import { SAAPI } from 'services/api';
 
 export const fetchNaturalDisastersDataInit = createAction(
   'fetchNaturalDisastersDataInit'
@@ -13,16 +13,14 @@ export const fetchNaturalDisastersDataFail = createAction(
   'fetchNaturalDisastersDataFail'
 );
 
-const URL_FOR_NATURAL_DISASTERS_DATA = '';
-
 export const fetchNaturalDisastersData = createThunkAction(
   'fetchNaturalDisastersData',
   () => (dispatch, state) => {
     const { naturalDisastersData } = state();
     if (isEmpty(naturalDisastersData.data) && !naturalDisastersData.loading) {
       dispatch(fetchNaturalDisastersDataInit());
-      CWAPI
-        .get(URL_FOR_NATURAL_DISASTERS_DATA)
+      SAAPI
+        .get('national_circumstance/priorities')
         .then((data = {}) => {
           dispatch(fetchNaturalDisastersDataReady(data));
         })

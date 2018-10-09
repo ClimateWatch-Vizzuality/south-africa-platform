@@ -1,17 +1,23 @@
-import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector, createSelector } from 'reselect';
+import has from 'lodash/has';
 
-const naturalDisastersData = () => [
-  {
-    title: 'Mitigation: Greenhouse Gas Targets',
-    description: `“South Africa’s emissions by 2025 and 2030 will be in a range between 398 and 614 Mt CO2–eq, as defined in national policy.”`
-  },
-  { title: 'Target type', description: 'Absolute Emissions Reduction' },
-  { title: 'Target years', description: '2025 2030' },
-  {
-    title: 'Free State Province',
-    description: 'Intense wild fies: significant damages caused...'
+const selectNaturalDisastersData = ({ naturalDisastersData = {} }) => {
+  if (!naturalDisastersData || !has(naturalDisastersData, 'data.data'))
+    return null;
+  return naturalDisastersData.data.data;
+};
+
+const filterNaturalDisasters = createSelector(
+  selectNaturalDisastersData,
+  data => {
+    if (!data) return null;
+    const DISASTER_CODES = [ 'Flood_demage', 'Drough_demage', 'Fire_demage' ];
+    return data
+      .filter(d => DISASTER_CODES.includes(d.code))
+      .map(d => ({ title: d.location.name, description: d.value }));
   }
-];
+);
+
 export const getNaturalDisastersData = createStructuredSelector({
-  naturalDisastersData
+  naturalDisastersData: filterNaturalDisasters
 });
