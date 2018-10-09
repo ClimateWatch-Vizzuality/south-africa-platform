@@ -4,7 +4,7 @@ import PlanningComponent from './sections-component';
 
 const getSectionsWithReplacedIds = (sections, prevPayloadId, payloadId) => {
   if (!payloadId || payloadId === prevPayloadId) return sections;
-  return sections.slice().map(s => {
+  return sections.map(s => {
     const updatedS = s;
     updatedS.path = !prevPayloadId
       ? s.path.replace(':id', payloadId)

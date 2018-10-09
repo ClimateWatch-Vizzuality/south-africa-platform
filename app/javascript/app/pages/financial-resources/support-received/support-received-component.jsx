@@ -7,6 +7,7 @@ import FinancialResourcesReceivedProvider from 'providers/financial-resources-re
 import styles from './support-received-styles.scss';
 import FlowsChart from './flows-chart';
 import ComparisonChart from './comparison-chart';
+import NonMonetizedTable from './non-monetized-table';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -20,8 +21,8 @@ class SupportReceived extends PureComponent {
         ...query,
         tab: value,
         comparisonId: undefined,
-        country: '',
-        donor: ''
+        donor: '',
+        chartType: ''
       },
       section
     });
@@ -48,14 +49,9 @@ class SupportReceived extends PureComponent {
 
   renderChartComponent() {
     const { data, values, handleFilterChange } = this.props;
-    const WithDropdowns = ({ children }) => (
+    return (
       <Fragment>
         {this.renderDropdowns()}
-        {children}
-      </Fragment>
-    );
-    return (
-      <WithDropdowns>
         {
           values && values.chartType.value === 'Comparison'
             ? (
@@ -67,12 +63,12 @@ class SupportReceived extends PureComponent {
 )
             : <FlowsChart data={data} />
         }
-      </WithDropdowns>
+      </Fragment>
     );
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, data } = this.props;
     const component = this.renderChartComponent();
     const renderTabs = [
       { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
@@ -80,8 +76,12 @@ class SupportReceived extends PureComponent {
       {
         name: 'NON-MONETIZED',
         value: NON_MONETIZED_KEY,
-        component,
-        disabled: true
+        component: (
+          <Fragment>
+            {this.renderDropdowns()}
+            <NonMonetizedTable data={data} />
+          </Fragment>
+        )
       }
     ];
 
