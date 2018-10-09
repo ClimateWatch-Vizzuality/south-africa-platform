@@ -1,6 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
+import { camelCase } from 'change-case';
 
 const getInventoryData = ({ GHGInventory = {} }) =>
   isEmpty(GHGInventory.data) || isEmpty(GHGInventory.data.data)
@@ -36,7 +37,7 @@ const getParsedInventory = createSelector(
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
-    const keysToSearch = defaultColumns;
+    const keysToSearch = defaultColumns.map(k => camelCase(k));
     return data.filter(
       d =>
         keysToSearch.reduce(

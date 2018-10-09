@@ -2,6 +2,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import snakeCase from 'lodash/snakeCase';
 import { deburrUpper } from 'utils/utils';
+import { camelCase } from 'change-case';
 
 const getData = ({ financialResourcesNeeded = {} }) =>
   isEmpty(financialResourcesNeeded.data) ||
@@ -30,7 +31,7 @@ const getParsedSupportNeededData = createSelector([ getData, getSearchValue ], (
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
-    const keysToSearch = defaultColumns;
+    const keysToSearch = defaultColumns.map(k => camelCase(k));
     return data.filter(
       d =>
         keysToSearch.reduce(
