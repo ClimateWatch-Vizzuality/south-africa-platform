@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import DataTable from 'components/data-table';
+import FinancialResourcesNeededProvider from 'providers/financial-resources-needed-provider';
 import styles from './support-needed-styles.scss';
 
 const FINANCIAL_SUPPORT_NEEDED_KEY = 'financialSupportNeeded';
@@ -21,20 +22,24 @@ class SupportNeeded extends PureComponent {
 
   renderTabs() {
     const { tableData, searchFilter } = this.props;
+    const columnWidth = 250;
+    const component = (
+      <DataTable
+        tableData={tableData}
+        searchFilter={searchFilter}
+        setColumnWidth={() => columnWidth}
+      />
+    );
     return [
       {
         name: 'FINANCIAL SUPPORT NEEDED',
         value: FINANCIAL_SUPPORT_NEEDED_KEY,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
+        component
       },
       {
         name: 'NON MONETIZED NEEDS',
         value: NON_MONETIZED_NEEDS,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        ),
+        component,
         disabled: true
       }
     ];
@@ -53,6 +58,7 @@ class SupportNeeded extends PureComponent {
           activeTabValue={activeTabValue}
           actionsActive={false}
         />
+        <FinancialResourcesNeededProvider />
       </div>
     );
   }

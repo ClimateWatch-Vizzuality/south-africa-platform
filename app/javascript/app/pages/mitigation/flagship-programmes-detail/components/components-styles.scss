@@ -3,6 +3,14 @@
 
 .flagshipComponents {
   @include row();
+
+  li {
+    list-style-type: none;
+
+    &::before {
+      content: "-";
+    }
+  }
 }
 
 .flagshipButtons {

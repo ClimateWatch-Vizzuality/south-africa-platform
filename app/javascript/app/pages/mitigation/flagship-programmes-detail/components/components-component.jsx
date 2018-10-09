@@ -20,6 +20,7 @@ class FlagshipProgrammesComponents extends PureComponent {
         <DataTable
           tableData={{ data, defaultColumns }}
           setColumnWidth={() => 180}
+          setRowsHeight={() => 180}
           parseHtml
         />
         <SectionTitle
@@ -30,6 +31,7 @@ class FlagshipProgrammesComponents extends PureComponent {
         <FlagshipButtons
           handleFilterChange={this.handleFilterChange}
           className={styles.flagshipButtons}
+          scrollToTop
         />
         <FlagshipProgrammesProvider />
       </div>

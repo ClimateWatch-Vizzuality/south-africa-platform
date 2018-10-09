@@ -63,6 +63,7 @@ yarn start
 Point your browser to `http://localhost:3000/`. Ta-da!
 
 ### Launching the app with docker
+
 ```docker-compose up```
 Ta-da!
 

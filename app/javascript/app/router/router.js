@@ -44,7 +44,7 @@ export const routes = {
   },
   [MITIGATIONS]: {
     nav: true,
-    label: 'Mitigation actions and their effects',
+    label: 'Mitigation',
     link: '/mitigation',
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',

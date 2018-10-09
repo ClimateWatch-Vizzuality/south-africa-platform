@@ -12,18 +12,18 @@ class Nav extends PureComponent {
       <nav className={theme.nav}>
         {routes.map(
           route => route.label && (
-            <NavLink
-              exact={route.exact || false}
-              className={cx(styles.link, theme.link)}
-              key={route.label || route.path}
-              to={route.link || route.path}
-              activeClassName={styles.active}
-              onTouchStart={undefined}
-              onMouseDown={undefined}
-            >
-                {route.label}
-            </NavLink>
-          )
+          <NavLink
+            exact={route.exact || false}
+            className={cx(styles.link, theme.link)}
+            key={route.label || route.path}
+            to={route.link || route.path}
+            activeClassName={styles.active}
+            onTouchStart={undefined}
+            onMouseDown={undefined}
+          >
+            {route.label}
+          </NavLink>
+            )
         )}
       </nav>
     );

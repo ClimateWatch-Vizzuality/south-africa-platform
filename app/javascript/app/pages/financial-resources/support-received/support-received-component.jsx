@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
+import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
 import styles from './support-received-styles.scss';
-import International from './international';
-import Domestic from './domestic';
+import FlowsChart from './flows-chart';
+import ComparisonChart from './comparison-chart';
 
 const INTERNATIONAL_KEY = 'international';
 const DOMESTIC_KEY = 'domestic';
@@ -14,7 +15,16 @@ const NON_MONETIZED_KEY = 'nonMonetized';
 class SupportReceived extends PureComponent {
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query, section } = this.props;
-    updateQueryParam({ query: { ...query, tab: value }, section });
+    updateQueryParam({
+      query: {
+        ...query,
+        tab: value,
+        comparisonId: undefined,
+        country: '',
+        donor: ''
+      },
+      section
+    });
   };
 
   renderDropdowns() {
@@ -26,7 +36,7 @@ class SupportReceived extends PureComponent {
             key={d.label}
             label={d.label}
             theme={{ wrapper: styles.dropdown }}
-            options={options[d.slug]}
+            options={options[d.slug] || []}
             value={values[d.slug]}
             onValueChange={option => handleFilterChange(d.slug, option.value)}
             hideResetButton
@@ -36,40 +46,41 @@ class SupportReceived extends PureComponent {
     );
   }
 
-  render() {
-    const { activeTabValue, handleFilterChange, values } = this.props;
+  renderChartComponent() {
+    const { data, values, handleFilterChange } = this.props;
     const WithDropdowns = ({ children }) => (
       <Fragment>
         {this.renderDropdowns()}
         {children}
       </Fragment>
     );
+    return (
+      <WithDropdowns>
+        {
+          values && values.chartType.value === 'Comparison'
+            ? (
+              <ComparisonChart
+                selectedValues={values}
+                handleFilterChange={handleFilterChange}
+                data={data}
+              />
+)
+            : <FlowsChart data={data} />
+        }
+      </WithDropdowns>
+    );
+  }
+
+  render() {
+    const { activeTabValue } = this.props;
+    const component = this.renderChartComponent();
     const renderTabs = [
-      {
-        name: 'INTERNATIONAL',
-        value: INTERNATIONAL_KEY,
-        component: (
-          <WithDropdowns>
-            <International />
-          </WithDropdowns>
-        )
-      },
-      {
-        name: 'DOMESTIC',
-        value: DOMESTIC_KEY,
-        component: (
-          <WithDropdowns>
-            <Domestic
-              selectedValues={values}
-              handleFilterChange={handleFilterChange}
-            />
-          </WithDropdowns>
-        )
-      },
+      { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
+      { name: 'DOMESTIC', value: DOMESTIC_KEY, component },
       {
         name: 'NON-MONETIZED',
         value: NON_MONETIZED_KEY,
-        component: null,
+        component,
         disabled: true
       }
     ];
@@ -84,6 +95,7 @@ class SupportReceived extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
         />
+        <FinancialResourcesReceivedProvider />
       </div>
     );
   }
@@ -97,10 +109,12 @@ SupportReceived.propTypes = {
   handleFilterChange: PropTypes.func.isRequired,
   options: PropTypes.object,
   values: PropTypes.object,
-  dropdownConfig: PropTypes.array
+  dropdownConfig: PropTypes.array,
+  data: PropTypes.array
 };
 
 SupportReceived.defaultProps = {
+  data: null,
   query: null,
   dropdownConfig: [],
   section: null,
