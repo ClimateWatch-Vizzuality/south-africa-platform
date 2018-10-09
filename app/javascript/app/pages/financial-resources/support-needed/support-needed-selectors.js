@@ -54,7 +54,7 @@ const renameColumnsToSnakeCase = createSelector(
   getParsedSupportNeededData,
   data => {
     if (!data) return null;
-    return data.slice().map(d => {
+    return data.map(d => {
       const updatedD = {};
       Object.keys(d).forEach(key => {
         updatedD[snakeCase(key)] = d[key];

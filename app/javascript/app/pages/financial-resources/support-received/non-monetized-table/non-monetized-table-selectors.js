@@ -12,13 +12,11 @@ const filterData = createSelector(getData, data => {
 const addFocusToData = createSelector([ filterData, getMeta ], (data, meta) => {
   if (!data) return null;
   const focusNames = getFocusNames(meta);
-  return data
-    .slice()
-    .map(d => ({
-      focus: getFocus(d, focusNames),
-      donor: d.donor.name,
-      purpose: d.purposeFunds
-    }));
+  return data.map(d => ({
+    focus: getFocus(d, focusNames),
+    donor: d.donor.name,
+    purpose: d.purposeFunds
+  }));
 });
 
 const getTableData = createSelector(addFocusToData, data => {
