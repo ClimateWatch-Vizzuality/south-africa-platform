@@ -30,10 +30,10 @@ class CustomTooltip extends PureComponent {
             <div>
               <div className={styles.tooltipHeader}>
                 <span className={styles.title}>
-                  {hasContent && payload.x} {tooltipConfig.unit}
+                  {hasContent && payload.x} {tooltipConfig.title}
                 </span>
               </div>
-              {renderLabel(payload, tooltipConfig, 'USD', 'yGdp')}
+              {renderLabel(payload, tooltipConfig, 'USD', 'yUsd')}
               {renderLabel(payload, tooltipConfig, 'ZAR', 'yZar')}
             </div>
 ) : <div>No data</div>

@@ -90,7 +90,6 @@ export const parseChartData = createSelector(
     const data = gdpData.USD;
     const ZARData = gdpData.ZAR;
     let xValues = data.categoryYears.map(d => d.year);
-    // year and value, gas, source, sector, location, gwp
     if (
       calculationData &&
         metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
@@ -102,7 +101,7 @@ export const parseChartData = createSelector(
     }
     const dataParsed = xValues.map(x => {
       const yItems = {};
-      [ { yKey: 'GDP', data }, { yKey: 'ZAR', data: ZARData } ].forEach(d => {
+      [ { yKey: 'USD', data }, { yKey: 'ZAR', data: ZARData } ].forEach(d => {
         const yKey = getYColumnValue(d.yKey);
 
         const yData = d.data.categoryYears.find(e => e.year === x);
@@ -129,7 +128,7 @@ export const getChartConfig = createSelector(
   [ filterGDPData, getMetricSelected ],
   (data, metricSelected) => {
     if (!data || !data.USD) return null;
-    const yColumns = [ { label: 'GDP', value: getYColumnValue('GDP') } ];
+    const yColumns = [ { label: 'USD', value: getYColumnValue('USD') } ];
     const theme = yColumns.reduce(
       (acc, next) => ({
         ...acc,
@@ -137,25 +136,25 @@ export const getChartConfig = createSelector(
       }),
       {}
     );
-    let unit = 'USD';
+    let title = 'USD';
     let suffix = 'billion';
     let scale = 1 / API_GDP_DATA_SCALE;
 
     if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
-      unit = `${unit} per capita`;
+      title = `${title} per capita`;
       suffix = '';
       scale = 1;
     }
     const tooltip = {
-      unit,
+      title,
       scale,
       suffix,
-      yGDP: { label: 'GDP' },
-      yZAR: { label: 'GDP' }
+      yGDP: { label: 'USD' },
+      yZAR: { label: 'USD' }
     };
     const axes = {
       xBottom: DEFAULT_AXES_CONFIG.xBottom,
-      yLeft: { name: 'GDP', unit }
+      yLeft: { name: 'USD', title }
     };
     return {
       axes,
@@ -167,10 +166,10 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector(() => [ { label: 'GDP' } ]);
+export const getChartFilters = createSelector(() => [ { label: 'USD' } ]);
 
 export const getChartFilterSelected = createSelector(() => [
-  { label: 'GDP' }
+  { label: 'USD' }
 ]);
 
 export const getChartData = createStructuredSelector({
