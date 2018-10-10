@@ -15,13 +15,6 @@ const METRIC_OPTIONS = {
 };
 const API_GDP_DATA_SCALE = 1000000000;
 const { COUNTRY_ISO } = process.env;
-const defaults = {
-  gas: 'All GHG',
-  source: 'CAIT',
-  sector: 'Total excluding LUCF'
-};
-const getMetaData = ({ metadata = {} }) =>
-  metadata.ghg ? metadata.ghg.data : null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
@@ -42,28 +35,6 @@ const filterGDPData = createSelector(selectNationalCircumstances, data => {
     ZAR: data.find(d => d.name === 'GDP_rand')
   };
 });
-
-const getSource = createSelector(getMetaData, meta => {
-  if (!meta || !meta.dataSource) return null;
-  const selected = meta.dataSource.find(
-    source => source.label === defaults.source
-  );
-  return selected.value || null;
-});
-const getSector = createSelector(getMetaData, meta => {
-  if (!meta || !meta.sector) return null;
-  const selected = meta.sector.find(source => source.label === defaults.sector);
-  return selected.value || null;
-});
-
-export const getGdpParams = createSelector([ getSource, getSector ], (
-  source,
-  sector
-) =>
-  {
-    if (!source || !sector) return null;
-    return { location: COUNTRY_ISO, source, sector };
-  });
 
 export const getMetricOptions = createSelector(
   [],
@@ -183,6 +154,5 @@ export const getChartData = createStructuredSelector({
 export const getGdp = createStructuredSelector({
   metricOptions: getMetricOptions,
   metricSelected: getMetricSelected,
-  gdpParams: getGdpParams,
   chartData: getChartData
 });
