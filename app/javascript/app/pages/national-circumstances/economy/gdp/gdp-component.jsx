@@ -7,6 +7,7 @@ import MetaProvider from 'providers/metadata-provider';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import { CustomYAxisTick } from './axis-ticks';
+import CustomTooltip from './gdp-tooltip';
 
 import styles from './gdp-styles';
 
@@ -21,7 +22,6 @@ class GDP extends PureComponent {
 
   render() {
     const { metricSelected, metricOptions, chartData } = this.props;
-
     const dropdown = (
       <Dropdown
         theme={{ wrapper: styles.dropdown }}
@@ -48,14 +48,20 @@ class GDP extends PureComponent {
           }}
         </TabletLandscape>
         <div className={styles.chart}>
-          <Chart
-            type="line"
-            dots={false}
-            customMessage="GDP data not available"
-            hideRemoveOptions
-            customYAxisTick={<CustomYAxisTick />}
-            {...chartData}
-          />
+          {
+            chartData.data &&
+              (
+                <Chart
+                  type="line"
+                  dots={false}
+                  customMessage="GDP data not available"
+                  hideRemoveOptions
+                  customTooltip={<CustomTooltip />}
+                  customYAxisTick={<CustomYAxisTick />}
+                  {...chartData}
+                />
+              )
+          }
         </div>
         <TabletPortraitOnly>
           {toolbar}
