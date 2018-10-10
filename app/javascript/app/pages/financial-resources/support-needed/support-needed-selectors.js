@@ -2,7 +2,7 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import snakeCase from 'lodash/snakeCase';
 import { deburrUpper } from 'utils/utils';
-import { camelCase } from 'change-case';
+import camelCase from 'lodash/camelCase';
 
 const getData = ({ financialResourcesNeeded = {} }) =>
   isEmpty(financialResourcesNeeded.data) ||
