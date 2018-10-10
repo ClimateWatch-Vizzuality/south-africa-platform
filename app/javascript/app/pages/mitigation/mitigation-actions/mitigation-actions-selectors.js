@@ -1,7 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import { deburrUpper } from 'app/utils';
-import { camelCase } from 'change-case';
+import camelCase from 'lodash/camelCase';
 
 const getMitigationData = ({ mitigationActions = {} }) =>
   isEmpty(mitigationActions.data) || isEmpty(mitigationActions.data.data)
