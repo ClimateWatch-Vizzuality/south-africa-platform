@@ -13,8 +13,7 @@ const METRIC_OPTIONS = {
   ABSOLUTE_VALUE: { label: 'Absolute value', value: 'ABSOLUTE_VALUE' },
   PER_CAPITA: { label: 'per Capita', value: 'PER_CAPITA' }
 };
-const API_GDP_DATA_SCALE = 1000000;
-const API_POPULATION_DATA_SCALE = 1000;
+const API_GDP_DATA_SCALE = 1000000000;
 const { COUNTRY_ISO } = process.env;
 const defaults = {
   gas: 'All GHG',
@@ -112,16 +111,9 @@ export const parseChartData = createSelector(
           calculationData,
           x
         );
-        const scaledCalculationRatio = calculationRatio !== 1
-          ? calculationRatio / (API_GDP_DATA_SCALE * API_POPULATION_DATA_SCALE)
-          : 1;
         if (yData && yData.value) {
           yItems[yKey] = round(
-            yData.value * API_GDP_DATA_SCALE / scaledCalculationRatio,
-            2
-          );
-          yItems[yKey] = round(
-            yData.value * API_GDP_DATA_SCALE / scaledCalculationRatio,
+            yData.value * API_GDP_DATA_SCALE / calculationRatio,
             2
           );
         }
@@ -147,11 +139,12 @@ export const getChartConfig = createSelector(
     );
     let unit = 'USD';
     let suffix = 'billion';
-    const scale = 1 / API_GDP_DATA_SCALE;
+    let scale = 1 / API_GDP_DATA_SCALE;
 
     if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `${unit} per capita`;
       suffix = '';
+      scale = 1;
     }
     const tooltip = {
       unit,
@@ -162,7 +155,7 @@ export const getChartConfig = createSelector(
     };
     const axes = {
       xBottom: DEFAULT_AXES_CONFIG.xBottom,
-      yLeft: { name: 'GDP', unit, format: 'number' }
+      yLeft: { name: 'GDP', unit }
     };
     return {
       axes,
