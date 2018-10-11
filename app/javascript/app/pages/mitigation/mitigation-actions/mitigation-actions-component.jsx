@@ -23,29 +23,20 @@ class MitigationActions extends PureComponent {
 
   renderTabs() {
     const { tableData, searchFilter } = this.props;
+    const component = (
+      <DataTable tableData={tableData} searchFilter={searchFilter} />
+    );
     return [
-      {
-        name: 'ALL ACTIONS',
-        value: ALL_ACTIONS_KEY,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
-      },
+      { name: 'ALL ACTIONS', value: ALL_ACTIONS_KEY, component },
       {
         name: 'WITH QUANTIFIED EFFECTS',
         value: WITH_QUANTIFIED_EFFECTS_KEY,
-        disabled: true,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
+        component
       },
       {
         name: 'WITHOUT QUANTIFIED EFFECTS',
         value: WITHOUT_QUANTIFIED_EFFECTS_KEY,
-        disabled: true,
-        component: (
-          <DataTable tableData={tableData} searchFilter={searchFilter} />
-        )
+        component
       }
     ];
   }

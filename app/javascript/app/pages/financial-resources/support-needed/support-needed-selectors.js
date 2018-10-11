@@ -23,11 +23,22 @@ const getActiveTabValue = createSelector(
   query => query ? query.tab : null
 );
 
-const getParsedSupportNeededData = createSelector([ getData, getSearchValue ], (
-  data,
-  searchFilter
-) =>
-  {
+const filterSupportNeededDataByTab = createSelector(
+  [ getData, getActiveTabValue ],
+  (data, tab) => {
+    if (!data) return null;
+    return data.filter(
+      d =>
+        tab === 'nonMonetizedNeeds'
+          ? d.type === 'Non-financial'
+          : d.type === 'Financial'
+    );
+  }
+);
+
+const getParsedSupportNeededData = createSelector(
+  [ filterSupportNeededDataByTab, getSearchValue ],
+  (data, searchFilter) => {
     if (!data) return null;
     if (!searchFilter) return data;
     const filter = deburrUpper(searchFilter);
@@ -39,7 +50,8 @@ const getParsedSupportNeededData = createSelector([ getData, getSearchValue ], (
           false
         )
     );
-  });
+  }
+);
 
 const defaultColumns = [
   'type',
