@@ -5,7 +5,7 @@ import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Dropdown } from 'cw-components';
 import Chart from 'components/chart';
-import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 
@@ -23,7 +23,7 @@ class Energy extends PureComponent {
   };
 
   handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
+    console.info('TODO: link to download data endpoint', this.props);
   };
 
   render() {
@@ -89,7 +89,7 @@ class Energy extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
+        <NationalCircumstancesProvider params={emissionsParams} />
         <WorldBankProvider />
         <ModalMetadata />
       </React.Fragment>
