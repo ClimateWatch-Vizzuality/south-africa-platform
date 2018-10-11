@@ -42,6 +42,9 @@ import {
   reduxModule as HumanDevelopmentIndex
 } from 'providers/human-development-index-provider';
 import { reduxModule as gdpGrowth } from 'providers/gdp-growth-provider';
+import {
+  reduxModule as nationalCircumstances
+} from 'providers/national-circumstances-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -63,7 +66,8 @@ const providersReducers = {
   DistributionByAge: handleModule(distributionByAge),
   GDP: handleModule(GDP),
   HumanDevelopmentIndex: handleModule(HumanDevelopmentIndex),
-  GdpGrowth: handleModule(gdpGrowth)
+  GdpGrowth: handleModule(gdpGrowth),
+  nationalCircumstances: handleModule(nationalCircumstances)
 };
 
 export default combineReducers({
