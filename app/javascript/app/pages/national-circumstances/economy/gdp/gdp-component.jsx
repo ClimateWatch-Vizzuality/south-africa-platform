@@ -4,9 +4,10 @@ import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Dropdown, Chart } from 'cw-components';
 import MetaProvider from 'providers/metadata-provider';
-import GdpProvider from 'providers/gdp-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import { CustomYAxisTick } from './axis-ticks';
+import CustomTooltip from './gdp-tooltip';
 
 import styles from './gdp-styles';
 
@@ -20,8 +21,7 @@ class GDP extends PureComponent {
   };
 
   render() {
-    const { metricSelected, metricOptions, gdpParams, chartData } = this.props;
-
+    const { metricSelected, metricOptions, chartData } = this.props;
     const dropdown = (
       <Dropdown
         theme={{ wrapper: styles.dropdown }}
@@ -48,20 +48,26 @@ class GDP extends PureComponent {
           }}
         </TabletLandscape>
         <div className={styles.chart}>
-          <Chart
-            type="line"
-            dots={false}
-            customMessage="GDP data not available"
-            hideRemoveOptions
-            customYAxisTick={<CustomYAxisTick />}
-            {...chartData}
-          />
+          {
+            chartData.data &&
+              (
+                <Chart
+                  type="line"
+                  dots={false}
+                  customMessage="GDP data not available"
+                  hideRemoveOptions
+                  customTooltip={<CustomTooltip />}
+                  customYAxisTick={<CustomYAxisTick />}
+                  {...chartData}
+                />
+              )
+          }
         </div>
         <TabletPortraitOnly>
           {toolbar}
         </TabletPortraitOnly>
         <MetaProvider meta="ghg" />
-        {gdpParams && <GdpProvider params={gdpParams} />}
+        <NationalCircumstancesProvider />
         <WorldBankProvider />
       </React.Fragment>
     );

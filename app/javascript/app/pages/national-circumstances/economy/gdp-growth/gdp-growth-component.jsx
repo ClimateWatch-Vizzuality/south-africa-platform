@@ -4,7 +4,7 @@ import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { ChartComposed } from 'cw-components';
 import { Area, Line } from 'recharts';
 import MetaProvider from 'providers/metadata-provider';
-import GdpGrowthProvider from 'providers/gdp-growth-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import { CustomYAxisTick } from './axis-ticks';
 import GdpTooltip from './gdp-tooltip-chart';
 
@@ -40,7 +40,6 @@ class GDPGrowth extends PureComponent {
         type="linear"
       />
     );
-
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
@@ -62,7 +61,7 @@ class GDPGrowth extends PureComponent {
           }
         </div>
         <MetaProvider meta="ghg" />
-        <GdpGrowthProvider />
+        <NationalCircumstancesProvider />
       </React.Fragment>
     );
   }

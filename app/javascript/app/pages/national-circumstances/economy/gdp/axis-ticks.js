@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { format } from 'd3-format';
 
-const getYLabelformat = value => `${format(`.${2}r`)(value / 1000000)}B`;
+const getYLabelformat = value => `${format('~s')(value).replace('G', 'B')}`;
 
 export const CustomYAxisTick = ({ index, x, y, payload }) => (
   <g transform={`translate(${x},${y})`}>

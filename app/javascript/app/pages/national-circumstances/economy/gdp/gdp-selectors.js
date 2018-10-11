@@ -1,60 +1,40 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import uniqBy from 'lodash/uniqBy';
-import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import intersection from 'lodash/intersection';
-import { METRIC_OPTIONS } from 'utils/defaults';
+import has from 'lodash/has';
 import {
   DEFAULT_AXES_CONFIG,
   getMetricRatio,
-  getYColumnValue,
-  getTooltipConfig
+  getYColumnValue
 } from 'utils/graphs';
+import round from 'lodash/round';
 
-const { COUNTRY_ISO } = process.env;
-const defaults = {
-  gas: 'All GHG',
-  source: 'CAIT',
-  sector: 'Total excluding LUCF'
+const METRIC_OPTIONS = {
+  ABSOLUTE_VALUE: { label: 'Absolute value', value: 'ABSOLUTE_VALUE' },
+  PER_CAPITA: { label: 'per Capita', value: 'PER_CAPITA' }
 };
-const getMetaData = ({ metadata = {} }) =>
-  metadata.ghg ? metadata.ghg.data : null;
+const API_GDP_DATA_SCALE = 1000000000;
+const { COUNTRY_ISO } = process.env;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
-const getGdpData = ({ GDP = {} }) =>
-  isEmpty(GDP.data) ? null : uniqBy(GDP.data, 'value');
 
-const getChartLoading = ({ metadata = {}, GDP = {} }) =>
-  metadata.ghg.loading || GDP.loading;
+const selectNationalCircumstances = ({ nationalCircumstances = {} }) => {
+  if (!nationalCircumstances || !has(nationalCircumstances, 'data.data'))
+    return null;
+  return nationalCircumstances.data.data;
+};
 
-const getGas = createSelector(getMetaData, meta => {
-  if (!meta || !meta.gas) return null;
-  const selected = meta.gas.find(gas => gas.label === defaults.gas);
-  return selected.value || null;
-});
-const getSource = createSelector(getMetaData, meta => {
-  if (!meta || !meta.dataSource) return null;
-  const selected = meta.dataSource.find(
-    source => source.label === defaults.source
-  );
-  return selected.value || null;
-});
-const getSector = createSelector(getMetaData, meta => {
-  if (!meta || !meta.sector) return null;
-  const selected = meta.sector.find(source => source.label === defaults.sector);
-  return selected.value || null;
-});
+const getChartLoading = ({ WorldBank = {}, nationalCircumstances = {} }) =>
+  WorldBank.loading || nationalCircumstances.loading;
 
-export const getGdpParams = createSelector([ getSource, getGas, getSector ], (
-  source,
-  gas,
-  sector
-) =>
-  {
-    if (!source || !gas || !sector) return null;
-    return { location: COUNTRY_ISO, gas, source, sector };
-  });
+const filterGDPData = createSelector(selectNationalCircumstances, data => {
+  if (!data) return null;
+  return {
+    USD: data.find(d => d.name === 'GDP_usd'),
+    ZAR: data.find(d => d.name === 'GDP_rand')
+  };
+});
 
 export const getMetricOptions = createSelector(
   [],
@@ -75,11 +55,12 @@ const getCalculationData = createSelector([ getWBData ], data => {
 });
 
 export const parseChartData = createSelector(
-  [ getGdpData, getMetricSelected, getCalculationData ],
+  [ filterGDPData, getMetricSelected, getCalculationData ],
   (gdpData, metricSelected, calculationData) => {
-    if (!gdpData) return null;
-    const [ data ] = gdpData;
-    let xValues = data.emissions.map(d => d.year);
+    if (!gdpData || !gdpData.USD) return null;
+    const data = gdpData.USD;
+    const ZARData = gdpData.ZAR;
+    let xValues = data.categoryYears.map(d => d.year);
     if (
       calculationData &&
         metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
@@ -91,17 +72,20 @@ export const parseChartData = createSelector(
     }
     const dataParsed = xValues.map(x => {
       const yItems = {};
-      gdpData.forEach(d => {
-        const yKey = getYColumnValue(data.gas);
-        const yData = d.emissions.find(e => e.year === x);
+      [ { yKey: 'USD', data }, { yKey: 'ZAR', data: ZARData } ].forEach(d => {
+        const yKey = getYColumnValue(d.yKey);
+
+        const yData = d.data.categoryYears.find(e => e.year === x);
         const calculationRatio = getMetricRatio(
           metricSelected.value,
           calculationData,
           x
         );
         if (yData && yData.value) {
-          // 1000000 is the data scale from the API
-          yItems[yKey] = yData.value * 1000000 / calculationRatio;
+          yItems[yKey] = round(
+            yData.value * API_GDP_DATA_SCALE / calculationRatio,
+            2
+          );
         }
       });
       const item = { x, ...yItems };
@@ -112,13 +96,10 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getGdpData, getMetricSelected ],
+  [ filterGDPData, getMetricSelected ],
   (data, metricSelected) => {
-    if (!data) return null;
-    const yColumns = data.map(d => ({
-      label: d.gas,
-      value: getYColumnValue(d.gas)
-    }));
+    if (!data || !data.USD) return null;
+    const yColumns = [ { label: 'USD', value: getYColumnValue('USD') } ];
     const theme = yColumns.reduce(
       (acc, next) => ({
         ...acc,
@@ -126,16 +107,25 @@ export const getChartConfig = createSelector(
       }),
       {}
     );
-    const tooltip = getTooltipConfig(yColumns);
-    let { unit } = DEFAULT_AXES_CONFIG.yLeft;
-    if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
-      unit = `${unit}/ million $ GDP`;
-    } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
-      unit = `${unit} per capita`;
+    let title = 'USD';
+    let suffix = 'billion';
+    let scale = 1 / API_GDP_DATA_SCALE;
+
+    if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
+      title = `${title} per capita`;
+      suffix = '';
+      scale = 1;
     }
+    const tooltip = {
+      title,
+      scale,
+      suffix,
+      yGDP: { label: 'USD' },
+      yZAR: { label: 'USD' }
+    };
     const axes = {
-      ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+      xBottom: DEFAULT_AXES_CONFIG.xBottom,
+      yLeft: { name: 'USD', title }
     };
     return {
       axes,
@@ -147,10 +137,10 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector(() => [ { label: 'All GHG' } ]);
+export const getChartFilters = createSelector(() => [ { label: 'USD' } ]);
 
 export const getChartFilterSelected = createSelector(() => [
-  { label: 'All GHG' }
+  { label: 'USD' }
 ]);
 
 export const getChartData = createStructuredSelector({
@@ -164,6 +154,5 @@ export const getChartData = createStructuredSelector({
 export const getGdp = createStructuredSelector({
   metricOptions: getMetricOptions,
   metricSelected: getMetricSelected,
-  gdpParams: getGdpParams,
   chartData: getChartData
 });
