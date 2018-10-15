@@ -42,7 +42,6 @@ class PopulationTab extends PureComponent {
     );
 
     const toolbar = <InfoDownloadToolbox slugs="populations" />;
-
     return (
       <div className="section">
         <div className={styles.toolbox}>
@@ -61,7 +60,7 @@ class PopulationTab extends PureComponent {
           </TabletLandscape>
         </div>
         <div className={styles.columns}>
-          <Map events={this.mapEvents} />
+          <Map events={this.mapEvents} data={populations} />
           <div className="row">
             {
               populations &&
@@ -70,8 +69,12 @@ class PopulationTab extends PureComponent {
                 (
                   <div className={styles.cards}>
                     {populations[title].map(population => (
-                      <Card title={population.description} theme={styles}>
-                        {population.title}
+                      <Card
+                        key={`share-${populations[title]}`}
+                        title={population.description}
+                        theme={styles}
+                      >
+                        {population.value}
                       </Card>
                     ))}
                   </div>

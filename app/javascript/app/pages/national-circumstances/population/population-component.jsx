@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import PopulationTab from './population-tab';
 import DistributionByAge from './distribution-by-age';
 
@@ -12,36 +12,6 @@ const POPULATION_KEY = 'population';
 const DISTRIBUTION_BY_AGE_KEY = 'distribution-by-age';
 
 class Population extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tabs: [
-        {
-          name: 'Population',
-          value: POPULATION_KEY,
-          component: (
-            <PopulationTab
-              title="KwaZulu-Natal"
-              populations={props.populationList}
-              yearsOptions={props.yearsOptions}
-              yearSelected={props.yearSelected}
-            />
-          )
-        },
-        {
-          name: 'Distribution by age',
-          value: DISTRIBUTION_BY_AGE_KEY,
-          component: (
-            <DistributionByAge
-              yearsOptions={props.yearsOptions}
-              yearSelected={props.yearSelected}
-            />
-          )
-        }
-      ]
-    };
-  }
-
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;
     updateQueryParam({
@@ -50,18 +20,48 @@ class Population extends PureComponent {
     });
   };
 
+  renderTabs() {
+    const { populationList, yearsOptions, yearSelected } = this.props;
+    return [
+      {
+        name: 'Population',
+        value: POPULATION_KEY,
+        component: (
+          <PopulationTab
+            title="KwaZulu-Natal"
+            populations={populationList}
+            yearsOptions={yearsOptions}
+            yearSelected={yearSelected}
+          />
+        )
+      },
+      {
+        name: 'Distribution by age',
+        value: DISTRIBUTION_BY_AGE_KEY,
+        component: (
+          <DistributionByAge
+            yearsOptions={yearsOptions}
+            yearSelected={yearSelected}
+          />
+        )
+      }
+    ];
+  }
+
   render() {
+    const { activeTabValue } = this.props;
     return (
       <div className={styles.row}>
         <SectionTitle isSubtitle title="Population" />
         <TabSwitcher
-          tabs={this.state.tabs}
+          tabs={this.renderTabs()}
           actionsActive={false}
           searchActive={false}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
-          activeTabValue={this.props.activeTabValue}
+          activeTabValue={activeTabValue}
         />
+        <NationalCircumstancesProvider />
       </div>
     );
   }

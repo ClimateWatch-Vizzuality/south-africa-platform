@@ -1,29 +1,24 @@
 import { createSelector, createStructuredSelector } from 'reselect';
+import has from 'lodash/has';
 
 export const YEAR_OPTIONS = {
-  YEAR_2015: { label: '2015', value: '2014' },
-  YEAR_2016: { label: '2016', value: '2016' },
-  YEAR_2017: { label: '2017', value: '2017' }
+  YEAR_2003: { label: '2003', value: '2003' },
+  YEAR_2004: { label: '2004', value: '2004' },
+  YEAR_2012: { label: '2012', value: '2012' }
 };
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 
 // TODO: { geometryId: [array of priorities] } once the API is ready
-const selectPopulations = () => ({
-  'KwaZulu-Natal': [
-    { title: '54,001,593', description: 'Total South Africa Population' },
-    { title: '1.58%', description: 'South Africa population growth rate' }
-  ]
-});
+const selectNationalCircumstances = ({ nationalCircumstances = {} }) => {
+  if (!nationalCircumstances || !has(nationalCircumstances, 'data.data'))
+    return null;
+  return nationalCircumstances.data.data;
+};
 
 const getActiveTabValue = createSelector(
   getQueryParams,
   query => query ? query.tab : null
-);
-
-const getPopulationList = createSelector(
-  selectPopulations,
-  populations => populations
 );
 
 export const getYearOptions = createSelector(
@@ -42,9 +37,33 @@ export const getYearSelected = createSelector(
   }
 );
 
+const getRegionPopulation = createSelector(
+  [ selectNationalCircumstances, getYearSelected ],
+  (data, year) => {
+    if (!data || !year) return null;
+    const populationRegionData = {};
+    data.forEach(d => {
+      if (d.name === 'pop_share') {
+        const yearValue = d.categoryYears.find(
+          c => String(c.year) === year.value
+        );
+        if (yearValue) {
+          populationRegionData[d.location.name] = [
+            {
+              description: 'South Africa population growth rate',
+              value: `${yearValue.value}%`
+            }
+          ];
+        }
+      }
+    });
+    return populationRegionData;
+  }
+);
+
 export const getPopulation = createStructuredSelector({
   query: getQueryParams,
-  populationList: getPopulationList,
+  populationList: getRegionPopulation,
   activeTabValue: getActiveTabValue,
   yearsOptions: getYearOptions,
   yearSelected: getYearSelected
