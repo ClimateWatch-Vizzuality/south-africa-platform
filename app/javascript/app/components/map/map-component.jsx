@@ -24,7 +24,8 @@ class Map extends Component {
 
   render() {
     const { style, theme, paths, events, defaultStyle, data } = this.props;
-    const getValue = name => data && data[name] && data[name][0].value;
+    const getValue = (name, slug) =>
+      data && data[name] && data[name].find(d => d.slug === slug).value;
     return (
       <div className={cx(styles.wrapper, theme.wrapper)}>
         <ComposableMap projection="robinson" style={style}>
@@ -58,14 +59,20 @@ class Map extends Component {
           place="right"
           id="mapTooltip"
           className="global_SATooltip"
-          getContent={name => `<div>
+          getContent={name => {
+            const regionValue = getValue(name, 'regionPercentage');
+            return `<div>
               <div class="${styles.regionName}">
                 ${name}
               </div>
               <div>
-                ${getValue(name)}
+                ${getValue(
+              name,
+              'regionTotal'
+            )} ${regionValue ? `( ${regionValue} )` : ''}
               </div>
-            </div>`}
+            </div >`;
+          }}
         />
       </div>
     );

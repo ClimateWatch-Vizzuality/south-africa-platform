@@ -104,23 +104,24 @@ const getRegionPopulation = createSelector(
       const yearValue = d.categoryYears.find(
         c => String(c.year) === year.value
       );
-      if (yearValue) {
-        const totalRegionPopulationData = data.find(
-          p => p.name === 'pop_total' && p.location.name === d.location.name
-        );
-        const totalRegionPopulationyearData = totalRegionPopulationData.categoryYears.find(
-          y => y.year === yearValue.value
-        );
-        populationRegionData[d.location.name] = [
-          { slug: 'regionPercentage', value: `${yearValue.value}%` },
-          {
-            slug: 'regionTotal',
-            value: totalRegionPopulationyearData
-              ? withCommas(totalRegionPopulationyearData.value)
-              : 'No data'
-          }
-        ];
-      }
+      const totalRegionPopulationData = data.find(
+        p => p.name === 'pop_total' && p.location.name === d.location.name
+      );
+      const totalRegionPopulationyearData = totalRegionPopulationData.categoryYears.find(
+        y => y.year === (yearValue && yearValue.year)
+      );
+      populationRegionData[d.location.name] = [
+        {
+          slug: 'regionPercentage',
+          value: yearValue && yearValue.value ? `${yearValue.value}%` : null
+        },
+        {
+          slug: 'regionTotal',
+          value: totalRegionPopulationyearData
+            ? withCommas(totalRegionPopulationyearData.value)
+            : 'No data'
+        }
+      ];
     });
     return populationRegionData;
   }
