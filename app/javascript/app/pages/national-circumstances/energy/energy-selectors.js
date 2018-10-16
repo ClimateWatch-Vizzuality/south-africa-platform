@@ -57,8 +57,8 @@ const getEnergyData = createSelector(
   }
 );
 
-const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
-  metadata.ghg.loading || GHGEmissions.loading;
+const getChartLoading = ({ nationalCircumstances = {} }) =>
+  nationalCircumstances.loading;
 
 export const getMetricOptions = createSelector(
   [],
@@ -101,14 +101,49 @@ export const filterDataBySource = createSelector(
   }
 );
 
-export const parseChartData = createSelector(
-  [ filterDataBySource, getMetricSelected, getCalculationData ],
-  (data, metricSelected, calculationData) => {
-    if (!data || isEmpty(data)) return null;
+const getSourceOptions = createSelector(
+  getEnergyData,
+  data => data && data.map(d => ({ label: d.category, value: d.category }))
+);
+const getSectorSelected = createSelector(
+  [ getSourceOptions, getSectorSelection ],
+  (sources, sourceSelected) => {
+    if (!sources) return null;
+    if (!sourceSelected) return sources;
+    const sourceParsed = sourceSelected.split(',');
+    return sources.filter(s => sourceParsed.indexOf(s.value) > -1);
+  }
+);
 
+const getChartTypeOptions = () => [
+  { label: 'Line chart', value: 'line' },
+  { label: 'Stacked area chart', value: 'area' },
+  { label: 'Percentage chart', value: 'percentage' }
+];
+
+const getChartTypeSelected = createSelector(
+  [ getChartTypeOptions, getChartTypeSelection ],
+  (chartTypeOptions, chartTypeSelected) => {
+    if (!chartTypeOptions) return null;
+    if (!chartTypeSelected) return chartTypeOptions[0];
+    return chartTypeOptions.find(s => s.value === chartTypeSelected);
+  }
+);
+
+export const parseChartData = createSelector(
+  [
+    filterDataBySource,
+    getMetricSelected,
+    getCalculationData,
+    getChartTypeSelected
+  ],
+  (data, metricSelected, calculationData, chartType) => {
+    if (!data || isEmpty(data)) return null;
+    const isPercentageChart = chartType.value === 'Percentage chart';
     let xValues = data[0].categoryYears.map(d => d.year);
     if (
-      calculationData &&
+      !isPercentageChart &&
+        calculationData &&
         metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
     ) {
       xValues = intersection(
@@ -121,14 +156,12 @@ export const parseChartData = createSelector(
       data.forEach(d => {
         const yKey = getYColumnValue(d.category);
         const yData = d.categoryYears.find(e => e.year === x);
-        const calculationRatio = getMetricRatio(
-          metricSelected.value,
-          calculationData,
-          x
-        );
+        const calculationRatio = isPercentageChart
+          ? 1
+          : getMetricRatio(metricSelected.value, calculationData, x);
         if (yData && yData.value) {
-          // 1000000 is the data scale from the API
-          yItems[yKey] = yData.value * 1000000 / calculationRatio;
+          // 1000 is the data scale from the API, from MJ to J
+          yItems[yKey] = yData.value * 1000 / calculationRatio;
         }
       });
       const item = { x, ...yItems };
@@ -157,16 +190,17 @@ export const getChartConfig = createSelector(
       {}
     );
     const tooltip = getTooltipConfig(yColumns);
-    let { unit } = 'MJ';
+    let unit = '';
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
-      unit = `${unit} per million $`;
+      unit = `Joules per million $`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
-      unit = `${unit} per capita`;
+      unit = `Joules per capita`;
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit, suffix: 'J' }
     };
+
     return {
       axes,
       theme,
@@ -177,33 +211,6 @@ export const getChartConfig = createSelector(
   }
 );
 
-const getSourceOptions = createSelector(
-  getEnergyData,
-  data => data && data.map(d => ({ label: d.category, value: d.category }))
-);
-const getSectorSelected = createSelector(
-  [ getSourceOptions, getSectorSelection ],
-  (sources, sourceSelected) => {
-    if (!sources) return null;
-    if (!sourceSelected) return sources;
-    const sourceParsed = sourceSelected.split(',');
-    return sources.filter(s => sourceParsed.indexOf(s.value) > -1);
-  }
-);
-
-const getChartTypeOptions = () =>
-  [ 'Line chart', 'Stacked area chart', 'Percentage chart' ].map(c => ({
-    label: c,
-    value: c
-  }));
-const getChartTypeSelected = createSelector(
-  [ getChartTypeOptions, getChartTypeSelection ],
-  (chartTypeOptions, chartTypeSelected) => {
-    if (!chartTypeOptions) return null;
-    if (!chartTypeSelected) return chartTypeOptions[0];
-    return chartTypeOptions.find(s => s.value === chartTypeSelected);
-  }
-);
 export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,

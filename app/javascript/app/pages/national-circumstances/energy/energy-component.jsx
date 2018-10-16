@@ -8,6 +8,7 @@ import Chart from 'components/chart';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
+import { format } from 'd3-format';
 
 import styles from './energy-styles';
 
@@ -36,7 +37,6 @@ class Energy extends PureComponent {
       chartTypeOptions,
       chartData
     } = this.props;
-
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
         <Dropdown
@@ -79,10 +79,11 @@ class Energy extends PureComponent {
           </TabletLandscape>
           <div className={styles.chart}>
             <Chart
-              type="area"
+              type={chartTypeSelected.value}
               dots={false}
               customMessage="Emissions data not available"
               onLegendChange={this.handleSectorChange}
+              getCustomYLabelFormat={value => format('~s')(value)}
               {...chartData}
             />
           </div>
@@ -102,6 +103,7 @@ Energy.propTypes = {
   chartData: PropTypes.object,
   chartTypeOptions: PropTypes.array,
   chartTypeSelected: PropTypes.object,
+  chartType: PropTypes.string,
   sourceOptions: PropTypes.array,
   sourceSelected: PropTypes.object,
   metricOptions: PropTypes.array,
@@ -115,6 +117,7 @@ Energy.defaultProps = {
   chartData: {},
   chartTypeOptions: [],
   chartTypeSelected: null,
+  chartType: 'line',
   sourceOptions: [],
   sourceSelected: null,
   metricOptions: [],
