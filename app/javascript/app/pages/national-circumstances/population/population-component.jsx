@@ -21,7 +21,12 @@ class Population extends PureComponent {
   };
 
   renderTabs() {
-    const { populationList, yearsOptions, yearSelected } = this.props;
+    const {
+      populationList,
+      yearsOptions,
+      yearSelected,
+      cardsData
+    } = this.props;
     return [
       {
         name: 'Population',
@@ -30,6 +35,7 @@ class Population extends PureComponent {
           <PopulationTab
             title="KwaZulu-Natal"
             populations={populationList}
+            cardsData={cardsData}
             yearsOptions={yearsOptions}
             yearSelected={yearSelected}
           />
@@ -70,6 +76,7 @@ class Population extends PureComponent {
 Population.propTypes = {
   query: PropTypes.object,
   populationList: PropTypes.object,
+  cardsData: PropTypes.object,
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
   yearsOptions: PropTypes.array,
@@ -80,6 +87,7 @@ Population.defaultProps = {
   query: null,
   activeTabValue: null,
   populationList: {},
+  cardsData: {},
   yearsOptions: [],
   yearSelected: {}
 };
