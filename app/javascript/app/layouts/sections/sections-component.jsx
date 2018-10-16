@@ -42,11 +42,13 @@ class Sections extends PureComponent {
   render() {
     const { route, section, payload } = this.props;
     const title = route.label || capitalize(lowerCase(payload.id));
+    const description = route.description;
     return (
       <div className={styles.page}>
         <div className={styles.section} style={{ backgroundImage: `url('${backgrounds[route.link]}')`}}>
           <div className={styles.row}>
             <h2 className={styles.sectionTitle}>{title}</h2>
+            <p className={styles.sectionDescription}>{description}</p>
           </div>
 
           <Sticky ref={el => {this.stickyRef = el}} onStateChange={this.handleStickyChange} top="#header" activeClass={styles.stickyWrapper} innerZ={6}>
