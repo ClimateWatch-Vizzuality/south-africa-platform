@@ -25,10 +25,18 @@ class NDCPledge extends PureComponent {
               title="South Africa National Determined Contribution (NDC) pledge and ambition"
             />
             <p className={styles.ndcDescription}>
-              South Africa’s emissions by 2025 and 2030 will be in a range between 398 and 614 Mt CO2–eq, as defined in national policy.
+              South Africa’s emissions will range within 398 to 614 Mt CO2–eq,
+              by 2025 and 2030, as defined in the National Climate Change
+              Response Policy.
             </p>
             <p className={styles.ndcDescription}>
-              The adaptation component of South Africa’s INDC will address adaptation through six goals, underpinned by key elements of adaptation planning, costing of adaptation investment requirements, equity, and means of implementation.
+              Adaptation is addressed through six goals: A National Adaptation
+              Plan; consideration, integration of adaptation investment needs
+              and, institutional capacity building into policy, planning and
+              implementation processes; vulnerability assessment and
+              adaptation needs framework; early warning, vulnerability and
+              adaptation monitoring system and communication of investments in
+              adaptation.
             </p>
             <Button /* onClick={handleNDCPledgeClick} */
               theme={{ button: cx(button.white, styles.learnMoreButton) }}

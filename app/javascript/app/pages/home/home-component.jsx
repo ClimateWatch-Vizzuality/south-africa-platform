@@ -15,12 +15,25 @@ class Home extends PureComponent {
           <div className="layout-container">
             <div className={styles.introTextContainer}>
               <p className={styles.introText}>
-                The Country Platform on{' '}
-                <span className={styles.bold}>
-                  South Africa’s Biennial Update Report
-                </span>
-                {' '}
-                on Climate Change captures South Africa’s response to climate change mitigation, and offers open data, visualizations and analysis to help policy-makers, researchers, investors, and the general public gather insights on the country’s climate progress.
+                The South African Climate Change Response Explorer is an
+                important part of the National Climate Change Monitoring and
+                Evaluation (M&ampersand;E) System established as part of the national
+                efforts to track South Africa’s overall transition to a low
+                carbon and climate resilient society and economy.  The purpose
+                of the Explorer is to help policy-makers, researchers,
+                investors, and the general public gather insights into the
+                status of South Africa
+                {"'"}
+                s climate change response; offering
+                open data, visualization and analysis of different aspects of
+                the national response.  The platform is currently based
+                primarily on data from South Africa
+                {"'"}
+                s Biennial Update Report
+                and Third National Communication under the United Nations
+                Framework Convention on Climate Change, but will, in the futur
+                , incorporate a greater range of climate change M&ampersand;E indicators
+                and sources of information.
               </p>
             </div>
           </div>

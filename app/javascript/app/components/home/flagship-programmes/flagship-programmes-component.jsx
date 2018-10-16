@@ -30,7 +30,13 @@ class FlagshipProgrammes extends PureComponent {
           </div>
         </div>
         <p className={styles.description}>
-          South Africa envisages scaling-up NDC through the successful implementation of the following mitigation Flagship Programmes.
+          The Climate Change Flagship Programmes are strategic measures
+          implemented by the South African Government to trigger a large-scale
+          transition to a low carbon economy and a more climate resilient
+          South Africa. They are government led programmes that signal climate
+          change investment priorities and provide the certainty needed to
+          stimulate the investment required for required for transitioning to
+          a low carbon and climate resilient society.
         </p>
         <Stories stories={flagshipProgrammes} theme={styles} />
       </div>
