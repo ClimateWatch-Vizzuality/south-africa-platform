@@ -31,8 +31,20 @@ const defaultColumns = [
 ];
 const ellipsisColumns = [];
 
+const filterMitigationDataByTab = createSelector(
+  [ getMitigationData, getActiveTabValue ],
+  (data, tab) => {
+    if (!data) return null;
+    if (!tab || tab === 'allActions') return data;
+    return data.filter(
+      d =>
+        tab === 'quantifiedEffects' ? d.quantifiedEffect : !d.quantifiedEffect
+    );
+  }
+);
+
 const getParsedMitigation = createSelector(
-  [ getMitigationData, getSearchValue ],
+  [ filterMitigationDataByTab, getSearchValue ],
   (data, searchFilter) => {
     if (!data) return null;
     if (!searchFilter) return data;

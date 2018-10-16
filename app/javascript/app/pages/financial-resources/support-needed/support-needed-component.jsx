@@ -36,12 +36,7 @@ class SupportNeeded extends PureComponent {
         value: FINANCIAL_SUPPORT_NEEDED_KEY,
         component
       },
-      {
-        name: 'NON MONETIZED NEEDS',
-        value: NON_MONETIZED_NEEDS,
-        component,
-        disabled: true
-      }
+      { name: 'NON MONETIZED NEEDS', value: NON_MONETIZED_NEEDS, component }
     ];
   }
 
