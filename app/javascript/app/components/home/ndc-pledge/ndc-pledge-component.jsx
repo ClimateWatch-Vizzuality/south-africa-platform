@@ -10,9 +10,11 @@ class NDCPledge extends PureComponent {
   render() {
     return (
       <div className={styles.ndcContainer}>
-        <img
-          src={NDCImage}
-          alt="South Africa NDC"
+        <div
+          style={{
+            backgroundImage: `url(${NDCImage})`,
+            backgroundSize: '100%'
+          }}
           className={styles.ndcImage}
         />
         <div className={styles.ndcTextContainer}>
