@@ -16,17 +16,25 @@
   @include columns();
 
   @media #{$tablet-landscape} {
-    @include columns(6);
+    @include columns($columns: (6, 5, 1));
   }
 
+  @media #{$desktop} {
+    @include columns($columns: (6, 4, 2));
+  }
+
+  background-color: $porcelain;
+
   .ndcImage {
-    max-width: 100%;
     object-fit: cover;
-    height: auto;
+    object-position: top;
     padding-bottom: $gutter-padding;
     display: block;
+    height: 400px;
 
     @media #{$tablet-landscape} {
+      height: fill-available;
+      max-width: 48%;
       padding-bottom: 0;
     }
   }
@@ -35,6 +43,11 @@
     padding-left: $gutter-padding;
     display: flex;
     flex-direction: column;
+    height: auto;
+
+    @media #{$tablet-landscape} {
+      height: fit-content;
+    }
 
     .ndcTitle {
       font-weight: bold;
