@@ -38,9 +38,6 @@ import {
   reduxModule as distributionByAge
 } from 'providers/distribution-by-age-provider';
 import {
-  reduxModule as HumanDevelopmentIndex
-} from 'providers/human-development-index-provider';
-import {
   reduxModule as nationalCircumstances
 } from 'providers/national-circumstances-provider';
 
@@ -62,7 +59,6 @@ const providersReducers = {
   modalMetadata: handleModule(modalMetadata),
   ProjectedEmissions: handleModule(projectedEmissions),
   DistributionByAge: handleModule(distributionByAge),
-  HumanDevelopmentIndex: handleModule(HumanDevelopmentIndex),
   nationalCircumstances: handleModule(nationalCircumstances)
 };
 
