@@ -8,7 +8,6 @@ const withCommas = value => format(',')(value);
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 
-// TODO: { geometryId: [array of priorities] } once the API is ready
 const selectNationalCircumstances = ({ nationalCircumstances = {} }) => {
   if (!nationalCircumstances || !has(nationalCircumstances, 'data.data'))
     return null;
