@@ -106,9 +106,10 @@ const getRegionPopulation = createSelector(
       const totalRegionPopulationData = data.find(
         p => p.name === 'pop_total' && p.location.name === d.location.name
       );
-      const totalRegionPopulationyearData = totalRegionPopulationData.categoryYears.find(
-        y => y.year === (yearValue && yearValue.year)
-      );
+      const totalRegionPopulationyearData = totalRegionPopulationData &&
+        totalRegionPopulationData.categoryYears.find(
+          y => y.year === (yearValue && yearValue.year)
+        );
       populationRegionData[d.location.name] = [
         {
           slug: 'regionPercentage',
