@@ -31,9 +31,12 @@
     padding-bottom: $gutter-padding;
     display: block;
     height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
 
     @media #{$tablet-landscape} {
-      height: stretch;
+      height: auto;
       max-width: 48%;
       padding-bottom: 0;
     }
