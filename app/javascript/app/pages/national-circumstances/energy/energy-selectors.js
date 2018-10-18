@@ -41,6 +41,7 @@ const getEnergyData = createSelector(
   (nationalCircumstances, meta) => {
     if (!nationalCircumstances || !meta) return null;
     const data = [];
+
     nationalCircumstances.data.forEach(d => {
       if (d.name.startsWith('En_supply')) {
         const metaD = meta.find(m => m.code === d.name);
@@ -172,12 +173,12 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEnergyData, getMetricSelected ],
-  (data, metricSelected) => {
-    if (!data) return null;
-    const yColumns = data.map(d => ({
-      label: d.category,
-      value: getYColumnValue(d.category)
+  [ getMetricSelected, getSectorSelected ],
+  (metricSelected, sectors) => {
+    if (!sectors) return null;
+    const yColumns = sectors.map(d => ({
+      label: d.value,
+      value: getYColumnValue(d.value)
     }));
     const theme = yColumns.reduce(
       (acc, next, i) => ({
@@ -200,7 +201,6 @@ export const getChartConfig = createSelector(
       ...DEFAULT_AXES_CONFIG,
       yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit, suffix: 'J' }
     };
-
     return {
       axes,
       theme,
