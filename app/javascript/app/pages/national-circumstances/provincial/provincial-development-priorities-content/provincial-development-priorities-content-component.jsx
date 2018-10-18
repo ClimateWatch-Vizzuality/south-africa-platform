@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Map from 'components/map';
 
-import styles from './mitigation-styles.scss';
+import styles from './provincial-development-priorities-content-styles.scss';
 
-class MitigationSection extends PureComponent {
+class ProvincialDevelopmentPrioritiesContent extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { title: props.title };
@@ -21,19 +21,21 @@ class MitigationSection extends PureComponent {
 
   render() {
     const { title } = this.state;
-    const { mitigationList } = this.props;
+    const { selectedData } = this.props;
     return (
       <div className={styles.columns}>
         <Map events={this.mapEvents} />
         <div>
           <h3 className={styles.title}>{title}</h3>
           {
-            mitigationList && mitigationList.length > 0 && (
-            <ul className={styles.list}>
-              {mitigationList.map(mitigation => (
-                <li key={mitigation}>{mitigation}</li>
-                  ))}
-            </ul>
+            selectedData &&
+              selectedData[title] &&
+              /* eslint-disable-next-line react/no-danger */
+              (
+                <ul
+                  className={styles.list}
+                  dangerouslySetInnerHTML={{ __html: selectedData[title] }}
+                />
               )
           }
         </div>
@@ -42,11 +44,14 @@ class MitigationSection extends PureComponent {
   }
 }
 
-MitigationSection.propTypes = {
+ProvincialDevelopmentPrioritiesContent.propTypes = {
   title: PropTypes.string,
-  mitigationList: PropTypes.array
+  selectedData: PropTypes.object
 };
 
-MitigationSection.defaultProps = { title: '', mitigationList: [] };
+ProvincialDevelopmentPrioritiesContent.defaultProps = {
+  title: '',
+  selectedData: {}
+};
 
-export default MitigationSection;
+export default ProvincialDevelopmentPrioritiesContent;
