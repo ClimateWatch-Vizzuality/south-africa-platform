@@ -2,56 +2,45 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import { NoContent } from 'cw-components';
+import NationalCircumstancesPrioritiesProvider from 'providers/national-circumstances-priorities-provider';
 
-import Mitigation from './mitigation';
+import ProvincialContent from './provincial-development-priorities-content';
 import styles from './provincial-styles.scss';
 
 const MITIGATION_KEY = 'mitigation';
 const ADAPTATION_KEY = 'adaptation';
 
 class Provincial extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      tabs: [
-        {
-          name: 'Mitigation',
-          value: MITIGATION_KEY,
-          component: (
-            <Mitigation
-              title="Western Cape"
-              mitigationList={props.mitigationList}
-            />
-          )
-        },
-        {
-          name: 'Adaptation',
-          value: ADAPTATION_KEY,
-          disabled: true,
-          component: <NoContent message="Section not ready yet" />
-        }
-      ]
-    };
-  }
-
   handleTabChange = ({ value }) => {
     const { updateQueryParam, query } = this.props;
     updateQueryParam({ query: { ...query, tab: value } });
   };
 
+  renderTabs() {
+    const { selectedData } = this.props;
+    const component = (
+      <ProvincialContent title="Western Cape" selectedData={selectedData} />
+    );
+    return [
+      { name: 'Mitigation', value: MITIGATION_KEY, component },
+      { name: 'Adaptation', value: ADAPTATION_KEY, component }
+    ];
+  }
+
   render() {
+    const { activeTabValue } = this.props;
     return (
       <div className={styles.row}>
         <SectionTitle isSubtitle title="Provincial Development Priorities" />
         <TabSwitcher
-          tabs={this.state.tabs}
+          tabs={this.renderTabs()}
           actionsActive={false}
           searchActive={false}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
-          activeTabValue={this.props.activeTabValue}
+          activeTabValue={activeTabValue}
         />
+        <NationalCircumstancesPrioritiesProvider />
       </div>
     );
   }
@@ -59,7 +48,7 @@ class Provincial extends PureComponent {
 
 Provincial.propTypes = {
   query: PropTypes.object,
-  mitigationList: PropTypes.array,
+  selectedData: PropTypes.object,
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired
 };
@@ -67,7 +56,7 @@ Provincial.propTypes = {
 Provincial.defaultProps = {
   query: null,
   activeTabValue: null,
-  mitigationList: []
+  selectedData: {}
 };
 
 export default Provincial;

@@ -40,6 +40,9 @@ import {
 import {
   reduxModule as nationalCircumstances
 } from 'providers/national-circumstances-provider';
+import {
+  reduxModule as nationalCircumstancesPriorities
+} from 'providers/national-circumstances-priorities-provider';
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
@@ -59,7 +62,8 @@ const providersReducers = {
   modalMetadata: handleModule(modalMetadata),
   ProjectedEmissions: handleModule(projectedEmissions),
   HumanDevelopmentIndex: handleModule(HumanDevelopmentIndex),
-  nationalCircumstances: handleModule(nationalCircumstances)
+  nationalCircumstances: handleModule(nationalCircumstances),
+  nationalCircumstancesPriorities: handleModule(nationalCircumstancesPriorities)
 };
 
 export default combineReducers({
