@@ -23,7 +23,9 @@ class Map extends Component {
   }
 
   render() {
-    const { style, theme, paths, events, defaultStyle } = this.props;
+    const { style, theme, paths, events, defaultStyle, data } = this.props;
+    const getValue = (name, slug) =>
+      data && data[name] && data[name].find(d => d.slug === slug).value;
     return (
       <div className={cx(styles.wrapper, theme.wrapper)}>
         <ComposableMap projection="robinson" style={style}>
@@ -42,6 +44,7 @@ class Map extends Component {
                           key={geography.properties.name}
                           data-for="mapTooltip"
                           data-tip={geography.properties.name}
+                          data-html
                           geography={geography}
                           projection={projection}
                           style={geography.style || defaultStyle}
@@ -56,6 +59,20 @@ class Map extends Component {
           place="right"
           id="mapTooltip"
           className="global_SATooltip"
+          getContent={name => {
+            const regionValue = getValue(name, 'regionPercentage');
+            return `<div>
+              <div class="${styles.regionName}">
+                ${name}
+              </div>
+              <div>
+                ${getValue(
+              name,
+              'regionTotal'
+            )} ${regionValue ? `( ${regionValue} )` : ''}
+              </div>
+            </div >`;
+          }}
         />
       </div>
     );
@@ -67,7 +84,8 @@ Map.propTypes = {
   theme: PropTypes.object,
   paths: PropTypes.array,
   defaultStyle: PropTypes.object,
-  events: PropTypes.object
+  events: PropTypes.object,
+  data: PropTypes.object
 };
 
 Map.defaultProps = {
@@ -75,6 +93,7 @@ Map.defaultProps = {
   theme: {},
   events: {},
   paths: southAfricaPaths,
+  data: {},
   defaultStyle: {
     default: {
       fill: '#ecf0f1',
