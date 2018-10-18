@@ -33,7 +33,7 @@ export const routes = {
     path: '/national-circumstances/:section?',
     component: 'layouts/sections/sections',
     sections: NationalSections,
-    description: 'The national circumstances section provides the context for South Africa’s climate change response. This section includes information on South Africa’s population, economy, energy, climate risks, and provincial development priorities.'
+    description: 'This national circumstances section provides the context for South Africa’s climate change response, including information on population, economy, energy, climate risks, and provincial development priorities.'
   },
   [GHG_EMISSIONS]: {
     nav: true,
@@ -42,7 +42,7 @@ export const routes = {
     path: '/ghg-emissions/:section?',
     component: 'layouts/sections/sections',
     sections: GHGSections,
-    description: 'This section provides an overview of South Africa’s GHG inventory, and associated programmes implemented to improve the quality of future national GHG inventory.  This section also provides projected future emissions pathways under different mitigation scenarios.'
+    description: 'This section provides an overview of South Africa’s GHG inventory, and associated programmes implemented to improve the quality of future national GHG inventory.This section also provides projected future emissions pathways under different mitigation scenarios.'
   },
   [MITIGATIONS]: {
     nav: true,
@@ -51,7 +51,7 @@ export const routes = {
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',
     sections: MitigationSections,
-    description: ''
+    description: 'South Africa’s approach to mitigation is informed by the country’s contribution as a responsible global citizen to the international effort to reduce global GHG emissions, and the successful management of the development and poverty eradication challenges facing South Africa.'
   },
   [FLAGSHIP_DETAIL]: {
     link: '/mitigation/flagship-programmes-detail',
@@ -66,7 +66,7 @@ export const routes = {
     path: '/financial-resources/:section?',
     component: 'layouts/sections/sections',
     sections: FinancialSections,
-    description: 'Climate finance sources for South Africa can be classified into four different categories; bilateral finance, multilateral finance, domestic public finance and private sector finance. Support is classified as ‘bilateral’ if it comes from one donor country and as ‘multilateral’ more than one country/entity provide the support and it is channelled through one donor agency.'
+    description: 'This section shows climate finance provided from multilateral, bilateral, and domestic sources as well as remaining financial and non-financial support needs.'
   },
   [NOT_FOUND]: {
     path: '/404',
