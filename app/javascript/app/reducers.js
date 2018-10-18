@@ -35,9 +35,6 @@ import {
   reduxModule as projectedEmissions
 } from 'providers/projected-emissions-provider';
 import {
-  reduxModule as distributionByAge
-} from 'providers/distribution-by-age-provider';
-import {
   reduxModule as nationalCircumstances
 } from 'providers/national-circumstances-provider';
 
@@ -58,7 +55,6 @@ const providersReducers = {
   naturalDisastersData: handleModule(naturalDisastersData),
   modalMetadata: handleModule(modalMetadata),
   ProjectedEmissions: handleModule(projectedEmissions),
-  DistributionByAge: handleModule(distributionByAge),
   nationalCircumstances: handleModule(nationalCircumstances)
 };
 

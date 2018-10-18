@@ -1,34 +1,58 @@
 import { createSelector, createStructuredSelector } from 'reselect';
+import has from 'lodash/has';
+import uniq from 'lodash/uniq';
+import flatMap from 'lodash/flatMap';
+import { format } from 'd3-format';
 
-export const YEAR_OPTIONS = {
-  YEAR_2015: { label: '2015', value: '2014' },
-  YEAR_2016: { label: '2016', value: '2016' },
-  YEAR_2017: { label: '2017', value: '2017' }
-};
+const withCommas = value => format(',')(value);
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 
-// TODO: { geometryId: [array of priorities] } once the API is ready
-const selectPopulations = () => ({
-  'KwaZulu-Natal': [
-    { title: '54,001,593', description: 'Total South Africa Population' },
-    { title: '1.58%', description: 'South Africa population growth rate' }
-  ]
-});
+const selectNationalCircumstances = ({ nationalCircumstances = {} }) => {
+  if (!nationalCircumstances || !has(nationalCircumstances, 'data.data'))
+    return null;
+  return nationalCircumstances.data.data;
+};
 
 const getActiveTabValue = createSelector(
   getQueryParams,
   query => query ? query.tab : null
 );
 
-const getPopulationList = createSelector(
-  selectPopulations,
-  populations => populations
+const getTotalPopulationData = createSelector(
+  selectNationalCircumstances,
+  data => {
+    if (!data) return null;
+    return data.find(
+      d => d.name === 'pop_total' && d.location.name === 'South Africa'
+    ) ||
+      null;
+  }
 );
 
+const getTotalGrowthData = createSelector(selectNationalCircumstances, data => {
+  if (!data) return null;
+  return data.find(d => d.name === 'pop-growth') || null;
+});
+
 export const getYearOptions = createSelector(
-  [],
-  () => Object.keys(YEAR_OPTIONS).map(key => YEAR_OPTIONS[key])
+  selectNationalCircumstances,
+  data => {
+    if (!data) return null;
+    const totalPopulationData = data.find(
+      d => d.name === 'pop_total' && d.location.name === 'South Africa'
+    );
+    const regionData = data.find(
+      d => d.name === 'pop_total' && d.location.name !== 'South Africa'
+    );
+    const yearData = uniq(
+      flatMap(
+        [ totalPopulationData ].concat(regionData),
+        d => d.categoryYears.map(y => String(y.year))
+      )
+    );
+    return yearData.map(year => ({ label: year, value: year }));
+  }
 );
 
 const getYearParam = ({ location }) =>
@@ -37,15 +61,83 @@ const getYearParam = ({ location }) =>
 export const getYearSelected = createSelector(
   [ getYearOptions, getYearParam ],
   (years, year) => {
+    if (!years) return null;
     if (!year) return years[0];
     return years.find(y => y.value === year);
   }
 );
 
+const findYearData = (data, year) =>
+  data.categoryYears.find(d => String(d.year) === year.value);
+const getTotalPopulation = createSelector(
+  [ getTotalPopulationData, getYearSelected ],
+  (data, year) => {
+    if (!data || !year) return null;
+    const yearData = findYearData(data, year);
+    return {
+      description: 'Total South Africa population',
+      value: yearData ? withCommas(yearData.value) : 'No data'
+    };
+  }
+);
+
+const getGrowthRate = createSelector([ getTotalGrowthData, getYearSelected ], (
+  data,
+  year
+) =>
+  {
+    if (!data || !year) return null;
+    const yearData = findYearData(data, year);
+    return {
+      description: 'South Africa population growth rate',
+      value: yearData ? `${withCommas(yearData.value)}%` : 'No data'
+    };
+  });
+
+const getRegionPopulation = createSelector(
+  [ selectNationalCircumstances, getYearSelected ],
+  (data, year) => {
+    if (!data || !year) return null;
+    const populationRegionData = {};
+    data.forEach(d => {
+      const yearValue = d.categoryYears.find(
+        c => String(c.year) === year.value
+      );
+      const totalRegionPopulationData = data.find(
+        p => p.name === 'pop_total' && p.location.name === d.location.name
+      );
+      const totalRegionPopulationyearData = totalRegionPopulationData &&
+        totalRegionPopulationData.categoryYears.find(
+          y => y.year === (yearValue && yearValue.year)
+        );
+      populationRegionData[d.location.name] = [
+        {
+          slug: 'regionPercentage',
+          value: yearValue && yearValue.value ? `${yearValue.value}%` : null
+        },
+        {
+          slug: 'regionTotal',
+          value: totalRegionPopulationyearData
+            ? withCommas(totalRegionPopulationyearData.value)
+            : 'No data'
+        }
+      ];
+    });
+    return populationRegionData;
+  }
+);
+
+const getCardsData = createStructuredSelector({
+  totalPopulation: getTotalPopulation,
+  growthRate: getGrowthRate
+});
+
 export const getPopulation = createStructuredSelector({
   query: getQueryParams,
-  populationList: getPopulationList,
+  populationList: getRegionPopulation,
+  totalPopulation: getTotalPopulation,
   activeTabValue: getActiveTabValue,
   yearsOptions: getYearOptions,
-  yearSelected: getYearSelected
+  yearSelected: getYearSelected,
+  cardsData: getCardsData
 });
