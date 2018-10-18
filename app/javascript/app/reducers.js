@@ -57,7 +57,7 @@ const providersReducers = {
   countriesOverviewData: handleModule(countriesOverview),
   naturalDisastersData: handleModule(naturalDisastersData),
   modalMetadata: handleModule(modalMetadata),
-  ProjectedEmissions: handleModule(projectedEmissions),
+  projectedEmissions: handleModule(projectedEmissions),
   nationalCircumstances: handleModule(nationalCircumstances),
   nationalCircumstancesPriorities: handleModule(nationalCircumstancesPriorities)
 };

@@ -1,7 +1,6 @@
 import { createAction, createThunkAction } from 'redux-tools';
-// import { CWAPI } from 'services/api';
+import { SAAPI } from 'services/api';
 import isEmpty from 'lodash/isEmpty';
-import data from './dummy-data.json';
 
 export const updateFilters = createAction('updateFilters');
 
@@ -18,25 +17,19 @@ export const fetchProjectedEmissionsFail = createAction(
 export const fetchProjectedEmissions = createThunkAction(
   'fetchProjectedEmissions',
   () => (dispatch, state) => {
-    const { ProjectedEmissions } = state();
+    const { projectedEmissions } = state();
 
-    if (isEmpty(ProjectedEmissions.data) && !ProjectedEmissions.loading) {
+    if (isEmpty(projectedEmissions.data) && !projectedEmissions.loading) {
       dispatch(fetchProjectedEmissionsInit());
-      setTimeout(
-        () => {
+      SAAPI
+        .get('ghg/projected_emissions')
+        .then((data = {}) => {
           dispatch(fetchProjectedEmissionsReady(data));
-        },
-        400
-      );
-      // CWAPI
-      //   .get('projected_emissions', params)
-      //   .then((data = {}) => {
-      //     dispatch(fetchProjectedEmissionsReady(data));
-      //   })
-      //   .catch(error => {
-      //     console.warn(error);
-      //     dispatch(fetchProjectedEmissionsFail(error && error.message));
-      //   });
+        })
+        .catch(error => {
+          console.warn(error);
+          dispatch(fetchProjectedEmissionsFail(error && error.message));
+        });
     }
   }
 );

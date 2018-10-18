@@ -22,7 +22,7 @@ class ProjectedEmissions extends PureComponent {
   renderRangedAreas = () => {
     const { config } = this.props.chartData;
 
-    return config.columns && config.columns.rangedArea.map(column => {
+    return config && config.columns && config.columns.rangedArea.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
           <Area
@@ -44,7 +44,9 @@ class ProjectedEmissions extends PureComponent {
   renderLinesWithDots = () => {
     const { config } = this.props.chartData;
 
-    return config.columns && config.columns.lineWithDots.map(column => {
+    return config &&
+      config.columns &&
+      config.columns.lineWithDots.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
           <Line
@@ -65,7 +67,8 @@ class ProjectedEmissions extends PureComponent {
   renderDotsLines = () => {
     const { config } = this.props.chartData;
 
-    return config.columns &&
+    return config &&
+      config.columns &&
       config.columns.dots.map(column => (
         <Line
           key={column.value}
@@ -85,22 +88,22 @@ class ProjectedEmissions extends PureComponent {
   renderPlainLines = () => {
     const { config } = this.props.chartData;
 
-    return config.columns.line.map(column => {
-      const color = config.theme[column.value].stroke || '';
-      return (
-        <Line
-          key={column.value}
-          isAnimationActive={
-            isUndefined(config.animation) ? true : config.animation
-          }
-          dot={false}
-          dataKey={column.value}
-          stroke={color}
-          strokeWidth={2}
-          type="monotone"
-        />
-      );
-    });
+    return config && config.columns.line.map(column => {
+        const color = config.theme[column.value].stroke || '';
+        return (
+          <Line
+            key={column.value}
+            isAnimationActive={
+              isUndefined(config.animation) ? true : config.animation
+            }
+            dot={false}
+            dataKey={column.value}
+            stroke={color}
+            strokeWidth={2}
+            type="monotone"
+          />
+        );
+      });
   };
 
   render() {
@@ -116,7 +119,7 @@ class ProjectedEmissions extends PureComponent {
           <InfoDownloadToolbox slugs="projected_emissions" />
         </div>
         {
-          chartData && (
+          chartData && chartData.config && (
           <Chart
             chartType="composed"
             height={500}
@@ -139,9 +142,9 @@ class ProjectedEmissions extends PureComponent {
 
 ProjectedEmissions.propTypes = {
   updateFilters: PropTypes.func.isRequired,
-  chartData: PropTypes.object.isRequired
+  chartData: PropTypes.object
 };
 
-ProjectedEmissions.defaultProps = {};
+ProjectedEmissions.defaultProps = { chartData: {} };
 
 export default ProjectedEmissions;
