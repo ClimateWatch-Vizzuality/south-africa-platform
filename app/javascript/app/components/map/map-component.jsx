@@ -60,16 +60,16 @@ class Map extends Component {
           id="mapTooltip"
           className="global_SATooltip"
           getContent={name => {
-            const regionValue = getValue(name, 'regionPercentage');
+            const regionPercentage = getValue(name, 'regionPercentage');
+            const regionTotal = getValue(name, 'regionTotal');
             return `<div>
               <div class="${styles.regionName}">
                 ${name}
               </div>
               <div>
-                ${getValue(
-              name,
-              'regionTotal'
-            )} ${regionValue ? `( ${regionValue} )` : ''}
+                ${regionTotal
+              ? `( ${regionTotal} )`
+              : ''} ${regionPercentage ? `( ${regionPercentage} )` : ''}
               </div>
             </div >`;
           }}
