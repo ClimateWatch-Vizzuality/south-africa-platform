@@ -2,8 +2,6 @@ import { createAction, createThunkAction } from 'redux-tools';
 import { SAAPI } from 'services/api';
 import isEmpty from 'lodash/isEmpty';
 
-export const updateFilters = createAction('updateFilters');
-
 export const fetchProjectedEmissionsInit = createAction(
   'fetchProjectedEmissionsInit'
 );

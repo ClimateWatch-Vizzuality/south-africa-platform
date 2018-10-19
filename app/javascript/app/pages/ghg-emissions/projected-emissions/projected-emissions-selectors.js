@@ -10,6 +10,9 @@ const getProjectedEmissionsData = ({ projectedEmissions = {} }) =>
 const filterColumns = (array, filterIds) =>
   array.filter(col => filterIds.includes(col.label));
 
+const getModelSelection = ({ location }) =>
+  location.query ? location.query.dataSelected : null;
+
 const parseData = createSelector(getProjectedEmissionsData, data => {
   if (!data) return null;
   const dataNames = {
@@ -60,77 +63,89 @@ const parseData = createSelector(getProjectedEmissionsData, data => {
   });
   return yearsData;
 });
+const getModelOptions = () => [
+  { value: 'GHGInventory', label: 'GHG Inventory' },
+  { value: 'MPA-WOM', label: 'MPA - WOM' },
+  { value: 'MPA-WEM', label: 'MPA - WEM' },
+  { value: 'BaU', label: 'BaU' },
+  { value: 'ppd', label: 'ppd' },
+  { value: 'LTMs', label: 'LTMs' }
+];
 
-const getChartData = createSelector(parseData, data => {
-  if (!data) return null;
-  const config = {
-    config: {
-      axes: {
-        xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-        yLeft: { name: 'Emissions', unit: 'CO<sub>2</sub>e', format: 'number' }
+const getModelsSelected = createSelector(
+  [ getModelOptions, getModelSelection ],
+  (models, modelSelected) => {
+    if (!modelSelected) return models;
+    const modelsParsed = modelSelected.split(',');
+    return models.filter(s => modelsParsed.indexOf(s.value) > -1);
+  }
+);
+
+const getChartData = createSelector(
+  [ parseData, getModelOptions, getModelsSelected ],
+  (data, dataOptions, dataSelected) => {
+    if (!data) return null;
+    const config = {
+      config: {
+        axes: {
+          xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
+          yLeft: {
+            name: 'Emissions',
+            unit: 'CO<sub>2</sub>e',
+            format: 'number'
+          }
+        },
+        theme: {
+          yGHGInventory: { stroke: '#000000', fill: '#000000' },
+          yMPAWEM: { stroke: '#00955f', fill: '#00955f' },
+          yMPAWOM: { stroke: '#9854b1', fill: '#9854b1' },
+          yPPD: { stroke: '#3498db', fill: '#d6eaf8' },
+          yBAU: { stroke: '#f5b335', fill: '#fdf0d7' },
+          yLTMS: { stroke: '#f97da1', fill: '#f97da1' }
+        },
+        tooltip: {
+          yGHGInventory: { label: 'GHG Inventory' },
+          yLTMS: { label: 'LTMs' },
+          yPPD: { label: 'ppd' },
+          yBAU: { label: 'BaU' },
+          yMPAWEM: { label: 'MPA - WEM' },
+          yMPAWOM: { label: 'MPA - WOM' }
+        },
+        animation: false,
+        columns: {
+          x: [ { label: 'year', value: 'x' } ],
+          lineWithDots: [
+            { label: 'MPA - WEM', value: 'yMPAWEM' },
+            { label: 'MPA - WOM', value: 'yMPAWOM' }
+          ],
+          dots: [ { label: 'GHG Inventory', value: 'yGHGInventory' } ],
+          rangedArea: [
+            { label: 'ppd', value: 'yPPD' },
+            { label: 'BaU', value: 'yBAU' }
+          ],
+          line: [ { label: 'LTMs', value: 'yLTMS' } ]
+        }
       },
-      theme: {
-        yGHGInventory: { stroke: '#000000', fill: '#000000' },
-        yMPAWEM: { stroke: '#00955f', fill: '#00955f' },
-        yMPAWOM: { stroke: '#9854b1', fill: '#9854b1' },
-        yPPD: { stroke: '#3498db', fill: '#d6eaf8' },
-        yBAU: { stroke: '#f5b335', fill: '#fdf0d7' },
-        yLTMS: { stroke: '#f97da1', fill: '#f97da1' }
-      },
-      tooltip: {
-        yGHGInventory: { label: 'GHG Inventory' },
-        yLTMS: { label: 'LTMs' },
-        yPPD: { label: 'ppd' },
-        yBAU: { label: 'BaU' },
-        yMPAWEM: { label: 'MPA - WEM' },
-        yMPAWOM: { label: 'MPA - WOM' }
-      },
-      animation: false,
-      columns: {
-        x: [ { label: 'year', value: 'x' } ],
-        lineWithDots: [
-          { label: 'MPA - WEM', value: 'yMPAWEM' },
-          { label: 'MPA - WOM', value: 'yMPAWOM' }
-        ],
-        dots: [ { label: 'GHG Inventory', value: 'yGHGInventory' } ],
-        rangedArea: [
-          { label: 'ppd', value: 'yPPD' },
-          { label: 'BaU', value: 'yBAU' }
-        ],
-        line: [ { label: 'LTMs', value: 'yLTMS' } ]
-      }
-    },
-    initialLineWithDotsColumns: [
-      { label: 'MPA - WEM', value: 'yMPAWEM' },
-      { label: 'MPA - WOM', value: 'yMPAWOM' }
-    ],
-    initialRangedAreaColumns: [
-      { label: 'ppd', value: 'yPPD' },
-      { label: 'BaU', value: 'yBAU' }
-    ],
-    initialDotsColumns: [ { label: 'GHG Inventory', value: 'yGHGInventory' } ],
-    initialLineColumns: [ { label: 'LTMs', value: 'yLTMS' } ],
-    domain: { x: [ 'auto', 'auto' ], y: [ null, 'auto' ] },
-    dataOptions: [
-      { value: 13, label: 'GHG Inventory' },
-      { value: 15, label: 'MPA - WOM' },
-      { value: 14, label: 'MPA - WEM' },
-      { value: 21, label: 'BaU' },
-      { value: 22, label: 'ppd' },
-      { value: 23, label: 'LTMs' }
-    ],
-    dataSelected: [
-      { value: 13, label: 'GHG Inventory' },
-      { value: 15, label: 'MPA - WOM' },
-      { value: 14, label: 'MPA - WEM' },
-      { value: 21, label: 'BaU' },
-      { value: 22, label: 'ppd' },
-      { value: 23, label: 'LTMs' }
-    ],
-    data
-  };
-  return { ...config };
-});
+      initialLineWithDotsColumns: [
+        { label: 'MPA - WEM', value: 'yMPAWEM' },
+        { label: 'MPA - WOM', value: 'yMPAWOM' }
+      ],
+      initialRangedAreaColumns: [
+        { label: 'ppd', value: 'yPPD' },
+        { label: 'BaU', value: 'yBAU' }
+      ],
+      initialDotsColumns: [
+        { label: 'GHG Inventory', value: 'yGHGInventory' }
+      ],
+      initialLineColumns: [ { label: 'LTMs', value: 'yLTMS' } ],
+      domain: { x: [ 'auto', 'auto' ], y: [ null, 'auto' ] },
+      dataOptions,
+      dataSelected,
+      data
+    };
+    return { ...config };
+  }
+);
 
 const addColumnsToConfig = createSelector(getChartData, data => {
   if (!data || !data.dataSelected) return null;

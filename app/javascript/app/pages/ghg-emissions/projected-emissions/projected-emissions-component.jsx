@@ -14,15 +14,16 @@ import isUndefined from 'lodash/isUndefined';
 import styles from './projected-emissions-styles.scss';
 
 class ProjectedEmissions extends PureComponent {
-  handleLegendChange = filtersSelected => {
-    const { updateFilters } = this.props;
-    updateFilters({ dataSelected: filtersSelected });
+  handleModelChange = values => {
+    const { onFilterChange } = this.props;
+    if (values && values.length > 0) {
+      onFilterChange({ dataSelected: values.map(v => v.value).join(',') });
+    }
   };
 
   renderRangedAreas = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     const { config } = this.props.chartData;
-
-    // eslint-disable-line react/destructuring-assignment
     return config && config.columns && config.columns.rangedArea.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
@@ -43,9 +44,8 @@ class ProjectedEmissions extends PureComponent {
   };
 
   renderLinesWithDots = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     const { config } = this.props.chartData;
-
-    // eslint-disable-line react/destructuring-assignment
     return config &&
       config.columns &&
       config.columns.lineWithDots.map(column => {
@@ -67,9 +67,8 @@ class ProjectedEmissions extends PureComponent {
   };
 
   renderDotsLines = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     const { config } = this.props.chartData;
-
-    // eslint-disable-line react/destructuring-assignment
     return config &&
       config.columns &&
       config.columns.dots.map(column => (
@@ -89,8 +88,8 @@ class ProjectedEmissions extends PureComponent {
   };
 
   renderPlainLines = () => {
+    // eslint-disable-next-line react/destructuring-assignment
     const { config } = this.props.chartData;
-    // eslint-disable-line react/destructuring-assignment
     return config && config.columns.line.map(column => {
         const color = config.theme[column.value].stroke || '';
         return (
@@ -127,7 +126,7 @@ class ProjectedEmissions extends PureComponent {
             chartType="composed"
             height={500}
             {...chartData}
-            onLegendChange={this.handleLegendChange}
+            onLegendChange={this.handleModelChange}
             getCustomYLabelFormat={value =>
                   format('~s')(value).replace('G', 'B')}
           >
@@ -146,7 +145,7 @@ class ProjectedEmissions extends PureComponent {
 }
 
 ProjectedEmissions.propTypes = {
-  updateFilters: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
   chartData: PropTypes.object
 };
 
