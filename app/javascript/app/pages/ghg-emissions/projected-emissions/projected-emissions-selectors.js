@@ -2,6 +2,11 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
 
+import lineAndDot from 'assets/icons/legend/line-and-dot.svg';
+import rangeCircle from 'assets/icons/legend/range-circle.svg';
+import strippedLine from 'assets/icons/legend/stripped-line.svg';
+import wideLine from 'assets/icons/legend/wide-line.svg';
+
 const API_DATA_SCALE = 1000000;
 
 const getProjectedEmissionsData = ({ projectedEmissions = {} }) =>
@@ -96,12 +101,16 @@ const getChartData = createSelector(
           }
         },
         theme: {
-          yGHGInventory: { stroke: '#000000', fill: '#000000' },
+          yGHGInventory: {
+            stroke: '#000000',
+            fill: '#000000',
+            icon: strippedLine
+          },
           yMPAWEM: { stroke: '#00955f', fill: '#00955f' },
-          yMPAWOM: { stroke: '#9854b1', fill: '#9854b1' },
-          yPPD: { stroke: '#3498db', fill: '#d6eaf8' },
-          yBAU: { stroke: '#f5b335', fill: '#fdf0d7' },
-          yLTMS: { stroke: '#f97da1', fill: '#f97da1' }
+          yMPAWOM: { stroke: '#9854b1', fill: '#9854b1', icon: lineAndDot },
+          yPPD: { stroke: '#3498db', fill: '#d6eaf8', icon: rangeCircle },
+          yBAU: { stroke: '#f5b335', fill: '#fdf0d7', icon: rangeCircle },
+          yLTMS: { stroke: '#f97da1', fill: '#f97da1', icon: wideLine }
         },
         tooltip: {
           yGHGInventory: { label: 'GHG Inventory' },
