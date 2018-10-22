@@ -57,6 +57,16 @@ spec:
             value: "true"
           - name: RAILS_LOG_TO_STDOUT
             value: "true"
+          - name: HTTP_AUTH_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: appsecrets
+                key: CW_AUTH_USERNAME
+          - name: HTTP_AUTH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: appsecrets
+                key: CW_AUTH_PASSWORD
           - name: POSTGRES_URL
             valueFrom:
                 secretKeyRef:

@@ -56,12 +56,12 @@ spec:
             value: "false"
           - name: RAILS_LOG_TO_STDOUT
             value: "true"
-          - name: AUTH_USERNAME
+          - name: HTTP_AUTH_USERNAME
             valueFrom:
               secretKeyRef:
                 name: appsecrets
                 key: CW_AUTH_USERNAME
-          - name: AUTH_PASSWORD
+          - name: HTTP_AUTH_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: appsecrets
