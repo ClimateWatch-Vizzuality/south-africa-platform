@@ -19,6 +19,12 @@ gem 'responders'
 #gem 'aws-sdk', '~> 2'
 gem 'aws-sdk-s3', '~> 1'
 
+# Add second shared database across country platforms
+gem 'secondbase'
+# Add activeadmin for simple CMS
+gem 'activeadmin'
+gem 'devise'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
