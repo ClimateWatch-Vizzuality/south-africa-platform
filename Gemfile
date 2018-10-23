@@ -16,9 +16,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'responders'
 
-#gem 'aws-sdk', '~> 2'
-gem 'aws-sdk-s3', '~> 1'
-
 # Add second shared database across country platforms
 gem 'secondbase'
 # Add activeadmin for simple CMS
@@ -65,6 +62,13 @@ git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git' do
 end
 
 # for debugging
-# gem 'climate_watch_engine', '~> 1.0.1', path: '../climate-watch-gems'
-# gem 'cw_locations', '~> 1.0.3', require: 'locations', path: '../climate-watch-gems'
-# gem 'cw_historical_emissions', '~> 1.0.3', require: 'historical_emissions', path: '../climate-watch-gems'
+# gem 'climate_watch_engine', '~> 1.3.0', path: '../climate-watch-gems'
+# gem 'cw_locations', '~> 1.3.0', require: 'locations', path: '../climate-watch-gems'
+# gem 'cw_historical_emissions', '~> 1.3.0', require: 'historical_emissions', path: '../climate-watch-gems'
+
+git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git', branch: 'fix/no_need_for_app_name_to_be_an_env_var' do
+  gem 'cw_data_uploader', '~> 0.1.4', require: 'data_uploader'
+end
+
+# for debugging
+# gem 'cw_data_uploader', '~> 0.1.4', require: 'data_uploader', path: '../climate-watch-gems'
