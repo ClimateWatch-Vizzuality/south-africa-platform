@@ -16,7 +16,8 @@ class TabSwitcher extends PureComponent {
       actionsActive,
       activeTabValue,
       onTabChange,
-      onFilterChange
+      onFilterChange,
+      downloadUri
     } = this.props;
     const activeTab = activeTabValue
       ? tabs.find(t => t.value === activeTabValue)
@@ -45,6 +46,7 @@ class TabSwitcher extends PureComponent {
                 (
                   <InfoDownloadToolbox
                     slugs="historical_emissions_cait"
+                    downloadUri={downloadUri}
                     className={styles.buttonWrapper}
                   />
                 )
@@ -90,7 +92,8 @@ TabSwitcher.propTypes = {
   searchActive: PropTypes.bool,
   actionsActive: PropTypes.bool,
   onFilterChange: PropTypes.func,
-  onTabChange: PropTypes.func.isRequired
+  onTabChange: PropTypes.func.isRequired,
+  downloadUri: PropTypes.string
 };
 
 TabSwitcher.defaultProps = {
@@ -100,7 +103,8 @@ TabSwitcher.defaultProps = {
   searchActive: true,
   actionsActive: true,
   onFilterChange: () => {
-  }
+  },
+  downloadUri: null
 };
 
 export default TabSwitcher;

@@ -57,7 +57,11 @@ class Energy extends PureComponent {
     );
     const toolbar = (
       <div className={styles.toolbarButtons}>
-        <InfoDownloadToolbox slugs="energy" className={styles.buttonWrapper} />
+        <InfoDownloadToolbox
+          slugs="energy"
+          downloadUri="national_circumstance/categories"
+          className={styles.buttonWrapper}
+        />
       </div>
     );
     return (

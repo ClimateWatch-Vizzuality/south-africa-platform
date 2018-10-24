@@ -33,7 +33,12 @@ class PopulationTab extends PureComponent {
       </Card>
     );
 
-    const toolbar = <InfoDownloadToolbox slugs="populations" />;
+    const toolbar = (
+      <InfoDownloadToolbox
+        slugs="populations"
+        downloadUri="national_circumstance/categories"
+      />
+    );
     return (
       <div className="section">
         <div className={styles.toolbox}>

@@ -118,7 +118,10 @@ class ProjectedEmissions extends PureComponent {
             title="Projected Emissions"
             theme={{ sectionTitle: styles.title }}
           />
-          <InfoDownloadToolbox slugs="projected_emissions" />
+          <InfoDownloadToolbox
+            slugs="projected_emissions"
+            downloadUri="ghg/projected_emissions"
+          />
         </div>
         {
           chartData && chartData.config && (

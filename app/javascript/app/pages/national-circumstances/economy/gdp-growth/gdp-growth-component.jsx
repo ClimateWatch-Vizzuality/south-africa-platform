@@ -43,7 +43,10 @@ class GDPGrowth extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox slugs="economy" />
+          <InfoDownloadToolbox
+            slugs="economy"
+            downloadUri="national_circumstance/categories"
+          />
         </div>
         <div className={styles.chart}>
           {

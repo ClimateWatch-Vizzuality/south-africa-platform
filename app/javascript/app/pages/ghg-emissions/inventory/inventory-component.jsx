@@ -64,6 +64,7 @@ class GHGInventory extends PureComponent {
           searchFilter={searchFilter}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
+          downloadUri="inventory_improvement_projects"
         />
         <GHGInventoryProvider />
       </div>
