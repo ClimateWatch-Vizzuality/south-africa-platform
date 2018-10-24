@@ -47,6 +47,7 @@ class TotalGhgEmissions extends PureComponent {
         </Button>
         <InfoDownloadToolbox
           slugs="historical_emissions_cait"
+          /* downloadUri={} */
           className={styles.buttonWrapper}
         />
       </div>
