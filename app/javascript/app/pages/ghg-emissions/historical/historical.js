@@ -21,9 +21,9 @@ class HistoricalContainer extends PureComponent {
 
 HistoricalContainer.propTypes = {
   updateFiltersSelected: PropTypes.func.isRequired,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object
 };
 
-HistoricalContainer.defaultProps = {};
+HistoricalContainer.defaultProps = { query: {} };
 
 export default connect(mapStateToProps, actions)(HistoricalContainer);
