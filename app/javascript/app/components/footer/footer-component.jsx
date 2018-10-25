@@ -12,7 +12,7 @@ class Footer extends PureComponent {
       <footer className={styles.footer}>
         <div className={styles.grid}>
           <div className={styles.content}>
-            <span>Support received from:</span>
+            <span>In cooperation with:</span>
             {partners.map(
               partner => partner.img && (
               <div key={partner.img.alt} className={styles.logoContainer}>

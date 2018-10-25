@@ -9,9 +9,12 @@ import ReactTooltip from 'react-tooltip';
 import ModalMetadata from 'components/modal-metadata';
 import styles from './info-download-toolbox-styles.scss';
 
+const { API_URL } = process.env;
+
 class InfoDownloadToolbox extends PureComponent {
   handleDownloadClick = () => {
-    console.info('TODO: Download ');
+    const { downloadUri } = this.props;
+    if (downloadUri) window.open(`${API_URL}/${downloadUri}.csv`, '_blank');
   };
 
   handleInfoClick = () => {
@@ -22,7 +25,7 @@ class InfoDownloadToolbox extends PureComponent {
   };
 
   render() {
-    const { theme } = this.props;
+    const { theme, downloadUri } = this.props;
     return (
       <ButtonGroup
         theme={{ wrapper: cx(styles.buttonWrapper, theme.buttonWrapper) }}
@@ -43,7 +46,7 @@ class InfoDownloadToolbox extends PureComponent {
             theme={{
               button: cx(buttonThemes.outline, styles.button, theme.infobutton)
             }}
-            disabled
+            disabled={!downloadUri}
           >
             <Icon icon={downloadIcon} />
           </Button>
@@ -65,9 +68,14 @@ InfoDownloadToolbox.propTypes = {
     infobutton: PropTypes.string
   }),
   slugs: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
+  downloadUri: PropTypes.string,
   setModalMetadata: PropTypes.func.isRequired
 };
 
-InfoDownloadToolbox.defaultProps = { theme: {}, slugs: null };
+InfoDownloadToolbox.defaultProps = {
+  theme: {},
+  slugs: null,
+  downloadUri: null
+};
 
 export default InfoDownloadToolbox;

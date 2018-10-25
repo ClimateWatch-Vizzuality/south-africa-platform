@@ -4,7 +4,6 @@ import { Dropdown } from 'cw-components';
 import Chart from 'components/chart';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
-import DistributionByAgeProvider from 'providers/distribution-by-age-provider';
 
 import styles from './distribution-by-age-styles.scss';
 
@@ -31,7 +30,12 @@ class PopulationTab extends PureComponent {
       />
     );
 
-    const toolbar = <InfoDownloadToolbox slugs="distribution-by-age" />;
+    const toolbar = (
+      <InfoDownloadToolbox
+        slugs="distribution-by-age"
+        downloadUri="national_circumstance/categories"
+      />
+    );
 
     return (
       <div className="section">
@@ -54,11 +58,11 @@ class PopulationTab extends PureComponent {
           data={data}
           domain={domain}
           height={500}
+          customMessage="No data"
         />
         <TabletPortraitOnly>
           {toolbar}
         </TabletPortraitOnly>
-        <DistributionByAgeProvider />
       </div>
     );
   }

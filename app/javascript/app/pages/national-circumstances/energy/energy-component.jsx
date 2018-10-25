@@ -5,58 +5,63 @@ import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Dropdown } from 'cw-components';
 import Chart from 'components/chart';
-import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
+import { format } from 'd3-format';
 
 import styles from './energy-styles';
 
 class Energy extends PureComponent {
-  handleSourceChange = source => {
+  handleFilterChange = (field, value) => {
     const { onFilterChange } = this.props;
-    onFilterChange({ dataSource: source.value });
+    onFilterChange({ [field]: value.value });
   };
 
-  handleMetricChange = metric => {
+  handleSectorChange = values => {
     const { onFilterChange } = this.props;
-    onFilterChange({ metric: metric.value });
+    if (values && values.length > 0) {
+      onFilterChange({ sector: values.map(v => v.value).join(',') });
+    }
   };
 
   handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
+    console.info('TODO: link to download data endpoint', this.props);
   };
 
   render() {
     const {
-      sourceSelected,
-      sourceOptions,
       metricSelected,
       metricOptions,
-      emissionsParams,
+      chartTypeSelected,
+      chartTypeOptions,
       chartData
     } = this.props;
-
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
         <Dropdown
           theme={{ wrapper: styles.dropdown }}
-          options={sourceOptions}
-          value={sourceSelected}
-          onValueChange={this.handleSourceChange}
+          options={metricOptions}
+          value={metricSelected}
+          onValueChange={value => this.handleFilterChange('metric', value)}
           hideResetButton
         />
         <Dropdown
           theme={{ wrapper: styles.dropdown }}
-          options={metricOptions}
-          value={metricSelected}
-          onValueChange={this.handleMetricChange}
+          options={chartTypeOptions}
+          value={chartTypeSelected}
+          onValueChange={value => this.handleFilterChange('chartType', value)}
           hideResetButton
         />
       </div>
     );
     const toolbar = (
       <div className={styles.toolbarButtons}>
-        <InfoDownloadToolbox slugs="energy" className={styles.buttonWrapper} />
+        <InfoDownloadToolbox
+          slugs="energy"
+          downloadUri="national_circumstance/categories"
+          className={styles.buttonWrapper}
+        />
       </div>
     );
     return (
@@ -78,10 +83,11 @@ class Energy extends PureComponent {
           </TabletLandscape>
           <div className={styles.chart}>
             <Chart
-              type="area"
+              type={chartTypeSelected.value}
               dots={false}
               customMessage="Emissions data not available"
-              hideRemoveOptions
+              onLegendChange={this.handleSectorChange}
+              getCustomYLabelFormat={value => format('~s')(value)}
               {...chartData}
             />
           </div>
@@ -89,7 +95,7 @@ class Energy extends PureComponent {
             {toolbar}
           </TabletPortraitOnly>
         </Section>
-        {emissionsParams && <GHGEmissionsProvider params={emissionsParams} />}
+        <NationalCircumstancesProvider />
         <WorldBankProvider />
         <ModalMetadata />
       </React.Fragment>
@@ -99,6 +105,9 @@ class Energy extends PureComponent {
 
 Energy.propTypes = {
   chartData: PropTypes.object,
+  chartTypeOptions: PropTypes.array,
+  chartTypeSelected: PropTypes.object,
+  chartType: PropTypes.string,
   sourceOptions: PropTypes.array,
   sourceSelected: PropTypes.object,
   metricOptions: PropTypes.array,
@@ -110,6 +119,9 @@ Energy.propTypes = {
 
 Energy.defaultProps = {
   chartData: {},
+  chartTypeOptions: [],
+  chartTypeSelected: null,
+  chartType: 'line',
   sourceOptions: [],
   sourceSelected: null,
   metricOptions: [],

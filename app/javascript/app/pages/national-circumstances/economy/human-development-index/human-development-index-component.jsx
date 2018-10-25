@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Chart } from 'cw-components';
-import HumanDevelopmentIndexProvider from 'providers/human-development-index-provider';
+import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import { CustomYAxisTick } from './axis-ticks';
 import HdiTooltip from './hdi-tooltip-chart';
 
@@ -18,21 +18,29 @@ class HumanDevelopmentIndex extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox slugs="economy" />
-        </div>
-        <div className={styles.chart}>
-          <Chart
-            type="line"
-            lineType="linear"
-            dots={false}
-            customMessage="Economy data not available"
-            hideRemoveOptions
-            customYAxisTick={<CustomYAxisTick />}
-            customTooltip={<HdiTooltip />}
-            {...chartData}
+          <InfoDownloadToolbox
+            slugs="economy"
+            downloadUri="national_circumstance/categories"
           />
         </div>
-        <HumanDevelopmentIndexProvider />
+        <div className={styles.chart}>
+          {
+            chartData &&
+              (
+                <Chart
+                  type="line"
+                  lineType="linear"
+                  dots={false}
+                  customMessage="Economy data not available"
+                  hideRemoveOptions
+                  customYAxisTick={<CustomYAxisTick />}
+                  customTooltip={<HdiTooltip />}
+                  {...chartData}
+                />
+              )
+          }
+        </div>
+        <NationalCircumstancesProvider />
       </React.Fragment>
     );
   }

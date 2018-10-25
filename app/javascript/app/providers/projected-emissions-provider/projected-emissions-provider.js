@@ -9,8 +9,8 @@ import reducers, {
 
 class ProjectedEmissionsProvider extends PureComponent {
   componentDidMount() {
-    const { fetchProjectedEmissions, params } = this.props;
-    fetchProjectedEmissions(params);
+    const { fetchProjectedEmissions } = this.props;
+    fetchProjectedEmissions();
   }
 
   render() {
@@ -19,8 +19,7 @@ class ProjectedEmissionsProvider extends PureComponent {
 }
 
 ProjectedEmissionsProvider.propTypes = {
-  fetchProjectedEmissions: PropTypes.func.isRequired,
-  params: PropTypes.object.isRequired
+  fetchProjectedEmissions: PropTypes.func.isRequired
 };
 
 export const reduxModule = { actions, reducers, initialState };

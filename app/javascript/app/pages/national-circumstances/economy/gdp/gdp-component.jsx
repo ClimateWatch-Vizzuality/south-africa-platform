@@ -31,7 +31,12 @@ class GDP extends PureComponent {
         hideResetButton
       />
     );
-    const toolbar = <InfoDownloadToolbox slugs="economy" />;
+    const toolbar = (
+      <InfoDownloadToolbox
+        slugs="economy"
+        downloadUri="national_circumstance/categories"
+      />
+    );
     return (
       <React.Fragment>
         <TabletLandscape>

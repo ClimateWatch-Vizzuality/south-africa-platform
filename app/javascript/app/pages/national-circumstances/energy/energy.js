@@ -23,9 +23,9 @@ class EnergyContainer extends PureComponent {
 
 EnergyContainer.propTypes = {
   updateFiltersSelected: PropTypes.func.isRequired,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object
 };
 
-EnergyContainer.defaultProps = {};
+EnergyContainer.defaultProps = { query: {} };
 
 export default connect(mapStateToProps, actions)(EnergyContainer);
