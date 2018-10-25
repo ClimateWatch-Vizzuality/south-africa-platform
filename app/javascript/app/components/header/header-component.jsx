@@ -34,8 +34,10 @@ class Header extends PureComponent {
             </div>
             <div className={cx(styles.navElement, styles.pageTitleContainer)}>
               <Link to="/" onTouchStart={undefined} onMouseDown={undefined}>
-                <div className={styles.climateText}>SOUTH AFRICA BIENNIAL</div>
-                <div className={styles.reportText}>UPDATE REPORT EXPLORER</div>
+                <div className={styles.climateText}>SOUTH AFRICA</div>
+                <div className={styles.reportText}>
+                  BIENNIAL UPDATE REPORT EXPLORER
+                </div>
               </Link>
             </div>
             <div className={cx(styles.navElement, styles.flagContainer)}>
