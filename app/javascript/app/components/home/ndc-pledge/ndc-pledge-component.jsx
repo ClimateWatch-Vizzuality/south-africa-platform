@@ -21,13 +21,10 @@ class NDCPledge extends PureComponent {
             title="South Africa National Determined Contribution (NDC) pledge and ambition"
           />
           <p className={styles.ndcDescription}>
-            South Africa’s Nationally Determined Contribution represents is commitment for climate mitigation and adaptation under the Paris Agreement
+            Under South Africa’s NDC,  GHG emissions will peak between 2020 and 2025, plateau for approximately a decade, landing in the range of 398-614 MtCO2eq as defined by national policy, and decline in absolute terms thereafter.
           </p>
           <p className={styles.ndcDescription}>
-            South Africa’s emissions will range within 398 to 614 Mt CO2–eq, by 2025 and 2030, as defined in the National Climate Change Response Policy.
-          </p>
-          <p className={styles.ndcDescription}>
-            Adaptation is addressed through six goals: A National Adaptation Plan; consideration, integration of adaptation investment needs and, institutional capacity building into policy, planning and implementation processes; vulnerability assessment and adaptation needs framework; early warning, vulnerability and adaptation monitoring system and communication of investments in adaptation.
+            The adaptation component of South Africa’s NDC will address adaptation through six goals, underpinned by key elements of adaptation planning, pricing of adaptation investment requirements, equity, and means of implementation.
           </p>
           <Button /* onClick={handleNDCPledgeClick} */
             theme={{ button: cx(button.white, styles.learnMoreButton) }}
