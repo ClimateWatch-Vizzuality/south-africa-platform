@@ -62,7 +62,7 @@ export const getYearSelected = createSelector(
   [ getYearOptions, getYearParam ],
   (years, year) => {
     if (!years) return null;
-    if (!year) return years[0];
+    if (!year) return years[years.length - 1];
     return years.find(y => y.value === year);
   }
 );
