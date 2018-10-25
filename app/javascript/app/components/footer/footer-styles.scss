@@ -59,6 +59,7 @@ $margin-top-footer: 120px;
   font-size: $font-size-xs;
   font-family: $font-family-1;
   color: $raven;
+  display: flex;
 }
 
 .footer {
@@ -66,6 +67,22 @@ $margin-top-footer: 120px;
 }
 
 .logoContainer {
+  width: 120px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 15px 30px 15px 0;
+}
+
+.founders {
+  display: flex;
+
+  .foundersLogo {
+    max-width: 120%;
+  }
+}
+
+.foundersContainer {
   width: 120px;
   display: flex;
   justify-content: flex-start;
@@ -81,6 +98,15 @@ $margin-top-footer: 120px;
   }
 }
 
+.BMULogo {
+  height: 100%;
+}
+
 .defaultLogo {
   width: 100px;
+}
+
+.disclaimer {
+  color: $raven;
+  font-size: $font-size-xs;
 }
