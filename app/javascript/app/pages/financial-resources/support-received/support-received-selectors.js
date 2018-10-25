@@ -56,7 +56,7 @@ const getDonorOptions = createSelector(filterDataByFinanceFlow, data => {
   return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) || null;
 });
 
-const getChartTypeOptions = () => parseOptions([ 'Flows', 'Comparison' ]);
+const getChartTypeOptions = () => parseOptions([ 'Flows', 'Bubble Chart' ]);
 
 const getFinancialFlowValues = createSelector(
   [ getQueryParams, getFinancialFlowOptions ],

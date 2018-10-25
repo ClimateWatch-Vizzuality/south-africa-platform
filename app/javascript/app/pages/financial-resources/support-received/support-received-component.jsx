@@ -53,7 +53,7 @@ class SupportReceived extends PureComponent {
       <Fragment>
         {this.renderDropdowns()}
         {
-          values && values.chartType.value === 'Comparison'
+          values && values.chartType.value === 'Bubble Chart'
             ? (
               <ComparisonChart
                 selectedValues={values}
