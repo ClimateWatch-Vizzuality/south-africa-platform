@@ -26,14 +26,13 @@
   background-color: $porcelain;
 
   .ndcImage {
-    object-fit: cover;
-    object-position: top;
     padding-bottom: $gutter-padding;
     display: block;
     height: 400px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top;
+    background-image: url('assets/south-africa-ndc/ndc@2x.jpg');
 
     @media #{$tablet-landscape} {
       height: auto;

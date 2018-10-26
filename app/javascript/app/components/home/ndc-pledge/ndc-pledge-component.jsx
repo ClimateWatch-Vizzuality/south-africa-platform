@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import NDCImage from 'assets/south-africa-ndc/ndc@2x.jpg';
 import SectionTitle from 'components/section-title';
 import { Button } from 'cw-components';
 import button from 'styles/themes/button';
@@ -10,10 +9,7 @@ class NDCPledge extends PureComponent {
   render() {
     return (
       <div className={styles.ndcContainer}>
-        <div
-          style={{ backgroundImage: `url(${NDCImage})` }}
-          className={styles.ndcImage}
-        />
+        <div className={styles.ndcImage} />
         <div className={styles.ndcTextContainer}>
           <SectionTitle
             isSubtitle
