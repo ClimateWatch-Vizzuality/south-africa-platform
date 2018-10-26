@@ -21,14 +21,15 @@ const getActiveTabValue = createSelector(
 const defaultColumns = [
   'theme',
   'name',
-  'objectives',
+  'objectives/progress',
   'type',
   'status',
   'actor',
   'time_horizon',
   'ghg',
-  'estimated_emission_reduction'
+  'estimated_emissions_reduction'
 ];
+
 const ellipsisColumns = [];
 
 const filterMitigationDataByTab = createSelector(
@@ -71,11 +72,14 @@ const renameMitigationColumns = createSelector(getParsedMitigation, data => {
         case 'mitigationType':
           updatedD.type = d.mitigationType;
           break;
+        case 'objectives':
+          updatedD['objectives/progress'] = d.objectives;
+          break;
         case 'timeHorizon':
           updatedD.time_horizon = d.timeHorizon;
           break;
         case 'estimatedEmissionReduction':
-          updatedD.estimated_emission_reduction = d.estimatedEmissionReduction;
+          updatedD.estimated_emissions_reduction = d.estimatedEmissionReduction;
           break;
         default:
           updatedD[key] = d[key];
