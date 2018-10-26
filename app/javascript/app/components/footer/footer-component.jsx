@@ -54,10 +54,7 @@ class Footer extends PureComponent {
                       className={styles.foundersContainer}
                     >
                       <a
-                        className={cx(
-                          styles.logo,
-                          styles[founder.img.customClass]
-                        )}
+                        className={styles[founder.img.customClass]}
                         href={founder.link}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -68,6 +65,16 @@ class Footer extends PureComponent {
                           alt={founder.img.alt}
                         />
                       </a>
+                      {
+                        founder.description && (
+                        <div
+                          className={styles.description}
+                          key={founder.id}
+                        >
+                          {founder.description}
+                        </div>
+                          )
+                      }
                     </div>
                   ))}
                 </div>
