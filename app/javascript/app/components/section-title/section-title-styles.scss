@@ -3,7 +3,6 @@
 .sectionTitleContainer {
   display: flex;
   margin-bottom: $gutter-padding;
-  margin-top: $gutter-padding * 2;
 }
 
 .sectionTitle {
@@ -20,8 +19,9 @@
   font-weight: $font-weight;
   color: $midnightblue;
   margin-bottom: $gutter-padding;
+  margin-top: $gutter-padding * 2;
 }
 
 .iconContainer {
-  margin: -22px 0 0 10px;
+  margin: ($gutter-padding + 10px) 0 0 10px;
 }
