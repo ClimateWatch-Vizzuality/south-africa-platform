@@ -101,7 +101,7 @@ const getDropdownConfig = createSelector(getActiveTabValue, tab => {
   const dropdowns = {
     chartType: { label: 'Chart type', slug: 'chartType' },
     financialFlow: { label: 'Financial flows', slug: 'financialFlow' },
-    donor: { label: 'Donor', slug: 'donor' }
+    donor: { label: 'Source of finance', slug: 'donor' }
   };
   const { chartType, financialFlow, donor } = dropdowns;
   const sectionDropdowns = {
