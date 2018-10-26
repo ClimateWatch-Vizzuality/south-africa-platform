@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, ModalHeader } from 'cw-components';
+import styles from './modal-info-styles';
 
 class ModalInfo extends PureComponent {
   render() {
@@ -11,7 +12,9 @@ class ModalInfo extends PureComponent {
         isOpen={isOpen}
         header={<ModalHeader title={title} />}
       >
-        {children}
+        <div className={styles.modalContent}>
+          {children}
+        </div>
       </Modal>
     );
   }

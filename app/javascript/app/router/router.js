@@ -51,8 +51,7 @@ export const routes = {
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',
     sections: MitigationSections,
-    description: `South Africa’s approach to mitigation is informed by its contribution to the international effort to reduce global GHG emissions and its successful management of development and poverty eradication challenges. South Africa is committed to address climate change based on science and equity and to work with others to ensure global average temperature increases are kept well below 2°C and potentially 1.5°C above pre-industrial levels. Global average temperature increase of 2°C translates to up to 4°C for South Africa by the end of the century.
-      South Africa’s mitigation action will be accessed against its commitment to reduce emissions to a range between 398 and 614 CO2 - eq by 2030 and 2050, as defined in national policy.`
+    description: `South Africa’s approach to mitigation is informed by its contribution to the international effort to reduce global GHG emissions and its successful management of development and poverty eradication challenges. South Africa is committed to addressing climate change based on science and equity and to work with others to ensure global average temperature increases are kept well below 2°C and potentially 1.5°C above pre-industrial levels. Global average temperature increase of 2°C translates to up to 4°C for South Africa by the end of the century. South Africa’s mitigation action will be accessed against its commitment to reduce emissions to a range between 398 and 614 CO2-eq by 2030 and 2050, as defined in national policy.`
   },
   [FLAGSHIP_DETAIL]: {
     link: '/mitigation/flagship-programmes-detail',

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'cw-components';
 import SectionTitle from 'components/section-title';
 import NaturalDisastersDataProvider from 'providers/natural-disasters-data-provider';
+import ModalInfo from 'components/modal-info';
 import styles from './natural-disasters-styles.scss';
 
 function createMarkup(description) {
@@ -14,7 +15,10 @@ class NaturalDisasters extends PureComponent {
     const { naturalDisastersData } = this.props;
     return (
       <div className={styles.sectionWrapper}>
-        <SectionTitle isSubtitle title="Natural Disasters" />
+        <SectionTitle isSubtitle title="Natural Disasters" infoButton />
+        <ModalInfo title="Natural Disasters">
+          South Africa is exposed to natural disasters including drought, floods and wildfires. Economic losses from weather-related disasters have increased in recent years.
+        </ModalInfo>
         <div className={styles.cardsContainer}>
           {
             naturalDisastersData && naturalDisastersData.map(card => (

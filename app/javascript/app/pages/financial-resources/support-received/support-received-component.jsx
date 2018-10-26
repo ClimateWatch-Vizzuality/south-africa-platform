@@ -4,6 +4,7 @@ import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
+import ModalInfo from 'components/modal-info';
 import styles from './support-received-styles.scss';
 import FlowsChart from './flows-chart';
 import ComparisonChart from './comparison-chart';
@@ -87,7 +88,10 @@ class SupportReceived extends PureComponent {
 
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Support Received" />
+        <SectionTitle isSubtitle title="Support Received" infoButton />
+        <ModalInfo title="Support Received">
+          The financial support committed and received from international sources, as well as domestic funds committed through government grants and loans, are reported below.
+        </ModalInfo>
         <TabSwitcher
           tabs={renderTabs}
           searchActive={false}

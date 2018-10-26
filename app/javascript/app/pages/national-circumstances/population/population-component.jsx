@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
+import ModalInfo from 'components/modal-info';
 import PopulationTab from './population-tab';
 import DistributionByAge from './distribution-by-age';
 
@@ -58,7 +59,10 @@ class Population extends PureComponent {
     const { activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Population" />
+        <SectionTitle isSubtitle title="Population" infoButton />
+        <ModalInfo title="Population">
+          South Africa’s population is estimated at 54 million people. The estimated population growth rate has steadily increased from approximately 1.27% from 2002–2003 to 1.58% from 2013–2014.
+        </ModalInfo>
         <TabSwitcher
           tabs={this.renderTabs()}
           actionsActive={false}
@@ -72,7 +76,6 @@ class Population extends PureComponent {
     );
   }
 }
-
 Population.propTypes = {
   query: PropTypes.object,
   populationList: PropTypes.object,
@@ -82,7 +85,6 @@ Population.propTypes = {
   yearsOptions: PropTypes.array,
   yearSelected: PropTypes.object
 };
-
 Population.defaultProps = {
   query: null,
   activeTabValue: null,
@@ -91,5 +93,4 @@ Population.defaultProps = {
   yearsOptions: [],
   yearSelected: {}
 };
-
 export default Population;
