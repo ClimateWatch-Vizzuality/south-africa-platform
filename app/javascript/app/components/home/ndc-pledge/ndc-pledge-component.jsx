@@ -2,10 +2,15 @@ import React, { PureComponent } from 'react';
 import SectionTitle from 'components/section-title';
 import { Button } from 'cw-components';
 import button from 'styles/themes/button';
+import { SOUTH_AFRICA_NDC_SUBMISSION } from 'constants/links';
 import cx from 'classnames';
 import styles from './ndc-pledge-styles.scss';
 
 class NDCPledge extends PureComponent {
+  handleNDCPledgeClick = () => {
+    window.open(SOUTH_AFRICA_NDC_SUBMISSION, '_blank');
+  };
+
   render() {
     return (
       <div className={styles.ndcContainer}>
@@ -22,11 +27,11 @@ class NDCPledge extends PureComponent {
           <p className={styles.ndcDescription}>
             The adaptation component of South Africa’s NDC will address adaptation through six goals, underpinned by key elements of adaptation planning, pricing of adaptation investment requirements, equity, and means of implementation.
           </p>
-          <Button /* onClick={handleNDCPledgeClick} */
+          <Button
+            onClick={this.handleNDCPledgeClick}
             theme={{ button: cx(button.white, styles.learnMoreButton) }}
-            disabled
           >
-            Learn More
+            Explore NDC submission
           </Button>
         </div>
       </div>
