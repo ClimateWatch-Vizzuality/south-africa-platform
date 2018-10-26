@@ -29,7 +29,7 @@ class SectionTitle extends PureComponent {
           infoButton && (
           <button
             onClick={this.handleInfoClick}
-            className={styles.iconContainer}
+            className={cx(styles.iconContainer, theme.iconContainer)}
             type="button"
           >
             <Icon icon={iconInfo} />

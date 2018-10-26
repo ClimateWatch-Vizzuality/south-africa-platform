@@ -117,7 +117,7 @@ class ProjectedEmissions extends PureComponent {
           <SectionTitle
             isSubtitle
             title="Projected Emissions"
-            theme={{ sectionTitle: styles.title }}
+            theme={{ sectionTitle: styles.title, iconContainer: styles.icon }}
             infoButton
           />
           <ModalInfo title="Projected Emissions">
@@ -155,6 +155,5 @@ ProjectedEmissions.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   chartData: PropTypes.object
 };
-
 ProjectedEmissions.defaultProps = { chartData: {} };
 export default ProjectedEmissions;
