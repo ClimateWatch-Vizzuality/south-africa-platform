@@ -33,7 +33,7 @@ class GDP extends PureComponent {
     );
     const toolbar = (
       <InfoDownloadToolbox
-        slugs="economy"
+        slugs="+++gdp"
         downloadUri="national_circumstance/categories"
       />
     );

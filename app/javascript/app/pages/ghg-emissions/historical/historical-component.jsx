@@ -61,7 +61,7 @@ class GHGHistoricalEmissions extends PureComponent {
     const toolbar = (
       <div className={styles.toolbarButtons}>
         <InfoDownloadToolbox
-          slugs="historical_emissions_cait"
+          slugs="+++historical_emissions"
           className={styles.buttonWrapper}
         />
       </div>

@@ -1,6 +1,6 @@
 import { createAction, createThunkAction } from 'redux-tools';
 
-const { CW_API_URL } = process.env;
+const { API_URL } = process.env;
 
 export const setModalMetadataParams = createAction('setModalMetadataParams');
 
@@ -35,13 +35,10 @@ export const fetchModalMetaData = createThunkAction(
     if (slugsToFetch.length > 0) {
       dispatch(fetchModalMetaDataInit());
       const promises = slugsToFetch.map(
-        slug =>
-          fetch(
-            `${CW_API_URL}/metadata/${slug.toLowerCase()}`
-          ).then(response => {
-            if (response.ok) return response.json();
-            throw Error(response.statusText);
-          })
+        () => fetch(`${API_URL}/metadata`).then(response => {
+          if (response.ok) return response.json();
+          throw Error(response.statusText);
+        })
       );
 
       Promise
