@@ -11,6 +11,7 @@ const DataTable = ({ tableData, searchFilter, ...props }) => {
         horizontalScroll
         tableHeight={660}
         setRowsHeight={() => 120}
+        dynamicRowsHeight
         hasColumnSelect={false}
         {...tableData}
         {...props}
