@@ -125,7 +125,7 @@ const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
       );
     }
 
-    if (values.financialFlow.value !== 'All selected') {
+    if (values.financialFlow && values.financialFlow.value !== 'All selected') {
       updatedData = updatedData.filter(
         d => d.typeFunds === values.financialFlow.value
       );
