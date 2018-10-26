@@ -16,8 +16,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'responders'
 
-# Add second shared database across country platforms
-gem 'secondbase'
 # Add activeadmin for simple CMS
 gem 'activeadmin'
 gem 'devise'
