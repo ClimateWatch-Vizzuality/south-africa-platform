@@ -46,7 +46,7 @@ class MitigationActions extends PureComponent {
     const { searchFilter, activeTabValue } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Mitigation actions" infoButton />
+        <SectionTitle isSubtitle title="Mitigation Actions" infoButton />
         <ModalInfo title="Mitigation actions">
           <p>
             South Africa’s national government will implement a mix of policies and measures over five-year periods. The 2016 and 2020 phase will focus demonstrating policies to meet South Africa’s Cancun pledge. The 2021-2025 and 2026-2030 phases will focus on achieving the pledges made in South Africa’s NDC.
