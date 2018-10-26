@@ -43,6 +43,7 @@ import {
 
 // Components
 import { reduxModule as modalMetadata } from 'components/modal-metadata';
+import { reduxModule as modalInfo } from 'components/modal-info';
 
 const providersReducers = {
   GHGEmissions: handleModule(ghgEmissions),
@@ -57,6 +58,7 @@ const providersReducers = {
   countriesOverviewData: handleModule(countriesOverview),
   naturalDisastersData: handleModule(naturalDisastersData),
   modalMetadata: handleModule(modalMetadata),
+  modalInfo: handleModule(modalInfo),
   projectedEmissions: handleModule(projectedEmissions),
   nationalCircumstances: handleModule(nationalCircumstances),
   nationalCircumstancesPriorities: handleModule(nationalCircumstancesPriorities)

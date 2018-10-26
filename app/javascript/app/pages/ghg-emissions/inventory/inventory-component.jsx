@@ -9,6 +9,7 @@ import { Button, Icon } from 'cw-components';
 import DataTable from 'components/data-table';
 import button from 'styles/themes/button';
 import { GHG_NATIONAL_REPORT } from 'constants/links';
+import ModalInfo from 'components/modal-info';
 import styles from './inventory-styles.scss';
 
 class GHGInventory extends PureComponent {
@@ -44,7 +45,11 @@ class GHGInventory extends PureComponent {
             <SectionTitle
               isSubtitle
               title="GHG Inventory Improvement Programme"
+              infoButton
             />
+            <ModalInfo title="GHG Inventory Improvement Programme">
+              South Africa strives to continuously improve its national GHG inventory through the National Greenhouse Gas Improvement Programmes,  a series of sector-specific projects that target improvements in activity data collection, country-specific methodologies and emission factors used.
+            </ModalInfo>
             <div className={styles.actionContainer}>
               <div className={styles.downloadDescription}>
                 Download a full Inventory Report

@@ -46,3 +46,9 @@
     width: 200px;
   }
 }
+
+.description {
+  line-height: $line-height;
+  color: $midnightblue;
+  padding-bottom: $gutter-padding;
+}

@@ -9,6 +9,7 @@ import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
+import ModalInfo from 'components/modal-info';
 
 import styles from './historical-styles';
 
@@ -69,7 +70,10 @@ class GHGHistoricalEmissions extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle isSubtitle title="Historical emissions" />
+          <SectionTitle isSubtitle title="Historical emissions" infoButton />
+          <ModalInfo title="Historical emissions">
+            This section presents a summary of South Africa’s most recent GHG inventory, covering the following emissions sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste. Full details are reported in South Africa’s 2017 GHG National Inventory Report.
+          </ModalInfo>
           <TabletLandscape>
             {matches => {
               if (matches) {
@@ -105,7 +109,6 @@ class GHGHistoricalEmissions extends PureComponent {
     );
   }
 }
-
 GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
   sectorOptions: PropTypes.array,
@@ -116,7 +119,6 @@ GHGHistoricalEmissions.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired
 };
-
 GHGHistoricalEmissions.defaultProps = {
   chartData: {},
   sectorOptions: [],
@@ -125,5 +127,4 @@ GHGHistoricalEmissions.defaultProps = {
   metricSelected: null,
   emissionsParams: null
 };
-
 export default GHGHistoricalEmissions;

@@ -39,13 +39,7 @@
 }
 
 .description {
-  width: 100%;
   line-height: $line-height;
-
-  @media #{$tablet-landscape} {
-    width: 50%;
-  }
-
   color: $midnightblue;
   padding-bottom: $gutter-padding;
 }

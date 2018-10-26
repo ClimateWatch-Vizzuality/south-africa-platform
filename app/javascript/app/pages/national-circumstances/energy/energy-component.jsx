@@ -9,6 +9,7 @@ import NationalCircumstancesProvider from 'providers/national-circumstances-prov
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { format } from 'd3-format';
+import ModalInfo from 'components/modal-info';
 
 import styles from './energy-styles';
 
@@ -67,7 +68,10 @@ class Energy extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle isSubtitle title="Energy supply" />
+          <SectionTitle isSubtitle title="Energy supply" infoButton />
+          <ModalInfo title="Energy supply">
+            Energy production and mining are the largest sources of GHG emissions in South Africa... The energy intensity of the South African economy has resulted in an emissions profile that differs substantially from that of other developing countries, particularly on the African continent.
+          </ModalInfo>
           <TabletLandscape>
             {matches => {
               if (matches) {

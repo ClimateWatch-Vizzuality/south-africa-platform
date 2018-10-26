@@ -16,25 +16,40 @@
   @include columns();
 
   @media #{$tablet-landscape} {
-    @include columns(6);
+    @include columns($columns: (6, 5, 1));
   }
 
+  @media #{$desktop} {
+    @include columns($columns: (6, 4, 2));
+  }
+
+  background-color: $porcelain;
+
   .ndcImage {
-    max-width: 100%;
-    object-fit: cover;
-    height: auto;
     padding-bottom: $gutter-padding;
     display: block;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-image: url('assets/south-africa-ndc/ndc@2x.jpg');
 
     @media #{$tablet-landscape} {
+      height: auto;
+      max-width: 48%;
       padding-bottom: 0;
     }
   }
 
   .ndcTextContainer {
-    padding-left: $gutter-padding;
+    padding: 0 0 $gutter-padding $gutter-padding;
     display: flex;
     flex-direction: column;
+    height: auto;
+
+    @media #{$tablet-landscape} {
+      height: fit-content;
+    }
 
     .ndcTitle {
       font-weight: bold;

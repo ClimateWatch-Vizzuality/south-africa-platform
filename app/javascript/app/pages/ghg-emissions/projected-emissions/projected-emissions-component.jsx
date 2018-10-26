@@ -10,6 +10,7 @@ import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import { Area, Line } from 'recharts';
 import isUndefined from 'lodash/isUndefined';
+import ModalInfo from 'components/modal-info';
 
 import styles from './projected-emissions-styles.scss';
 
@@ -116,8 +117,12 @@ class ProjectedEmissions extends PureComponent {
           <SectionTitle
             isSubtitle
             title="Projected Emissions"
-            theme={{ sectionTitle: styles.title }}
+            theme={{ sectionTitle: styles.title, iconContainer: styles.icon }}
+            infoButton
           />
+          <ModalInfo title="Projected Emissions">
+            This section shows tracking of South Africa’s GHG emissions reductions against different scenarios, including Business as Usual (BaU), Peak-Plateau-Decline (PPD), and long-term mitigation scenarios.
+          </ModalInfo>
           <InfoDownloadToolbox
             slugs="projected_emissions"
             downloadUri="ghg/projected_emissions"
@@ -146,12 +151,9 @@ class ProjectedEmissions extends PureComponent {
     );
   }
 }
-
 ProjectedEmissions.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
   chartData: PropTypes.object
 };
-
 ProjectedEmissions.defaultProps = { chartData: {} };
-
 export default ProjectedEmissions;

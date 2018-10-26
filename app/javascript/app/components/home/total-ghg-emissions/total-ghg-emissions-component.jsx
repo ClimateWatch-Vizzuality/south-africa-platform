@@ -59,6 +59,9 @@ class TotalGhgEmissions extends PureComponent {
             title="Historical Emissions"
             theme={{ sectionTitle: styles.title }}
           />
+          <p className={styles.description}>
+            South Africa’s National GHG inventory for the period 2000-2014 was compiled according to the IPCC-2006 guidelines and covers four emission sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste.
+          </p>
           <TabletLandscape>
             {matches => {
               if (matches) {
@@ -92,7 +95,6 @@ class TotalGhgEmissions extends PureComponent {
     );
   }
 }
-
 TotalGhgEmissions.propTypes = {
   chartData: PropTypes.object,
   metricOptions: PropTypes.array,
@@ -100,12 +102,10 @@ TotalGhgEmissions.propTypes = {
   emissionsParams: PropTypes.object,
   updateMetricSelected: PropTypes.func.isRequired
 };
-
 TotalGhgEmissions.defaultProps = {
   chartData: {},
   metricOptions: [],
   metricSelected: null,
   emissionsParams: null
 };
-
 export default TotalGhgEmissions;

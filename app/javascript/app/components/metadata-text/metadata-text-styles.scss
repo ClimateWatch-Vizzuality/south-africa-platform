@@ -2,7 +2,7 @@
 
 .text {
   font-size: $font-size;
-  line-height: 1;
+  line-height: $line-height-small;
   color: $theme-color;
   margin-bottom: 5px;
 
