@@ -27,7 +27,7 @@ const defaultColumns = [
   'actor',
   'time_horizon',
   'ghg',
-  'estimated_emission_reduction'
+  'estimated_emissions_reduction'
 ];
 
 const ellipsisColumns = [];
@@ -79,7 +79,7 @@ const renameMitigationColumns = createSelector(getParsedMitigation, data => {
           updatedD.time_horizon = d.timeHorizon;
           break;
         case 'estimatedEmissionReduction':
-          updatedD.estimated_emission_reduction = d.estimatedEmissionReduction;
+          updatedD.estimated_emissions_reduction = d.estimatedEmissionReduction;
           break;
         default:
           updatedD[key] = d[key];
