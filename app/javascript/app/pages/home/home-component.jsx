@@ -21,6 +21,12 @@ class Home extends PureComponent {
                 </span>
                 {' '}
                 offers open data, visualizations and analysis to help you gather insights on South Africa’s climate progress.
+                It is an an important part of the National Climate Change
+                Monitoring and Evaluation (M&E) System established as part of
+                the national efforts to track South Africa
+                {'’'}
+                s overall transition
+                to a low carbon and climate resilient society and economy.
               </p>
             </div>
           </div>
