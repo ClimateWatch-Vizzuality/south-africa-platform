@@ -9,7 +9,5 @@ Locations.location_groupings_filepath = "#{CW_FILES_PREFIX}locations/locations_g
 
 # HistoricalEmissions engine initializer
 require 'historical_emissions'
-HistoricalEmissions.meta_sectors_filepath = "#{CW_FILES_PREFIX}historical_emissions/CW_HistoricalEmissions_metadata_sectors.csv"
-HistoricalEmissions.data_cait_filepath = "#{CW_FILES_PREFIX}historical_emissions/CW_HistoricalEmissions_CAIT.csv"
-HistoricalEmissions.data_pik_filepath = "#{CW_FILES_PREFIX}historical_emissions/CW_HistoricalEmissions_PIK.csv"
-HistoricalEmissions.data_unfccc_filepath = "#{CW_FILES_PREFIX}historical_emissions/CW_HistoricalEmissions_UNFCCC.csv"
+HistoricalEmissions.meta_sectors_filepath = "#{CW_FILES_PREFIX}historical_emissions_metadata_sectors.csv"
+HistoricalEmissions.data_cait_filepath = "#{CW_FILES_PREFIX}historical_emissions_data.csv"

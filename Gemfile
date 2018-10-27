@@ -16,7 +16,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'responders'
 
-gem 'aws-sdk', '~> 2'
+#gem 'aws-sdk', '~> 2'
+gem 'aws-sdk-s3', '~> 1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -52,9 +53,9 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git' do
-  gem 'climate_watch_engine', '~> 1.2.1'
-  gem 'cw_locations', '~> 1.2.2', require: 'locations'
-  gem 'cw_historical_emissions', '~> 1.2.1', require: 'historical_emissions'
+  gem 'climate_watch_engine', '~> 1.3.0'
+  gem 'cw_locations', '~> 1.3.0', require: 'locations'
+  gem 'cw_historical_emissions', '~> 1.3.0', require: 'historical_emissions'
 end
 
 # for debugging
