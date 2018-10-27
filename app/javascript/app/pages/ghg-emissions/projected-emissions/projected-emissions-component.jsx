@@ -124,7 +124,7 @@ class ProjectedEmissions extends PureComponent {
             This section shows tracking of South Africa’s GHG emissions reductions against different scenarios, including Business as Usual (BaU), Peak-Plateau-Decline (PPD), and long-term mitigation scenarios.
           </ModalInfo>
           <InfoDownloadToolbox
-            slugs="projected_emissions"
+            slugs="DEA2016e"
             downloadUri="ghg/projected_emissions"
           />
         </div>

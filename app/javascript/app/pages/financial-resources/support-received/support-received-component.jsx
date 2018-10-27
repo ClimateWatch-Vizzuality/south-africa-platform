@@ -99,6 +99,7 @@ class SupportReceived extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
           downloadUri="financial_resource/received_supports"
+          slugs="BUR2"
         />
         <FinancialResourcesReceivedProvider />
       </div>

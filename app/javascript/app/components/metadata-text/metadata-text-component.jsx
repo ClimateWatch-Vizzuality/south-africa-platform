@@ -51,63 +51,32 @@ class MetadataText extends PureComponent {
   render() {
     const { data, className, showAll } = this.props;
     const {
-      learn_more_link,
-      source_organization,
-      technical_title,
-      summary,
-      citation,
-      cautions,
-      geographic_coverage,
-      description,
-      date_of_content,
-      summary_of_licenses,
-      terms_of_service_link
+      title,
+      learnMoreLink,
+      sourceOrganization,
+      citation
     } = this.props.data;
 
     return (
-      <div key={data.source} className={cx(styles.textContainer, className)}>
+      <div
+        key={data.shortTitle}
+        className={cx(styles.textContainer, className)}
+      >
         {
           showAll ? <MetadataAllProps data={data} /> : (
             <div>
+              {title && <MetadataProp title="Title" data={title} />}
               {
-                technical_title &&
-                  <MetadataProp title="Title" data={technical_title} />
-              }
-              {
-                date_of_content &&
-                  (
-                    <MetadataProp
-                      title="Date of content"
-                      data={date_of_content}
-                    />
-                  )
-              }
-              {
-                source_organization &&
+                sourceOrganization &&
                   (
                     <MetadataProp
                       title="Source organization"
-                      data={source_organization}
+                      data={sourceOrganization}
                     />
                   )
               }
-              {summary && <MetadataProp title="Summary" data={summary} />}
               {
-                description &&
-                  <MetadataProp title="Description" data={description} />
-              }
-              {
-                geographic_coverage &&
-                  (
-                    <MetadataProp
-                      title="Geographic Coverage"
-                      data={geographic_coverage}
-                    />
-                  )
-              }
-              {cautions && <MetadataProp title="Cautions" data={cautions} />}
-              {
-                learn_more_link && (
+                learnMoreLink && (
                 <MetadataProp
                   title="Read more"
                   data={
@@ -115,45 +84,17 @@ class MetadataText extends PureComponent {
                           <a
                             key="link"
                             className={styles.link}
-                            href={learn_more_link}
+                            href={learnMoreLink}
                           >
                             {' '}
-                            {learn_more_link}{' '}
+                            {learnMoreLink}{' '}
                           </a>
                         )
                       }
                 />
-                  )
-              }
-              {
-                summary_of_licenses &&
-                  (
-                    <MetadataProp
-                      title="Summary of licenses"
-                      data={summary_of_licenses}
-                    />
                   )
               }
               {citation && <MetadataProp title="Citation" data={citation} />}
-              {
-                terms_of_service_link && (
-                <MetadataProp
-                  title="Terms of service link"
-                  data={
-                        (
-                          <a
-                            key="link"
-                            className={styles.link}
-                            href={terms_of_service_link}
-                          >
-                            {' '}
-                            {terms_of_service_link}{' '}
-                          </a>
-                        )
-                      }
-                />
-                  )
-              }
             </div>
 )
         }
