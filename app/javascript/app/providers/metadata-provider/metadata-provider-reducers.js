@@ -10,28 +10,29 @@ function parseDataByMeta(data, meta) {
   switch (meta) {
     case 'ghg': {
       const dataParsed = {};
-      Object.keys(data).forEach(
+      const leData = data.metadata;
+      Object.keys(leData).forEach(
         key => {
           const camelCasedkey = camelCase(key);
           dataParsed[camelCasedkey] = sortBy(
-            data[key].map(item => {
+            leData[key].map(item => {
               let newItem = {
                 value: item.id,
                 label: key === 'location'
-                  ? item.wri_standard_name.trim()
+                  ? item.wriStandardName.trim()
                   : item.name.trim()
               };
               if (key === 'location') {
-                newItem = { ...newItem, iso: item.iso_code3 };
+                newItem = { ...newItem, iso: item.isoCode3 };
               }
-              if (key === 'data_source') {
+              if (key === 'dataSource') {
                 newItem = {
                   ...newItem,
-                  location: item.location_ids,
-                  sector: item.sector_ids,
-                  gas: item.gas_ids,
-                  gwp: item.gwp_ids,
-                  source: item.source
+                  location: item.locationIds,
+                  sector: item.sectorIds,
+                  gas: item.gasIds,
+                  gwp: item.gwpIds,
+                  source: item.source.replace('historical_emissions_', '')
                 };
               }
               return newItem;
