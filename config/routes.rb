@@ -54,6 +54,9 @@ Rails.application.routes.draw do
       resources :inventory_improvement_projects,
                 only: [:index],
                 defaults: { format: 'json' }
+      resources :metadata,
+                only: [:index],
+                defaults: { format: 'json' }
       get '(*endpoint)', controller: :api, action: :route_not_found
     end
   end
