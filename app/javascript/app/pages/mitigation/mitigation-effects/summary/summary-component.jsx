@@ -65,7 +65,7 @@ class Summary extends PureComponent {
           />
           <div className={styles.buttonGroupContainer}>
             <InfoDownloadToolbox
-              slugs="+++mitigation_effects"
+              slugs="BUR2"
               className={styles.buttonWrapper}
               downloadUri="mitigation/mitigation_effects"
             />

@@ -53,7 +53,7 @@ class MitigationActions extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
           downloadUri="mitigation/mitigation_actions"
-          slugs="+++mitigation_actions"
+          slugs="BUR2"
         />
         <MitigationActionsProvider />
       </div>

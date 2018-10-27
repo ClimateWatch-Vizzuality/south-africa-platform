@@ -119,7 +119,7 @@ class ProjectedEmissions extends PureComponent {
             theme={{ sectionTitle: styles.title }}
           />
           <InfoDownloadToolbox
-            slugs="+++projected_emissions"
+            slugs="DEA2016e"
             downloadUri="ghg/projected_emissions"
           />
         </div>

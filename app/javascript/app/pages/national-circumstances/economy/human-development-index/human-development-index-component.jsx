@@ -19,7 +19,7 @@ class HumanDevelopmentIndex extends PureComponent {
       <React.Fragment>
         <div className={styles.toolbar}>
           <InfoDownloadToolbox
-            slugs="+++hdi"
+            slugs="UNDP2015"
             downloadUri="national_circumstance/categories"
           />
         </div>
