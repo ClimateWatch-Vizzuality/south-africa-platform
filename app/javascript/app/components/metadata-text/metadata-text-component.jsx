@@ -50,7 +50,12 @@ class MetadataText extends PureComponent {
   // eslint-disable-line react/prefer-stateless-function
   render() {
     const { data, className, showAll } = this.props;
-    const { title, learnMore, sourceOrganization, citation } = this.props.data;
+    const {
+      title,
+      learnMoreLink,
+      sourceOrganization,
+      citation
+    } = this.props.data;
 
     return (
       <div
@@ -71,7 +76,7 @@ class MetadataText extends PureComponent {
                   )
               }
               {
-                learnMore && (
+                learnMoreLink && (
                 <MetadataProp
                   title="Read more"
                   data={
@@ -79,10 +84,10 @@ class MetadataText extends PureComponent {
                           <a
                             key="link"
                             className={styles.link}
-                            href={learnMore}
+                            href={learnMoreLink}
                           >
                             {' '}
-                            {learnMore}{' '}
+                            {learnMoreLink}{' '}
                           </a>
                         )
                       }

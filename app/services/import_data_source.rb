@@ -24,7 +24,7 @@ class ImportDataSource
         short_title: row[:short_title],
         title: row[:title],
         source_organization: row[:source_organization],
-        learn_more: row[:learn_more],
+        learn_more_link: row[:learn_more_link],
         citation: row[:citation]
       )
     end

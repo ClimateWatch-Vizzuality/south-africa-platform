@@ -3,7 +3,7 @@ FactoryBot.define do
     short_title { "MyString" }
     title { "MyString" }
     source_organization { "MyString" }
-    learn_more { "MyString" }
+    learn_more_link { "MyString" }
     citation { "MyString" }
   end
 end
