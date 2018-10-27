@@ -46,7 +46,7 @@ class TotalGhgEmissions extends PureComponent {
           Explore GHG Emissions
         </Button>
         <InfoDownloadToolbox
-          slugs="historical_emissions_cait"
+          slugs="DEA2017b"
           /* downloadUri={} */
           className={styles.buttonWrapper}
         />

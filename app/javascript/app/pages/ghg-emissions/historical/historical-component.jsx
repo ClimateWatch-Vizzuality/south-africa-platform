@@ -62,7 +62,7 @@ class GHGHistoricalEmissions extends PureComponent {
     const toolbar = (
       <div className={styles.toolbarButtons}>
         <InfoDownloadToolbox
-          slugs="+++historical_emissions"
+          slugs="DEA2017b"
           className={styles.buttonWrapper}
         />
       </div>
