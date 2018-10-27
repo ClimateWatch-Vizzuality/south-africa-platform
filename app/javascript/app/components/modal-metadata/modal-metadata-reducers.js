@@ -20,9 +20,9 @@ const setLoading = (state, loading) => ({ ...state, loading });
 const setLoaded = (state, loaded) => ({ ...state, loaded });
 const setData = (state, { slugs, data }) => {
   let slugData = {};
+  const leData = data[0].data;
   slugs.forEach(slug => {
-    // +++ maybe you have to remove the [0]
-    slugData = { ...slugData, [slug]: data[0].find(d => d.source === slug) };
+    slugData = { ...slugData, [slug]: leData.find(d => d.shortTitle === slug) };
   });
   return { ...state, data: { ...state.data, ...slugData } };
 };
