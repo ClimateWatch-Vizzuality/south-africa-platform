@@ -12,8 +12,8 @@ import {
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = { gas: 'All GHG', source: 'CAIT' };
-const excludedSectors = [ 'Total excluding LUCF', 'Total including LUCF' ];
+const defaults = { gas: 'TotalGHG', source: 'DEA2017b' };
+const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
 
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;

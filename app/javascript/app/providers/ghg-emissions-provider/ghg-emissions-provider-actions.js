@@ -1,5 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
-import { CWAPI } from 'services/api';
+import { SAAPI } from 'services/api';
 
 export const fetchGHGEmissionsInit = createAction('fetchGHGEmissionsInit');
 export const fetchGHGEmissionsReady = createAction('fetchGHGEmissionsReady');
@@ -11,10 +11,12 @@ export const fetchGHGEmissions = createThunkAction(
     const { GHGEmissions } = state();
     if (!GHGEmissions.loading) {
       dispatch(fetchGHGEmissionsInit());
-      CWAPI
+      SAAPI
         .get('emissions', params)
         .then((data = {}) => {
-          dispatch(fetchGHGEmissionsReady(data));
+          dispatch(
+            fetchGHGEmissionsReady(data['historicalEmissions::Records'])
+          );
         })
         .catch(error => {
           console.warn(error);

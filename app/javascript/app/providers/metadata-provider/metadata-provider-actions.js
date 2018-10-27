@@ -1,5 +1,5 @@
 import { createAction, createThunkAction } from 'redux-tools';
-import { CWAPI } from 'services/api';
+import { SAAPI } from 'services/api';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 
@@ -10,7 +10,7 @@ export const fetchMetaFail = createAction('fetchMetaFail');
 function getDataByMeta(meta) {
   switch (meta) {
     case 'ghg':
-      return CWAPI.get('emissions/meta');
+      return SAAPI.get('emissions/meta');
 
     default:
       return Promise.reject(new Error(
