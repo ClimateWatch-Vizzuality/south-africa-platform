@@ -315,3 +315,30 @@ theme | Name | Coordinator | Effects1 ... Effects12 | Created at | Updated at
   ]
 }
 ```
+
+## Metadata
+
+Reads the data from the DataSource model.
+
+### Parameters
+- none
+
+### JSON API endpoint
+
+#### Data
+
+`/api/v1/metadata`
+
+```
+{
+  data: [
+    {
+      "shortTitle": "STAT2017",
+      "title": "Environmental Economic Accounts Compendium - EEA Compendium Tables 2017",
+      "sourceOrganization": "Statistics South Africa",
+      "learnMoreLink": "http://www.statssa.gov.za/?page_id=1854&PPN=Report-04-05-20",
+      "citation": "Stats-SA. (2017). Environmental Economic Accounts Compendium - EEA Compendium Tables 2017. Report No.: 04-05-20, March 2017. Statistics South Africa. Pretoria, South Africa. Retrieved from http://www.statssa.gov.za/?page_id=1854&PPN=Report-04-05-20 [Accessed 20 April 2017]."
+    }, ...
+  ]
+}
+```
