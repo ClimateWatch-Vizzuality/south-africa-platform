@@ -24,8 +24,8 @@ const filterDataByFinanceFlow = createSelector([ getData, getActiveTabValue ], (
     if (!data) return null;
     const financeFlows = {
       international: [
-        'Additional support received',
-        'Multilater funds received'
+        'Bilateral funds received',
+        'Multilateral funds received'
       ],
       domestic: [ 'Domestic finance' ],
       nonMonetized: [ 'Non-monetary support received' ]

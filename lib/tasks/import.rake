@@ -9,6 +9,7 @@ namespace :db do
     Rake::Task['national_circumstances:import'].invoke
     Rake::Task['mitigation:import'].invoke
     Rake::Task['data_sources:import'].invoke
+    Rake::Task['historical_emissions:import'].invoke
     puts 'All done!'
   end
 end
