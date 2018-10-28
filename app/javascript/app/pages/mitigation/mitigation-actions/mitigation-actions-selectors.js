@@ -20,6 +20,7 @@ const getActiveTabValue = createSelector(
 
 const defaultColumns = [
   'theme',
+  'sector',
   'name',
   'objectives/progress',
   'type',
@@ -27,7 +28,8 @@ const defaultColumns = [
   'actor',
   'time_horizon',
   'ghg',
-  'estimated_emissions_reduction'
+  'estimated_emissions_reduction',
+  'cobenefits'
 ];
 
 const ellipsisColumns = [];

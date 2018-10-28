@@ -24,10 +24,14 @@ module Api
       class MitigationActionSerializer < ApplicationSerializer
         attributes :name, :objectives, :mitigation_type, :status, :actor,
                    :time_horizon, :ghg, :estimated_emission_reduction,
-                   :quantified_effect
+                   :quantified_effect, :sector, :cobenefits
 
         belongs_to :mitigation_theme,
                    serializer: Api::V1::Mitigation::MitigationThemeSerializer
+
+        def sector
+          object.mitigation_theme.mitigation_sector.name
+        end
       end
     end
   end
