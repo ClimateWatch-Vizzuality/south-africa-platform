@@ -14,7 +14,7 @@ ActiveAdmin.register_page 'South Africa Platform Inventory Improvement' do
     end
 
     def s3_folder_path
-      "#{CW_FILES_PREFIX_TEST}inventory_improvement"
+      CW_FILES_PREFIX_TEST.chop
     end
 
     def path

@@ -14,7 +14,7 @@ ActiveAdmin.register_page 'South Africa Platform Mitigation Actions' do
     end
 
     def s3_folder_path
-      "#{CW_FILES_PREFIX_TEST}mitigation_actions"
+      CW_FILES_PREFIX_TEST.chop
     end
 
     def path
