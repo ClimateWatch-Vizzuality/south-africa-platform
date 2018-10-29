@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'responders'
+gem 'sidekiq'
 
 # Add activeadmin for simple CMS
 gem 'activeadmin'
@@ -64,7 +65,7 @@ end
 # gem 'cw_locations', '~> 1.3.0', require: 'locations', path: '../climate-watch-gems'
 # gem 'cw_historical_emissions', '~> 1.3.0', require: 'historical_emissions', path: '../climate-watch-gems'
 
-git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git', branch: 'feature/generic_data_upload_worker' do
+git 'https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git' do
   gem 'cw_data_uploader', '~> 0.2.0', require: 'data_uploader'
 end
 
