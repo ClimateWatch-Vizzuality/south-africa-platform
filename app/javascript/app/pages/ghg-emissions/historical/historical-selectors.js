@@ -32,7 +32,7 @@ const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;
   const selected = meta.gas.find(gas => gas.label === defaults.gas);
-  return selected.value || null;
+  return selected && selected.value || null;
 });
 
 const getSource = createSelector(getMetaData, meta => {
@@ -40,7 +40,7 @@ const getSource = createSelector(getMetaData, meta => {
   const selected = meta.dataSource.find(
     source => source.label === defaults.source
   );
-  return selected.value || null;
+  return selected && selected.value || null;
 });
 
 export const getEmissionsParams = createSelector([ getSource, getGas ], (
