@@ -22,6 +22,8 @@ const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getSectorParam = ({ location }) =>
   location.query ? location.query.sector : null;
+const getGasParam = ({ location }) =>
+  location.query ? location.query.gas : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
@@ -69,6 +71,22 @@ export const getDataSectors = createSelector([ getEmissionsData ], data => {
   if (!data) return null;
   return data.map(d => d.sector);
 });
+
+export const getGasOptions = createSelector(
+  getMetaData,
+  meta => meta && meta.gas || null
+);
+
+export const getGasSelected = createSelector([ getGasOptions, getGasParam ], (
+  gasOptions,
+  gasSelected
+) =>
+  {
+    if (!gasOptions) return null;
+    if (!gasSelected) return [ gasOptions.find(g => g.label === defaults.gas) ];
+    const gasParsed = gasSelected.split(',').map(s => parseInt(s, 10));
+    return gasOptions.filter(s => gasParsed.indexOf(s.value) > -1);
+  });
 
 export const getSectorOptions = createSelector(
   [ getMetaData, getDataSectors ],
@@ -135,12 +153,14 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getSectorSelected, getMetricSelected ],
-  (data, sectorSelected, metricSelected) => {
+  [ getEmissionsData, getSectorSelected, getGasSelected, getMetricSelected ],
+  (data, sectorSelected, gasSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
     const sectorSelectedLabels = sectorSelected.map(s => s.label);
+    const gasSelectedLabels = gasSelected && gasSelected.map(s => s.label);
     const yColumns = data
       .filter(s => sectorSelectedLabels.includes(s.sector))
+      .filter(s => gasSelectedLabels.includes(s.gas))
       .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const theme = getThemeConfig(yColumns);
     const tooltip = getTooltipConfig(yColumns);
@@ -173,6 +193,8 @@ export const getChartData = createStructuredSelector({
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
+  gasOptions: getGasOptions,
+  gasSelected: getGasSelected,
   sectorOptions: getSectorOptions,
   sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,

@@ -14,10 +14,10 @@ import ModalInfo from 'components/modal-info';
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
-  handleSectorChange = values => {
+  handleFieldChange = (field, values) => {
     const { onFilterChange } = this.props;
     if (values && values.length > 0) {
-      onFilterChange({ sector: values.map(v => v.value).join(',') });
+      onFilterChange({ [field]: values.map(v => v.value).join(',') });
     }
   };
 
@@ -34,6 +34,8 @@ class GHGHistoricalEmissions extends PureComponent {
     const {
       sectorSelected,
       sectorOptions,
+      gasSelected,
+      gasOptions,
       metricSelected,
       metricOptions,
       emissionsParams,
@@ -46,7 +48,15 @@ class GHGHistoricalEmissions extends PureComponent {
           theme={{ wrapper: styles.dropdown }}
           values={sectorSelected || []}
           options={sectorOptions || []}
-          onValueChange={this.handleSectorChange}
+          onValueChange={v => this.handleFieldChange('sector', v)}
+          hideResetButton
+        />
+        <Multiselect
+          label="Gas"
+          theme={{ wrapper: styles.dropdown }}
+          values={gasSelected || []}
+          options={gasOptions || []}
+          onValueChange={v => this.handleFieldChange('gas', v)}
           hideResetButton
         />
         <Dropdown
@@ -113,6 +123,8 @@ GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
   sectorOptions: PropTypes.array,
   sectorSelected: PropTypes.array,
+  gasOptions: PropTypes.array,
+  gasSelected: PropTypes.array,
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
@@ -123,6 +135,8 @@ GHGHistoricalEmissions.defaultProps = {
   chartData: {},
   sectorOptions: [],
   sectorSelected: null,
+  gasOptions: [],
+  gasSelected: null,
   metricOptions: [],
   metricSelected: null,
   emissionsParams: null
