@@ -1,6 +1,8 @@
 import { createStructuredSelector, createSelector } from 'reselect';
 import { CHART_COLORS } from 'utils/graphs';
 import uniq from 'lodash/uniq';
+import isArray from 'lodash/isArray';
+import groupBy from 'lodash/groupBy';
 import { getFocus, getFocusNames } from 'utils/financial-resources';
 import has from 'lodash/has';
 
@@ -15,6 +17,22 @@ const getNodes = data => {
     if (d.typeFunds) nodes.push(d.typeFunds);
   });
   return uniq(nodes);
+};
+
+const aggregateByFocus = data => {
+  const groupedData = groupBy(data, d => [ d.source, d.target, d.focus ]);
+  const aggregatedData = Object.keys(groupedData).map(key => {
+    const groupedD = groupedData[key];
+    if (!isArray(groupedD)) return groupedD;
+    return {
+      ...groupedD[0],
+      value: groupedD.reduce(
+        (acc, v) => !Number.isNaN(v.value) ? acc + v.value : acc,
+        0
+      )
+    };
+  });
+  return aggregatedData;
 };
 
 const getLinks = (data, nodes, focusNames) => {
@@ -40,7 +58,7 @@ const getLinks = (data, nodes, focusNames) => {
 const filterData = createSelector([ selectData, selectMeta ], (data, meta) => {
   if (!data) return null;
   const nodes = getNodes(data);
-  const links = getLinks(data, nodes, getFocusNames(meta));
+  const links = aggregateByFocus(getLinks(data, nodes, getFocusNames(meta)));
   if (!links.length) return null;
   return { nodes: nodes.map(n => ({ name: n })), links };
 });
