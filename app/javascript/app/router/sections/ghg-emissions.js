@@ -8,7 +8,7 @@ export default [
   },
   {
     slug: 'inventory',
-    label: 'GHG Inventory Improvement Programme',
+    label: 'GHG Inventory Improvement Programmes',
     path: '/ghg-emissions/inventory'
   },
   {

@@ -44,10 +44,10 @@ class GHGInventory extends PureComponent {
           <div className={styles.titleContainer}>
             <SectionTitle
               isSubtitle
-              title="GHG Inventory Improvement Programme"
+              title="GHG Inventory Improvement Programmes"
               infoButton
             />
-            <ModalInfo title="GHG Inventory Improvement Programme">
+            <ModalInfo title="GHG Inventory Improvement Programmes">
               South Africa strives to continuously improve its national GHG inventory through the National Greenhouse Gas Improvement Programmes,  a series of sector-specific projects that target improvements in activity data collection, country-specific methodologies and emission factors used.
             </ModalInfo>
             <div className={styles.actionContainer}>
