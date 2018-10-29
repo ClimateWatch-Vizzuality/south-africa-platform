@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Link from 'redux-first-router-link';
 import { Stories, Button } from 'cw-components';
 import SectionTitle from 'components/section-title';
 import button from 'styles/themes/button';
@@ -18,8 +19,15 @@ class FlagshipProgrammes extends PureComponent {
             />
             <div className={styles.buttonContainer}>
               <Button
-                /* onClick={handleFlagshipProgrammesClick} */
-                disabled
+                link={
+                  (
+                    <Link
+                      to="/mitigation/flagship-programmes"
+                      onTouchStart={null}
+                      onMouseDown={null}
+                    />
+                  )
+                }
                 theme={{
                   button: cx(button.primary, styles.flagshipProgrammesButton)
                 }}
