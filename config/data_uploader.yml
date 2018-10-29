@@ -1,0 +1,31 @@
+platforms:
+  - name: south_africa_platform
+    sections:
+      - name: financial_resources
+        importer: ImportFinancialResource
+        datasets:
+          - support_needs
+          - support_received
+          - financial_indicators
+      - name: ghg_emissions
+        importer: ImportGhg
+        datasets:
+          - projected_emissions
+      - name: inventory_improvement
+        importer: ImportInventoryImprovement
+        datasets:
+          - inventory_improvement_projects
+      - name: mitigation_actions
+        importer: ImportMitigation
+        datasets:
+          - mitigation_actions
+          - mitigation_effects
+          - mitigation_indicators
+          - flagship_programmes
+          - flagship_components
+      - name: national_circumstances
+        importer: ImportNationalCircumstances
+        datasets:
+          - priorities
+          - national_circumstances_indicators
+          - national_circumstances
