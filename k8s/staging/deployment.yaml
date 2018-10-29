@@ -79,12 +79,12 @@ spec:
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
                 secretKeyRef:
-                  name: appsecrets
+                  name: mssecrets
                   key: CW_PLATFORMS_S3_ACCESS_KEY
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
                 secretKeyRef:
-                  name: appsecrets
+                  name: mssecrets
                   key: CW_PLATFORMS_S3_SECRET_ACCESS_KEY
 
         ports:
