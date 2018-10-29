@@ -18,27 +18,25 @@ class Footer extends PureComponent {
                 <span>In cooperation with:</span>
                 {partners.map(
                   partner => partner.img && (
-                  <div>
-                    <div
-                      key={partner.img.alt}
-                      className={styles.logoContainer}
+                  <div
+                    key={partner.img.alt}
+                    className={styles.logoContainer}
+                  >
+                    <a
+                      className={cx(
+                            styles.logo,
+                            styles[partner.img.customClass]
+                          )}
+                      href={partner.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        className={cx(
-                              styles.logo,
-                              styles[partner.img.customClass]
-                            )}
-                        href={partner.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <img
-                          className={styles.defaultLogo}
-                          src={partner.img.src}
-                          alt={partner.img.alt}
-                        />
-                      </a>
-                    </div>
+                      <img
+                        className={styles.defaultLogo}
+                        src={partner.img.src}
+                        alt={partner.img.alt}
+                      />
+                    </a>
                   </div>
                     )
                 )}
@@ -67,10 +65,7 @@ class Footer extends PureComponent {
                       </a>
                       {
                         founder.description && (
-                        <div
-                          className={styles.description}
-                          key={founder.id}
-                        >
+                        <div className={styles.description}>
                           {founder.description}
                         </div>
                           )

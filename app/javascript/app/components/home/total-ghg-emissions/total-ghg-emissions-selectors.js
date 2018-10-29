@@ -27,19 +27,19 @@ const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;
   const selected = meta.gas.find(gas => gas.label === defaults.gas);
-  return selected.value || null;
+  return selected && selected.value || null;
 });
 const getSource = createSelector(getMetaData, meta => {
   if (!meta || !meta.dataSource) return null;
   const selected = meta.dataSource.find(
     source => source.label === defaults.source
   );
-  return selected.value || null;
+  return selected && selected.value || null;
 });
 const getSector = createSelector(getMetaData, meta => {
   if (!meta || !meta.sector) return null;
   const selected = meta.sector.find(source => source.label === defaults.sector);
-  return selected.value || null;
+  return selected && selected.value || null;
 });
 
 export const getEmissionsParams = createSelector(
