@@ -58,7 +58,7 @@ class GHGInventory extends PureComponent {
                 onClick={this.handleDownloadClick}
                 theme={{ button: cx(button.primary, styles.downloadButton) }}
               >
-                GHG NIR
+                GHG National Inventory Report
                 <Icon icon={downloadIcon} theme={{ icon: styles.icon }} />
               </Button>
             </div>
