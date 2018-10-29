@@ -73,7 +73,7 @@ spec:
                   name: dbsecrets
                   key: SA_POSTGRES_URL_STAGING
           - name: S3_BUCKET_NAME
-            value: "climate-watch-dev"
+            value: "wri-sites"
           - name: AWS_REGION
             value: "eu-west-1"
           - name: AWS_ACCESS_KEY_ID
