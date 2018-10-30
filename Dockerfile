@@ -18,24 +18,19 @@ RUN apt-get update \
     && apt-get install -y nodejs build-essential patch zlib1g-dev liblzma-dev libicu-dev \
     && npm install -g yarn
 
-RUN gem install bundler --no-ri --no-rdoc
-
 # Create app directory
-RUN mkdir -p /usr/src/$NAME
-WORKDIR /usr/src/$NAME
-# VOLUME /usr/src/$NAME
+RUN mkdir -p /opt/$NAME
+WORKDIR /opt/$NAME
 
 # Install app dependencies
-COPY Gemfile Gemfile.lock ./
+COPY . /opt/$NAME/
 
-RUN bundle install --without development test --jobs 4 --deployment
+RUN gem install bundler --no-ri --no-rdoc
+RUN cd /opt/$NAME && bundle install --jobs 4 --deployment
 
 # Env variables
 ARG secretKey
 ENV SECRET_KEY_BASE $secretKey
-
-# Bundle app source
-COPY . ./
 
 EXPOSE 3000
 
@@ -43,4 +38,4 @@ EXPOSE 3000
 RUN bundle exec rake assets:precompile
 
 # Start app
-CMD bundle exec rake tmp:clear db:migrate && bundle exec rails s -b 0.0.0.0
+ENTRYPOINT ["./entrypoint.sh"]
