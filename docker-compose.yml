@@ -1,11 +1,7 @@
 version: '2'
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        secretKey: 1234567890
+    image: vizzuality/south-africa-platform:staging.84
     ports:
     - "3000:3000"
     - "8080:8080"
@@ -21,6 +17,7 @@ services:
     container_name: cw-south-africa
     depends_on:
     - postgres
+    command: start
     volumes:
     - ./storage:/opt/cw-south-africa/storage
 
