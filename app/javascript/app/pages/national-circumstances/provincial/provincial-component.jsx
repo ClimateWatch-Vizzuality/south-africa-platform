@@ -42,11 +42,12 @@ class Provincial extends PureComponent {
         </ModalInfo>
         <TabSwitcher
           tabs={this.renderTabs()}
-          actionsActive={false}
           searchActive={false}
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
+          slugs="BUR2"
+          downloadUri="national_circumstance/priorities"
         />
         <NationalCircumstancesPrioritiesProvider />
       </div>

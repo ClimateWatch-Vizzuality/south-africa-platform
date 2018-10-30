@@ -55,7 +55,8 @@ class SupportNeeded extends PureComponent {
           onTabChange={this.handleTabChange}
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
-          actionsActive={false}
+          slugs="BUR2"
+          downloadUri="financial_resource/support_needs"
         />
         <FinancialResourcesNeededProvider />
       </div>
