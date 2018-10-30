@@ -3,7 +3,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile
       args:
         secretKey: 1234567890
     ports:
@@ -13,7 +13,11 @@ services:
       - .env
     environment:
       - PORT=3000
-      - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw_ndc_tracking
+      - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw-south-africa
+      - RAILS_SERVE_STATIC_FILES="true"
+      - RAILS_LOG_TO_STDOUT="true"
+      - HTTP_AUTH_USERNAME=admin
+      - HTTP_AUTH_PASSWORD=admin
     restart: always
     container_name: cw-south-africa
     depends_on:
@@ -29,4 +33,4 @@ services:
     environment:
       - POSTGRES_PASSWORD=example
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=cw_ndc_tracking
+      - POSTGRES_DB=cw-south-africa
