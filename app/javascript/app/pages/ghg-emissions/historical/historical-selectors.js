@@ -14,6 +14,7 @@ import {
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'TotalGHG', source: 'DEA2017b' };
 const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
+const excludedGases = [ 'Total GHG' ];
 
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
@@ -76,7 +77,7 @@ export const getDataSectors = createSelector([ getEmissionsData ], data => {
 
 export const getGasOptions = createSelector(
   getMetaData,
-  meta => meta && meta.gas || null
+  meta => meta && meta.gas.filter(g => !excludedGases.includes(g.label)) || null
 );
 
 export const getGasSelected = createSelector([ getGasOptions, getGasParam ], (
