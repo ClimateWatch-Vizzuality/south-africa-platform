@@ -2,7 +2,8 @@ module Api
   module V1
     module Ghg
       class ProjectedEmissionSerializer < ApplicationSerializer
-        def initialize(values)
+        def initialize(values, metadata)
+          @metadata = metadata
           @serialized =
             values.map do |pe|
               type = pe.type
@@ -17,7 +18,8 @@ module Api
         end
 
         def to_json
-          JSON.dump(data: @serialized)
+          JSON.dump(data: @serialized,
+                    meta: @metadata.as_json(except: [:id, :created_at, :updated_at]))
         end
       end
     end

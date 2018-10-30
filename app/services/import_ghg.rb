@@ -1,9 +1,12 @@
 class ImportGhg
   PROJECTED_EMISSIONS_FILEPATH = "#{CW_FILES_PREFIX}projected_emissions.csv".freeze
+  PROJECTED_EMISSIONS_METADATA_FILEPATH =
+    "#{CW_FILES_PREFIX}projected_emissions_metadata.csv".freeze
 
   def call
     cleanup
     import_projected_emissions(S3CSVReader.read(PROJECTED_EMISSIONS_FILEPATH))
+    import_projected_emissions_metadata(S3CSVReader.read(PROJECTED_EMISSIONS_METADATA_FILEPATH))
   end
 
   private
@@ -11,6 +14,7 @@ class ImportGhg
   def cleanup
     Ghg::ProjectedEmissionYear.delete_all
     Ghg::ProjectedEmission.delete_all
+    Ghg::ProjectedEmissionMetadata.delete_all
   end
 
   def boundary(name)
@@ -42,4 +46,14 @@ class ImportGhg
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  def import_projected_emissions_metadata(content)
+    content.each do |row|
+      begin
+        ::Ghg::ProjectedEmissionMetadata.create!(row.to_h)
+      rescue ActiveRecord::RecordInvalid => invalid
+        STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"
+      end
+    end
+  end
 end

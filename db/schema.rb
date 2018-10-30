@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_26_095224) do
+ActiveRecord::Schema.define(version: 2018_10_29_180319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,14 @@ ActiveRecord::Schema.define(version: 2018_10_26_095224) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "nc_climate_risks", force: :cascade do |t|
+    t.string "code"
+    t.integer "location_id"
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "nc_indicators", force: :cascade do |t|
     t.string "code", null: false
     t.string "indicator", null: false
@@ -299,6 +307,16 @@ ActiveRecord::Schema.define(version: 2018_10_26_095224) do
     t.integer "location_id", null: false
     t.string "code", null: false
     t.text "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projected_emission_metadata", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "indicator", null: false
+    t.string "unit"
+    t.text "definition"
+    t.string "program"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -389,6 +407,7 @@ ActiveRecord::Schema.define(version: 2018_10_26_095224) do
   add_foreign_key "nc_categories", "locations"
   add_foreign_key "nc_categories", "nc_category_groups", column: "category_group_id"
   add_foreign_key "nc_category_years", "nc_categories", column: "category_id"
+  add_foreign_key "nc_climate_risks", "locations"
   add_foreign_key "priorities", "locations"
   add_foreign_key "projected_emission_years", "projected_emissions"
   add_foreign_key "received_supports", "donors"
