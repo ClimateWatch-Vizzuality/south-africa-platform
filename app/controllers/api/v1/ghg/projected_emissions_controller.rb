@@ -4,10 +4,11 @@ module Api
       class ProjectedEmissionsController < ApiController
         def index
           values = ::Ghg::ProjectedEmission.all
+          metadata = ::Ghg::ProjectedEmissionMetadata.all
 
           respond_to do |format|
             format.json do
-              render json: ProjectedEmissionSerializer.new(values).to_json
+              render json: ProjectedEmissionSerializer.new(values, metadata).to_json
             end
             format.csv do
               send_data values.to_csv,
