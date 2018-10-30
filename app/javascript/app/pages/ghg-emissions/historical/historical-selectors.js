@@ -185,6 +185,21 @@ export const parseChartData = createSelector(
   }
 );
 
+const getDataOptions = createSelector(
+  [ getSectorOptions, getSubSectorOptions ],
+  (sectors, subsectors) => {
+    if (!sectors) return null;
+    return sectors.concat(subsectors);
+  }
+);
+
+const getDataSelected = createSelector(
+  [ getSectorSelected, getSubSectorSelected ],
+  (sectors, subsectors) => {
+    if (!sectors) return null;
+    return sectors.concat(subsectors);
+  }
+);
 export const getChartConfig = createSelector(
   [
     getEmissionsData,
@@ -198,17 +213,16 @@ export const getChartConfig = createSelector(
     const sectorSelectedLabels = sectorSelected.map(s => s.label);
     const subSectorSelectedLabels = subSectorSelected.map(s => s.label);
     const gasSelectedLabels = gasSelected && gasSelected.map(s => s.label);
+    const allLabels = sectorSelectedLabels.concat(subSectorSelectedLabels);
+    const getYOption = columns =>
+      columns.map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const yColumns = data
-      .filter(
-        s =>
-          sectorSelectedLabels
-            .concat(subSectorSelectedLabels)
-            .includes(s.sector)
-      )
-      .filter(s => gasSelectedLabels.includes(s.gas))
-      .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
-    const theme = getThemeConfig(yColumns);
-    const tooltip = getTooltipConfig(yColumns);
+      .filter(s => allLabels.includes(s.sector))
+      .filter(s => gasSelectedLabels.includes(s.gas));
+    const yColumnOptions = getYOption(yColumns);
+    const allColumnOptions = getYOption(data);
+    const theme = getThemeConfig(allColumnOptions);
+    const tooltip = getTooltipConfig(yColumnOptions);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
@@ -224,7 +238,7 @@ export const getChartConfig = createSelector(
       theme,
       tooltip,
       animation: false,
-      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumns }
+      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumnOptions }
     };
   }
 );
@@ -233,8 +247,8 @@ export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
   loading: getChartLoading,
-  dataOptions: getSectorOptions,
-  dataSelected: getSectorSelected
+  dataOptions: getDataOptions,
+  dataSelected: getDataSelected
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
