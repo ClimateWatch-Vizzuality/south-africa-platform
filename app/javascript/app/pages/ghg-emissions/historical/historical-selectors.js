@@ -22,6 +22,8 @@ const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getSectorParam = ({ location }) =>
   location.query ? location.query.sector : null;
+const getSubSectorParam = ({ location }) =>
+  location.query ? location.query.subSector : null;
 const getGasParam = ({ location }) =>
   location.query ? location.query.gas : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
@@ -94,7 +96,10 @@ export const getSectorOptions = createSelector(
     if (!meta || !meta.sector || !dataSectors) return null;
     return meta.sector
       .filter(
-        s => !excludedSectors.includes(s.label) && dataSectors.includes(s.label)
+        s =>
+          !s.parentId &&
+            !excludedSectors.includes(s.label) &&
+            dataSectors.includes(s.label)
       )
       .map(d => ({ label: d.label, value: d.value }));
   }
@@ -107,6 +112,33 @@ export const getSectorSelected = createSelector(
     if (!sectorsSelected) return sectors;
     const sectorsParsed = sectorsSelected.split(',').map(s => parseInt(s, 10));
     return sectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
+  }
+);
+
+export const getSubSectorOptions = createSelector(
+  [ getMetaData, getDataSectors, getSectorSelected ],
+  (meta, dataSectors, selectedSector) => {
+    if (!meta || !meta.sector || !dataSectors) return null;
+    return meta.sector
+      .filter(
+        s =>
+          selectedSector.map(ss => ss.value).includes(s.parentId) &&
+            !excludedSectors.includes(s.label) &&
+            dataSectors.includes(s.label)
+      )
+      .map(d => ({ label: d.label, value: d.value }));
+  }
+);
+
+export const getSubSectorSelected = createSelector(
+  [ getSubSectorOptions, getSubSectorParam ],
+  (subSectors, subSectorSelected) => {
+    if (!subSectors) return null;
+    if (!subSectorSelected) return subSectors;
+    const sectorsParsed = subSectorSelected
+      .split(',')
+      .map(s => parseInt(s, 10));
+    return subSectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
   }
 );
 
@@ -153,13 +185,25 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getSectorSelected, getGasSelected, getMetricSelected ],
-  (data, sectorSelected, gasSelected, metricSelected) => {
+  [
+    getEmissionsData,
+    getSectorSelected,
+    getSubSectorSelected,
+    getGasSelected,
+    getMetricSelected
+  ],
+  (data, sectorSelected, subSectorSelected, gasSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
     const sectorSelectedLabels = sectorSelected.map(s => s.label);
+    const subSectorSelectedLabels = subSectorSelected.map(s => s.label);
     const gasSelectedLabels = gasSelected && gasSelected.map(s => s.label);
     const yColumns = data
-      .filter(s => sectorSelectedLabels.includes(s.sector))
+      .filter(
+        s =>
+          sectorSelectedLabels
+            .concat(subSectorSelectedLabels)
+            .includes(s.sector)
+      )
       .filter(s => gasSelectedLabels.includes(s.gas))
       .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const theme = getThemeConfig(yColumns);
@@ -195,6 +239,8 @@ export const getChartData = createStructuredSelector({
 export const getTotalGHGEMissions = createStructuredSelector({
   gasOptions: getGasOptions,
   gasSelected: getGasSelected,
+  subSectorOptions: getSubSectorOptions,
+  subSectorSelected: getSubSectorSelected,
   sectorOptions: getSectorOptions,
   sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,

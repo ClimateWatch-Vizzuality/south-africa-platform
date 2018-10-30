@@ -7,7 +7,8 @@ import reducers, { initialState } from './metadata-provider-reducers';
 
 class MetaProvider extends PureComponent {
   componentDidMount() {
-    this.props.fetchMeta(this.props.meta);
+    const { fetchMeta, meta } = this.props;
+    fetchMeta(meta);
   }
 
   render() {

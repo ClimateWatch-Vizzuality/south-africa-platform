@@ -34,6 +34,8 @@ class GHGHistoricalEmissions extends PureComponent {
     const {
       sectorSelected,
       sectorOptions,
+      subSectorSelected,
+      subSectorOptions,
       gasSelected,
       gasOptions,
       metricSelected,
@@ -49,6 +51,14 @@ class GHGHistoricalEmissions extends PureComponent {
           values={sectorSelected || []}
           options={sectorOptions || []}
           onValueChange={v => this.handleFieldChange('sector', v)}
+          hideResetButton
+        />
+        <Multiselect
+          label="Sub sector"
+          theme={{ wrapper: styles.dropdown }}
+          values={subSectorSelected || []}
+          options={subSectorOptions || []}
+          onValueChange={v => this.handleFieldChange('subSector', v)}
           hideResetButton
         />
         <Multiselect
@@ -121,6 +131,8 @@ class GHGHistoricalEmissions extends PureComponent {
 }
 GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
+  subSectorOptions: PropTypes.array,
+  subSectorSelected: PropTypes.array,
   sectorOptions: PropTypes.array,
   sectorSelected: PropTypes.array,
   gasOptions: PropTypes.array,
@@ -135,6 +147,8 @@ GHGHistoricalEmissions.defaultProps = {
   chartData: {},
   sectorOptions: [],
   sectorSelected: null,
+  subSectorOptions: [],
+  subSectorSelected: null,
   gasOptions: [],
   gasSelected: null,
   metricOptions: [],

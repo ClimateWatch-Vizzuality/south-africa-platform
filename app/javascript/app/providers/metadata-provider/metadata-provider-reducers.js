@@ -20,7 +20,8 @@ function parseDataByMeta(data, meta) {
                 value: item.id,
                 label: key === 'location'
                   ? item.wriStandardName.trim()
-                  : item.name.trim()
+                  : item.name.trim(),
+                ...(item.parentId && { parentId: item.parentId })
               };
               if (key === 'location') {
                 newItem = { ...newItem, iso: item.isoCode3 };
@@ -42,6 +43,7 @@ function parseDataByMeta(data, meta) {
         },
         this
       );
+
       return dataParsed;
     }
 
