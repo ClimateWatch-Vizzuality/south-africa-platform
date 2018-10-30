@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import SectionTitle from 'components/section-title';
 import flagshipLogo from 'assets/flagship-logo.png';
 import flagshipLogoRetina from 'assets/flagship-logo@2x.png';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 import styles from './flagship-programmes-info-styles.scss';
 
 class FlagshipProgrammesInfo extends PureComponent {
@@ -72,12 +73,17 @@ class FlagshipProgrammesInfo extends PureComponent {
             </p>
           </div>
           <div className={styles.priorityAreasContainer}>
-            <img
-              className={styles.flagshipLogo}
-              srcSet={`${flagshipLogo} 1x, ${flagshipLogoRetina} 2x`}
-              src={flagshipLogo}
-              alt="South Africa NDC"
-            />
+            <div className={styles.infoWrapper}>
+              <div className={styles.buttonsWrapper}>
+                <InfoDownloadToolbox slugs="DEA2017b" noDownload />
+              </div>
+              <img
+                className={styles.flagshipLogo}
+                srcSet={`${flagshipLogo} 1x, ${flagshipLogoRetina} 2x`}
+                src={flagshipLogo}
+                alt="South Africa NDC"
+              />
+            </div>
             <div className={styles.priorityAreas}>
               <h3 className={styles.priorityAreasTitle}> Priority areas</h3>
               <p>

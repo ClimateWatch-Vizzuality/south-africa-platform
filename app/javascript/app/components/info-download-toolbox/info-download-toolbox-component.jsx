@@ -25,7 +25,7 @@ class InfoDownloadToolbox extends PureComponent {
   };
 
   render() {
-    const { theme, downloadUri, className } = this.props;
+    const { theme, downloadUri, className, noDownload } = this.props;
     return (
       <ButtonGroup
         theme={{
@@ -47,15 +47,23 @@ class InfoDownloadToolbox extends PureComponent {
           </Button>
         </div>
         <div data-for="blueTooltip" data-tip="Download chart in .csv">
-          <Button
-            onClick={this.handleDownloadClick}
-            theme={{
-              button: cx(buttonThemes.outline, styles.button, theme.infobutton)
-            }}
-            disabled={!downloadUri}
-          >
-            <Icon icon={downloadIcon} />
-          </Button>
+          {
+            !noDownload && (
+            <Button
+              onClick={this.handleDownloadClick}
+              theme={{
+                    button: cx(
+                      buttonThemes.outline,
+                      styles.button,
+                      theme.infobutton
+                    )
+                  }}
+              disabled={!downloadUri}
+            >
+              <Icon icon={downloadIcon} />
+            </Button>
+              )
+          }
         </div>
         <ReactTooltip
           id="blueTooltip"
@@ -76,14 +84,16 @@ InfoDownloadToolbox.propTypes = {
   className: PropTypes.object,
   slugs: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
   downloadUri: PropTypes.string,
-  setModalMetadata: PropTypes.func.isRequired
+  setModalMetadata: PropTypes.func.isRequired,
+  noDownload: PropTypes.bool
 };
 
 InfoDownloadToolbox.defaultProps = {
   theme: {},
   className: {},
   slugs: null,
-  downloadUri: null
+  downloadUri: null,
+  noDownload: false
 };
 
 export default InfoDownloadToolbox;

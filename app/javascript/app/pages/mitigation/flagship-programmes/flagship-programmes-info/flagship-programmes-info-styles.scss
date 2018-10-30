@@ -44,10 +44,21 @@
       display: flex;
       flex-direction: column;
 
+      .infoWrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: $gutter-padding;
+      }
+
+      .buttonsWrapper {
+        width: 50px;
+        align-self: flex-end;
+      }
+
       .flagshipLogo {
         width: 200px;
+        margin-left: $gutter-padding;
         align-self: flex-end;
-        margin-bottom: $gutter-padding;
       }
 
       .priorityAreas {
