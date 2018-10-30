@@ -35,7 +35,7 @@ class ImportMitigation
       mitigation_type: row[:type],
       status: row[:status],
       actor: row[:agency],
-      time_horizon: row[:timehorizon],
+      time_horizon: row[:time_horizon],
       ghg: row[:ghg],
       estimated_emission_reduction: row[:reductions],
       cobenefits: row[:cobenefits],
