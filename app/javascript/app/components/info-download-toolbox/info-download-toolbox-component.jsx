@@ -25,10 +25,16 @@ class InfoDownloadToolbox extends PureComponent {
   };
 
   render() {
-    const { theme, downloadUri } = this.props;
+    const { theme, downloadUri, className } = this.props;
     return (
       <ButtonGroup
-        theme={{ wrapper: cx(styles.buttonWrapper, theme.buttonWrapper) }}
+        theme={{
+          wrapper: cx(
+            styles.buttonWrapper,
+            theme.buttonWrapper,
+            className.buttonWrapper
+          )
+        }}
       >
         <div data-for="blueTooltip" data-tip="Chart information">
           <Button
@@ -67,6 +73,7 @@ InfoDownloadToolbox.propTypes = {
     buttonWrapper: PropTypes.string,
     infobutton: PropTypes.string
   }),
+  className: PropTypes.object,
   slugs: PropTypes.oneOfType([ PropTypes.string, PropTypes.array ]),
   downloadUri: PropTypes.string,
   setModalMetadata: PropTypes.func.isRequired
@@ -74,6 +81,7 @@ InfoDownloadToolbox.propTypes = {
 
 InfoDownloadToolbox.defaultProps = {
   theme: {},
+  className: {},
   slugs: null,
   downloadUri: null
 };

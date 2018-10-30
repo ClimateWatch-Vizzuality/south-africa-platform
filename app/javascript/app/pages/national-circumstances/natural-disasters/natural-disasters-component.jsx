@@ -4,6 +4,7 @@ import { Card } from 'cw-components';
 import SectionTitle from 'components/section-title';
 import NaturalDisastersDataProvider from 'providers/natural-disasters-data-provider';
 import ModalInfo from 'components/modal-info';
+import InfoDownloadToolbox from 'components/info-download-toolbox';
 import styles from './natural-disasters-styles.scss';
 
 function createMarkup(description) {
@@ -15,7 +16,15 @@ class NaturalDisasters extends PureComponent {
     const { naturalDisastersData } = this.props;
     return (
       <div className={styles.sectionWrapper}>
-        <SectionTitle isSubtitle title="Natural Disasters" infoButton />
+        <div className={styles.titleContainer}>
+          <SectionTitle isSubtitle title="Natural Disasters" infoButton />
+          <div className={styles.buttonWrapper}>
+            <InfoDownloadToolbox
+              slugs="COGTA2015"
+              downloadUri="national_circumstance/categories"
+            />
+          </div>
+        </div>
         <ModalInfo title="Natural Disasters">
           South Africa is exposed to natural disasters including drought, floods and wildfires. Economic losses from weather-related disasters have increased in recent years.
         </ModalInfo>

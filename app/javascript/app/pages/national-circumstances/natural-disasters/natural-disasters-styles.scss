@@ -50,3 +50,16 @@
 .cardContent {
   padding: 15px;
 }
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+
+  @media #{$tablet-landscape} {
+    padding-right: 45px;
+  }
+
+  .buttonWrapper {
+    width: 100px;
+    padding-top: 50px;
+  }
+}
