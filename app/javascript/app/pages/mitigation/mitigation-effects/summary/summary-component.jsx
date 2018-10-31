@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown, BubbleChart, NoContent } from 'cw-components';
+import DataTable from 'components/data-table';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 
 import styles from './summary-styles';
@@ -30,6 +31,7 @@ class Summary extends PureComponent {
   render() {
     const {
       chartData,
+      tableData,
       summarySelected,
       themeOptions,
       themeSelected,
@@ -41,28 +43,42 @@ class Summary extends PureComponent {
     return (
       <div>
         <div className={styles.columns}>
-          <Dropdown
-            label="Theme"
-            value={themeSelected}
-            options={themeOptions}
-            onValueChange={this.handleThemeChange}
-            hideResetButton
-          />
-          <Dropdown
-            label="GHG Emissions Reduction"
-            value={GHGSelected}
-            options={GHGOptions}
-            onValueChange={this.handleGHGChange}
-            hideResetButton
-          />
-          <Dropdown
-            label="Visualization"
-            value={visTypeSelected}
-            options={visTypeOptions}
-            onValueChange={this.handleVisTypeChange}
-            hideResetButton
-            disabled
-          />
+          {
+            themeOptions &&
+              (
+                <Dropdown
+                  label="Theme"
+                  value={themeSelected}
+                  options={themeOptions}
+                  onValueChange={this.handleThemeChange}
+                  hideResetButton
+                />
+              )
+          }
+          {
+            GHGOptions &&
+              (
+                <Dropdown
+                  label="GHG Emissions Reduction"
+                  value={GHGSelected}
+                  options={GHGOptions}
+                  onValueChange={this.handleGHGChange}
+                  hideResetButton
+                />
+              )
+          }
+          {
+            visTypeOptions &&
+              (
+                <Dropdown
+                  label="Visualization"
+                  value={visTypeSelected}
+                  options={visTypeOptions}
+                  onValueChange={this.handleVisTypeChange}
+                  hideResetButton
+                />
+              )
+          }
           <div className={styles.buttonGroupContainer}>
             <InfoDownloadToolbox
               slugs="BUR2"
@@ -106,7 +122,14 @@ class Summary extends PureComponent {
                 </div>
               </div>
 )
-            : <div>TABLE</div>
+            : tableData &&
+              (
+                <DataTable
+                  tableData={tableData}
+                  dynamicRowsHeight
+                  setColumnWidth={() => 150}
+                />
+              )
         }
       </div>
     );
@@ -115,6 +138,7 @@ class Summary extends PureComponent {
 
 Summary.propTypes = {
   chartData: PropTypes.array,
+  tableData: PropTypes.object,
   summarySelected: PropTypes.object,
   themeOptions: PropTypes.array,
   themeSelected: PropTypes.object,
@@ -127,6 +151,7 @@ Summary.propTypes = {
 
 Summary.defaultProps = {
   chartData: [],
+  tableData: {},
   summarySelected: null,
   themeOptions: [],
   themeSelected: null,

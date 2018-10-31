@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import MitigationEffectsProvider from 'providers/mitigation-effects-provider';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import DataTable from 'components/data-table';
 import ModalInfo from 'components/modal-info';
 import { PropTypes } from 'prop-types';
 import Summary from './summary';
@@ -17,21 +16,15 @@ class MitigationEffects extends PureComponent {
     updateQueryParam({ query: { tab: value }, section });
   };
 
+  // eslint-disable-next-line
   renderTabs() {
-    const { tableData } = this.props;
     return [
       { name: 'SUMMARY', value: SUMMARY_KEY, component: <Summary /> },
       {
         name: 'SUSTAINABLE DEVELOPMENT BENEFITS',
         value: SUSTAINABLE_DEVELOPMENT_KEY,
-        component: tableData &&
-          (
-            <DataTable
-              tableData={tableData}
-              dynamicRowsHeight
-              setColumnWidth={() => 150}
-            />
-          )
+        component: null,
+        disabled: true
       }
     ];
   }
@@ -58,14 +51,12 @@ class MitigationEffects extends PureComponent {
 }
 
 MitigationEffects.propTypes = {
-  tableData: PropTypes.object,
   updateQueryParam: PropTypes.func.isRequired,
   section: PropTypes.string,
   activeTabValue: PropTypes.string
 };
 
 MitigationEffects.defaultProps = {
-  tableData: {},
   activeTabValue: 'summary',
   section: 'mitigation-effects'
 };
