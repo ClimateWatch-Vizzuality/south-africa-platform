@@ -1,12 +1,12 @@
-ActiveAdmin.register_page 'South Africa Platform National Circumstances' do
+ActiveAdmin.register_page 'South Africa Platform Metadata' do
   include DataUploader::SharedAdmin
 
-  section_name = 'national_circumstances'
+  section_name = 'metadata'
   platform_name = 'south_africa_platform'
 
   controller do
     def section_name
-      'national_circumstances'
+      'metadata'
     end
 
     def platform_name
@@ -14,11 +14,11 @@ ActiveAdmin.register_page 'South Africa Platform National Circumstances' do
     end
 
     def s3_folder_path
-      "#{CW_FILES_PREFIX_TEST}national_circumstances"
+      "#{CW_FILES_PREFIX_TEST}metadata"
     end
 
     def path
-      admin_south_africa_platform_national_circumstances_path
+      admin_south_africa_platform_metadata_path
     end
 
     def section
@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform National Circumstances' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportNationalCircumstances')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportDataSource')
     end
 
     def section_repository
@@ -59,11 +59,11 @@ ActiveAdmin.register_page 'South Africa Platform National Circumstances' do
   content do
     render partial: 'data_uploader/admin/form_upload_datasets', locals: {
       datasets: datasets_proc.call,
-      upload_path: admin_south_africa_platform_national_circumstances_upload_datafile_path,
-      download_path: admin_south_africa_platform_national_circumstances_download_datafiles_path,
+      upload_path: admin_south_africa_platform_metadata_upload_datafile_path,
+      download_path: admin_south_africa_platform_metadata_download_datafiles_path,
       download_single_data_file_path:
-          admin_south_africa_platform_national_circumstances_download_datafile_path,
-      import_path: admin_south_africa_platform_national_circumstances_run_importer_path,
+          admin_south_africa_platform_metadata_download_datafile_path,
+      import_path: admin_south_africa_platform_metadata_run_importer_path,
       import_button_disabled: section_proc.call.worker_logs.started.any?,
       logs: section_proc.call.worker_logs.order(created_at: :desc)
     }
