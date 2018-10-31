@@ -15,9 +15,25 @@ import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
   handleFieldChange = (field, values) => {
-    const { onFilterChange } = this.props;
+    const { onFilterChange, sectorOptions } = this.props;
     if (values && values.length > 0) {
-      onFilterChange({ [field]: values.map(v => v.value).join(',') });
+      if (field === 'sector') {
+        const subSectors = [];
+        const sectors = [];
+        values.forEach(v => {
+          if (!sectorOptions.includes(v)) {
+            subSectors.push(v.value);
+          } else {
+            sectors.push(v.value);
+          }
+        });
+        onFilterChange({
+          sector: sectors.join(','),
+          subSector: subSectors.join(',')
+        });
+      } else {
+        onFilterChange({ [field]: values.map(v => v.value).join(',') });
+      }
     }
   };
 
