@@ -22,8 +22,9 @@ class SupportReceived extends PureComponent {
         ...query,
         tab: value,
         comparisonId: undefined,
-        donor: '',
-        chartType: ''
+        donor: undefined,
+        chartType: undefined,
+        fundingType: undefined
       },
       section
     });

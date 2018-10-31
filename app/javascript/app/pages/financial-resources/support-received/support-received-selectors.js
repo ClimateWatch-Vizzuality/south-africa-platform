@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty';
 import uniq from 'lodash/uniq';
 import compact from 'lodash/compact';
 
+const ALL_SELECTED = 'All Selected';
 const getQueryParams = ({ location = {} }) => location.query || null;
 const getSection = ({ location = {} }) => location.payload.section || null;
 
@@ -42,19 +43,41 @@ const getFinancialFlowOptions = createSelector(
     const financeFlowKeys = uniq(compact(data.map(d => d.typeFunds)));
     // just to avoid mutation
     const financeFlowKeysWithAll = financeFlowKeys.slice();
-    financeFlowKeysWithAll.unshift('All selected');
+    financeFlowKeysWithAll.unshift(ALL_SELECTED);
     return parseOptions(financeFlowKeysWithAll);
   }
 );
 
-const getDonorOptions = createSelector(filterDataByFinanceFlow, data => {
-  if (!data) return null;
-  const donorKeys = uniq(data.map(d => d.donor.name));
-  // just to avoid mutation
-  const donorKeysWithAll = donorKeys.slice();
-  donorKeysWithAll.unshift('All selected');
-  return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) || null;
-});
+const getFundingTypeOptions = () =>
+  parseOptions([
+    ALL_SELECTED,
+    'Bilateral funds received',
+    'Multilateral funds received'
+  ]);
+
+const getFundingTypeValues = createSelector(
+  [ getQueryParams, getFundingTypeOptions ],
+  (query, options) => {
+    if (!query || !query.fundingType) return options && options[0];
+    return options && options.find(o => o.value === query.fundingType) || null;
+  }
+);
+
+const getDonorOptions = createSelector(
+  [ filterDataByFinanceFlow, getFundingTypeValues ],
+  (data, fundingType) => {
+    if (!data) return null;
+    const filteredData = fundingType && fundingType.value !== ALL_SELECTED
+      ? data.filter(d => d.financeFlow === fundingType.value)
+      : data;
+    const donorKeys = uniq(filteredData.map(d => d.donor.name));
+    // just to avoid mutation
+    const donorKeysWithAll = donorKeys.slice();
+    donorKeysWithAll.unshift(ALL_SELECTED);
+    return donorKeysWithAll.length > 1 && parseOptions(donorKeysWithAll) ||
+      null;
+  }
+);
 
 const getChartTypeOptions = () => parseOptions([ 'Flows', 'Bubble Chart' ]);
 
@@ -88,24 +111,27 @@ const getChartTypeValues = createSelector(
 const getValues = createStructuredSelector({
   financialFlow: getFinancialFlowValues,
   donor: getDonorValues,
-  chartType: getChartTypeValues
+  chartType: getChartTypeValues,
+  fundingType: getFundingTypeValues
 });
 
 const getOptions = createStructuredSelector({
   financialFlow: getFinancialFlowOptions,
   donor: getDonorOptions,
-  chartType: getChartTypeOptions
+  chartType: getChartTypeOptions,
+  fundingType: getFundingTypeOptions
 });
 
 const getDropdownConfig = createSelector(getActiveTabValue, tab => {
   const dropdowns = {
+    fundingType: { label: 'Funding Type', slug: 'fundingType' },
     chartType: { label: 'Chart type', slug: 'chartType' },
     financialFlow: { label: 'Financial flows', slug: 'financialFlow' },
     donor: { label: 'Source of finance', slug: 'donor' }
   };
-  const { chartType, financialFlow, donor } = dropdowns;
+  const { chartType, financialFlow, donor, fundingType } = dropdowns;
   const sectionDropdowns = {
-    international: [ financialFlow, donor, chartType ],
+    international: [ financialFlow, fundingType, donor, chartType ],
     domestic: [ financialFlow, donor, chartType ],
     nonMonetized: [ donor ]
   };
@@ -119,13 +145,19 @@ const filterData = createSelector([ filterDataByFinanceFlow, getValues ], (
   {
     if (!data || isEmpty(data)) return null;
     let updatedData = data;
-    if (values.donor.value !== 'All selected') {
+    if (values.donor && values.donor.value !== ALL_SELECTED) {
       updatedData = updatedData.filter(
         d => d.donor.name === values.donor.value
       );
     }
 
-    if (values.financialFlow && values.financialFlow.value !== 'All selected') {
+    if (values.fundingType && values.fundingType.value !== ALL_SELECTED) {
+      updatedData = updatedData.filter(
+        d => d.financeFlow === values.fundingType.value
+      );
+    }
+
+    if (values.financialFlow && values.financialFlow.value !== ALL_SELECTED) {
       updatedData = updatedData.filter(
         d => d.typeFunds === values.financialFlow.value
       );
