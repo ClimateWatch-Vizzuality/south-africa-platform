@@ -19,7 +19,7 @@ class Summary extends PureComponent {
 
   handleVisTypeChange = ({ value }) => {
     const { onFilterChange } = this.props;
-    onFilterChange({ visType: value });
+    onFilterChange({ visType: value, theme: '' });
   };
 
   handleNodeClick = (e, id) => {
@@ -57,6 +57,7 @@ class Summary extends PureComponent {
           }
           {
             GHGOptions &&
+              visTypeSelected.value !== 'table' &&
               (
                 <Dropdown
                   label="GHG Emissions Reduction"

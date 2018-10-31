@@ -7,6 +7,7 @@ const VIS_TYPE_OPTIONS = [
 ];
 const DEFAULT_THEME = 'energy_efficiency';
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
+const ALL_SELECTED = 'All Selected';
 
 const getQueryParams = ({ location }) => location.query || null;
 const getThemeParam = ({ location }) =>
@@ -34,23 +35,43 @@ const setInitialColor = (slug, summary, isFirstElement) => {
   return selected ? CHART_COLORS.default : CHART_COLORS.selected;
 };
 
-const getThemeOptions = createSelector(getSummaryData, summary => {
-  if (!summary) return null;
-  return uniqBy(
-    summary,
-    'theme'
-  ).map(theme => ({ label: theme.theme, value: snakeCase(theme.theme) }));
-});
+const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
 
-export const getThemeSelected = createSelector(
-  [ getThemeOptions, getThemeParam ],
-  (themes, theme) => {
-    if (!themes) return null;
-    return themes.find(t => t.value === theme) ||
-      themes.find(t => t.value === DEFAULT_THEME);
+const getVisTypeSelected = createSelector(
+  [ getVisTypeOptions, getVisTypeParam ],
+  (visTypes, visType) => {
+    if (!visTypes) return null;
+    if (!visType) return visTypes[0];
+    return visTypes.find(t => t.value === visType);
   }
 );
-const getVisTypeOptions = createSelector([], () => VIS_TYPE_OPTIONS);
+
+const getThemeOptions = createSelector([ getSummaryData, getVisTypeSelected ], (
+  summary,
+  vizType
+) =>
+  {
+    if (!summary) return null;
+    const themeOptions = uniqBy(summary, 'theme').map(theme => ({
+      label: theme.theme,
+      value: snakeCase(theme.theme)
+    }));
+    if (vizType.value === 'table')
+      themeOptions.unshift({ label: ALL_SELECTED, value: ALL_SELECTED });
+    return themeOptions;
+  });
+
+const getThemeSelected = createSelector(
+  [ getThemeOptions, getThemeParam, getVisTypeSelected ],
+  (themes, theme, vizType) => {
+    if (!themes) return null;
+    const defaultTheme = vizType.value === 'table'
+      ? ALL_SELECTED
+      : DEFAULT_THEME;
+    return themes.find(t => t.value === theme) ||
+      themes.find(t => t.value === defaultTheme);
+  }
+);
 
 const getGHGOptions = createSelector(
   [ getSummaryData, getSummaryMeta, getThemeSelected ],
@@ -80,15 +101,6 @@ const getGHGOptions = createSelector(
   }
 );
 
-export const getVisTypeSelected = createSelector(
-  [ getVisTypeOptions, getVisTypeParam ],
-  (visTypes, visType) => {
-    if (!visTypes) return null;
-    if (!visType) return visTypes[0];
-    return visTypes.find(t => t.value === visType);
-  }
-);
-
 const getEffectsIndicatorName = createSelector(
   [ getSummaryData, getSummaryMeta ],
   (data, meta) => {
@@ -104,10 +116,13 @@ const getEffectsIndicatorName = createSelector(
 );
 
 const getTableData = createSelector(
-  [ getSummaryData, getSummaryMeta, getEffectsIndicatorName ],
-  (data, meta, effectNames) => {
+  [ getSummaryData, getSummaryMeta, getEffectsIndicatorName, getThemeSelected ],
+  (data, meta, effectNames, themeSelected) => {
     if (!meta || isEmpty(meta) || !effectNames) return null;
-    const tableData = data.map(d => {
+    const filteredData = themeSelected.label === ALL_SELECTED
+      ? data
+      : data.filter(d => d.theme === themeSelected.label);
+    const tableData = filteredData.map(d => {
       const updatedD = {};
       Object.keys(d).forEach(key => {
         if (key.startsWith('effects')) {
