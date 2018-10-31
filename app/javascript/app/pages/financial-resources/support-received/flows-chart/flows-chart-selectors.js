@@ -6,6 +6,7 @@ import groupBy from 'lodash/groupBy';
 import { getFocus, getFocusNames } from 'utils/financial-resources';
 import has from 'lodash/has';
 
+// eslint-disable-next-line react/destructuring-assignment
 const selectData = (state, props) => props.data || null;
 const selectMeta = state =>
   has(state, 'financialResourcesReceived.data.meta') &&

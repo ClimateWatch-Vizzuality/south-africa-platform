@@ -14,6 +14,7 @@ import {
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'TotalGHG', source: 'DEA2017b' };
 const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
+const excludedGases = [ 'Total GHG' ];
 
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
@@ -22,6 +23,10 @@ const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getSectorParam = ({ location }) =>
   location.query ? location.query.sector : null;
+const getSubSectorParam = ({ location }) =>
+  location.query ? location.query.subSector : null;
+const getGasParam = ({ location }) =>
+  location.query ? location.query.gas : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
 const getEmissionsData = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
@@ -70,13 +75,32 @@ export const getDataSectors = createSelector([ getEmissionsData ], data => {
   return data.map(d => d.sector);
 });
 
+export const getGasOptions = createSelector(
+  getMetaData,
+  meta => meta && meta.gas.filter(g => !excludedGases.includes(g.label)) || null
+);
+
+export const getGasSelected = createSelector([ getGasOptions, getGasParam ], (
+  gasOptions,
+  gasSelected
+) =>
+  {
+    if (!gasOptions) return null;
+    if (!gasSelected) return [ gasOptions.find(g => g.label === defaults.gas) ];
+    const gasParsed = gasSelected.split(',').map(s => parseInt(s, 10));
+    return gasOptions.filter(s => gasParsed.indexOf(s.value) > -1);
+  });
+
 export const getSectorOptions = createSelector(
   [ getMetaData, getDataSectors ],
   (meta, dataSectors) => {
     if (!meta || !meta.sector || !dataSectors) return null;
     return meta.sector
       .filter(
-        s => !excludedSectors.includes(s.label) && dataSectors.includes(s.label)
+        s =>
+          !s.parentId &&
+            !excludedSectors.includes(s.label) &&
+            dataSectors.includes(s.label)
       )
       .map(d => ({ label: d.label, value: d.value }));
   }
@@ -89,6 +113,33 @@ export const getSectorSelected = createSelector(
     if (!sectorsSelected) return sectors;
     const sectorsParsed = sectorsSelected.split(',').map(s => parseInt(s, 10));
     return sectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
+  }
+);
+
+export const getSubSectorOptions = createSelector(
+  [ getMetaData, getDataSectors, getSectorSelected ],
+  (meta, dataSectors, selectedSector) => {
+    if (!meta || !meta.sector || !dataSectors) return null;
+    return meta.sector
+      .filter(
+        s =>
+          selectedSector.map(ss => ss.value).includes(s.parentId) &&
+            !excludedSectors.includes(s.label) &&
+            dataSectors.includes(s.label)
+      )
+      .map(d => ({ label: d.label, value: d.value }));
+  }
+);
+
+export const getSubSectorSelected = createSelector(
+  [ getSubSectorOptions, getSubSectorParam ],
+  (subSectors, subSectorSelected) => {
+    if (!subSectors) return null;
+    if (!subSectorSelected) return subSectors;
+    const sectorsParsed = subSectorSelected
+      .split(',')
+      .map(s => parseInt(s, 10));
+    return subSectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
   }
 );
 
@@ -134,16 +185,44 @@ export const parseChartData = createSelector(
   }
 );
 
+const getDataOptions = createSelector(
+  [ getSectorOptions, getSubSectorOptions ],
+  (sectors, subsectors) => {
+    if (!sectors) return null;
+    return sectors.concat(subsectors);
+  }
+);
+
+const getDataSelected = createSelector(
+  [ getSectorSelected, getSubSectorSelected ],
+  (sectors, subsectors) => {
+    if (!sectors) return null;
+    return sectors.concat(subsectors);
+  }
+);
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getSectorSelected, getMetricSelected ],
-  (data, sectorSelected, metricSelected) => {
+  [
+    getEmissionsData,
+    getSectorSelected,
+    getSubSectorSelected,
+    getGasSelected,
+    getMetricSelected
+  ],
+  (data, sectorSelected, subSectorSelected, gasSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
     const sectorSelectedLabels = sectorSelected.map(s => s.label);
+    const subSectorSelectedLabels = subSectorSelected.map(s => s.label);
+    const gasSelectedLabels = gasSelected && gasSelected.map(s => s.label);
+    const allLabels = sectorSelectedLabels.concat(subSectorSelectedLabels);
+    const getYOption = columns =>
+      columns.map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
     const yColumns = data
-      .filter(s => sectorSelectedLabels.includes(s.sector))
-      .map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
-    const theme = getThemeConfig(yColumns);
-    const tooltip = getTooltipConfig(yColumns);
+      .filter(s => allLabels.includes(s.sector))
+      .filter(s => gasSelectedLabels.includes(s.gas));
+    const yColumnOptions = getYOption(yColumns);
+    const allColumnOptions = getYOption(data);
+    const theme = getThemeConfig(allColumnOptions);
+    const tooltip = getTooltipConfig(yColumnOptions);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
@@ -159,7 +238,7 @@ export const getChartConfig = createSelector(
       theme,
       tooltip,
       animation: false,
-      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumns }
+      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumnOptions }
     };
   }
 );
@@ -168,11 +247,15 @@ export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
   loading: getChartLoading,
-  dataOptions: getSectorOptions,
-  dataSelected: getSectorSelected
+  dataOptions: getDataOptions,
+  dataSelected: getDataSelected
 });
 
 export const getTotalGHGEMissions = createStructuredSelector({
+  gasOptions: getGasOptions,
+  gasSelected: getGasSelected,
+  subSectorOptions: getSubSectorOptions,
+  subSectorSelected: getSubSectorSelected,
   sectorOptions: getSectorOptions,
   sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,

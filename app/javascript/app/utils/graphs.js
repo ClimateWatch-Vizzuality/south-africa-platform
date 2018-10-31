@@ -43,7 +43,17 @@ export const CHART_COLORS = [
   '#AB0000',
   '#20D5B7',
   '#383F45',
-  '#CACCD0'
+  '#CACCD0',
+  '#80DAE9',
+  '#93BBD9',
+  '#E98CBE',
+  '#FFDA80',
+  '#FFBC80',
+  '#FFC4D5',
+  '#D58080',
+  '#90EADB',
+  '#9C9FA2',
+  '#E5E6E8'
 ];
 
 export const getThemeConfig = (columns, colors = CHART_COLORS) => {

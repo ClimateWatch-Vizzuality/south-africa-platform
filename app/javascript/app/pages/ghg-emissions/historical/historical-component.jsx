@@ -14,10 +14,26 @@ import ModalInfo from 'components/modal-info';
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
-  handleSectorChange = values => {
-    const { onFilterChange } = this.props;
+  handleFieldChange = (field, values) => {
+    const { onFilterChange, sectorOptions } = this.props;
     if (values && values.length > 0) {
-      onFilterChange({ sector: values.map(v => v.value).join(',') });
+      if (field === 'sector') {
+        const subSectors = [];
+        const sectors = [];
+        values.forEach(v => {
+          if (!sectorOptions.map(o => o.label).includes(v.label)) {
+            subSectors.push(v.value);
+          } else {
+            sectors.push(v.value);
+          }
+        });
+        onFilterChange({
+          sector: sectors.join(','),
+          subSector: subSectors.join(',')
+        });
+      } else {
+        onFilterChange({ [field]: values.map(v => v.value).join(',') });
+      }
     }
   };
 
@@ -34,6 +50,10 @@ class GHGHistoricalEmissions extends PureComponent {
     const {
       sectorSelected,
       sectorOptions,
+      subSectorSelected,
+      subSectorOptions,
+      gasSelected,
+      gasOptions,
       metricSelected,
       metricOptions,
       emissionsParams,
@@ -46,7 +66,23 @@ class GHGHistoricalEmissions extends PureComponent {
           theme={{ wrapper: styles.dropdown }}
           values={sectorSelected || []}
           options={sectorOptions || []}
-          onValueChange={this.handleSectorChange}
+          onValueChange={v => this.handleFieldChange('sector', v)}
+          hideResetButton
+        />
+        <Multiselect
+          label="Sub sector"
+          theme={{ wrapper: styles.dropdown }}
+          values={subSectorSelected || []}
+          options={subSectorOptions || []}
+          onValueChange={v => this.handleFieldChange('subSector', v)}
+          hideResetButton
+        />
+        <Multiselect
+          label="Gas"
+          theme={{ wrapper: styles.dropdown }}
+          values={gasSelected || []}
+          options={gasOptions || []}
+          onValueChange={v => this.handleFieldChange('gas', v)}
           hideResetButton
         />
         <Dropdown
@@ -93,7 +129,7 @@ class GHGHistoricalEmissions extends PureComponent {
               height={450}
               dots={false}
               customMessage="Emissions data not available"
-              onLegendChange={this.handleSectorChange}
+              onLegendChange={v => this.handleFieldChange('sector', v)}
               {...chartData}
             />
           </div>
@@ -111,8 +147,12 @@ class GHGHistoricalEmissions extends PureComponent {
 }
 GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
+  subSectorOptions: PropTypes.array,
+  subSectorSelected: PropTypes.array,
   sectorOptions: PropTypes.array,
   sectorSelected: PropTypes.array,
+  gasOptions: PropTypes.array,
+  gasSelected: PropTypes.array,
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
@@ -123,6 +163,10 @@ GHGHistoricalEmissions.defaultProps = {
   chartData: {},
   sectorOptions: [],
   sectorSelected: null,
+  subSectorOptions: [],
+  subSectorSelected: null,
+  gasOptions: [],
+  gasSelected: null,
   metricOptions: [],
   metricSelected: null,
   emissionsParams: null
