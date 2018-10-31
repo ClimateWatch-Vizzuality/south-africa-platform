@@ -21,7 +21,7 @@ class GHGHistoricalEmissions extends PureComponent {
         const subSectors = [];
         const sectors = [];
         values.forEach(v => {
-          if (!sectorOptions.includes(v)) {
+          if (!sectorOptions.map(o => o.label).includes(v.label)) {
             subSectors.push(v.value);
           } else {
             sectors.push(v.value);
