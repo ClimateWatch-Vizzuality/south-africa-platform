@@ -1,6 +1,10 @@
 platforms:
   - name: south_africa_platform
     sections:
+      - name: metadata
+        importer: ImportDataSource
+        datasets:
+          - data_sources
       - name: financial_resources
         importer: ImportFinancialResource
         datasets:
@@ -11,6 +15,7 @@ platforms:
         importer: ImportGhg
         datasets:
           - projected_emissions
+          - projected_emissions_metadata
       - name: inventory_improvement
         importer: ImportInventoryImprovement
         datasets:
