@@ -1,7 +1,7 @@
 platforms:
   - name: south_africa_platform
     sections:
-      - name: metadata
+      - name: data_sources
         importer: ImportDataSource
         datasets:
           - data_sources
