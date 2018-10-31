@@ -18,8 +18,10 @@ class Summary extends PureComponent {
   };
 
   handleVisTypeChange = ({ value }) => {
-    const { onFilterChange } = this.props;
-    onFilterChange({ visType: value, theme: '' });
+    const { onFilterChange, themeSelected } = this.props;
+    const resetedTheme = themeSelected.value === 'All Selected' &&
+      { theme: '' };
+    onFilterChange({ visType: value, ...resetedTheme });
   };
 
   handleNodeClick = (e, id) => {
