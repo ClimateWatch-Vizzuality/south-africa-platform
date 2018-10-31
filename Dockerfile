@@ -1,13 +1,13 @@
 FROM ruby:2.5.1
 MAINTAINER Jose Angel Parreño <joseangel.parreno@vizzuality.com>
 
-ENV NAME cw-south-africa
-ENV RAKE_ENV production
-ENV RAILS_ENV production
+ENV NAME=cw-south-africa
+ENV RAKE_ENV=production
+ENV RAILS_ENV=production
 ENV COUNTRY_ISO=ZAF
-ENV CW_API_URL=https://climate-watch.vizzuality.com/api/v1
-ENV API_URL=/api/v1
-ENV S3_BUCKET_NAME wri-sites
+ENV CW_API_URL="https://climate-watch.vizzuality.com/api/v1"
+ENV API_URL="/api/v1"
+ENV S3_BUCKET_NAME="wri-sites"
 
 # Install dependencies
 RUN apt-get update \
