@@ -28,6 +28,10 @@
 
   @media #{$tablet-landscape} {
     @include column-offset(4);
+
+    &.tableViz {
+      @include column-offset(6);
+    }
   }
 }
 

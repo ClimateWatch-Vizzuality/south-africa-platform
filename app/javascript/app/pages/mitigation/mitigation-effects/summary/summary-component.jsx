@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { Dropdown, BubbleChart, NoContent } from 'cw-components';
 import DataTable from 'components/data-table';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
-
 import styles from './summary-styles';
 
 class Summary extends PureComponent {
@@ -82,7 +82,11 @@ class Summary extends PureComponent {
                 />
               )
           }
-          <div className={styles.buttonGroupContainer}>
+          <div
+            className={cx(styles.buttonGroupContainer, {
+              [styles.tableViz]: visTypeSelected.value === 'table'
+            })}
+          >
             <InfoDownloadToolbox
               slugs="BUR2"
               className={styles.buttonWrapper}
