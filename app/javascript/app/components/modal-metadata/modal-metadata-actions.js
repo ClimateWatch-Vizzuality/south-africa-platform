@@ -11,7 +11,7 @@ export const setModalMetadata = createThunkAction(
   'setModalMetadata',
   payload => dispatch => {
     dispatch(setModalMetadataParams(payload));
-    let slugs = { payload };
+    let { slugs } = payload;
     if (slugs) {
       if (typeof slugs === 'string') slugs = [ slugs ];
       dispatch(fetchModalMetaData(slugs));
