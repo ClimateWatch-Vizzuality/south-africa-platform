@@ -10,7 +10,7 @@
 #  updated_at  :datetime         not null
 #
 
-require 'gem_spec_helper'
+require 'rails_helper'
 
 RSpec.describe NationalCircumstance::CategoryYear, type: :model do
   it 'should be invalid when category is not present' do
