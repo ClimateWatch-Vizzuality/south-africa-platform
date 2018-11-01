@@ -3,11 +3,15 @@
 # Table name: nc_category_years
 #
 #  id          :bigint(8)        not null, primary key
-#  year        :integer          not null
-#  category_id :integer          not null
 #  value       :float
+#  year        :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  category_id :integer          not null
+#
+# Foreign Keys
+#
+#  fk_rails_...  (category_id => nc_categories.id)
 #
 
 FactoryBot.define do

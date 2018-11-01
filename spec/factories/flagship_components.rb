@@ -3,18 +3,22 @@
 # Table name: flagship_components
 #
 #  id                    :bigint(8)        not null, primary key
-#  flagship_programme_id :integer
-#  name                  :string           not null
-#  main_activities       :text
-#  lead                  :string
-#  status                :string
-#  milestone             :text
 #  barriers              :text
+#  lead                  :string
+#  main_activities       :text
+#  milestone             :text
+#  name                  :string           not null
 #  next_steps            :text
-#  timeframe             :string
+#  status                :string
 #  support               :text
+#  timeframe             :string
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  flagship_programme_id :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (flagship_programme_id => flagship_programmes.id)
 #
 
 FactoryBot.define do

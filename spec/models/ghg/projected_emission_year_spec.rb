@@ -1,14 +1,5 @@
-# == Schema Information
-#
-# Table name: projected_emission_years
-#
-#  id                    :bigint(8)        not null, primary key
-#  year                  :integer
-#  value                 :integer
-#  projected_emission_id :bigint(8)
-#
-
 require 'rails_helper'
+
 RSpec.describe Ghg::ProjectedEmissionYear, type: :model do
   it 'should be invalid when year not present' do
     expect(
