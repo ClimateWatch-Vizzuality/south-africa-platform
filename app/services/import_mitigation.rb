@@ -1,9 +1,9 @@
 class ImportMitigation
-  MITIGATION_ACTIONS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions.csv".freeze
-  MITIGATION_EFFECTS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_effects.csv".freeze
-  MITIGATION_INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_indicators.csv".freeze
-  FLAGSHIP_PROGRAMMES_FILEPATH = "#{CW_FILES_PREFIX}flagship_programmes.csv".freeze
-  FLAGSHIP_COMPONENTS_FILEPATH = "#{CW_FILES_PREFIX}flagship_components.csv".freeze
+  MITIGATION_ACTIONS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions/mitigation_actions.csv".freeze
+  MITIGATION_EFFECTS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions/mitigation_effects.csv".freeze
+  MITIGATION_INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions/mitigation_indicators.csv".freeze
+  FLAGSHIP_PROGRAMMES_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions/flagship_programmes.csv".freeze
+  FLAGSHIP_COMPONENTS_FILEPATH = "#{CW_FILES_PREFIX}mitigation_actions/flagship_components.csv".freeze
 
   def call
     cleanup

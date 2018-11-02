@@ -1,6 +1,6 @@
 class ImportDataSource
   DATA_FILEPATH =
-    "#{CW_FILES_PREFIX}data_sources.csv".freeze
+    "#{CW_FILES_PREFIX}metadata/data_sources.csv".freeze
 
   def call
     cleanup

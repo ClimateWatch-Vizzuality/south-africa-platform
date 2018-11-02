@@ -14,7 +14,7 @@ ActiveAdmin.register_page 'South Africa Platform Ghg Emissions' do
     end
 
     def s3_folder_path
-      CW_FILES_PREFIX.chop
+      "#{CW_FILES_PREFIX}ghg_emissions"
     end
 
     def path

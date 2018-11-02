@@ -14,7 +14,7 @@ ActiveAdmin.register_page 'South Africa Platform Metadata' do
     end
 
     def s3_folder_path
-      CW_FILES_PREFIX.chop
+      "#{CW_FILES_PREFIX}metadata"
     end
 
     def path
