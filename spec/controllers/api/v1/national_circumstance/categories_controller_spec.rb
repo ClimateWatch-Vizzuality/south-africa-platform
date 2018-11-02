@@ -1,4 +1,4 @@
-require 'gem_spec_helper'
+require 'rails_helper'
 
 describe Api::V1::NationalCircumstance::CategoriesController, type: :controller do
   context do

@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-require 'gem_spec_helper'
+require 'rails_helper'
 
 RSpec.describe NationalCircumstance::Indicator, type: :model do
   it 'should be invalid when code is not present' do
