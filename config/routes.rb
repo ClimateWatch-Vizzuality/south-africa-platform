@@ -59,6 +59,9 @@ Rails.application.routes.draw do
       resources :metadata,
                 only: [:index],
                 defaults: { format: 'json' }
+      resources :section_content,
+                only: [:index],
+                defaults: { format: 'json' }
       get '(*endpoint)', controller: :api, action: :route_not_found
     end
   end
