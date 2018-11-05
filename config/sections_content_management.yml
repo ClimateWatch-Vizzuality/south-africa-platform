@@ -1,27 +1,27 @@
-content:
-  - section: intro
+sections:
+  - name: intro
     subsections:
       - name: ndc_submission
       - name: historical_emissions
       - name: flagship_programmes
-  - section: national_circumstances
+  - name: national_circumstances
     subsections: 
       - name: provincial_development_priorities
       - name: population
       - name: economy
       - name: energy
       - name: natural_disasters
-  - section: ghg_emissions
+  - name: ghg_emissions
     subsections:
-      - name: 'historical_emissions'
-      - name: 'ghg_inventory_improvement_programmes'
-      - name: 'projected_emissions'
-  - section: mitigation_actions
+      - name: historical_emissions
+      - name: ghg_inventory_improvement_programmes
+      - name: projected_emissions
+  - name: mitigation_actions_section
     subsections:
       - name: mittigation_actions
       - name: mitigation_effects
       - name: flagship_programmes
-  - section: financial_resources
+  - name: financial_resources
     subsections: 
       - name: support_received
       - name: support_needed

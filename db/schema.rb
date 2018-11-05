@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_180319) do
+ActiveRecord::Schema.define(version: 2018_11_05_145232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -354,6 +354,13 @@ ActiveRecord::Schema.define(version: 2018_10_29_180319) do
     t.index ["type_funds"], name: "index_received_supports_on_type_funds"
   end
 
+  create_table "section_contents", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "subsection_id"
+    t.string "name"
+  end
+
   create_table "sections", force: :cascade do |t|
     t.string "name"
     t.bigint "platform_id"
@@ -402,6 +409,7 @@ ActiveRecord::Schema.define(version: 2018_10_29_180319) do
   add_foreign_key "priorities", "locations"
   add_foreign_key "projected_emission_years", "projected_emissions"
   add_foreign_key "received_supports", "donors"
+  add_foreign_key "section_contents", "section_contents", column: "subsection_id"
   add_foreign_key "sections", "platforms"
   add_foreign_key "worker_logs", "sections"
 end
