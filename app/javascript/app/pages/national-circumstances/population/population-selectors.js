@@ -89,7 +89,7 @@ const getGrowthRate = createSelector([ getTotalGrowthData, getYearSelected ], (
     if (!data || !year) return null;
     const yearData = findYearData(data, year);
     return {
-      description: 'South Africa population growth rate',
+      description: 'South Africa population growth rate compared to previous year',
       value: yearData ? `${withCommas(yearData.value)}%` : 'No data'
     };
   });
