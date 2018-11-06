@@ -1,7 +1,7 @@
 class ImportNationalCircumstances
-  PRIORITIES_FILEPATH = "#{CW_FILES_PREFIX}priorities.csv".freeze
-  INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}national_circumstances_indicators.csv".freeze
-  NATIONAL_CIRCUMSTANCES_FILEPATH = "#{CW_FILES_PREFIX}national_circumstances.csv".freeze
+  PRIORITIES_FILEPATH = "#{CW_FILES_PREFIX}national_circumstances/priorities.csv".freeze
+  INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}national_circumstances/national_circumstances_indicators.csv".freeze
+  NATIONAL_CIRCUMSTANCES_FILEPATH = "#{CW_FILES_PREFIX}national_circumstances/national_circumstances.csv".freeze
 
   def call
     cleanup

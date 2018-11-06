@@ -1,7 +1,7 @@
 class ImportFinancialResource
-  SUPPORT_NEEDS_FILEPATH = "#{CW_FILES_PREFIX}support_needs.csv".freeze
-  RECEIVED_SUPPORTS_FILEPATH = "#{CW_FILES_PREFIX}support_received.csv".freeze
-  INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}financial_indicators.csv".freeze
+  SUPPORT_NEEDS_FILEPATH = "#{CW_FILES_PREFIX}financial_resources/support_needs.csv".freeze
+  RECEIVED_SUPPORTS_FILEPATH = "#{CW_FILES_PREFIX}financial_resources/support_received.csv".freeze
+  INDICATORS_FILEPATH = "#{CW_FILES_PREFIX}financial_resources/financial_indicators.csv".freeze
 
   def call
     cleanup

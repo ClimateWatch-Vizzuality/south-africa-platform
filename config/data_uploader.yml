@@ -1,11 +1,16 @@
 platforms:
   - name: south_africa_platform
     sections:
+      - name: historical_emissions
+        importer: ImportHistoricalEmissions
+        datasets:
+          - historical_emissions_metadata_sectors
+          - historical_emissions_data
       - name: metadata
         importer: ImportDataSource
         datasets:
           - data_sources
-      - name: financial_resources
+      - name: financial_resources 
         importer: ImportFinancialResource
         datasets:
           - support_needs
