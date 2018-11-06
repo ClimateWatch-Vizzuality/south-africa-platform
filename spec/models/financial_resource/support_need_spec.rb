@@ -1,18 +1,5 @@
-# == Schema Information
-#
-# Table name: support_needs
-#
-#  id           :bigint(8)        not null, primary key
-#  category     :string
-#  focus_area   :string
-#  reference    :string
-#  support_type :string
-#  scheme       :string
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#
-
 require 'rails_helper'
+
 RSpec.describe FinancialResource::SupportNeed, type: :model do
   it 'should be invalid when category not present' do
     expect(

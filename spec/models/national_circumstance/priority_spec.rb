@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: priorities
-#
-#  id          :bigint(8)        not null, primary key
-#  location_id :integer          not null
-#  code        :string           not null
-#  value       :text             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe NationalCircumstance::Priority, type: :model do

@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: nc_indicators
-#
-#  id         :bigint(8)        not null, primary key
-#  code       :string           not null
-#  indicator  :string           not null
-#  category   :string
-#  unit       :string
-#  definition :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe NationalCircumstance::Indicator, type: :model do

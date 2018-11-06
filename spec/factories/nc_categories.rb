@@ -3,11 +3,16 @@
 # Table name: nc_categories
 #
 #  id                :bigint(8)        not null, primary key
-#  category_group_id :integer          not null
-#  location_id       :integer          not null
 #  name              :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  category_group_id :integer          not null
+#  location_id       :integer          not null
+#
+# Foreign Keys
+#
+#  fk_rails_...  (category_group_id => nc_category_groups.id)
+#  fk_rails_...  (location_id => locations.id)
 #
 
 FactoryBot.define do

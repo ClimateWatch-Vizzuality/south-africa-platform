@@ -3,14 +3,18 @@
 # Table name: flagship_programmes
 #
 #  id                :bigint(8)        not null, primary key
-#  sub_programs      :text
 #  description       :text
+#  outcomes          :text
 #  position          :integer
+#  sub_programs      :text
+#  work_package      :text
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  work_package      :text
-#  outcomes          :text
 #  flagship_theme_id :integer
+#
+# Foreign Keys
+#
+#  fk_rails_...  (flagship_theme_id => flagship_themes.id)
 #
 
 module Mitigation
