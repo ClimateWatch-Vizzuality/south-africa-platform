@@ -7,6 +7,7 @@ import lowerCase from 'lodash/lowerCase';
 import capitalize from 'lodash/capitalize';
 import Nav from 'components/nav';
 import navStyles from 'components/nav/nav-styles';
+import SectionsContentProvider from 'providers/sections-content-provider';
 
 import ghgEmissionsBg from 'assets/backgrounds/ghg-emissions';
 import nationalBg from 'assets/backgrounds/national-circumstances';
@@ -40,9 +41,10 @@ class Sections extends PureComponent {
   }
 
   render() {
-    const { route, section, payload } = this.props;
-    const title = route.label || capitalize(lowerCase(payload.id));
-    const description = route.description;
+    const { route, section, payload, contentData } = this.props;
+    const title = (contentData[route.parentSection] && contentData[route.parentSection].title) || capitalize(lowerCase(payload.id));
+    const description = contentData[route.parentSection] && contentData[route.parentSection].description;
+    const subsectionTitle = contentData[section.slug] && contentData[section.slug].title;
     return (
       <div className={styles.page}>
         <div className={styles.section} style={{ backgroundImage: `url('${backgrounds[route.link]}')`}}>
@@ -57,7 +59,8 @@ class Sections extends PureComponent {
             </div>
           </Sticky>
         </div>
-        <SectionComponent page={route.link} section={section.slug} />
+        <SectionComponent page={route.link} section={section.slug} title={subsectionTitle} />
+        <SectionsContentProvider />
       </div>
     );
   }
@@ -67,6 +70,7 @@ Sections.propTypes = {
   route: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   section: PropTypes.object.isRequired,
+  contentData: PropTypes.object.isRequired
 }
 
 export default Sections;
