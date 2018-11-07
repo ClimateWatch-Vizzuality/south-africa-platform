@@ -6,22 +6,22 @@ sections:
       - name: flagship_programmes
   - name: national_circumstances
     subsections: 
-      - name: provincial_development_priorities
+      - name: provincial
       - name: population
       - name: economy
       - name: energy
-      - name: natural_disasters
+      - name: natural-disasters
   - name: ghg_emissions
     subsections:
-      - name: historical_emissions
-      - name: ghg_inventory_improvement_programmes
-      - name: projected_emissions
+      - name: historical
+      - name: inventory
+      - name: projected-emissions
   - name: mitigation_actions_section
     subsections:
-      - name: mittigation_actions
-      - name: mitigation_effects
-      - name: flagship_programmes
+      - name: mitigation-actions
+      - name: mitigation-effects
+      - name: flagship-programmes
   - name: financial_resources
     subsections: 
-      - name: support_received
-      - name: support_needed
+      - name: support-received
+      - name: support-needed
