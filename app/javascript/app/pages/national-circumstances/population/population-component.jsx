@@ -56,11 +56,11 @@ class Population extends PureComponent {
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, title } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Population" infoButton />
-        <ModalInfo title="Population">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           South Africa’s population is estimated at 54 million people. The estimated population growth rate has steadily increased from approximately 1.27% from 2002–2003 to 1.58% from 2013–2014.
         </ModalInfo>
         <TabSwitcher
@@ -83,7 +83,8 @@ Population.propTypes = {
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
   yearsOptions: PropTypes.array,
-  yearSelected: PropTypes.object
+  yearSelected: PropTypes.object,
+  title: PropTypes.string.isRequired
 };
 Population.defaultProps = {
   query: null,

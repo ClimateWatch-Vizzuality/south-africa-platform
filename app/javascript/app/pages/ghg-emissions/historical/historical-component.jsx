@@ -58,7 +58,8 @@ class GHGHistoricalEmissions extends PureComponent {
       metricOptions,
       emissionsParams,
       chartData,
-      downloadUri
+      downloadUri,
+      title
     } = this.props;
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
@@ -108,8 +109,8 @@ class GHGHistoricalEmissions extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle isSubtitle title="Historical emissions" infoButton />
-          <ModalInfo title="Historical emissions">
+          <SectionTitle isSubtitle title={title} infoButton />
+          <ModalInfo title={title}>
             This section presents a summary of South Africa’s most recent GHG inventory, covering the following emissions sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste. Full details are reported in South Africa’s 2017 GHG National Inventory Report.
           </ModalInfo>
           <TabletLandscape>
@@ -160,7 +161,8 @@ GHGHistoricalEmissions.propTypes = {
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired,
-  downloadUri: PropTypes.string
+  downloadUri: PropTypes.string,
+  title: PropTypes.string.isRequired
 };
 GHGHistoricalEmissions.defaultProps = {
   chartData: {},

@@ -36,7 +36,8 @@ class Energy extends PureComponent {
       metricOptions,
       chartTypeSelected,
       chartTypeOptions,
-      chartData
+      chartData,
+      title
     } = this.props;
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
@@ -68,8 +69,8 @@ class Energy extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle isSubtitle title="Energy supply" infoButton />
-          <ModalInfo title="Energy supply">
+          <SectionTitle isSubtitle title={title} infoButton />
+          <ModalInfo title={title}>
             Energy production and mining are the largest sources of GHG emissions in South Africa... The energy intensity of the South African economy has resulted in an emissions profile that differs substantially from that of other developing countries, particularly on the African continent.
           </ModalInfo>
           <TabletLandscape>
@@ -118,7 +119,8 @@ Energy.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  updateFiltersSelected: PropTypes.func.isRequired
+  updateFiltersSelected: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 Energy.defaultProps = {

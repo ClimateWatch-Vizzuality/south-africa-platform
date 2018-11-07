@@ -42,11 +42,11 @@ class SupportNeeded extends PureComponent {
   }
 
   render() {
-    const { searchFilter, activeTabValue } = this.props;
+    const { searchFilter, activeTabValue, title } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Support Needed" infoButton />
-        <ModalInfo title="Support Needed">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           This section includes a summary of support needed for climate change mitigation and adaptation actions.
         </ModalInfo>
         <TabSwitcher
@@ -70,7 +70,8 @@ SupportNeeded.propTypes = {
   searchFilter: PropTypes.string,
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
-  tableData: PropTypes.object
+  tableData: PropTypes.object,
+  title: PropTypes.string.isRequired
 };
 
 SupportNeeded.defaultProps = {

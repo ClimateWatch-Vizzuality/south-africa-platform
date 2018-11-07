@@ -70,7 +70,7 @@ class SupportReceived extends PureComponent {
   }
 
   render() {
-    const { activeTabValue, data } = this.props;
+    const { activeTabValue, data, title } = this.props;
     const component = this.renderChartComponent();
     const renderTabs = [
       { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
@@ -89,8 +89,8 @@ class SupportReceived extends PureComponent {
 
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Support Received" infoButton />
-        <ModalInfo title="Support Received">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           The financial support committed and received from international sources, as well as domestic funds committed through government grants and loans, are reported below.
         </ModalInfo>
         <TabSwitcher
@@ -117,7 +117,8 @@ SupportReceived.propTypes = {
   options: PropTypes.object,
   values: PropTypes.object,
   dropdownConfig: PropTypes.array,
-  data: PropTypes.array
+  data: PropTypes.array,
+  title: PropTypes.string.isRequired
 };
 
 SupportReceived.defaultProps = {

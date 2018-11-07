@@ -24,6 +24,9 @@ const getEmissionsData = ({ GHGEmissions = {} }) =>
 const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
   metadata.ghg.loading || GHGEmissions.loading;
 
+const getSectionContent = ({ SectionsContent }) =>
+  SectionsContent.data && SectionsContent.data.historical_emissions;
+
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;
   const selected = meta.gas.find(gas => gas.label === defaults.gas);
@@ -147,6 +150,17 @@ export const getChartFilterSelected = createSelector(() => [
   { label: 'TotalGHG' }
 ]);
 
+const getTitleAndDescription = createSelector(
+  [ getSectionContent ],
+  sectionContent => {
+    const content = {
+      title: sectionContent && sectionContent.title,
+      description: sectionContent && sectionContent.description
+    };
+    return content;
+  }
+);
+
 export const getChartData = createStructuredSelector({
   data: parseChartData,
   config: getChartConfig,
@@ -159,5 +173,6 @@ export const getTotalGHGEMissions = createStructuredSelector({
   metricOptions: getMetricOptions,
   metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,
-  chartData: getChartData
+  chartData: getChartData,
+  contentData: getTitleAndDescription
 });

@@ -23,7 +23,8 @@ class TotalGhgEmissions extends PureComponent {
       metricSelected,
       metricOptions,
       emissionsParams,
-      chartData
+      chartData,
+      contentData
     } = this.props;
 
     const dropdown = (
@@ -56,11 +57,11 @@ class TotalGhgEmissions extends PureComponent {
       <React.Fragment>
         <Section theme={styles}>
           <SectionTitle
-            title="Historical Emissions"
+            title={contentData.title}
             theme={{ sectionTitle: styles.title }}
           />
           <p className={styles.description}>
-            South Africa’s National GHG inventory for the period 2000-2014 was compiled according to the IPCC-2006 guidelines and covers four emission sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste.
+            {contentData.description}
           </p>
           <TabletLandscape>
             {matches => {
@@ -100,12 +101,17 @@ TotalGhgEmissions.propTypes = {
   metricOptions: PropTypes.array,
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
-  updateMetricSelected: PropTypes.func.isRequired
+  updateMetricSelected: PropTypes.func.isRequired,
+  contentData: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string
+  })
 };
 TotalGhgEmissions.defaultProps = {
   chartData: {},
   metricOptions: [],
   metricSelected: null,
-  emissionsParams: null
+  emissionsParams: null,
+  contentData: {}
 };
 export default TotalGhgEmissions;

@@ -110,17 +110,17 @@ class ProjectedEmissions extends PureComponent {
   };
 
   render() {
-    const { chartData } = this.props;
+    const { chartData, title } = this.props;
     return (
       <div className={styles.grid}>
         <div className={styles.toolbarWithSectionTitle}>
           <SectionTitle
             isSubtitle
-            title="Projected Emissions"
+            title={title}
             theme={{ sectionTitle: styles.title, iconContainer: styles.icon }}
             infoButton
           />
-          <ModalInfo title="Projected Emissions">
+          <ModalInfo title={title}>
             This section shows tracking of South Africa’s GHG emissions reductions against different scenarios, including Business as Usual (BaU), Peak-Plateau-Decline (PPD), and long-term mitigation scenarios.
           </ModalInfo>
           <InfoDownloadToolbox
@@ -153,7 +153,8 @@ class ProjectedEmissions extends PureComponent {
 }
 ProjectedEmissions.propTypes = {
   onFilterChange: PropTypes.func.isRequired,
-  chartData: PropTypes.object
+  chartData: PropTypes.object,
+  title: PropTypes.string.isRequired
 };
 ProjectedEmissions.defaultProps = { chartData: {} };
 export default ProjectedEmissions;

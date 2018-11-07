@@ -35,10 +35,11 @@ class Economy extends PureComponent {
   };
 
   render() {
+    const { title } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Economy" infoButton />
-        <ModalInfo title="Economy">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           South Africa is a significant industrial and economic power, with one of the largest economies in Africa.
         </ModalInfo>
         <TabSwitcher
@@ -57,7 +58,8 @@ class Economy extends PureComponent {
 Economy.propTypes = {
   query: PropTypes.object,
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 Economy.defaultProps = { query: null, activeTabValue: null };

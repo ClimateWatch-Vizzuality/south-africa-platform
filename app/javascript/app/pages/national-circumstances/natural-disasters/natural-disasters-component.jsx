@@ -13,11 +13,11 @@ function createMarkup(description) {
 
 class NaturalDisasters extends PureComponent {
   render() {
-    const { naturalDisastersData } = this.props;
+    const { naturalDisastersData, title } = this.props;
     return (
       <div className={styles.sectionWrapper}>
         <div className={styles.titleContainer}>
-          <SectionTitle isSubtitle title="Natural Disasters" infoButton />
+          <SectionTitle isSubtitle title={title} infoButton />
           <div className={styles.buttonWrapper}>
             <InfoDownloadToolbox
               slugs="COGTA2015"
@@ -25,7 +25,7 @@ class NaturalDisasters extends PureComponent {
             />
           </div>
         </div>
-        <ModalInfo title="Natural Disasters">
+        <ModalInfo title={title}>
           South Africa is exposed to natural disasters including drought, floods and wildfires. Economic losses from weather-related disasters have increased in recent years.
         </ModalInfo>
         <div className={styles.cardsContainer}>
@@ -48,7 +48,10 @@ class NaturalDisasters extends PureComponent {
   }
 }
 
-NaturalDisasters.propTypes = { naturalDisastersData: PropTypes.array };
+NaturalDisasters.propTypes = {
+  naturalDisastersData: PropTypes.array,
+  title: PropTypes.string.isRequired
+};
 NaturalDisasters.defaultProps = { naturalDisastersData: [] };
 
 export default NaturalDisasters;

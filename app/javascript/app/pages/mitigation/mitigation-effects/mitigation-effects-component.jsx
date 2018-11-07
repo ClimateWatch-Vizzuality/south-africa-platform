@@ -30,11 +30,11 @@ class MitigationEffects extends PureComponent {
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, title } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Mitigation Effects" infoButton />
-        <ModalInfo title="Mitigation Effects">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           Through the National Climate Change Response Monitoring and Evaluation System (M&E System), South Africa is continuously striving to quantify the effects of mitigation policies, strategies and actions. This section presents the mitigation actions for which mitigation effects and sustainable development co-benefits have been quantified.
         </ModalInfo>
         <TabSwitcher
@@ -53,7 +53,8 @@ class MitigationEffects extends PureComponent {
 MitigationEffects.propTypes = {
   updateQueryParam: PropTypes.func.isRequired,
   section: PropTypes.string,
-  activeTabValue: PropTypes.string
+  activeTabValue: PropTypes.string,
+  title: PropTypes.string.isRequired
 };
 
 MitigationEffects.defaultProps = {

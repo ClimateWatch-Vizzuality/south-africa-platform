@@ -29,15 +29,11 @@ class Provincial extends PureComponent {
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, title } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle
-          isSubtitle
-          title="Provincial Development Priorities"
-          infoButton
-        />
-        <ModalInfo title="Provincial Development Priorities">
+        <SectionTitle isSubtitle title={title} infoButton />
+        <ModalInfo title={title}>
           Scroll over each of South Africa’s nine provinces to see how they are addressing climate change in their provincial climate change response priorities.
         </ModalInfo>
         <TabSwitcher
@@ -58,7 +54,8 @@ Provincial.propTypes = {
   query: PropTypes.object,
   selectedData: PropTypes.object,
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
 };
 Provincial.defaultProps = {
   query: null,
