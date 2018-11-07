@@ -18,7 +18,7 @@ class ProjectedEmissions extends PureComponent {
   handleModelChange = values => {
     const { onFilterChange } = this.props;
     if (values && values.length > 0) {
-      onFilterChange({ dataSelected: values.map(v => v.value).join(',') });
+      onFilterChange({ dataSelected: values.map(v => v.query).join(',') });
     }
   };
 
