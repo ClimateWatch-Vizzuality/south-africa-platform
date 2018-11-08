@@ -45,6 +45,7 @@ class Sections extends PureComponent {
     const title = (contentData[route.parentSection] && contentData[route.parentSection].title) || capitalize(lowerCase(payload.id));
     const description = contentData[route.parentSection] && contentData[route.parentSection].description;
     const subsectionTitle = contentData[section.slug] && contentData[section.slug].title;
+    const subsectionDesc = contentData[section.slug] && contentData[section.slug].description;
     return (
       <div className={styles.page}>
         <div className={styles.section} style={{ backgroundImage: `url('${backgrounds[route.link]}')`}}>
@@ -59,7 +60,7 @@ class Sections extends PureComponent {
             </div>
           </Sticky>
         </div>
-        <SectionComponent page={route.link} section={section.slug} title={subsectionTitle} />
+        <SectionComponent page={route.link} section={section.slug} title={subsectionTitle} description={subsectionDesc} />
         <SectionsContentProvider />
       </div>
     );
