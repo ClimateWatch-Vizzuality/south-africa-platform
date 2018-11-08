@@ -1,6 +1,7 @@
 ActiveAdmin.register SectionContent do
   actions :all, except: [:destroy, :create, :new]
   config.filters = false
+  config.sort_order = 'order_asc'
   permit_params :title, :description
 
   form do |f|

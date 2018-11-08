@@ -5,7 +5,7 @@ namespace :db do
     config = YAML.load_file(file)
 
     config['sections'].each do |section|
-      s = SectionContent.find_by(name: section['name'])
+      s = SectionContent.find_by(slug: section['slug'])
       s.update(title: section['title'])
       s.update(description: section['description'])
     end

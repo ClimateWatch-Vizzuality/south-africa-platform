@@ -5,9 +5,17 @@ namespace :db do
     config = YAML.load_file(file)
 
     config['sections'].each do |section|
-      main_section = SectionContent.create(name: section['name'])
+      main_section = SectionContent.create(
+        name: section['name'],
+        order: section['order'],
+        slug: section['slug']
+      )
       section['subsections'].each do |subsection|
-        main_section.subsections << SectionContent.create(name: subsection['name'])
+        main_section.subsections << SectionContent.create(
+          name: subsection['name'],
+          order: subsection['order'],
+          slug: subsection['slug']
+        )
       end
     end
 

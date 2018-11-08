@@ -1,64 +1,64 @@
 sections:
-  - name: intro
+  - slug: intro
     title:
     description: The <b>South Africa’s Biennial Update Report</b> offers open data, visualizations and analysis to help you gather insights on South Africa’s climate progress. It is an an important part of the National Climate Change Monitoring and Evaluation (M&E) System established as part of the national efforts to track South Africa’s overall transition to a low carbon and climate resilient society and economy.
-  - name: ndc_submission
+  - slug: ndc_submission
     title: South Africa National Determined Contribution (NDC) pledge and ambition
     description: Under South Africa’s NDC, GHG emissions will peak between 2020 and 2025, plateau for approximately a decade, landing in the range of 398-614 MtCO2eq as defined by national policy, and decline in absolute terms thereafter.<br><br>The adaptation component of South Africa’s NDC will address adaptation through six goals, underpinned by key elements of adaptation planning, pricing of adaptation investment requirements, equity, and means of implementation.
-  - name: historical_emissions
+  - slug: historical_emissions
     title: Historical Emissions
     description: "South Africa’s National GHG inventory for the period 2000-2014 was compiled according to the IPCC-2006 guidelines and covers four emission sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste."
-  - name: flagship_programmes
+  - slug: flagship_programmes
     title: Flagship Programmes
     description: The Climate Change Flagship Programmes are strategic measures implemented by the South African government to trigger a large-scale transition to a low-carbon economy and create a more climate-resilient South Africa. They signal climate change investment priorities and provide the certainty needed to stimulate further investment.
-  - name: national_circumstances
+  - slug: national_circumstances
     title: National Circumstances
     description: This section provides context for South Africa’s climate change response, including information on provincial development priorities, population, economy, energy, and climate risks from natural disasters.
-  - name: provincial
+  - slug: provincial
     title: Provincial Development Priorities
-    description:
-  - name: population
+    description: Scroll over each of South Africa’s nine provinces to see how they are addressing climate change in their provincial climate change response priorities.
+  - slug: population
     title: Population
-    description:
-  - name: economy
+    description: South Africa’s population is estimated at 54 million people. The estimated population growth rate has steadily increased from approximately 1.27% from 2002–2003 to 1.58% from 2013–2014.
+  - slug: economy
     title: Economy
-    description:
-  - name: energy
+    description: South Africa is a significant industrial and economic power, with one of the largest economies in Africa.
+  - slug: energy
     title: Energy supply
-    description:
-  - name: natural-disasters
+    description: Energy production and mining are the largest sources of GHG emissions in South Africa... The energy intensity of the South African economy has resulted in an emissions profile that differs substantially from that of other developing countries, particularly on the African continent.
+  - slug: natural-disasters
     title: Natural Disasters
-    description:
-  - name: ghg_emissions
+    description: South Africa is exposed to natural disasters including drought, floods and wildfires. Economic losses from weather-related disasters have increased in recent years.
+  - slug: ghg_emissions
     title: GHG Emissions
     description: This section provides information on South Africa’s GHG inventory, the programmes it’s implementing to improve the quality of future national GHG inventories and possible future emissions pathways under different mitigation scenarios.
-  - name: historical
+  - slug: historical
     title: Historical emissions
-    description:
-  - name: inventory
+    description: "This section presents a summary of South Africa’s most recent GHG inventory, covering the following emissions sectors: Energy; Industrial Processes and Product Use; Agriculture, Forestry and Other Land Use; and Waste. Full details are reported in South Africa’s 2017 GHG National Inventory Report."
+  - slug: inventory
     title: GHG Inventory Improvement Programmes
-    description:
-  - name: projected-emissions
+    description: South Africa strives to continuously improve its national GHG inventory through the National Greenhouse Gas Improvement Programmes, a series of sector-specific projects that target improvements in activity data collection, country-specific methodologies and emission factors used.
+  - slug: projected-emissions
     title: Projected Emissions
-    description:
-  - name: mitigation_actions_section
+    description: This section shows tracking of South Africa’s GHG emissions reductions against different scenarios, including Business as Usual (BaU), Peak-Plateau-Decline (PPD), and long-term mitigation scenarios.
+  - slug: mitigation_actions_section
     title: Mitigation Actions
     description: South Africa’s approach to mitigation is informed by its contribution to the international effort to reduce global GHG emissions and its successful management of development and poverty eradication challenges. South Africa is committed to addressing climate change based on science and equity and to work with others to ensure global average temperature increases are kept well below 2°C and potentially 1.5°C above pre-industrial levels. Global average temperature increase of 2°C translates to up to 4°C for South Africa by the end of the century. South Africa’s mitigation action will be accessed against its commitment to reduce emissions to a range between 398 and 614 CO2-eq by 2030 and 2050, as defined in national policy.
-  - name: mitigation-actions
+  - slug: mitigation-actions
     title: Mitigation Actions
-    description:
-  - name: mitigation-effects
+    description: South Africa’s national government will implement a mix of policies and measures over five-year periods. The 2016 and 2020 phase will focus demonstrating policies to meet South Africa’s Cancun pledge. The 2021-2025 and 2026-2030 phases will focus on achieving the pledges made in South Africa’s NDC. <br><br>Policy instruments to aid in achieving this are under development and include a carbon tax, sectoral emission targets (SETs) for sectors, company-level carbon budgets, regulatory standards and controls for specifically identified GHG pollutants and emitters, and continued implementation of the Climate Change Flagship Programmes. <br><br>Key mitigation actions being implemented by national, provincial and municipal level governments, the, private sector and non-profit organisations in South Africa are discussed below.
+  - slug: mitigation-effects
     title: Mitigation Effects
-    description:
-  - name: flagship-programmes
+    description: Through the National Climate Change Response Monitoring and Evaluation System (M&E System), South Africa is continuously striving to quantify the effects of mitigation policies, strategies and actions. This section presents the mitigation actions for which mitigation effects and sustainable development co-benefits have been quantified.
+  - slug: flagship-programmes
     title: Flagship Programmes
-    description:
-  - name: financial_resources
+    description: 
+  - slug: financial_resources
     title: Financial Resources
     description: This section shows climate finance provided from multilateral, bilateral, and domestic sources as well as remaining financial and non-financial support needs.
-  - name: support-received
+  - slug: support-received
     title: Support Received
-    description:
-  - name: support-needed
+    description: The financial support committed and received from international sources, as well as domestic funds committed through government grants and loans, are reported below.
+  - slug: support-needed
     title: Support Needed
-    description:
+    description: This section includes a summary of support needed for climate change mitigation and adaptation actions.
