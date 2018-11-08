@@ -30,6 +30,7 @@ class ImportFinancialResource
       type_funds: row[:type_funds],
       amount_zar: row[:amount_zar],
       amount_usd: row[:amount_usd],
+      timeframes: row[:timeframes],
       focus_area_1: positive_cell?(row[:focus_area_1]),
       focus_area_2: positive_cell?(row[:focus_area_2]),
       focus_area_3: positive_cell?(row[:focus_area_3]),
