@@ -1,41 +1,39 @@
 import React, { PureComponent } from 'react';
+import { PropTypes } from 'prop-types';
 import { Section } from 'cw-components';
 import background from 'assets/hero';
 import NDCPledge from 'components/home/ndc-pledge';
 import TotalGHGEmissions from 'components/home/total-ghg-emissions';
 import HomeFlagshipProgrammes from 'components/home/flagship-programmes';
+import SectionsContentProvider from 'providers/sections-content-provider';
 
 import styles from './home-styles.scss';
 
 class Home extends PureComponent {
   render() {
+    const { introText } = this.props;
+
     return (
       <div className={styles.page}>
         <Section backgroundImage={background} theme={styles}>
           <div className={styles.verticalCenterText}>
             <div className={styles.introTextContainer}>
-              <p className={styles.introText}>
-                The{' '}
-                <span className={styles.bold}>
-                  South Africa’s Biennial Update Report
-                </span>
-                {' '}
-                offers open data, visualizations and analysis to help you gather insights on South Africa’s climate progress.
-                It is an an important part of the National Climate Change
-                Monitoring and Evaluation (M&E) System established as part of
-                the national efforts to track South Africa
-                {'’'}
-                s overall transition
-                to a low carbon and climate resilient society and economy.
-              </p>
+              <p
+                className={styles.introText}
+                dangerouslySetInnerHTML={{ __html: introText }}
+              />
             </div>
           </div>
         </Section>
         <NDCPledge />
         <TotalGHGEmissions />
         <HomeFlagshipProgrammes />
+        <SectionsContentProvider />
       </div>
     );
   }
 }
+
+Home.propTypes = { introText: PropTypes.string.isRequired };
+
 export default Home;

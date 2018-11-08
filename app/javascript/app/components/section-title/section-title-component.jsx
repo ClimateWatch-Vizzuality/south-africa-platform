@@ -12,31 +12,54 @@ class SectionTitle extends PureComponent {
   };
 
   render() {
-    const { theme, title, isSubtitle, infoButton, className } = this.props;
+    const {
+      theme,
+      title,
+      isSubtitle,
+      infoButton,
+      className,
+      description,
+      noMarginBottom
+    } = this.props;
     return (
-      <div className={styles.sectionTitleContainer}>
-        <h2
-          className={cx(
-            styles.sectionTitle,
-            { [styles.sectionSubtitle]: isSubtitle },
-            theme.sectionTitle,
-            className
-          )}
-        >
-          {title}
-        </h2>
-        {
-          infoButton && (
-          <button
-            onClick={this.handleInfoClick}
-            className={cx(styles.iconContainer, theme.iconContainer)}
-            type="button"
+      <React.Fragment>
+        <div className={styles.sectionTitleContainer}>
+          <h2
+            className={cx(
+              styles.sectionTitle,
+              { [styles.sectionSubtitle]: isSubtitle },
+              {
+                [styles.sectionContainerNoMarginBottom]: description ||
+                  noMarginBottom
+              },
+              theme.sectionTitle,
+              className
+            )}
           >
-            <Icon icon={iconInfo} />
-          </button>
+            {title}
+          </h2>
+          {
+            infoButton && (
+            <button
+              onClick={this.handleInfoClick}
+              className={cx(styles.iconContainer, theme.iconContainer)}
+              type="button"
+            >
+              <Icon icon={iconInfo} />
+            </button>
+              )
+          }
+        </div>
+        {
+          description &&
+            (
+              <p
+                className={styles.sectionDescription}
+                dangerouslySetInnerHTML={{ __html: description }}
+              />
             )
         }
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -47,7 +70,9 @@ SectionTitle.propTypes = {
   infoButton: PropTypes.bool,
   className: PropTypes.string,
   isSubtitle: PropTypes.bool,
-  setOpen: PropTypes.func.isRequired
+  setOpen: PropTypes.func.isRequired,
+  description: PropTypes.string,
+  noMarginBottom: PropTypes.bool
 };
 
 SectionTitle.defaultProps = {
@@ -55,7 +80,9 @@ SectionTitle.defaultProps = {
   title: '',
   isSubtitle: false,
   infoButton: false,
-  className: null
+  className: null,
+  description: '',
+  noMarginBottom: false
 };
 
 export default SectionTitle;

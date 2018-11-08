@@ -13,7 +13,7 @@ const getSectionsWithReplacedIds = (sections, prevPayloadId, payloadId) => {
   });
 };
 
-const mapStateToProps = ({ location }) => {
+const mapStateToProps = ({ location, SectionsContent }) => {
   const route = location.routesMap[location.type];
   const { section: currentSectionSlug } = location.payload;
   let section = null;
@@ -27,7 +27,12 @@ const mapStateToProps = ({ location }) => {
       location.payload.id
     );
   }
-  return { route, section, payload: location.payload };
+  return {
+    route,
+    section,
+    payload: location.payload,
+    contentData: SectionsContent.data
+  };
 };
 
 export default connect(mapStateToProps, null)(PlanningComponent);

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import NationalCircumstancesPrioritiesProvider from 'providers/national-circumstances-priorities-provider';
-import ModalInfo from 'components/modal-info';
 
 import ProvincialContent from './provincial-development-priorities-content';
 import styles from './provincial-styles.scss';
@@ -29,17 +28,10 @@ class Provincial extends PureComponent {
   }
 
   render() {
-    const { activeTabValue } = this.props;
+    const { activeTabValue, title, description } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle
-          isSubtitle
-          title="Provincial Development Priorities"
-          infoButton
-        />
-        <ModalInfo title="Provincial Development Priorities">
-          Scroll over each of South Africa’s nine provinces to see how they are addressing climate change in their provincial climate change response priorities.
-        </ModalInfo>
+        <SectionTitle isSubtitle title={title} description={description} />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchActive={false}
@@ -58,7 +50,9 @@ Provincial.propTypes = {
   query: PropTypes.object,
   selectedData: PropTypes.object,
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 Provincial.defaultProps = {
   query: null,
