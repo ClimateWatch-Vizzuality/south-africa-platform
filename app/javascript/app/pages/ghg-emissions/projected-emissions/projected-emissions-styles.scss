@@ -24,3 +24,11 @@
   margin-bottom: $gutter-padding;
   margin-top: $gutter-padding * 2;
 }
+
+.sectionDescription {
+  font-size: $font-size;
+  color: $midnightblue;
+  line-height: 1.38;
+  margin-bottom: 20px;
+  padding-bottom: $gutter-padding;
+}

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import flagshipLogo from 'assets/flagship-logo.png';
 import flagshipLogoRetina from 'assets/flagship-logo@2x.png';
@@ -22,15 +23,12 @@ class FlagshipProgrammesInfo extends PureComponent {
       'Waste management',
       'Water conservation and water demand management'
     ];
+    const { title } = this.props;
     return (
       <div className={styles.flagshipProgrammes}>
         <div className={styles.generalInfoContainer}>
           <div className={styles.generalInfo}>
-            <SectionTitle
-              isSubtitle
-              title="Flagship Programmes"
-              className={styles.title}
-            />
+            <SectionTitle isSubtitle title={title} className={styles.title} />
             <p>
               <span className={styles.bold}>
                 South Africa already has a well-developed base for mitigating climate change and building climate resilience,
@@ -99,4 +97,5 @@ class FlagshipProgrammesInfo extends PureComponent {
     );
   }
 }
+FlagshipProgrammesInfo.propTypes = { title: PropTypes.string.isRequired };
 export default FlagshipProgrammesInfo;

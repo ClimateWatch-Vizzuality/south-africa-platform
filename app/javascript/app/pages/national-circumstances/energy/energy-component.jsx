@@ -9,7 +9,6 @@ import NationalCircumstancesProvider from 'providers/national-circumstances-prov
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { format } from 'd3-format';
-import ModalInfo from 'components/modal-info';
 
 import styles from './energy-styles';
 
@@ -36,7 +35,9 @@ class Energy extends PureComponent {
       metricOptions,
       chartTypeSelected,
       chartTypeOptions,
-      chartData
+      chartData,
+      title,
+      description
     } = this.props;
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
@@ -68,10 +69,7 @@ class Energy extends PureComponent {
     return (
       <React.Fragment>
         <Section theme={styles}>
-          <SectionTitle isSubtitle title="Energy supply" infoButton />
-          <ModalInfo title="Energy supply">
-            Energy production and mining are the largest sources of GHG emissions in South Africa... The energy intensity of the South African economy has resulted in an emissions profile that differs substantially from that of other developing countries, particularly on the African continent.
-          </ModalInfo>
+          <SectionTitle isSubtitle title={title} description={description} />
           <TabletLandscape>
             {matches => {
               if (matches) {
@@ -118,7 +116,9 @@ Energy.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
-  updateFiltersSelected: PropTypes.func.isRequired
+  updateFiltersSelected: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 Energy.defaultProps = {

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Link from 'redux-first-router-link';
 import { Stories, Button } from 'cw-components';
 import SectionTitle from 'components/section-title';
@@ -9,12 +10,13 @@ import { flagshipProgrammes } from './flagship-programmes-map';
 
 class FlagshipProgrammes extends PureComponent {
   render() {
+    const { title, description } = this.props;
     return (
       <div className={styles.flagshipContainer}>
         <div className="layout-container">
           <div className={styles.titleContainer}>
             <SectionTitle
-              title="Flagship Programmes"
+              title={title}
               theme={{ sectionTitle: styles.flagshipProgrammesTitle }}
             />
             <div className={styles.buttonContainer}>
@@ -38,12 +40,17 @@ class FlagshipProgrammes extends PureComponent {
           </div>
         </div>
         <p className={styles.description}>
-          The Climate Change Flagship Programmes are strategic measures implemented by the South African government to trigger a large-scale transition to a low-carbon economy and create a more climate-resilient South Africa. They signal climate change investment priorities and provide the certainty needed to stimulate further investment.
+          {description}
         </p>
         <Stories stories={flagshipProgrammes} theme={styles} />
       </div>
     );
   }
 }
+
+FlagshipProgrammes.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
+};
 
 export default FlagshipProgrammes;

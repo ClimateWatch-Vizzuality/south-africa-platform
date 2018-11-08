@@ -9,7 +9,6 @@ import { Button, Icon } from 'cw-components';
 import DataTable from 'components/data-table';
 import button from 'styles/themes/button';
 import { GHG_NATIONAL_REPORT } from 'constants/links';
-import ModalInfo from 'components/modal-info';
 import styles from './inventory-styles.scss';
 
 class GHGInventory extends PureComponent {
@@ -37,19 +36,12 @@ class GHGInventory extends PureComponent {
   }
 
   render() {
-    const { searchFilter, activeTabValue } = this.props;
+    const { searchFilter, activeTabValue, title, description } = this.props;
     return (
       <div className={styles.row}>
         <div className="layout-container">
           <div className={styles.titleContainer}>
-            <SectionTitle
-              isSubtitle
-              title="GHG Inventory Improvement Programmes"
-              infoButton
-            />
-            <ModalInfo title="GHG Inventory Improvement Programmes">
-              South Africa strives to continuously improve its national GHG inventory through the National Greenhouse Gas Improvement Programmes,  a series of sector-specific projects that target improvements in activity data collection, country-specific methodologies and emission factors used.
-            </ModalInfo>
+            <SectionTitle isSubtitle title={title} noMarginBottom />
             <div className={styles.actionContainer}>
               <div className={styles.downloadDescription}>
                 Download a full Inventory Report
@@ -63,6 +55,10 @@ class GHGInventory extends PureComponent {
               </Button>
             </div>
           </div>
+          <p
+            className={styles.sectionDescription}
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
         </div>
         <TabSwitcher
           tabs={this.renderTabs()}
@@ -87,7 +83,9 @@ GHGInventory.propTypes = {
     ellipsisColumns: PropTypes.array
   }),
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 GHGInventory.defaultProps = {

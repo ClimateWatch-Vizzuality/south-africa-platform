@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
-import ModalInfo from 'components/modal-info';
 import GDP from './gdp';
 import HumanDevelopmentIndex from './human-development-index';
 import GDPGrowth from './gdp-growth';
@@ -35,12 +34,10 @@ class Economy extends PureComponent {
   };
 
   render() {
+    const { title, description } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title="Economy" infoButton />
-        <ModalInfo title="Economy">
-          South Africa is a significant industrial and economic power, with one of the largest economies in Africa.
-        </ModalInfo>
+        <SectionTitle isSubtitle title={title} description={description} />
         <TabSwitcher
           tabs={this.state.tabs}
           actionsActive={false}
@@ -57,7 +54,9 @@ class Economy extends PureComponent {
 Economy.propTypes = {
   query: PropTypes.object,
   activeTabValue: PropTypes.string,
-  updateQueryParam: PropTypes.func.isRequired
+  updateQueryParam: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 Economy.defaultProps = { query: null, activeTabValue: null };

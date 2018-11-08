@@ -29,29 +29,29 @@ export const routes = {
   [NATIONAL_CIRCUMSTANCES]: {
     nav: true,
     label: 'National Circumstances',
+    parentSection: 'national_circumstances',
     link: '/national-circumstances',
     path: '/national-circumstances/:section?',
     component: 'layouts/sections/sections',
-    sections: NationalSections,
-    description: 'This section provides context for South Africa’s climate change response, including information on provincial development priorities, population, economy, energy, and climate risks from natural disasters.'
+    sections: NationalSections
   },
   [GHG_EMISSIONS]: {
     nav: true,
-    label: 'GHG Emissions',
+    label: 'Ghg Emissions',
+    parentSection: 'ghg_emissions',
     link: '/ghg-emissions',
     path: '/ghg-emissions/:section?',
     component: 'layouts/sections/sections',
-    sections: GHGSections,
-    description: 'This section provides information on South Africa’s GHG inventory, the programmes it’s implementing to improve the quality of future national GHG inventories and possible future emissions pathways under different mitigation scenarios.'
+    sections: GHGSections
   },
   [MITIGATIONS]: {
     nav: true,
     label: 'Mitigation Actions',
+    parentSection: 'mitigation_actions_section',
     link: '/mitigation',
     path: '/mitigation/:section?',
     component: 'layouts/sections/sections',
-    sections: MitigationSections,
-    description: `South Africa’s approach to mitigation is informed by its contribution to the international effort to reduce global GHG emissions and its successful management of development and poverty eradication challenges. South Africa is committed to addressing climate change based on science and equity and to work with others to ensure global average temperature increases are kept well below 2°C and potentially 1.5°C above pre-industrial levels. Global average temperature increase of 2°C translates to up to 4°C for South Africa by the end of the century. South Africa’s mitigation action will be accessed against its commitment to reduce emissions to a range between 398 and 614 CO2-eq by 2030 and 2050, as defined in national policy.`
+    sections: MitigationSections
   },
   [FLAGSHIP_DETAIL]: {
     link: '/mitigation/flagship-programmes-detail',
@@ -62,11 +62,11 @@ export const routes = {
   [FINANCIAL_RESOURCES]: {
     nav: true,
     label: 'Financial Resources',
+    parentSection: 'financial_resources',
     link: '/financial-resources',
     path: '/financial-resources/:section?',
     component: 'layouts/sections/sections',
-    sections: FinancialSections,
-    description: 'This section shows climate finance provided from multilateral, bilateral, and domestic sources as well as remaining financial and non-financial support needs.'
+    sections: FinancialSections
   },
   [NOT_FOUND]: {
     path: '/404',
