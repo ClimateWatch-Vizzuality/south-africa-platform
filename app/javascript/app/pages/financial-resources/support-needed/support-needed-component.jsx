@@ -4,7 +4,6 @@ import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import DataTable from 'components/data-table';
 import FinancialResourcesNeededProvider from 'providers/financial-resources-needed-provider';
-import ModalInfo from 'components/modal-info';
 import styles from './support-needed-styles.scss';
 
 const FINANCIAL_SUPPORT_NEEDED_KEY = 'financialSupportNeeded';
@@ -42,13 +41,10 @@ class SupportNeeded extends PureComponent {
   }
 
   render() {
-    const { searchFilter, activeTabValue, title } = this.props;
+    const { searchFilter, activeTabValue, title, description } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title={title} infoButton />
-        <ModalInfo title={title}>
-          This section includes a summary of support needed for climate change mitigation and adaptation actions.
-        </ModalInfo>
+        <SectionTitle isSubtitle title={title} description={description} />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}
@@ -71,7 +67,8 @@ SupportNeeded.propTypes = {
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
   tableData: PropTypes.object,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 SupportNeeded.defaultProps = {

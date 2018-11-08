@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Card } from 'cw-components';
 import SectionTitle from 'components/section-title';
 import NaturalDisastersDataProvider from 'providers/natural-disasters-data-provider';
-import ModalInfo from 'components/modal-info';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import styles from './natural-disasters-styles.scss';
 
@@ -13,11 +12,11 @@ function createMarkup(description) {
 
 class NaturalDisasters extends PureComponent {
   render() {
-    const { naturalDisastersData, title } = this.props;
+    const { naturalDisastersData, title, description } = this.props;
     return (
       <div className={styles.sectionWrapper}>
         <div className={styles.titleContainer}>
-          <SectionTitle isSubtitle title={title} infoButton />
+          <SectionTitle isSubtitle title={title} />
           <div className={styles.buttonWrapper}>
             <InfoDownloadToolbox
               slugs="COGTA2015"
@@ -25,9 +24,10 @@ class NaturalDisasters extends PureComponent {
             />
           </div>
         </div>
-        <ModalInfo title={title}>
-          South Africa is exposed to natural disasters including drought, floods and wildfires. Economic losses from weather-related disasters have increased in recent years.
-        </ModalInfo>
+        <p
+          className={styles.sectionDescription}
+          dangerouslySetInnerHTML={{ __html: description }}
+        />
         <div className={styles.cardsContainer}>
           {
             naturalDisastersData && naturalDisastersData.map(card => (
@@ -50,7 +50,8 @@ class NaturalDisasters extends PureComponent {
 
 NaturalDisasters.propTypes = {
   naturalDisastersData: PropTypes.array,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 NaturalDisasters.defaultProps = { naturalDisastersData: [] };
 

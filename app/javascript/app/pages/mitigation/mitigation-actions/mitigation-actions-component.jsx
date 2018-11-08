@@ -4,7 +4,6 @@ import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import MitigationActionsProvider from 'providers/mitigation-actions-provider';
 import DataTable from 'components/data-table';
-import ModalInfo from 'components/modal-info';
 import styles from './mitigation-actions-styles.scss';
 
 const ALL_ACTIONS_KEY = 'allActions';
@@ -43,21 +42,10 @@ class MitigationActions extends PureComponent {
   }
 
   render() {
-    const { searchFilter, activeTabValue, title } = this.props;
+    const { searchFilter, activeTabValue, title, description } = this.props;
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title={title} infoButton />
-        <ModalInfo title={title}>
-          <p>
-            South Africa’s national government will implement a mix of policies and measures over five-year periods. The 2016 and 2020 phase will focus demonstrating policies to meet South Africa’s Cancun pledge. The 2021-2025 and 2026-2030 phases will focus on achieving the pledges made in South Africa’s NDC.
-          </p>
-          <p>
-            Policy instruments to aid in achieving this are under development and include a carbon tax, sectoral emission targets (SETs) for sectors, company-level carbon budgets, regulatory standards and controls for specifically identified GHG pollutants and emitters, and continued implementation of the Climate Change Flagship Programmes.
-          </p>
-          <p>
-            Key mitigation actions being implemented by national, provincial and municipal level governments, the, private sector and non-profit organisations in South Africa are discussed below.
-          </p>
-        </ModalInfo>
+        <SectionTitle isSubtitle title={title} description={description} />
         <TabSwitcher
           tabs={this.renderTabs()}
           searchFilter={searchFilter}
@@ -82,7 +70,8 @@ MitigationActions.propTypes = {
   }),
   activeTabValue: PropTypes.string,
   updateQueryParam: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 MitigationActions.defaultProps = {
   searchFilter: '',

@@ -4,7 +4,6 @@ import SectionTitle from 'components/section-title';
 import TabSwitcher from 'components/tab-switcher';
 import { Dropdown } from 'cw-components';
 import FinancialResourcesReceivedProvider from 'providers/financial-resources-received-provider/financial-resources-received-provider';
-import ModalInfo from 'components/modal-info';
 import styles from './support-received-styles.scss';
 import FlowsChart from './flows-chart';
 import ComparisonChart from './comparison-chart';
@@ -70,7 +69,7 @@ class SupportReceived extends PureComponent {
   }
 
   render() {
-    const { activeTabValue, data, title } = this.props;
+    const { activeTabValue, data, title, description } = this.props;
     const component = this.renderChartComponent();
     const renderTabs = [
       { name: 'INTERNATIONAL', value: INTERNATIONAL_KEY, component },
@@ -89,10 +88,7 @@ class SupportReceived extends PureComponent {
 
     return (
       <div className={styles.row}>
-        <SectionTitle isSubtitle title={title} infoButton />
-        <ModalInfo title={title}>
-          The financial support committed and received from international sources, as well as domestic funds committed through government grants and loans, are reported below.
-        </ModalInfo>
+        <SectionTitle isSubtitle title={title} description={description} />
         <TabSwitcher
           tabs={renderTabs}
           searchActive={false}
@@ -118,7 +114,8 @@ SupportReceived.propTypes = {
   values: PropTypes.object,
   dropdownConfig: PropTypes.array,
   data: PropTypes.array,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 SupportReceived.defaultProps = {

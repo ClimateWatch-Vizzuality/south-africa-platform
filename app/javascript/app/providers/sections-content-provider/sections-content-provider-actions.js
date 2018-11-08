@@ -30,7 +30,7 @@ export const fetchSectionsContent = createThunkAction(
             const { data } = response;
             const sectionsContentMapped = {};
             data.forEach(section => {
-              sectionsContentMapped[section.name] = {
+              sectionsContentMapped[section.slug] = {
                 title: section.title,
                 description: section.description
               };
