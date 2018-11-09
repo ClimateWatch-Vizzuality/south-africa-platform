@@ -29,10 +29,12 @@ const getChartData = createSelector([ selectData, getComparisonId ], (
 ) =>
   {
     if (!data || isEmpty(data)) return null;
+    const unit = 'USD million';
     return data.map(e => ({
       ...e,
       value: e.amountUsd,
-      unit: 'USD million',
+      unit,
+      tooltipContent: [ e.donor.name, `${e.amountUsd} ${unit}` ],
       color: selectedId
         ? setBubbleColor(selectedId, e.id)
         : CHART_COLORS.default
