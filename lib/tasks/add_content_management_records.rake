@@ -5,6 +5,8 @@ namespace :db do
     config = YAML.load_file(file)
 
     config['sections'].each do |section|
+      next if SectionContent.find_by(slug: section['slug'])
+
       main_section = SectionContent.create(
         name: section['name'],
         order: section['order'],
