@@ -13,7 +13,7 @@ import {
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = { gas: 'Total GHG', source: 'DEA2017b' };
+const defaults = { gas: 'All GHG', source: 'DEA2017b' };
 const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
 const excludedGases = [ 'TotalGHG' ];
 

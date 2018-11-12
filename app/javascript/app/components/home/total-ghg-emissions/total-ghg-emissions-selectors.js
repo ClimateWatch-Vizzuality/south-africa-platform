@@ -12,7 +12,7 @@ import {
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = { gas: 'Total GHG', source: 'DEA2017b', sector: 'Energy' };
+const defaults = { gas: 'ALl GHG', source: 'DEA2017b', sector: 'Energy' };
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
 const getMetricParam = ({ location }) =>
@@ -144,10 +144,10 @@ export const getChartConfig = createSelector(
   }
 );
 
-export const getChartFilters = createSelector(() => [ { label: 'Total GHG' } ]);
+export const getChartFilters = createSelector(() => [ { label: 'All GHG' } ]);
 
 export const getChartFilterSelected = createSelector(() => [
-  { label: 'Total GHG' }
+  { label: 'All GHG' }
 ]);
 
 const getTitleAndDescription = createSelector(
