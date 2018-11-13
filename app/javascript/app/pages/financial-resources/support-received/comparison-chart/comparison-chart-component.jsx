@@ -12,7 +12,7 @@ class ComparisonChart extends PureComponent {
   };
 
   render() {
-    const { data, selectedData, selectedValues } = this.props;
+    const { data, selectedData, selectedValues, config } = this.props;
     return (
       <div className={styles.contentContainer}>
         <div className={styles.chartContainer}>
@@ -25,6 +25,7 @@ class ComparisonChart extends PureComponent {
                   data={data}
                   handleNodeClick={this.handleNodeClick}
                   tooltipClassName="global_SATooltip"
+                  config={config}
                 />
 )
               : <NoContent minHeight={400} message="No data available" />
@@ -67,13 +68,15 @@ ComparisonChart.propTypes = {
   data: PropTypes.array,
   selectedData: PropTypes.object,
   selectedValues: PropTypes.object,
-  onFilterChange: PropTypes.func.isRequired
+  onFilterChange: PropTypes.func.isRequired,
+  config: PropTypes.object
 };
 
 ComparisonChart.defaultProps = {
   data: null,
   selectedData: null,
-  selectedValues: null
+  selectedValues: null,
+  config: null
 };
 
 export default ComparisonChart;
