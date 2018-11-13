@@ -1,6 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
+import uniq from 'lodash/uniq';
 import has from 'lodash/has';
 import intersection from 'lodash/intersection';
 import { METRIC_OPTIONS } from 'utils/defaults';
@@ -13,9 +14,9 @@ import {
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = { gas: 'TotalGHG', source: 'DEA2017b' };
+const defaults = { gas: 'All GHG', source: 'DEA2017b' };
 const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
-const excludedGases = [ 'Total GHG' ];
+const excludedGases = [ 'TotalGHG' ];
 
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
@@ -44,12 +45,6 @@ const getDownloadUri = ({ metadata = {} }) => {
   return id ? `emissions.csv?source=${id}&location=ZAF` : null;
 };
 
-const getGas = createSelector(getMetaData, meta => {
-  if (!meta || !meta.gas) return null;
-  const selected = meta.gas.find(gas => gas.label === defaults.gas);
-  return selected && selected.value || null;
-});
-
 const getSource = createSelector(getMetaData, meta => {
   if (!meta || !meta.dataSource) return null;
   const selected = meta.dataSource.find(
@@ -57,15 +52,6 @@ const getSource = createSelector(getMetaData, meta => {
   );
   return selected && selected.value || null;
 });
-
-export const getEmissionsParams = createSelector([ getSource, getGas ], (
-  source,
-  gas
-) =>
-  {
-    if (!source || !gas) return null;
-    return { location: COUNTRY_ISO, gas, source };
-  });
 
 export const getMetricOptions = createSelector(
   [],
@@ -96,7 +82,10 @@ export const getGasSelected = createSelector([ getGasOptions, getGasParam ], (
 ) =>
   {
     if (!gasOptions) return null;
-    if (!gasSelected) return [ gasOptions.find(g => g.label === defaults.gas) ];
+    if (!gasSelected) {
+      const defaultGas = gasOptions.find(g => g.label === defaults.gas);
+      return defaultGas && [ defaultGas ] || null;
+    }
     const gasParsed = gasSelected.split(',').map(s => parseInt(s, 10));
     return gasOptions.filter(s => gasParsed.indexOf(s.value) > -1);
   });
@@ -150,6 +139,14 @@ export const getSubSectorSelected = createSelector(
       .split(',')
       .map(s => parseInt(s, 10));
     return subSectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
+  }
+);
+
+export const getEmissionsParams = createSelector(
+  [ getSource, getGasSelected ],
+  (source, gas) => {
+    if (!source || !gas) return null;
+    return { location: COUNTRY_ISO, gas: gas.map(g => g.value).join(), source };
   }
 );
 
@@ -210,28 +207,21 @@ const getDataSelected = createSelector(
     return sectors.concat(subsectors);
   }
 );
+
 export const getChartConfig = createSelector(
-  [
-    getEmissionsData,
-    getSectorSelected,
-    getSubSectorSelected,
-    getGasSelected,
-    getMetricSelected
-  ],
-  (data, sectorSelected, subSectorSelected, gasSelected, metricSelected) => {
+  [ getEmissionsData, getSectorSelected, getMetricSelected ],
+  (data, sectorSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
-    const sectorSelectedLabels = sectorSelected.map(s => s.label);
-    const subSectorSelectedLabels = subSectorSelected.map(s => s.label);
-    const gasSelectedLabels = gasSelected && gasSelected.map(s => s.label);
-    const allLabels = sectorSelectedLabels.concat(subSectorSelectedLabels);
-    const getYOption = columns =>
-      columns.map(d => ({ label: d.sector, value: getYColumnValue(d.sector) }));
-    const yColumns = data
-      .filter(s => allLabels.includes(s.sector))
-      .filter(s => gasSelectedLabels.includes(s.gas));
-    const yColumnOptions = getYOption(yColumns);
-    const allColumnOptions = getYOption(data);
-    const theme = getThemeConfig(allColumnOptions);
+    const getYOption = sectors =>
+      uniq(sectors).map(s => ({ label: s, value: getYColumnValue(s) }));
+    const yColumnSectors = [];
+    uniq(
+      data.forEach(d => {
+        if (d.emissions.some(y => y.value)) yColumnSectors.push(d.sector);
+      })
+    );
+    const yColumnOptions = getYOption(yColumnSectors);
+    const theme = getThemeConfig(yColumnOptions);
     const tooltip = getTooltipConfig(yColumnOptions);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {

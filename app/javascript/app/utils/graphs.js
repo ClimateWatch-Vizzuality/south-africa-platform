@@ -60,9 +60,7 @@ export const getThemeConfig = (columns, colors = CHART_COLORS) => {
   const theme = {};
   columns.forEach((column, i) => {
     const index = column.index || i;
-    const correctedIndex = index < colors.length
-      ? index
-      : index - colors.length;
+    const correctedIndex = index % colors.length;
     theme[column.value] = {
       stroke: colors[correctedIndex],
       fill: colors[correctedIndex]

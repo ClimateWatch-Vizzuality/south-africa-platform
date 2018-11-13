@@ -11,6 +11,12 @@ class GHGEmissionsProvider extends PureComponent {
     fetchGHGEmissions(params);
   }
 
+  componentDidUpdate(prevProps) {
+    const { fetchGHGEmissions, params } = this.props;
+    const { params: prevParams } = prevProps;
+    if (prevParams.gas !== params.gas) fetchGHGEmissions(params);
+  }
+
   render() {
     return null;
   }
