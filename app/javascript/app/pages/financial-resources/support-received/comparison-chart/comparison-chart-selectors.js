@@ -33,6 +33,7 @@ const getChartData = createSelector([ selectData, getComparisonId ], (
       ...e,
       value: e.amountUsd,
       unit: 'USD million',
+      tooltipContent: [ e.donor.name, e.amountUsd ],
       color: selectedId
         ? setBubbleColor(selectedId, e.id)
         : CHART_COLORS.default
@@ -49,7 +50,10 @@ const getSelectedDataInfo = createSelector(
   }
 );
 
+export const getConfig = () => ({ scale: 1 / 1000000, suffix: 'm' });
+
 export const getComparison = createStructuredSelector({
   data: getChartData,
-  selectedData: getSelectedDataInfo
+  selectedData: getSelectedDataInfo,
+  config: getConfig
 });
