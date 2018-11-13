@@ -96,7 +96,10 @@ export const getGasSelected = createSelector([ getGasOptions, getGasParam ], (
 ) =>
   {
     if (!gasOptions) return null;
-    if (!gasSelected) return [ gasOptions.find(g => g.label === defaults.gas) ];
+    if (!gasSelected) {
+      const defaultGas = gasOptions.find(g => g.label === defaults.gas);
+      return defaultGas && [ defaultGas ] || null;
+    }
     const gasParsed = gasSelected.split(',').map(s => parseInt(s, 10));
     return gasOptions.filter(s => gasParsed.indexOf(s.value) > -1);
   });
