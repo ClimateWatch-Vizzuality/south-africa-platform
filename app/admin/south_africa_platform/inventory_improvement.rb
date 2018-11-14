@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform Inventory Improvement' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportInventoryImprovement')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportInventoryImprovement', current_admin_user.email)
     end
 
     def section_repository

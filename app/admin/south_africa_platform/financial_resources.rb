@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform Financial Resources' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportFinancialResource')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportFinancialResource', current_admin_user.email)
     end
 
     def section_repository
