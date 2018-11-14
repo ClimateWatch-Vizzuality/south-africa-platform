@@ -1,8 +1,10 @@
 GIT
   remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
-  revision: 8085a33d86d31134819ae49a975ff5ebd9a3a0ff
-  branch: feature/add-guidance-for-data-uploader
+  revision: afdbd170362426f1fc8614fd83d846dfa1408928
   specs:
+    climate_watch_engine (1.3.2)
+      aws-sdk-s3 (~> 1)
+      rails (~> 5.2.0)
     cw_data_uploader (0.3.4)
       activeadmin
       aws-sdk-rails (~> 2)
@@ -12,14 +14,6 @@ GIT
       pg
       rubyzip
       sidekiq
-
-GIT
-  remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
-  revision: 17a0c1365f321e095fed2d07b1bf99a44991932e
-  specs:
-    climate_watch_engine (1.3.2)
-      aws-sdk-s3 (~> 1)
-      rails (~> 5.2.0)
     cw_historical_emissions (1.3.2)
       active_model_serializers (~> 0.10.0)
       aws-sdk-s3 (~> 1)
