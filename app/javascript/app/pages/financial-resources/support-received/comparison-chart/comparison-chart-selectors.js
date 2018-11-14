@@ -50,7 +50,11 @@ const getSelectedDataInfo = createSelector(
   }
 );
 
-export const getConfig = () => ({ scale: 1 / 1000000, suffix: 'm' });
+export const getConfig = () => ({
+  scale: 1 / 1000000,
+  suffix: 'm',
+  format: '~r'
+});
 
 export const getComparison = createStructuredSelector({
   data: getChartData,
