@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform National Circumstances' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportNationalCircumstances')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportNationalCircumstances', current_admin_user.email)
     end
 
     def section_repository

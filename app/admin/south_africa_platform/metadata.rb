@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform Metadata' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportDataSource')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportDataSource', current_admin_user.email)
     end
 
     def section_repository

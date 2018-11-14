@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform Mitigation Actions' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportMitigation')
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportMitigation', current_admin_user.email)
     end
 
     def section_repository
