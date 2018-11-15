@@ -48,7 +48,8 @@ const getLinks = (data, nodes, focusNames) => {
           source,
           target,
           focus: getFocus(d, focusNames),
-          value: d.amountUsd
+          value: d.amountUsd,
+          timeframes: d.timeframes
         });
       }
     }
