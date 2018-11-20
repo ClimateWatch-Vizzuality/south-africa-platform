@@ -45,6 +45,7 @@ class PrioritisedFlagshipProgrammes extends PureComponent {
                 <ul className={styles.subProgrammesList}>
                   {
                     selectedSection &&
+                      selectedSection.subPrograms &&
                       selectedSection.subPrograms.map(subProgram => (
                         <li key={subProgram}>
                           {subProgram}
