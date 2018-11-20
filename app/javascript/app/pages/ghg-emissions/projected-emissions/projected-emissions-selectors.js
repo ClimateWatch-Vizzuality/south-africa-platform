@@ -13,6 +13,7 @@ const dataNames = {
   yMPAWOM: 'Scenario_MPA - WOM',
   yMPAWEM: 'Scenario_MPA_WEM',
   yLTMS: 'Scenario_LTMS',
+  yGHGInventory: 'GHG Inventory',
   yPPD: [ 'Scenario_PPD_L', 'Scenario_PPD_U' ],
   yBAU: [ 'Scenario_BAU_L', 'Scenario_BAU_U' ]
 };
@@ -53,8 +54,9 @@ const parseData = createSelector(getProjectedEmissionsData, data => {
           const columnYearsData = index
             ? columnData[name][index]
             : columnData[name];
-          return columnYearsData.find(v => v.year === year).value *
-            API_DATA_SCALE;
+          const valForYear = columnYearsData.find(v => v.year === year);
+
+          return valForYear ? valForYear.value * API_DATA_SCALE : undefined;
         };
         if (isArray(columnData[columnName][0])) {
           columnsYearData[columnName] = [
@@ -72,7 +74,7 @@ const parseData = createSelector(getProjectedEmissionsData, data => {
 
 const getModelOptions = () => [
   {
-    query: 'GHGInventory',
+    query: 'GHG Inventory',
     label: 'GHG Inventory',
     type: 'dots',
     value: 'yGHGInventory'
