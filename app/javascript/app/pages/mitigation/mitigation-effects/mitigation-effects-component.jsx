@@ -7,7 +7,6 @@ import Summary from './summary';
 import styles from './mitigation-effects-styles';
 
 const SUMMARY_KEY = 'summary';
-const SUSTAINABLE_DEVELOPMENT_KEY = 'sustainable-development';
 
 class MitigationEffects extends PureComponent {
   handleTabChange = ({ value }) => {
@@ -17,15 +16,7 @@ class MitigationEffects extends PureComponent {
 
   // eslint-disable-next-line
   renderTabs() {
-    return [
-      { name: 'SUMMARY', value: SUMMARY_KEY, component: <Summary /> },
-      {
-        name: 'SUSTAINABLE DEVELOPMENT BENEFITS',
-        value: SUSTAINABLE_DEVELOPMENT_KEY,
-        component: null,
-        disabled: true
-      }
-    ];
+    return [ { name: 'SUMMARY', value: SUMMARY_KEY, component: <Summary /> } ];
   }
 
   render() {
