@@ -2,8 +2,8 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import { isEmpty, uniqBy, snakeCase } from 'lodash';
 
 const VIS_TYPE_OPTIONS = [
-  { label: 'Bubble Chart', value: 'bubble-chart' },
-  { label: 'Table', value: 'table' }
+  { label: 'Table', value: 'table' },
+  { label: 'Bubble Chart', value: 'bubble-chart' }
 ];
 const DEFAULT_THEME = 'energy_efficiency';
 const CHART_COLORS = { selected: '#f5b335', default: '#ecf0f1' };
