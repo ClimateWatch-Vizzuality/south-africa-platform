@@ -1,8 +1,6 @@
 import React, { PureComponent } from 'react';
 import { BottomBar } from 'cw-components';
 import DownloadBox from 'components/download-box';
-import cx from 'classnames';
-
 import partners from 'constants/partners';
 import founders from 'constants/founders';
 import styles from './footer-styles.scss';
@@ -23,10 +21,7 @@ class Footer extends PureComponent {
                     className={styles.logoContainer}
                   >
                     <a
-                      className={cx(
-                            styles.logo,
-                            styles[partner.img.customClass]
-                          )}
+                      className={styles[partner.img.customClass]}
                       href={partner.link}
                       target="_blank"
                       rel="noopener noreferrer"
