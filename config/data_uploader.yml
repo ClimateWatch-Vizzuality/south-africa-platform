@@ -10,14 +10,14 @@ platforms:
         importer: ImportDataSource
         datasets:
           - data_sources
-      - name: financial_resources 
+      - name: financial_resources
         importer: ImportFinancialResource
         datasets:
           - support_needs
           - support_received
           - financial_indicators
-      - name: ghg_emissions
-        importer: ImportGhg
+      - name: projected_emissions
+        importer: ImportProjectedEmissions
         datasets:
           - projected_emissions
           - projected_emissions_metadata

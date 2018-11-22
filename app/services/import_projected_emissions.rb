@@ -1,7 +1,7 @@
-class ImportGhg
-  PROJECTED_EMISSIONS_FILEPATH = "#{CW_FILES_PREFIX}ghg_emissions/projected_emissions.csv".freeze
+class ImportProjectedEmissions
+  PROJECTED_EMISSIONS_FILEPATH = "#{CW_FILES_PREFIX}projected_emissions/projected_emissions.csv".freeze
   PROJECTED_EMISSIONS_METADATA_FILEPATH =
-    "#{CW_FILES_PREFIX}ghg_emissions/projected_emissions_metadata.csv".freeze
+    "#{CW_FILES_PREFIX}projected_emissions/projected_emissions_metadata.csv".freeze
 
   def call
     cleanup
