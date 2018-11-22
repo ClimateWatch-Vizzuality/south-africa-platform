@@ -91,14 +91,6 @@ $margin-top-footer: 120px;
   margin: 15px 30px 15px 0;
 }
 
-.logo {
-  filter: grayscale(100%);
-
-  &:hover {
-    filter: grayscale(0%);
-  }
-}
-
 .defaultLogo {
   width: 100px;
 }
