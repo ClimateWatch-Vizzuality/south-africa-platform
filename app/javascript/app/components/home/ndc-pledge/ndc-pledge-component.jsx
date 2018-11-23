@@ -19,6 +19,7 @@ class NDCPledge extends PureComponent {
         <div className={styles.ndcImage} />
         <div className={styles.ndcTextContainer}>
           <SectionTitle isSubtitle className={styles.ndcTitle} title={title} />
+          {}
           <p
             className={styles.ndcDescription}
             dangerouslySetInnerHTML={{ __html: description }}
@@ -35,7 +36,9 @@ class NDCPledge extends PureComponent {
   }
 }
 NDCPledge.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  title: PropTypes.string,
+  description: PropTypes.string
 };
+
+NDCPledge.defaultProps = { title: null, description: null };
 export default NDCPledge;
