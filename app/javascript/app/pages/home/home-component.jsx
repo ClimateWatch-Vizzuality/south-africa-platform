@@ -18,6 +18,7 @@ class Home extends PureComponent {
         <Section backgroundImage={background} theme={styles}>
           <div className={styles.verticalCenterText}>
             <div className={styles.introTextContainer}>
+              {}
               <p
                 className={styles.introText}
                 dangerouslySetInnerHTML={{ __html: introText }}
@@ -34,6 +35,7 @@ class Home extends PureComponent {
   }
 }
 
-Home.propTypes = { introText: PropTypes.string.isRequired };
+Home.propTypes = { introText: PropTypes.string };
+Home.defaultProps = { introText: null };
 
 export default Home;

@@ -12,7 +12,7 @@ import {
 } from 'utils/graphs';
 
 const { COUNTRY_ISO } = process.env;
-const defaults = { gas: 'ALl GHG', source: 'DEA2017b', sector: 'Energy' };
+const defaults = { gas: 'All GHG', source: 'DEA2017b', sector: 'Energy' };
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
 const getMetricParam = ({ location }) =>

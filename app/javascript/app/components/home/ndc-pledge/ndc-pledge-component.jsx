@@ -35,7 +35,9 @@ class NDCPledge extends PureComponent {
   }
 }
 NDCPledge.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  title: PropTypes.string,
+  description: PropTypes.string
 };
+
+NDCPledge.defaultProps = { title: null, description: null };
 export default NDCPledge;
