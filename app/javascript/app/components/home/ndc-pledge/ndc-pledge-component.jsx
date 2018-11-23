@@ -19,7 +19,6 @@ class NDCPledge extends PureComponent {
         <div className={styles.ndcImage} />
         <div className={styles.ndcTextContainer}>
           <SectionTitle isSubtitle className={styles.ndcTitle} title={title} />
-          {}
           <p
             className={styles.ndcDescription}
             dangerouslySetInnerHTML={{ __html: description }}
