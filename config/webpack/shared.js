@@ -21,10 +21,10 @@ const entry = packPaths.reduce(
   (map, entryParam) => {
     const localMap = map;
     const namespace = relative(join(entryPath), dirname(entryParam));
-    localMap[join(
-      namespace,
-      basename(entryParam, extname(entryParam))
-    )] = resolve(entryParam);
+    localMap[join(namespace, basename(entryParam, extname(entryParam)))] = [
+      'babel-polyfill',
+      resolve(entryParam)
+    ];
     return localMap;
   },
   {}
@@ -65,7 +65,9 @@ module.exports = {
       app: 'app',
       components: 'app/components',
       routes: 'app/routes',
-      constants: 'app/constants'
+      constants: 'app/constants',
+      utils: 'app/utils',
+      selectors: 'app/selectors'
     }
   },
   resolveLoader: { modules: [ 'node_modules' ] },

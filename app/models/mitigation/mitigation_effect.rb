@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: mitigation_effects
+#
+#  id          :bigint(8)        not null, primary key
+#  theme       :string
+#  name        :string
+#  coordinator :string
+#  effects_1   :string
+#  effects_2   :string
+#  effects_3   :string
+#  effects_4   :string
+#  effects_5   :string
+#  effects_6   :string
+#  effects_7   :string
+#  effects_8   :string
+#  effects_9   :string
+#  effects_10  :string
+#  effects_11  :string
+#  effects_12  :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+module Mitigation
+  class MitigationEffect < ApplicationRecord
+    include ::GenericToCsv
+
+    validates_presence_of :name, :theme
+  end
+end

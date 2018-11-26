@@ -12,12 +12,16 @@ services:
       - .env
     environment:
       - PORT=3000
-      - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw_ndc_tracking
+      - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw_south_africa
       - RAILS_SERVE_STATIC_FILES=true
+      - RACK_ENV=production
+      - RAILS_ENV=production
+      - REDIS_SERVER=redis://localhost:6379
     restart: always
     container_name: cw-south-africa
     depends_on:
       - postgres
+      - redis
 
   postgres:
     image: postgres:9.6
@@ -27,4 +31,9 @@ services:
     environment:
       - POSTGRES_PASSWORD=example
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=cw_ndc_tracking
+      - POSTGRES_DB=cw_south_africa
+
+  redis:
+    image: redis:3.2.5
+    ports:
+      - "6379"

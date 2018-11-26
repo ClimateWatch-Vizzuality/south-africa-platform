@@ -1,0 +1,34 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.grid {
+  @include row();
+}
+
+.title {
+  margin-top: 0 !important;
+}
+
+.icon {
+  margin-top: -22px !important;
+}
+
+.logo {
+  width: 136px;
+  height: 13px;
+}
+
+.toolbarWithSectionTitle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+  margin-top: $gutter-padding * 2;
+}
+
+.sectionDescription {
+  font-size: $font-size;
+  color: $midnightblue;
+  line-height: 1.38;
+  margin-bottom: 20px;
+  padding-bottom: $gutter-padding;
+}

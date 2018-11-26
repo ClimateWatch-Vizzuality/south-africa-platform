@@ -1,0 +1,75 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.row {
+  @include row();
+
+  justify-content: center;
+}
+
+.section {
+  background-color: $porcelain;
+  padding: 0;
+}
+
+.ndcContainer {
+  @include columns();
+
+  @media #{$tablet-landscape} {
+    @include columns($columns: (6, 5, 1));
+  }
+
+  @media #{$desktop} {
+    @include columns($columns: (6, 4, 2));
+  }
+
+  background-color: $porcelain;
+
+  .ndcImage {
+    padding-bottom: $gutter-padding;
+    display: block;
+    height: 400px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    background-image: url('assets/south-africa-ndc/ndc@2x.jpg');
+
+    @media #{$tablet-landscape} {
+      height: auto;
+      max-width: 48%;
+      padding-bottom: 0;
+    }
+  }
+
+  .ndcTextContainer {
+    padding: 0 0 $gutter-padding $gutter-padding;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+
+    @media #{$tablet-landscape} {
+      height: fit-content;
+    }
+
+    .ndcTitle {
+      font-weight: bold;
+      line-height: $line-height;
+    }
+
+    .ndcDescription {
+      color: $midnightblue;
+      padding-bottom: $gutter-padding;
+      line-height: $line-height;
+    }
+  }
+
+  .learnMoreButton {
+    margin-top: 0;
+    margin-bottom: $gutter-padding;
+
+    @media #{$tablet-landscape} {
+      margin-top: $gutter-padding;
+      margin-bottom: 0;
+    }
+  }
+}

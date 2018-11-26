@@ -1,0 +1,52 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.section {
+  margin-top: $gutter-padding;
+  margin-bottom: $gutter-padding;
+  border-bottom: none;
+
+  @media #{$tablet-landscape} {
+    margin-top: 200px;
+  }
+}
+
+.title {
+  margin-top: 0;
+}
+
+.row {
+  @include row();
+}
+
+.buttonWrapper {
+  width: 90px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+}
+
+.toolbarButtons {
+  display: flex;
+}
+
+.button {
+  width: 270px;
+  margin-right: 30px;
+  color: $white;
+  background-color: $action-color;
+}
+
+.infobutton {
+  width: 50px;
+}
+
+.dropdown {
+  @media #{$tablet-landscape} {
+    width: 200px;
+  }
+}

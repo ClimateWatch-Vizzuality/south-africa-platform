@@ -1,0 +1,44 @@
+@import '~styles/layout.scss';
+
+.contentContainer {
+  @include columns(12);
+
+  @media #{$tablet-portrait} {
+    @include columns(6);
+  }
+
+  margin-top: $gutter-padding;
+  position: relative;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  font-family: $font-family-1;
+  color: $theme-color;
+}
+
+.title {
+  font-size: $font-size-large;
+  font-weight: $font-weight-bold;
+}
+
+.label {
+  font-size: $font-size;
+  font-weight: $font-weight-bold;
+}
+
+.text {
+  font-size: $font-size;
+  margin-bottom: $gutter-padding;
+}
+
+.policy {
+  font-size: $font-size-large;
+  margin-bottom: $gutter-padding;
+}

@@ -1,3 +1,10 @@
-import Component from './population-component';
+import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import * as actions from './population-actions';
 
-export default Component;
+import PopulationComponent from './population-component';
+import { getPopulation } from './population-selectors';
+
+const mapStateToProps = getPopulation;
+
+export default connect(mapStateToProps, actions)(PopulationComponent);

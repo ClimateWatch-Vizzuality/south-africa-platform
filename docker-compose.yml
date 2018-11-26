@@ -1,32 +1,32 @@
 version: '2'
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile-dev
-      args:
-        secretKey: 1234567890
+    image: vizzuality/south-africa-platform:staging.84
     ports:
-      - "3000:3000"
-      - "8080:8080"
+    - "3000:3000"
+    - "8080:8080"
     env_file:
-      - .env
+    - .env
     environment:
-      - PORT=3000
-      - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw_ndc_tracking
-    restart: always
+    - PORT=3000
+    - POSTGRES_URL=postgres://postgres:example@postgres:5432/cw-south-africa
+    - RAILS_SERVE_STATIC_FILES="true"
+    - RAILS_LOG_TO_STDOUT="true"
+    - HTTP_AUTH_USERNAME=admin
+    - HTTP_AUTH_PASSWORD=admin
     container_name: cw-south-africa
     depends_on:
-      - postgres
+    - postgres
+    command: start
     volumes:
-      - .:/usr/src/cw-south-africa
+    - ./storage:/opt/cw-south-africa/storage
 
   postgres:
     image: postgres:9.6
     restart: always
     ports:
-      - "5432"
+    - "5432"
     environment:
-      - POSTGRES_PASSWORD=example
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=cw_ndc_tracking
+    - POSTGRES_PASSWORD=example
+    - POSTGRES_USER=postgres
+    - POSTGRES_DB=cw-south-africa
