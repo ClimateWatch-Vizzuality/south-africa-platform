@@ -56,8 +56,18 @@ const getBarChartData = createSelector(
       domain: { x: [ 'auto', 'auto' ], y: [ 0, 'auto' ] },
       config: {
         axes: {
-          xBottom: { name: 'Age distribution', unit: '', format: 'string' },
-          yLeft: { name: 'Number of people', unit: '', format: 'number' }
+          xBottom: {
+            name: 'Age distribution',
+            unit: 'age',
+            format: 'string',
+            label: { dx: 5, dy: 0 }
+          },
+          yLeft: {
+            name: 'Number of people',
+            unit: 'people',
+            format: 'number',
+            label: { dx: 0, dy: 14 }
+          }
         },
         tooltip: { y: { label: 'people' } },
         animation: false,

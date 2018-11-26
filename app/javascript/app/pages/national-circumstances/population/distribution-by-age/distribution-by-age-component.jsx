@@ -59,6 +59,7 @@ class PopulationTab extends PureComponent {
           domain={domain}
           height={500}
           customMessage="No data"
+          showUnit
         />
         <TabletPortraitOnly>
           {toolbar}

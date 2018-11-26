@@ -36,6 +36,7 @@ class HumanDevelopmentIndex extends PureComponent {
                   customYAxisTick={<CustomYAxisTick />}
                   customTooltip={<HdiTooltip />}
                   {...chartData}
+                  showUnit
                 />
               )
           }
