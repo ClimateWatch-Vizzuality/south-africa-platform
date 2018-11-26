@@ -64,6 +64,7 @@ class GDP extends PureComponent {
                   customTooltip={<CustomTooltip />}
                   customYAxisTick={<CustomYAxisTick />}
                   {...chartData}
+                  showUnit
                 />
               )
           }

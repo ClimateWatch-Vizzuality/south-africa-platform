@@ -27,7 +27,7 @@ const getChartData = createSelector(filterGDPGrowthData, data => {
     config: {
       axes: {
         xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-        yLeft: { name: 'GDP Growth', format: 'number', unit: '' }
+        yLeft: { name: 'GDP Growth', format: 'number', unit: '% growth' }
       },
       theme: { yG: { stroke: '#0E9560', fill: '#0E9560' }, greyArea: {} },
       tooltip: { yG: { label: 'GDP Growth' }, greyArea: { label: '' } },

@@ -57,6 +57,7 @@ class GDPGrowth extends PureComponent {
               customYAxisTick={<CustomYAxisTick />}
               customTooltip={<GdpTooltip />}
               areaAsBackgroundForCartesianGrid={greyArea}
+              showUnit
             >
               {lineChart}
             </ChartComposed>

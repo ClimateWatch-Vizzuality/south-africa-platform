@@ -55,7 +55,7 @@ const getChartData = createSelector(
       config: {
         axes: {
           xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-          yLeft: { name: 'HDI', unit: '', format: 'number' }
+          yLeft: { name: 'HDI', unit: 'HDI', format: 'number' }
         },
         theme: {
           yZAF: { stroke: '#0E9560', fill: '#0E9560' },

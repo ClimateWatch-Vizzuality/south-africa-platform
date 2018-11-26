@@ -140,7 +140,7 @@ export const parseChartData = createSelector(
   ],
   (data, metricSelected, calculationData, chartType) => {
     if (!data || isEmpty(data)) return null;
-    const isPercentageChart = chartType.value === 'Percentage chart';
+    const isPercentageChart = chartType.value === 'percentage';
     let xValues = data[0].categoryYears.map(d => d.year);
     if (
       !isPercentageChart &&
@@ -173,8 +173,8 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getMetricSelected, getSectorSelected ],
-  (metricSelected, sectors) => {
+  [ getMetricSelected, getSectorSelected, getChartTypeSelected ],
+  (metricSelected, sectors, chartTypeSelected) => {
     if (!sectors) return null;
     const yColumns = sectors.map(d => ({
       label: d.value,
@@ -191,12 +191,16 @@ export const getChartConfig = createSelector(
       {}
     );
     const tooltip = getTooltipConfig(yColumns);
-    let unit = '';
-    if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
+    let unit = 'Joules';
+
+    if (chartTypeSelected.value === 'percentage') {
+      unit = `% ${unit}`;
+    } else if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `Joules per million $`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `Joules per capita`;
     }
+
     const axes = {
       ...DEFAULT_AXES_CONFIG,
       yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit, suffix: 'J' }
