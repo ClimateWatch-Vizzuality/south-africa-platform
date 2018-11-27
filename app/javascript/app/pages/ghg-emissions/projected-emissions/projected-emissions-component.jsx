@@ -137,6 +137,7 @@ class ProjectedEmissions extends PureComponent {
             onLegendChange={this.handleModelChange}
             getCustomYLabelFormat={value =>
                   format('~s')(value).replace('G', 'B')}
+            showUnit
           >
             {this.renderRangedAreas()}
             {this.renderLinesWithDots()}

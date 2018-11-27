@@ -91,6 +91,7 @@ class Energy extends PureComponent {
               onLegendChange={this.handleSectorChange}
               getCustomYLabelFormat={value => format('~s')(value)}
               {...chartData}
+              showUnit
             />
           </div>
           <TabletPortraitOnly>

@@ -83,6 +83,7 @@ class TotalGhgEmissions extends PureComponent {
               customMessage="Emissions data not available"
               hideRemoveOptions
               {...chartData}
+              showUnit
             />
           </div>
           <TabletPortraitOnly>

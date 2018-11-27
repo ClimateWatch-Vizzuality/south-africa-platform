@@ -108,11 +108,13 @@ export const getChartConfig = createSelector(
       {}
     );
     let title = 'USD';
+    let unit = 'USD';
     let suffix = 'billion';
     let scale = 1 / API_GDP_DATA_SCALE;
 
     if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       title = `${title} per capita`;
+      unit = `${unit} per capita`;
       suffix = '';
       scale = 1;
     }
@@ -125,7 +127,7 @@ export const getChartConfig = createSelector(
     };
     const axes = {
       xBottom: DEFAULT_AXES_CONFIG.xBottom,
-      yLeft: { name: 'USD', title }
+      yLeft: { name: 'USD', title, unit }
     };
     return {
       axes,
