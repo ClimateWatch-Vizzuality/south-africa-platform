@@ -1,0 +1,64 @@
+@import '~styles/settings.scss';
+@import '~styles/layout.scss';
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $gutter-padding;
+  flex-wrap: wrap;
+}
+
+.flexEnd {
+  justify-content: flex-end;
+
+  .switch {
+    border: 0;
+  }
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  margin-bottom: $gutter-padding;
+
+  @media #{$tablet-landscape} {
+    margin-bottom: 0;
+  }
+}
+
+.buttonWrapper {
+  width: 90px;
+}
+
+.inputWrapper {
+  width: 270px;
+  margin-left: $gutter-padding / 2;
+  border: solid 1px $border-color;
+}
+
+// TODO: Create a more responsive tab switcher
+.switch {
+  height: 60px;
+  margin-bottom: $gutter-padding;
+
+  @media #{$tablet-portrait} {
+    height: 40px;
+  }
+
+  @media #{$tablet-landscape} {
+    margin-bottom: 0;
+  }
+}
+
+.switchOption {
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+
+.switchSelected {
+  background-color: $theme-color;
+}

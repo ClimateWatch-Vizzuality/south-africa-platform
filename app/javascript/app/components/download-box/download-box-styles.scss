@@ -1,0 +1,25 @@
+@import '~styles/settings.scss';
+
+.downloadBoxContainer {
+  padding: 20px;
+  background-color: $porcelain;
+  width: 100%;
+  text-align: left;
+}
+
+.downloadBoxTitle {
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-size: $font-size-xs;
+  font-family: $font-family-1;
+}
+
+.downloadRow {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: $font-size-xs;
+  font-family: $font-family-1;
+}
+

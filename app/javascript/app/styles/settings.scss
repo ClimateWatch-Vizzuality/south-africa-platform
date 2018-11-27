@@ -1,6 +1,7 @@
 // Font families
 $font-family-1: 'Lato', sans-serif;
 $font-family-2: 'Gill Sans';
+$font-family-3: 'Roboto Mono', monospace;
 
 // Font sizes
 $font-size-xs: 0.75rem; // 12px / 16px
@@ -18,6 +19,11 @@ $font-weight: 400;
 $font-weight-semi-bold: 500;
 $font-weight-bold: 600;
 
+// Line height
+$line-height: 1.63;
+$line-height-m: 1.4;
+$line-height-small: 1.23;
+
 // Layout
 $gutter-padding: 30px;
 $max-width: 1230px;
@@ -33,9 +39,18 @@ $logos-top-bottom-margin: 15px;
 // Colors
 $black: #333;
 $white: #fff;
-$theme-color: #233140;
+$midnightblue: #233140;
 $camarone: #005d28;
 $dusty-gray: #999;
+$porcelain: #ecf0f1;
+$border-color: rgba(26, 28, 34, 0.1);
+$raven: #77818c;
+$pale-gray: #ecf0f1;
+$egg-yellow: #f5b335;
+
+// Theme-colors
+$theme-color: $midnightblue;
+$action-color: $camarone;
 
 // Breakpoints
 $breakpoint-mobile-only: 37.4375rem; // 599px / 16px

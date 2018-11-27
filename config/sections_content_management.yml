@@ -1,0 +1,69 @@
+sections:
+  - name: HOMEPAGE
+    slug: intro
+    order: 1
+    subsections:
+      - name: HOMEPAGE_ndc_submission
+        slug: ndc_submission
+        order: 2
+      - name: HOMEPAGE_historical_emissions
+        slug: historical_emissions
+        order: 3
+      - name: HOMEPAGE_flagship_programmes
+        slug: flagship_programmes
+        order: 4
+  - name: NATIONAL_CIRCUMSTANCES
+    slug: national_circumstances
+    order: 5
+    subsections: 
+      - name: NATIONAL_CIRCUMSTANCES_provincial
+        slug: provincial
+        order: 6
+      - name: NATIONAL_CIRCUMSTANCES_population
+        slug: population
+        order: 7
+      - name: NATIONAL_CIRCUMSTANCES_economy
+        slug: economy
+        order: 8
+      - name: NATIONAL_CIRCUMSTANCES_energy
+        slug: energy
+        order: 9
+      - name: NATIONAL_CIRCUMSTANCES_natural-disasters
+        slug: natural-disasters
+        order: 10
+  - name: GHG_EMISSIONS
+    slug: ghg_emissions
+    order: 11
+    subsections:
+      - name: GHG_EMISSIONS_historical
+        slug: historical
+        order: 12
+      - name: GHG_EMISSIONS_inventory
+        slug: inventory
+        order: 13
+      - name: GHG_EMISSIONS_projected-emissions
+        slug: projected-emissions
+        order: 14
+  - name: MITIGATION_ACTIONS
+    slug: mitigation_actions_section
+    order: 15
+    subsections:
+      - name: MITIGATION_ACTIONS_mitigation-actions
+        slug: mitigation-actions
+        order: 16
+      - name: MITIGATION_ACTIONS_mitigation-effects
+        slug: mitigation-effects
+        order: 17
+      - name: MITIGATION_ACTIONS_flagship-programmes
+        slug: flagship-programmes
+        order: 18
+  - name: FINANCIAL_RESOURCES
+    slug: financial_resources
+    order: 19
+    subsections: 
+      - name: FINANCIAL_RESOURCES_support-received
+        slug: support-received
+        order: 20
+      - name: FINANCIAL_RESOURCES_support-needed
+        slug: support-needed
+        order: 21

@@ -1,3 +1,10 @@
-import Component from './provincial-component';
+import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+import * as actions from './provincial-actions';
 
-export default Component;
+import ProvincialComponent from './provincial-component';
+import { getProvincial } from './provincial-selectors';
+
+const mapStateToProps = getProvincial;
+
+export default connect(mapStateToProps, actions)(ProvincialComponent);

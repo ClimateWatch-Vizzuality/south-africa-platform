@@ -1,0 +1,82 @@
+@import '~styles/layout.scss';
+
+.columns {
+  align-items: flex-end;
+
+  @include columns(12);
+
+  > div {
+    @include xy-gutters($gutter-position: ('bottom'));
+  }
+
+  @media #{$tablet-portrait} {
+    @include columns(6);
+  }
+
+  @media #{$tablet-landscape} {
+    @include columns(2);
+  }
+}
+
+.buttonGroupContainer {
+  display: flex;
+  justify-content: flex-start;
+
+  @media #{$tablet-portrait} {
+    justify-content: flex-end;
+  }
+
+  @media #{$tablet-landscape} {
+    @include column-offset(4);
+
+    &.tableViz {
+      @include column-offset(6);
+    }
+  }
+}
+
+.buttonGroupWrapper {
+  width: 90px;
+}
+
+.contentContainer {
+  @include columns(12);
+
+  @media #{$tablet-portrait} {
+    @include columns(6);
+  }
+
+  margin-top: $gutter-padding;
+  position: relative;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  font-family: $font-family-1;
+  font-size: $font-size;
+  color: $theme-color;
+  font-weight: $font-weight-bold;
+}
+
+.text {
+  font-family: $font-family-1;
+  font-size: $font-size;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+}
+
+.action {
+  font-family: $font-family-1;
+  font-size: $font-size-large;
+  color: $theme-color;
+  margin-bottom: $gutter-padding;
+}
