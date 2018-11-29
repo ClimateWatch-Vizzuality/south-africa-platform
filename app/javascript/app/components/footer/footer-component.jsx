@@ -81,7 +81,16 @@ class Footer extends PureComponent {
         </div>
         <BottomBar
           footerText={
-            `Powered by <span style="text-transform: uppercase"><b>Climate</b>Watch</span>`
+            `<a href="https://www.climatewatchdata.org/"
+              target="_blank"
+              rel="noreferrer noopener"
+              style="color: #fff"
+            >
+              Powered by 
+              <span style="text-transform: uppercase">
+                <b>Climate</b>Watch
+              </span>
+            </a>`
           }
           className={styles.content}
           theme={{
