@@ -108,7 +108,8 @@ const getEffectsIndicatorName = createSelector(
     const effectNames = {};
     Object.keys(data[0]).forEach(key => {
       if (key.startsWith('effects')) {
-        effectNames[key] = meta.find(m => m.code === key).indicator;
+        const { indicator, unit } = meta.find(m => m.code === key);
+        effectNames[key] = `${indicator}${unit ? ` (${unit})` : ''}`;
       }
     });
     return effectNames;
