@@ -27,6 +27,7 @@ class FlowsChart extends PureComponent {
                 tooltipChildren={selectedChildrenData =>
                 renderTooltipChildren(selectedChildrenData)}
                 nodePadding={30}
+                margin={{ top: 10, bottom: 30 }}
               />
 )
             : <NoContent minHeight={660} message="No data available" />
