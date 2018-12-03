@@ -62,7 +62,7 @@ class Summary extends PureComponent {
               visTypeSelected.value !== 'table' &&
               (
                 <Dropdown
-                  label="GHG Emissions Reduction"
+                  label="Indicators"
                   value={GHGSelected}
                   options={GHGOptions}
                   onValueChange={this.handleGHGChange}
