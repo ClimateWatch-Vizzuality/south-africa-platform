@@ -61,9 +61,11 @@ export const getThemeConfig = (columns, colors = CHART_COLORS) => {
   columns.forEach((column, i) => {
     const index = column.index || i;
     const correctedIndex = index % colors.length;
+    const icon = column.icon ? { icon: column.icon } : {};
     theme[column.value] = {
       stroke: colors[correctedIndex],
-      fill: colors[correctedIndex]
+      fill: colors[correctedIndex],
+      ...icon
     };
   });
   return theme;

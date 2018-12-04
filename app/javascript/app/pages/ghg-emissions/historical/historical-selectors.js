@@ -7,11 +7,13 @@ import intersection from 'lodash/intersection';
 import { METRIC_OPTIONS } from 'utils/defaults';
 import {
   DEFAULT_AXES_CONFIG,
-  getMetricRatio,
   getThemeConfig,
+  getMetricRatio,
   getYColumnValue,
   getTooltipConfig
 } from 'utils/graphs';
+
+import strippedLine from 'assets/icons/legend/stripped-line.svg';
 
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'DEA2017b' };
@@ -222,17 +224,34 @@ export const getChartConfig = createSelector(
   [ filterChartData, getSectorSelected, getMetricSelected ],
   (data, sectorSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
+    const sectorSelectedLabels = sectorSelected.map(s => s.label);
     const getYOption = sectors =>
       uniq(sectors).map(s => ({ label: s, value: getYColumnValue(s) }));
     const yColumnSectors = [];
+    const yColumnSubsectors = [];
+    // type: 'lineWithDots',
     uniq(
       data.forEach(d => {
-        if (d.emissions.some(y => y.value)) yColumnSectors.push(d.sector);
+        if (d.emissions.some(y => y.value)) {
+          if (sectorSelectedLabels.includes(d.sector))
+            yColumnSectors.push(d.sector);
+          else
+            yColumnSubsectors.push(d.sector);
+        }
       })
     );
     const yColumnOptions = getYOption(yColumnSectors);
-    const theme = getThemeConfig(yColumnOptions);
-    const tooltip = getTooltipConfig(yColumnOptions);
+    const yColumnDotsOptions = getYOption(yColumnSubsectors).map(s => ({
+      ...s,
+      icon: strippedLine
+    }));
+    const theme = {
+      ...getThemeConfig([ ...yColumnOptions, ...yColumnDotsOptions ])
+    };
+    const tooltip = getTooltipConfig([
+      ...yColumnOptions,
+      ...yColumnDotsOptions
+    ]);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
@@ -248,7 +267,11 @@ export const getChartConfig = createSelector(
       theme,
       tooltip,
       animation: false,
-      columns: { x: [ { label: 'year', value: 'x' } ], y: yColumnOptions }
+      columns: {
+        x: [ { label: 'year', value: 'x' } ],
+        lines: yColumnOptions,
+        dots: yColumnDotsOptions
+      }
     };
   }
 );

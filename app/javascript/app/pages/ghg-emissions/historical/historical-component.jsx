@@ -4,6 +4,8 @@ import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Multiselect, Dropdown } from 'cw-components';
+import { Line } from 'recharts';
+import has from 'lodash/has';
 import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
@@ -46,6 +48,48 @@ class GHGHistoricalEmissions extends PureComponent {
 
   handleDownloadClick = () => {
     console.info('TODO: link todownload data endpoint', this.props);
+  };
+
+  renderDotsLines = () => {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { config } = this.props.chartData;
+    return config &&
+      has(config, 'columns.dots') &&
+      config.columns.dots.map(column => {
+        const color = config.theme[column.value].stroke || '';
+        return (
+          <Line
+            key={column.value}
+            dataKey={column.value}
+            stroke={color}
+            strokeDasharray="1,09"
+            strokeWidth="5"
+            strokeLinecap="round"
+            type="monotone"
+            dot={false}
+          />
+        );
+      });
+  };
+
+  renderLines = () => {
+    // eslint-disable-next-line react/destructuring-assignment
+    const { config } = this.props.chartData;
+    return config &&
+      has(config, 'columns.lines') &&
+      config.columns.lines.map(column => {
+        const color = config.theme[column.value].stroke || '';
+        return (
+          <Line
+            key={column.value}
+            dot={false}
+            dataKey={column.value}
+            stroke={color}
+            strokeWidth={2}
+            type="monotone"
+          />
+        );
+      });
   };
 
   render() {
@@ -127,17 +171,25 @@ class GHGHistoricalEmissions extends PureComponent {
             }}
           </TabletLandscape>
           <div className={styles.chart}>
-            <Chart
-              type="line"
-              height={450}
-              dots={false}
-              customMessage="Emissions data not available"
-              onLegendChange={v => this.handleFieldChange('legendSector', v)}
-              {...chartData}
-              showUnit
-              getCustomYLabelFormat={value => `${format('.2s')(`${value}`)}`}
-              lineType="linear"
-            />
+            {
+              chartData && chartData.config && (
+              <Chart
+                chartType="composed"
+                type="line"
+                height={450}
+                customMessage="Emissions data not available"
+                onLegendChange={v =>
+                      this.handleFieldChange('legendSector', v)}
+                {...chartData}
+                getCustomYLabelFormat={value =>
+                      `${format('.2s')(`${value}`).replace('G', 'B')}`}
+                showUnit
+              >
+                {this.renderDotsLines()}
+                {this.renderLines()}
+              </Chart>
+                )
+            }
           </div>
           <TabletPortraitOnly>
             {toolbar}
