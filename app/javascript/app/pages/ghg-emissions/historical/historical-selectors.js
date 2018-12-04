@@ -219,7 +219,7 @@ const getDataSelected = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getSectorSelected, getMetricSelected ],
+  [ filterChartData, getSectorSelected, getMetricSelected ],
   (data, sectorSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
     const getYOption = sectors =>
