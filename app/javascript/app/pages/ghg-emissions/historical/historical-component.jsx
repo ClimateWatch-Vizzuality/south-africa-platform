@@ -9,31 +9,13 @@ import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
-
+import { format } from 'd3-format';
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
   handleFieldChange = (field, values) => {
-    const { onFilterChange, sectorOptions } = this.props;
-    if (values && values.length > 0) {
-      if (field === 'sector') {
-        const subSectors = [];
-        const sectors = [];
-        values.forEach(v => {
-          if (!sectorOptions.map(o => o.label).includes(v.label)) {
-            subSectors.push(v.value);
-          } else {
-            sectors.push(v.value);
-          }
-        });
-        onFilterChange({
-          sector: sectors.join(','),
-          subSector: subSectors.join(',')
-        });
-      } else {
-        onFilterChange({ [field]: values.map(v => v.value).join(',') });
-      }
-    }
+    const { onFilterChange } = this.props;
+    onFilterChange({ [field]: values.map(v => v.value).join(',') });
   };
 
   handleMetricChange = ({ value }) => {
@@ -132,6 +114,8 @@ class GHGHistoricalEmissions extends PureComponent {
               onLegendChange={v => this.handleFieldChange('sector', v)}
               {...chartData}
               showUnit
+              getCustomYLabelFormat={value => `${format('.2s')(`${value}`)}`}
+              lineType="linear"
             />
           </div>
           <TabletPortraitOnly>

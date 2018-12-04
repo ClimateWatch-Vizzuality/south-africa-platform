@@ -134,7 +134,7 @@ export const getSubSectorSelected = createSelector(
   [ getSubSectorOptions, getSubSectorParam ],
   (subSectors, subSectorSelected) => {
     if (!subSectors) return null;
-    if (!subSectorSelected) return subSectors;
+    if (!subSectorSelected) return [];
     const sectorsParsed = subSectorSelected
       .split(',')
       .map(s => parseInt(s, 10));
