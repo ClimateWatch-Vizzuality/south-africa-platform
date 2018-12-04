@@ -155,8 +155,18 @@ const getCalculationData = createSelector([ getWBData ], data => {
   return groupBy(data, 'year');
 });
 
+const filterChartData = createSelector(
+  [ getEmissionsData, getSectorSelected, getSubSectorSelected ],
+  (data, sectorSelected, subSectorSelected) => {
+    if (!data) return null;
+    const sectorLabels = [ ...sectorSelected, ...subSectorSelected ].map(
+      s => s.label
+    );
+    return data.filter(d => sectorLabels.includes(d.sector));
+  }
+);
 export const parseChartData = createSelector(
-  [ getEmissionsData, getMetricSelected, getCalculationData ],
+  [ filterChartData, getMetricSelected, getCalculationData ],
   (emissionsData, metricSelected, calculationData) => {
     if (!emissionsData) return null;
     const [ data ] = emissionsData;
