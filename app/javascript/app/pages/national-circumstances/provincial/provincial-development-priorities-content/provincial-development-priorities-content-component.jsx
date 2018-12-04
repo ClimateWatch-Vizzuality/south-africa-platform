@@ -34,6 +34,7 @@ class ProvincialDevelopmentPrioritiesContent extends PureComponent {
           {
             selectedData &&
               selectedData[title] &&
+              /* eslint-disable-next-line react/no-danger */
               (
                 <ul
                   className={styles.list}
