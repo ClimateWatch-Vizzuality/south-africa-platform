@@ -4,12 +4,14 @@ import ModalMetadata from 'components/modal-metadata';
 import SectionTitle from 'components/section-title';
 import { TabletLandscape, TabletPortraitOnly } from 'components/responsive';
 import { Section, Multiselect, Dropdown } from 'cw-components';
+import MultiDropdown from 'components/multi-dropdown';
 import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { format } from 'd3-format';
+
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
@@ -52,8 +54,6 @@ class GHGHistoricalEmissions extends PureComponent {
     const {
       sectorSelected,
       sectorOptions,
-      subSectorSelected,
-      subSectorOptions,
       gasSelected,
       gasOptions,
       metricSelected,
@@ -66,21 +66,12 @@ class GHGHistoricalEmissions extends PureComponent {
     } = this.props;
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
-        <Multiselect
+        <MultiDropdown
           label="Sector"
-          theme={{ wrapper: styles.dropdown }}
-          values={sectorSelected || []}
+          placeholder="Filter by Sector"
           options={sectorOptions || []}
-          onValueChange={v => this.handleFieldChange('sector', v)}
-          hideResetButton
-        />
-        <Multiselect
-          label="Sub sector"
-          theme={{ wrapper: styles.dropdown }}
-          values={subSectorSelected || []}
-          options={subSectorOptions || []}
-          onValueChange={v => this.handleFieldChange('subSector', v)}
-          hideResetButton
+          values={sectorSelected || []}
+          onChange={v => this.handleFieldChange('sector', v)}
         />
         <Multiselect
           label="Gas"

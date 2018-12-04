@@ -94,14 +94,32 @@ export const getSectorOptions = createSelector(
   [ getMetaData, getDataSectors ],
   (meta, dataSectors) => {
     if (!meta || !meta.sector || !dataSectors) return null;
-    return meta.sector
+    const sectors = meta.sector
       .filter(
         s =>
-          !s.parentId &&
-            !excludedSectors.includes(s.label) &&
+          !excludedSectors.includes(s.label) &&
+            !s.parentId &&
             dataSectors.includes(s.label)
       )
-      .map(d => ({ label: d.label, value: d.value }));
+      .map(d => ({
+        label: d.label,
+        value: d.value,
+        groupParent: String(d.value)
+      }));
+
+    const subsectors = meta.sector
+      .filter(
+        s =>
+          !excludedSectors.includes(s.label) &&
+            s.parentId &&
+            dataSectors.includes(s.label)
+      )
+      .map(d => ({
+        label: d.label,
+        value: d.value,
+        group: String(d.parentId)
+      }));
+    return [ ...sectors, ...subsectors ];
   }
 );
 
