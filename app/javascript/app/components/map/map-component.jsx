@@ -92,7 +92,6 @@ class Map extends Component {
           getContent={name => {
             const regionPercentage = getValue(name, 'regionPercentage');
             const regionTotal = getValue(name, 'regionTotal');
-
             return `<div>
               <div class="${styles.regionName}">
                 ${name}
