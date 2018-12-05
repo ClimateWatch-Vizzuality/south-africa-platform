@@ -18,34 +18,13 @@ import { format } from 'd3-format';
 import styles from './historical-styles';
 
 class GHGHistoricalEmissions extends PureComponent {
-  handleLegendChange = values => {
-    const { onFilterChange, sectorOptions } = this.props;
-    const subSectors = [];
-    const sectors = [];
-    values.forEach(v => {
-      if (!sectorOptions.map(o => o.label).includes(v.label)) {
-        subSectors.push(v.value);
-      } else {
-        sectors.push(v.value);
-      }
-    });
-    onFilterChange({
-      sector: sectors.join(','),
-      subSector: subSectors.join(',')
-    });
-  };
-
   handleFieldChange = (field, values) => {
     const { onFilterChange } = this.props;
-    if (field === 'legendSector') {
-      this.handleLegendChange(values);
-    } else {
-      onFilterChange({
-        [field]: isArray(values)
-          ? values.map(v => v.value).join(',')
-          : String(values.value)
-      });
-    }
+    onFilterChange({
+      [field]: isArray(values)
+        ? values.map(v => v.value).join(',')
+        : String(values.value)
+    });
   };
 
   handleMetricChange = ({ value }) => {
@@ -177,8 +156,7 @@ class GHGHistoricalEmissions extends PureComponent {
                 type="line"
                 height={450}
                 customMessage="Emissions data not available"
-                onLegendChange={v =>
-                      this.handleFieldChange('legendSector', v)}
+                onLegendChange={v => this.handleFieldChange('sector', v)}
                 {...chartData}
                 getCustomYLabelFormat={value =>
                       `${format('.2s')(`${value}`).replace('G', 'B')}`}
@@ -205,8 +183,6 @@ class GHGHistoricalEmissions extends PureComponent {
 }
 GHGHistoricalEmissions.propTypes = {
   chartData: PropTypes.object,
-  subSectorOptions: PropTypes.array,
-  subSectorSelected: PropTypes.array,
   sectorOptions: PropTypes.array,
   sectorSelected: PropTypes.array,
   gasOptions: PropTypes.array,
@@ -224,8 +200,6 @@ GHGHistoricalEmissions.defaultProps = {
   chartData: {},
   sectorOptions: [],
   sectorSelected: null,
-  subSectorOptions: [],
-  subSectorSelected: null,
   gasOptions: [],
   gasSelected: null,
   metricOptions: [],

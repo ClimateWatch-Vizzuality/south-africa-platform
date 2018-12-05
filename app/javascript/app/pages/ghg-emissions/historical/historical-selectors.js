@@ -27,8 +27,6 @@ const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getSectorParam = ({ location }) =>
   location.query ? location.query.sector : null;
-const getSubSectorParam = ({ location }) =>
-  location.query ? location.query.subSector : null;
 const getGasParam = ({ location }) =>
   location.query ? location.query.gas : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
@@ -150,18 +148,6 @@ export const getSubSectorOptions = createSelector(
   }
 );
 
-export const getSubSectorSelected = createSelector(
-  [ getSubSectorOptions, getSubSectorParam ],
-  (subSectors, subSectorSelected) => {
-    if (!subSectors) return null;
-    if (!subSectorSelected) return [];
-    const sectorsParsed = subSectorSelected
-      .split(',')
-      .map(s => parseInt(s, 10));
-    return subSectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
-  }
-);
-
 export const getEmissionsParams = createSelector(
   [ getSource, getGasSelected ],
   (source, gas) => {
@@ -176,12 +162,10 @@ const getCalculationData = createSelector([ getWBData ], data => {
 });
 
 const filterChartData = createSelector(
-  [ getEmissionsData, getSectorSelected, getSubSectorSelected ],
-  (data, sectorSelected, subSectorSelected) => {
+  [ getEmissionsData, getSectorSelected ],
+  (data, sectorSelected) => {
     if (!data) return null;
-    const sectorLabels = [ ...sectorSelected, ...subSectorSelected ].map(
-      s => s.label
-    );
+    const sectorLabels = sectorSelected.map(s => s.label);
     return data.filter(d => sectorLabels.includes(d.sector));
   }
 );
@@ -230,40 +214,33 @@ const getDataOptions = createSelector(
   }
 );
 
-const getDataSelected = createSelector(
-  [ getSectorSelected, getSubSectorSelected ],
-  (sectors, subsectors) => {
-    if (!sectors) return null;
-    return sectors.concat(subsectors);
-  }
-);
+const getDataSelected = getSectorSelected;
 
 export const getChartConfig = createSelector(
   [ filterChartData, getMetaData, getSectorSelected, getMetricSelected ],
   (data, meta, sectorSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
-    const sectorSelectedLabels = sectorSelected.map(s => s.label);
+    const sectorSelectedLabels = sectorSelected
+      .filter(s => s.groupParent)
+      .map(s => s.label);
     const getYOption = sectors =>
       uniq(sectors).map(s => ({ label: s, value: getYColumnValue(s) }));
     const yColumnSectors = [];
     const yColumnSubsectors = [];
     const subsectorParents = {};
-    uniq(
-      data.forEach(d => {
-        if (d.emissions.some(y => y.value)) {
-          if (sectorSelectedLabels.includes(d.sector)) {
-            yColumnSectors.push(d.sector);
-          } else {
-            const subsector = meta.sector.find(s => s.label === d.sector);
-            const parentLabel = meta.sector.find(
-              s => s.value === subsector.parentId
-            ).label;
-            subsectorParents[d.sector] = parentLabel;
-            yColumnSubsectors.push(d.sector);
-          }
+    data.forEach(d => {
+      if (d.emissions.some(y => y.value)) {
+        if (sectorSelectedLabels.includes(d.sector)) {
+          yColumnSectors.push(d.sector);
+        } else {
+          const subsector = d.sector;
+          const { parentId } = meta.sector.find(s => s.label === subsector);
+          const parentLabel = meta.sector.find(s => s.value === parentId).label;
+          subsectorParents[d.sector] = parentLabel;
+          yColumnSubsectors.push(d.sector);
         }
-      })
-    );
+      }
+    });
     const yColumnOptions = getYOption(yColumnSectors);
     const yColumnDotsOptions = getYOption(yColumnSubsectors).map(s => ({
       ...s,
@@ -312,8 +289,6 @@ export const getChartData = createStructuredSelector({
 export const getTotalGHGEMissions = createStructuredSelector({
   gasOptions: getGasOptions,
   gasSelected: getGasSelected,
-  subSectorOptions: getSubSectorOptions,
-  subSectorSelected: getSubSectorSelected,
   sectorOptions: getSectorOptions,
   sectorSelected: getSectorSelected,
   metricOptions: getMetricOptions,
