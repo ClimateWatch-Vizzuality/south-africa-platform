@@ -66,6 +66,7 @@ class GHGHistoricalEmissions extends PureComponent {
             strokeWidth="5"
             strokeLinecap="round"
             type="monotone"
+            isAnimationActive={false}
             dot={false}
           />
         );
@@ -86,6 +87,7 @@ class GHGHistoricalEmissions extends PureComponent {
             dataKey={column.value}
             stroke={color}
             strokeWidth={2}
+            isAnimationActive={false}
             type="monotone"
           />
         );
@@ -184,6 +186,7 @@ class GHGHistoricalEmissions extends PureComponent {
                 getCustomYLabelFormat={value =>
                       `${format('.2s')(`${value}`).replace('G', 'B')}`}
                 showUnit
+                isAnimationActive={false}
               >
                 {this.renderDotsLines()}
                 {this.renderLines()}

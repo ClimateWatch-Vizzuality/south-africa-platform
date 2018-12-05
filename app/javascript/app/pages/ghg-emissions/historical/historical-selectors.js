@@ -221,29 +221,36 @@ const getDataSelected = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ filterChartData, getSectorSelected, getMetricSelected ],
-  (data, sectorSelected, metricSelected) => {
+  [ filterChartData, getMetaData, getSectorSelected, getMetricSelected ],
+  (data, meta, sectorSelected, metricSelected) => {
     if (!data || !sectorSelected) return null;
     const sectorSelectedLabels = sectorSelected.map(s => s.label);
     const getYOption = sectors =>
       uniq(sectors).map(s => ({ label: s, value: getYColumnValue(s) }));
     const yColumnSectors = [];
     const yColumnSubsectors = [];
-    // type: 'lineWithDots',
+    const subsectorParents = {};
     uniq(
       data.forEach(d => {
         if (d.emissions.some(y => y.value)) {
-          if (sectorSelectedLabels.includes(d.sector))
+          if (sectorSelectedLabels.includes(d.sector)) {
             yColumnSectors.push(d.sector);
-          else
+          } else {
+            const subsector = meta.sector.find(s => s.label === d.sector);
+            const parentLabel = meta.sector.find(
+              s => s.value === subsector.parentId
+            ).label;
+            subsectorParents[d.sector] = parentLabel;
             yColumnSubsectors.push(d.sector);
+          }
         }
       })
     );
     const yColumnOptions = getYOption(yColumnSectors);
     const yColumnDotsOptions = getYOption(yColumnSubsectors).map(s => ({
       ...s,
-      icon: strippedLine
+      icon: strippedLine,
+      label: `${subsectorParents[s.label]} - ${s.label}`
     }));
     const theme = {
       ...getThemeConfig([ ...yColumnOptions, ...yColumnDotsOptions ])
