@@ -60,3 +60,6 @@ bower.json
 
 # We are using yarn lock so package lock is not needed
 package-lock.json
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

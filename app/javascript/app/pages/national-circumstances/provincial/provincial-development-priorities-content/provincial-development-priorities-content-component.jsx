@@ -24,7 +24,11 @@ class ProvincialDevelopmentPrioritiesContent extends PureComponent {
     const { selectedData } = this.props;
     return (
       <div className={styles.columns}>
-        <Map events={this.mapEvents} />
+        <Map
+          events={this.mapEvents}
+          selectedTitle={title}
+          disableOptimization
+        />
         <div>
           <h3 className={styles.title}>{title}</h3>
           {

@@ -22,8 +22,28 @@ class Map extends Component {
     );
   }
 
+  overwriteDefaultStyle = geographyName => {
+    const { defaultStyle, selectedTitle } = this.props;
+    const isSelected = selectedTitle === geographyName;
+    const { default: defaultOld } = defaultStyle;
+    const defaultNew = {
+      ...defaultOld,
+      fill: isSelected ? '#f5b335' : '#ecf0f1'
+    };
+    return { ...defaultStyle, default: defaultNew };
+  };
+
   render() {
-    const { style, theme, paths, events, defaultStyle, data } = this.props;
+    const {
+      style,
+      theme,
+      paths,
+      events,
+      defaultStyle,
+      data,
+      selectedTitle,
+      disableOptimization
+    } = this.props;
     const getValue = (name, slug) =>
       data && data[name] && data[name].find(d => d.slug === slug).value;
     return (
@@ -34,20 +54,30 @@ class Map extends Component {
             center={[ 27.66, -28.52 ]}
             onMoveEnd={this.handleMoveEnd}
           >
-            <Geographies geography={paths}>
+            <Geographies
+              geography={paths}
+              disableOptimization={disableOptimization}
+            >
               {(geographies, projection) =>
                 geographies.map(
-                  geography =>
+                  (geography, i) =>
                     geography &&
                       (
                         <Geography
                           key={geography.properties.name}
+                          cacheId={`geography-${i}`}
                           data-for="mapTooltip"
                           data-tip={geography.properties.name}
                           data-html
                           geography={geography}
                           projection={projection}
-                          style={geography.style || defaultStyle}
+                          style={
+                            geography.style || selectedTitle
+                              ? this.overwriteDefaultStyle(
+                                geography.properties.name
+                              )
+                              : defaultStyle
+                          }
                           {...events}
                         />
                       )
@@ -85,7 +115,9 @@ Map.propTypes = {
   paths: PropTypes.array,
   defaultStyle: PropTypes.object,
   events: PropTypes.object,
-  data: PropTypes.object
+  data: PropTypes.object,
+  selectedTitle: PropTypes.string,
+  disableOptimization: PropTypes.bool
 };
 
 Map.defaultProps = {
@@ -113,7 +145,9 @@ Map.defaultProps = {
       strokeWidth: 0.1,
       outline: 'none'
     }
-  }
+  },
+  selectedTitle: null,
+  disableOptimization: false
 };
 
 export default Map;

@@ -10,7 +10,7 @@ export const fetchMetaFail = createAction('fetchMetaFail');
 function getDataByMeta(meta) {
   switch (meta) {
     case 'ghg':
-      return SAAPI.get('emissions/meta');
+      return SAAPI.get('emissions/meta', { deeply_nested_sectors: false });
 
     default:
       return Promise.reject(new Error(
