@@ -1,7 +1,6 @@
 GIT
   remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
-  revision: 769dc087f566f6f9fd7e78422a6b0136479de013
-  branch: feature/ghg-deeply_nested_sectors_params
+  revision: 655f0c639e716a0b9c6522f45ec313b3f81e88fc
   specs:
     climate_watch_engine (1.4.0)
       aws-sdk-s3 (~> 1)
