@@ -19,7 +19,7 @@ const Item = props => {
     activeLabel,
     noParentSelection
   } = props;
-  const { group, groupParent, label, active } = item;
+  const { group, groupParent, label, active, hasActiveChild } = item;
   const isDisplayed = !showGroup && !group ||
     (group === showGroup || groupParent === showGroup);
   const isGroupParentActive = groupParent && showGroup === groupParent;
@@ -75,6 +75,11 @@ const Item = props => {
       >
         {label}
         {active && <span className={styles.activeMark} />}
+        {
+          hasActiveChild &&
+            !active &&
+            <span className={styles.childrenActiveMark} />
+        }
       </div>
       {showToChildrenArrow && toChildrenArrow}
     </div>

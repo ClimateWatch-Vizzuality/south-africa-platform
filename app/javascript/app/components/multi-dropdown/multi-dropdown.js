@@ -61,7 +61,15 @@ class DropdownContainer extends PureComponent {
 
   addIsActive = itemList => {
     const { values } = this.props;
-    return itemList.map(i => ({ ...i, active: values.includes(i) }));
+    const parentsWithActiveChilds = [];
+    values.forEach(v => {
+      if (v.group) parentsWithActiveChilds.push(parseInt(v.group, 10));
+    });
+    return itemList.map(i => ({
+      ...i,
+      active: values.includes(i),
+      hasActiveChild: parentsWithActiveChilds.includes(i.value)
+    }));
   };
 
   filterItems = () => {
