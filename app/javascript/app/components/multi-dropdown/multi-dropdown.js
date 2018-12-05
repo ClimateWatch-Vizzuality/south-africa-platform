@@ -110,7 +110,7 @@ class DropdownContainer extends PureComponent {
     } else if (changes && changes.inputValue || changes.inputValue === '') {
       if (multiselect)
         this.handleMultiselectChange(changes, downshiftStateAndHelpers);
-      this.setState({ inputValue: changes.inputValue, highlightedIndex: 0 });
+      this.setState({ inputValue: changes.inputValue });
     }
 
     if (changes && changes.selectedItem && !multiselect) {
@@ -120,6 +120,7 @@ class DropdownContainer extends PureComponent {
     if (Object.keys(changes).indexOf('isOpen') > -1) {
       this.setState({ inputValue: '' });
     }
+
     if (changes && changes.highlightedIndex || changes.highlightedIndex === 0) {
       this.setState({ highlightedIndex: changes.highlightedIndex });
     }
