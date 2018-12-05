@@ -135,7 +135,7 @@ class ProjectedEmissions extends PureComponent {
             height={500}
             {...chartData}
             onLegendChange={this.handleModelChange}
-            getCustomYLabelFormat={value => format('~r')(value / 1000000)}
+            getCustomYLabelFormat={value => format('~r')(value)}
             showUnit
           >
             {this.renderRangedAreas()}
