@@ -154,7 +154,7 @@ const getChartData = createSelector(
           xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
           yLeft: {
             name: 'Emissions',
-            unit: 'CO<sub>2</sub>e',
+            unit: 'MtCO<sub>2</sub>e',
             format: 'number'
           }
         },
