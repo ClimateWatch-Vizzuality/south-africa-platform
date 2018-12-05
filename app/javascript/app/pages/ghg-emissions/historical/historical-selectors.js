@@ -127,7 +127,7 @@ export const getSectorSelected = createSelector(
   [ getSectorOptions, getSectorParam ],
   (sectors, sectorsSelected) => {
     if (!sectors) return null;
-    if (!sectorsSelected) return sectors;
+    if (!sectorsSelected) return sectors.filter(s => s.groupParent);
     const sectorsParsed = sectorsSelected.split(',').map(s => parseInt(s, 10));
     return sectors.filter(s => sectorsParsed.indexOf(s.value) > -1);
   }
