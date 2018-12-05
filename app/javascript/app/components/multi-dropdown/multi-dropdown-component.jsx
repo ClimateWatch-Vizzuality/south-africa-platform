@@ -34,19 +34,21 @@ class Dropdown extends PureComponent {
       highlightedIndex,
       noParentSelection,
       placeholder,
-      disabled
+      disabled,
+      handleOnChange
     } = this.props;
-
     const dropdown = (
       <Downshift
         itemToString={i => i && i.label}
         onStateChange={handleStateChange}
         onOuterClick={checkModalClosing}
         {...this.props}
+        onChange={handleOnChange}
       >
         {({ getInputProps, getItemProps, getRootProps }) => (
           <Selector
             isOpen={isOpen}
+            onOuterClick={() => alert('close')}
             arrowPosition={arrowPosition}
             onSelectorClick={onSelectorClick}
             clearable={clearable}
@@ -102,6 +104,7 @@ Dropdown.propTypes = {
   placeholder: PropTypes.string,
   searchable: PropTypes.bool,
   noItemsFound: PropTypes.string,
+  handleOnChange: PropTypes.func.isRequired,
   optionsAction: PropTypes.func,
   optionsActionKey: PropTypes.string,
   arrowPosition: PropTypes.string,

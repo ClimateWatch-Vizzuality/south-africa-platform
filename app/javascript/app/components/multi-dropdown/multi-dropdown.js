@@ -26,6 +26,7 @@ class DropdownContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      selectedItems: props.values,
       inputValue: '',
       isOpen: false,
       showGroup: '',
@@ -56,7 +57,12 @@ class DropdownContainer extends PureComponent {
     groups.forEach(g => {
       listWithGroupsAndItems = listWithGroupsAndItems.concat(newItems[g]);
     });
-    return listWithGroupsAndItems;
+    return this.addIsActive(listWithGroupsAndItems);
+  };
+
+  addIsActive = itemList => {
+    const { values } = this.props;
+    return itemList.map(i => ({ ...i, active: values.includes(i) }));
   };
 
   filterItems = () => {
@@ -73,15 +79,37 @@ class DropdownContainer extends PureComponent {
     );
   };
 
+  handleMultiselectChange = (changes, downshiftStateAndHelpers) => {
+    const { selectedItems: updatedSelected } = this.state;
+    const { onChange } = this.props;
+    const itemToRemove = updatedSelected.find(
+      s => s.label === changes.inputValue
+    );
+    if (itemToRemove) {
+      // __autocomplete_mouseup__ = outside click change
+      if (changes && changes.type !== '__autocomplete_mouseup__')
+        updatedSelected.splice(updatedSelected.indexOf(itemToRemove), 1);
+    } else {
+      updatedSelected.push(downshiftStateAndHelpers.selectedItem);
+    }
+    onChange(updatedSelected);
+    this.setState({ selectedItems: updatedSelected });
+  };
+
   handleStateChange = (changes, downshiftStateAndHelpers) => {
+    const { multiselect } = this.props;
     if (!downshiftStateAndHelpers.isOpen) {
       this.setState({ inputValue: '' });
     } else if (changes && changes.inputValue || changes.inputValue === '') {
+      if (multiselect)
+        this.handleMultiselectChange(changes, downshiftStateAndHelpers);
       this.setState({ inputValue: changes.inputValue, highlightedIndex: 0 });
     }
-    if (changes && changes.selectedItem) {
+
+    if (changes && changes.selectedItem && !multiselect) {
       this.setState({ isOpen: false, inputValue: '' });
     }
+
     if (Object.keys(changes).indexOf('isOpen') > -1) {
       this.setState({ inputValue: '' });
     }
@@ -94,6 +122,13 @@ class DropdownContainer extends PureComponent {
     const { onChange } = this.props;
     onChange();
     this.setState({ isOpen: false, showGroup: '', inputValue: '' });
+  };
+  // Multiselect needs to be handled in handleStateChange as the removing changes don't trigger onChange
+
+  handleOnChange = selection => {
+    const { multiselect, onChange } = this.props;
+    if (!multiselect) return onChange(selection);
+    return null;
   };
 
   toggleOpenGroup = item => {
@@ -132,9 +167,20 @@ class DropdownContainer extends PureComponent {
     });
   };
 
-  render() {
-    const { isOpen, showGroup, inputValue, highlightedIndex } = this.state;
+  checkModalClosing = () => {
+    this.setState({ isOpen: false });
+  };
 
+  render() {
+    const {
+      isOpen,
+      showGroup,
+      inputValue,
+      highlightedIndex,
+      selectedItems
+    } = this.state;
+    const { multiselect } = this.props;
+    const multipleSelectedItems = multiselect ? { selectedItems } : {};
     return createElement(Component, {
       ...this.props,
       isOpen,
@@ -148,22 +194,28 @@ class DropdownContainer extends PureComponent {
       handleClearSelection: this.handleClearSelection,
       buildInputProps: this.buildInputProps,
       toggleOpenGroup: this.toggleOpenGroup,
-      items: this.getGroupedItems()
+      handleOnChange: this.handleOnChange,
+      items: this.getGroupedItems(),
+      ...multipleSelectedItems
     });
   }
 }
 
 DropdownContainer.propTypes = {
   searchable: PropTypes.bool,
+  multiselect: PropTypes.bool,
   options: PropTypes.array,
   groupKey: PropTypes.string,
   placeholder: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  values: PropTypes.array
 };
 
 DropdownContainer.defaultProps = {
   searchable: false,
+  multiselect: false,
   options: [],
+  values: [],
   groupKey: undefined,
   placeholder: undefined
 };

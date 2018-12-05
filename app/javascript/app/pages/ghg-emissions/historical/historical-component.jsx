@@ -7,6 +7,7 @@ import { Section, Multiselect, Dropdown } from 'cw-components';
 import MultiDropdown from 'components/multi-dropdown';
 import { Line } from 'recharts';
 import has from 'lodash/has';
+import isArray from 'lodash/isArray';
 import Chart from 'components/chart';
 import MetadataProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
@@ -39,7 +40,11 @@ class GHGHistoricalEmissions extends PureComponent {
     if (field === 'legendSector') {
       this.handleLegendChange(values);
     } else {
-      onFilterChange({ [field]: values.map(v => v.value).join(',') });
+      onFilterChange({
+        [field]: isArray(values)
+          ? values.map(v => v.value).join(',')
+          : String(values.value)
+      });
     }
   };
 
@@ -118,6 +123,7 @@ class GHGHistoricalEmissions extends PureComponent {
           options={sectorOptions || []}
           values={sectorSelected || []}
           onChange={v => this.handleFieldChange('sector', v)}
+          multiselect
         />
         <Multiselect
           label="Gas"

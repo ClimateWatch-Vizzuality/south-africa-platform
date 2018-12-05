@@ -19,39 +19,52 @@ const Item = props => {
     activeLabel,
     noParentSelection
   } = props;
-  const { group, groupParent, label } = item;
-
-  const isActive = !showGroup && !group ||
+  const { group, groupParent, label, active } = item;
+  const isDisplayed = !showGroup && !group ||
     (group === showGroup || groupParent === showGroup);
   const isGroupParentActive = groupParent && showGroup === groupParent;
   const isHighlighted = highlightedIndex === index ||
     activeLabel === label ||
     groupParent && groupParent === showGroup ||
     groupParent && activeValue && groupParent === activeValue.group;
-  const showArrowIcon = groupParent && showGroup !== groupParent && isActive;
+  const showToChildrenArrow = groupParent &&
+    showGroup !== groupParent &&
+    isDisplayed;
   const parentClickProp = noParentSelection &&
     (!showGroup || isGroupParentActive)
     ? { onClick: () => toggleOpenGroup(item) }
     : {};
+
+  const backArrow = (
+    <Icon
+      icon={arrowDownIcon}
+      theme={{ icon: cx(styles.groupIcon, styles.selected) }}
+      onClick={() => toggleOpenGroup(item)}
+    />
+  );
+
+  const toChildrenArrow = (
+    <Icon
+      icon={arrowDownIcon}
+      theme={{
+        icon: cx(styles.groupIcon, {
+          [styles.selected]: showGroup === groupParent
+        })
+      }}
+      onClick={() => toggleOpenGroup(item)}
+    />
+  );
+
   return (
     <div
       className={cx(styles.itemWrapper, {
-        [styles.show]: isActive,
+        [styles.show]: isDisplayed,
         [styles.base]: !group,
         [styles.selected]: isGroupParentActive,
         [styles.groupParent]: groupParent
       })}
     >
-      {
-        isGroupParentActive &&
-          (
-            <Icon
-              icon={arrowDownIcon}
-              className={cx(styles.groupIcon, styles.selected)}
-              onClick={() => toggleOpenGroup(item)}
-            />
-          )
-      }
+      {isGroupParentActive && backArrow}
       <div
         {...getItemProps({
           item,
@@ -61,19 +74,9 @@ const Item = props => {
         {...parentClickProp}
       >
         {label}
+        {active && <span className={styles.activeMark} />}
       </div>
-      {
-        showArrowIcon &&
-          (
-            <Icon
-              icon={arrowDownIcon}
-              className={cx(styles.groupIcon, {
-                [styles.selected]: showGroup === groupParent
-              })}
-              onClick={() => toggleOpenGroup(item)}
-            />
-          )
-      }
+      {showToChildrenArrow && toChildrenArrow}
     </div>
   );
 };
