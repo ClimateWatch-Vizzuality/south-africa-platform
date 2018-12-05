@@ -26,7 +26,6 @@ class DropdownContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItems: props.values,
       inputValue: '',
       isOpen: false,
       showGroup: '',
@@ -80,20 +79,20 @@ class DropdownContainer extends PureComponent {
   };
 
   handleMultiselectChange = (changes, downshiftStateAndHelpers) => {
-    const { selectedItems: updatedSelected } = this.state;
+    const { values: selectedItems } = this.props;
     const { onChange } = this.props;
-    const itemToRemove = updatedSelected.find(
+    const itemToRemove = selectedItems.find(
       s => s.label === changes.inputValue
     );
     if (itemToRemove) {
-      // __autocomplete_mouseup__ = outside click change
-      if (changes && changes.type !== '__autocomplete_mouseup__')
-        updatedSelected.splice(updatedSelected.indexOf(itemToRemove), 1);
+      const isOutsideClickChange = changes &&
+        changes.type === '__autocomplete_mouseup__';
+      if (!isOutsideClickChange)
+        selectedItems.splice(selectedItems.indexOf(itemToRemove), 1);
     } else {
-      updatedSelected.push(downshiftStateAndHelpers.selectedItem);
+      selectedItems.push(downshiftStateAndHelpers.selectedItem);
     }
-    onChange(updatedSelected);
-    this.setState({ selectedItems: updatedSelected });
+    onChange(selectedItems);
   };
 
   handleStateChange = (changes, downshiftStateAndHelpers) => {
@@ -123,11 +122,11 @@ class DropdownContainer extends PureComponent {
     onChange();
     this.setState({ isOpen: false, showGroup: '', inputValue: '' });
   };
-  // Multiselect needs to be handled in handleStateChange as the removing changes don't trigger onChange
 
   handleOnChange = selection => {
     const { multiselect, onChange } = this.props;
     if (!multiselect) return onChange(selection);
+    // Multiselect needs to be handled in handleStateChange as the removing changes don't trigger onChange
     return null;
   };
 
@@ -172,15 +171,7 @@ class DropdownContainer extends PureComponent {
   };
 
   render() {
-    const {
-      isOpen,
-      showGroup,
-      inputValue,
-      highlightedIndex,
-      selectedItems
-    } = this.state;
-    const { multiselect } = this.props;
-    const multipleSelectedItems = multiselect ? { selectedItems } : {};
+    const { isOpen, showGroup, inputValue, highlightedIndex } = this.state;
     return createElement(Component, {
       ...this.props,
       isOpen,
@@ -195,8 +186,7 @@ class DropdownContainer extends PureComponent {
       buildInputProps: this.buildInputProps,
       toggleOpenGroup: this.toggleOpenGroup,
       handleOnChange: this.handleOnChange,
-      items: this.getGroupedItems(),
-      ...multipleSelectedItems
+      items: this.getGroupedItems()
     });
   }
 }
