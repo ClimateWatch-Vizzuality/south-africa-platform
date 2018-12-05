@@ -18,11 +18,12 @@ const Menu = props => {
     optionsActionKey,
     noItemsFound,
     toggleOpenGroup,
-    noParentSelection
+    noParentSelection,
+    theme
   } = props;
 
   return !isOpen ? null : (
-    <div className={styles.menu}>
+    <div className={cx(styles.menu, theme.menu)}>
       {
         items && items.length
           ? items.map((item, index) => (
@@ -39,6 +40,7 @@ const Menu = props => {
               activeValue={activeValue}
               activeLabel={activeLabel}
               noParentSelection={noParentSelection}
+              theme={theme}
             />
           ))
           : (
@@ -54,6 +56,7 @@ const Menu = props => {
 Menu.propTypes = {
   isOpen: PropTypes.bool,
   activeValue: PropTypes.object,
+  theme: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
   activeLabel: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
   items: PropTypes.array,
   showGroup: PropTypes.string,
@@ -69,6 +72,7 @@ Menu.propTypes = {
 Menu.defaultProps = {
   isOpen: false,
   activeValue: undefined,
+  theme: undefined,
   activeLabel: undefined,
   items: undefined,
   showGroup: undefined,

@@ -21,11 +21,12 @@ const Selector = props => {
     handleClearSelection,
     children,
     innerRef,
-    placeholder
+    placeholder,
+    values
   } = props;
-
   const showCloseIcon = clearable && activeValue;
   const showDownArrow = arrowPosition !== 'left' && !disabled;
+  const valuesSelectedLength = values.length;
   return (
     <div
       ref={innerRef}
@@ -55,7 +56,11 @@ const Selector = props => {
             [styles.placeholder]: !isOpen && !activeLabel
           })}
         >
-          {isOpen && !searchable || !isOpen ? activeLabel || placeholder : ''}
+          {
+            isOpen && !searchable || !isOpen
+              ? activeLabel || placeholder || `${valuesSelectedLength} selected`
+              : ''
+          }
         </span>
         <input {...inputProps()} />
         {
@@ -100,7 +105,8 @@ Selector.propTypes = {
   inputProps: PropTypes.func,
   handleClearSelection: PropTypes.func,
   placeholder: PropTypes.string,
-  innerRef: PropTypes.func
+  innerRef: PropTypes.func,
+  values: PropTypes.array
 };
 
 Selector.defaultProps = {
@@ -116,7 +122,8 @@ Selector.defaultProps = {
   inputProps: undefined,
   handleClearSelection: undefined,
   placeholder: undefined,
-  innerRef: undefined
+  innerRef: undefined,
+  values: []
 };
 
 export default Selector;

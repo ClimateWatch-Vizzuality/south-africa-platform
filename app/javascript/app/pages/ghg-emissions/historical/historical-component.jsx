@@ -98,7 +98,7 @@ class GHGHistoricalEmissions extends PureComponent {
       <div className={styles.dropdowWrapper}>
         <MultiDropdown
           label="Sector"
-          placeholder="Filter by Sector"
+          theme={{ wrapper: styles.dropdown }}
           options={sectorOptions || []}
           values={sectorSelected || []}
           onChange={v => this.handleFieldChange('sector', v)}

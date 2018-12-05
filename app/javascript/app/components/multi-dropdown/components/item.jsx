@@ -17,7 +17,8 @@ const Item = props => {
     toggleOpenGroup,
     activeValue,
     activeLabel,
-    noParentSelection
+    noParentSelection,
+    theme
   } = props;
   const { group, groupParent, label, active, hasActiveChild } = item;
   const isDisplayed = !showGroup && !group ||
@@ -38,7 +39,7 @@ const Item = props => {
   const backArrow = (
     <Icon
       icon={arrowDownIcon}
-      theme={{ icon: cx(styles.groupIcon, styles.selected) }}
+      theme={{ icon: cx(styles.groupIcon, styles.selected, theme.backArrow) }}
       onClick={() => toggleOpenGroup(item)}
     />
   );
@@ -47,9 +48,11 @@ const Item = props => {
     <Icon
       icon={arrowDownIcon}
       theme={{
-        icon: cx(styles.groupIcon, {
-          [styles.selected]: showGroup === groupParent
-        })
+        icon: cx(
+          styles.groupIcon,
+          { [styles.selected]: showGroup === groupParent },
+          theme.toChildrenArrow
+        )
       }}
       onClick={() => toggleOpenGroup(item)}
     />
@@ -74,11 +77,18 @@ const Item = props => {
         {...parentClickProp}
       >
         {label}
-        {active && <span className={styles.activeMark} />}
+        {active && <span className={cx(styles.activeMark, theme.activeMark)} />}
         {
           hasActiveChild &&
             !active &&
-            <span className={styles.childrenActiveMark} />
+            (
+              <span
+                className={cx(
+                  styles.childrenActiveMark,
+                  theme.childrenActiveMark
+                )}
+              />
+            )
         }
       </div>
       {showToChildrenArrow && toChildrenArrow}
@@ -97,6 +107,7 @@ Item.propTypes = {
   optionsActionKey: PropTypes.string,
   activeValue: PropTypes.object,
   activeLabel: PropTypes.oneOfType([ PropTypes.string, PropTypes.number ]),
+  theme: PropTypes.oneOfType([ PropTypes.string, PropTypes.object ]),
   noParentSelection: PropTypes.bool
 };
 
@@ -108,7 +119,8 @@ Item.defaultProps = {
   optionsActionKey: undefined,
   activeValue: undefined,
   activeLabel: undefined,
-  noParentSelection: false
+  noParentSelection: false,
+  theme: undefined
 };
 
 export default Item;
