@@ -12,7 +12,7 @@ export const fetchGHGEmissions = createThunkAction(
     if (!GHGEmissions.loading) {
       dispatch(fetchGHGEmissionsInit());
       SAAPI
-        .get('emissions', params)
+        .get('emissions', { deeply_nested_sectors: false, ...params })
         .then((data = {}) => {
           dispatch(
             fetchGHGEmissionsReady(data['historicalEmissions::Records'])

@@ -7,8 +7,6 @@ import rangeCircle from 'assets/icons/legend/range-circle.svg';
 import strippedLine from 'assets/icons/legend/stripped-line.svg';
 import wideLine from 'assets/icons/legend/wide-line.svg';
 
-const API_DATA_SCALE = 1000000;
-
 const dataNames = {
   yMPAWOM: 'Scenario_MPA - WOM',
   yMPAWEM: 'Scenario_MPA_WEM',
@@ -56,7 +54,7 @@ const parseData = createSelector(getProjectedEmissionsData, data => {
             : columnData[name];
           const valForYear = columnYearsData.find(v => v.year === year);
 
-          return valForYear ? valForYear.value * API_DATA_SCALE : undefined;
+          return valForYear ? valForYear.value : undefined;
         };
         if (isArray(columnData[columnName][0])) {
           columnsYearData[columnName] = [
@@ -100,7 +98,7 @@ const getModelOptions = () => [
   },
   {
     query: 'ppd',
-    label: 'ppd',
+    label: 'PPD',
     type: 'rangedArea',
     value: 'yPPD',
     combined: true
@@ -154,7 +152,7 @@ const getChartData = createSelector(
           xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
           yLeft: {
             name: 'Emissions',
-            unit: 'CO<sub>2</sub>e',
+            unit: 'MtCO<sub>2</sub>e',
             format: 'number'
           }
         },
@@ -173,7 +171,7 @@ const getChartData = createSelector(
         tooltip: {
           yGHGInventory: { label: 'GHG Inventory' },
           yLTMS: { label: 'LTMs' },
-          yPPD: { label: 'ppd' },
+          yPPD: { label: 'PPD' },
           yBAU: { label: 'BaU' },
           yMPAWEM: { label: 'MPA - WEM' },
           yMPAWOM: { label: 'MPA - WOM' }
