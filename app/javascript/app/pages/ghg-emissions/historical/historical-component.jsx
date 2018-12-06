@@ -157,8 +157,7 @@ class GHGHistoricalEmissions extends PureComponent {
                 customMessage="Emissions data not available"
                 onLegendChange={v => this.handleFieldChange('sector', v)}
                 {...chartData}
-                getCustomYLabelFormat={value =>
-                      `${format('.2s')(`${value}`).replace('G', 'B')}`}
+                getCustomYLabelFormat={value => format('~d')(value)}
                 showUnit
                 isAnimationActive={false}
               >
