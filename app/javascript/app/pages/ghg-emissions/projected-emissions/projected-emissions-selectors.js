@@ -100,7 +100,7 @@ const getModelOptions = () => [
   },
   {
     query: 'ppd',
-    label: 'ppd',
+    label: 'PPD',
     type: 'rangedArea',
     value: 'yPPD',
     combined: true
@@ -173,7 +173,7 @@ const getChartData = createSelector(
         tooltip: {
           yGHGInventory: { label: 'GHG Inventory' },
           yLTMS: { label: 'LTMs' },
-          yPPD: { label: 'ppd' },
+          yPPD: { label: 'PPD' },
           yBAU: { label: 'BaU' },
           yMPAWEM: { label: 'MPA - WEM' },
           yMPAWOM: { label: 'MPA - WOM' }

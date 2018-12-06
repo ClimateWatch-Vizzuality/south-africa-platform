@@ -42,7 +42,7 @@
       ],
       "dots": [{ "label": "GHG Inventory", "value": "ghgInventory" }],
       "rangedArea": [
-        { "label": "ppd", "value": "ppd" },
+        { "label": "PPD", "value": "ppd" },
         { "label": "BaU", "value": "bau" }
       ],
       "line": [{ "label": "LTMs", "value": "ltms" }]
@@ -56,7 +56,7 @@
     { "label": "F-Gas", "value": "yFGas" }
   ],
   "initialRangedAreaColumns": [
-    { "label": "ppd", "value": "ppd" },
+    { "label": "PPD", "value": "ppd" },
     { "label": "BaU", "value": "bau" }
   ],
   "initialDotsColumns": [{ "label": "GHG Inventory", "value": "ghgInventory" }],
