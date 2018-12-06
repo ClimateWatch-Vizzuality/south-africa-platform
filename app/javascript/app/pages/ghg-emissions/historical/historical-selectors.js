@@ -181,8 +181,8 @@ export const parseChartData = createSelector(
           x
         );
         if (yData && yData.value) {
-          // 1000000 is the data scale from the API
-          yItems[yKey] = yData.value * 1000000 / calculationRatio;
+          // data is in kt, we want Mt so we have to divide value by 1000
+          yItems[yKey] = yData.value / 1000 / calculationRatio;
         }
       });
       const item = { x, ...yItems };
@@ -231,7 +231,7 @@ export const getChartConfig = createSelector(
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit: `Mt${unit}` }
     };
     return {
       axes,
