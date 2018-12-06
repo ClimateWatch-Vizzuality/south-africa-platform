@@ -262,7 +262,7 @@ export const getChartConfig = createSelector(
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit: `Mt${unit}` }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
     };
     return {
       axes,

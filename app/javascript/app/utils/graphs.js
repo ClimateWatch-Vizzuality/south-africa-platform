@@ -4,7 +4,7 @@ import { METRIC_OPTIONS } from 'utils/defaults';
 
 export const DEFAULT_AXES_CONFIG = {
   xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-  yLeft: { name: 'Emissions', unit: 'CO<sub>2</sub>e', format: 'number' }
+  yLeft: { name: 'Emissions', unit: 'MtCO<sub>2</sub>e', format: 'number' }
 };
 
 export const getColumns = data =>

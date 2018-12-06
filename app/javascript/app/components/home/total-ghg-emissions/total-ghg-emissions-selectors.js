@@ -98,7 +98,7 @@ export const parseChartData = createSelector(
         );
         if (yData && yData.value) {
           // 1000000 is the data scale from the API
-          yItems[yKey] = yData.value * 1000000 / calculationRatio;
+          yItems[yKey] = yData.value / calculationRatio;
         }
       });
       const item = { x, ...yItems };

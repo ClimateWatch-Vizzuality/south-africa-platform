@@ -9,7 +9,7 @@ import MetaProvider from 'providers/metadata-provider';
 import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
-
+import { format } from 'd3-format';
 import styles from './total-ghg-emissions-styles';
 
 class TotalGhgEmissions extends PureComponent {
@@ -82,6 +82,7 @@ class TotalGhgEmissions extends PureComponent {
               dots={false}
               customMessage="Emissions data not available"
               hideRemoveOptions
+              getCustomYLabelFormat={value => format('~d')(value)}
               {...chartData}
               showUnit
             />

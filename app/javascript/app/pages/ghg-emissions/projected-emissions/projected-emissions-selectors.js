@@ -6,6 +6,7 @@ import lineAndDot from 'assets/icons/legend/line-and-dot.svg';
 import rangeCircle from 'assets/icons/legend/range-circle.svg';
 import strippedLine from 'assets/icons/legend/stripped-line.svg';
 import wideLine from 'assets/icons/legend/wide-line.svg';
+import { DEFAULT_AXES_CONFIG } from 'utils/graphs';
 
 const dataNames = {
   yMPAWOM: 'Scenario_MPA - WOM',
@@ -146,16 +147,10 @@ const getChartData = createSelector(
         []
       );
 
+    const { xBottom, yLeft } = DEFAULT_AXES_CONFIG;
     const config = {
       config: {
-        axes: {
-          xBottom: { name: 'Year', unit: 'date', format: 'YYYY' },
-          yLeft: {
-            name: 'Emissions',
-            unit: 'MtCO<sub>2</sub>e',
-            format: 'number'
-          }
-        },
+        axes: { xBottom, yLeft },
         theme: {
           yGHGInventory: {
             stroke: '#000000',
