@@ -17,7 +17,7 @@ import strippedLine from 'assets/icons/legend/stripped-line.svg';
 
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'DEA2017b' };
-const excludedSectors = [ 'Total including FOLU', 'Total excluding FOLU' ];
+const excludedSectors = [ 'Total excluding FOLU' ];
 const excludedGases = [ 'TotalGHG' ];
 
 const getMetaData = ({ metadata = {} }) =>
