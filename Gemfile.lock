@@ -359,7 +359,7 @@ DEPENDENCIES
   annotate
   byebug
   capybara (~> 2.13)
-  climate_watch_engine (~> 1.4.0)!
+  climate_watch_engine (~> 1.4.1)!
   cw_data_uploader (~> 0.4.1)!
   cw_historical_emissions (~> 1.5.0)!
   cw_locations (~> 1.4.0)!
