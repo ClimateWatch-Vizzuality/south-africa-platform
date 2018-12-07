@@ -1,12 +1,12 @@
-ActiveAdmin.register_page 'South Africa Platform Ghg Emissions' do
+ActiveAdmin.register_page 'South Africa Platform - Projected Emissions' do
   include DataUploader::SharedAdmin
 
-  section_name = 'ghg_emissions'
+  section_name = 'projected_emissions'
   platform_name = 'south_africa_platform'
 
   controller do
     def section_name
-      'ghg_emissions'
+      'projected_emissions'
     end
 
     def platform_name
@@ -14,11 +14,11 @@ ActiveAdmin.register_page 'South Africa Platform Ghg Emissions' do
     end
 
     def s3_folder_path
-      "#{CW_FILES_PREFIX}ghg_emissions"
+      "#{CW_FILES_PREFIX}projected_emissions"
     end
 
     def path
-      admin_south_africa_platform_ghg_emissions_path
+      admin_south_africa_platform_projected_emissions_path
     end
 
     def section
@@ -29,7 +29,7 @@ ActiveAdmin.register_page 'South Africa Platform Ghg Emissions' do
     end
 
     def import_worker
-      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportGhg', current_admin_user.email)
+      DataUploader::BaseImportWorker.perform_async(section.id, 'ImportProjectedEmissions', current_admin_user.email)
     end
 
     def section_repository
@@ -59,11 +59,11 @@ ActiveAdmin.register_page 'South Africa Platform Ghg Emissions' do
   content do
     render partial: 'data_uploader/admin/form_upload_datasets', locals: {
       datasets: datasets_proc.call,
-      upload_path: admin_south_africa_platform_ghg_emissions_upload_datafile_path,
-      download_path: admin_south_africa_platform_ghg_emissions_download_datafiles_path,
+      upload_path: admin_south_africa_platform_projected_emissions_upload_datafile_path,
+      download_path: admin_south_africa_platform_projected_emissions_download_datafiles_path,
       download_single_data_file_path:
-          admin_south_africa_platform_ghg_emissions_download_datafile_path,
-      import_path: admin_south_africa_platform_ghg_emissions_run_importer_path,
+          admin_south_africa_platform_projected_emissions_download_datafile_path,
+      import_path: admin_south_africa_platform_projected_emissions_run_importer_path,
       import_button_disabled: section_proc.call.worker_logs.started.any?,
       logs: section_proc.call.worker_logs.order(created_at: :desc)
     }
