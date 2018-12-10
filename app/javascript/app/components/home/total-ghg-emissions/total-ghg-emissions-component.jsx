@@ -10,7 +10,7 @@ import GHGEmissionsProvider from 'providers/ghg-emissions-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { format } from 'd3-format';
-
+import { has } from 'lodash';
 import styles from './total-ghg-emissions-styles';
 
 class TotalGhgEmissions extends PureComponent {
@@ -27,7 +27,12 @@ class TotalGhgEmissions extends PureComponent {
       chartData,
       contentData
     } = this.props;
-
+    const scale = has(chartData, 'config.axes.yLeft.scale')
+      ? chartData.config.axes.yLeft.scale
+      : 1;
+    const d3Format = has(chartData, 'config.axes.yLeft.format')
+      ? chartData.config.axes.yLeft.format
+      : '~d';
     const dropdown = (
       <Dropdown
         theme={{ wrapper: styles.dropdown }}
@@ -83,7 +88,7 @@ class TotalGhgEmissions extends PureComponent {
               dots={false}
               customMessage="Emissions data not available"
               hideRemoveOptions
-              getCustomYLabelFormat={value => format('~d')(value / 1000000)}
+              getCustomYLabelFormat={value => format(d3Format)(value / scale)}
               {...chartData}
               showUnit
             />

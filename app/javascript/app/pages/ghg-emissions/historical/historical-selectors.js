@@ -191,13 +191,12 @@ export const parseChartData = createSelector(
         const yData = d.emissions.find(e => e.year === x);
         const calculationRatio = getMetricRatio(
           metricSelected.value,
-          calculationData,
-          
+          calculationData
         );
         if (yData && yData.value) {
           // data is in kt, we want Mt so we have to divide value by 1000
           // if(metricSelected.value === METRIC_OPTIONS.ABSOLUTE_VALUE.value)
-            yItems[yKey] = yData.value / 1000 / calculationRatio;
+          yItems[yKey] = yData.value / 1000 / calculationRatio;
           // else
           //   // yItems[yKey] = yData.value * 1000 / calculationRatio;
           //   yItems[yKey] = yData.value * 1000 / 375349;
