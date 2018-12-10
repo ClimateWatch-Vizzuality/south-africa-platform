@@ -192,11 +192,16 @@ export const parseChartData = createSelector(
         const calculationRatio = getMetricRatio(
           metricSelected.value,
           calculationData,
-          x
+          
         );
         if (yData && yData.value) {
           // data is in kt, we want Mt so we have to divide value by 1000
-          yItems[yKey] = yData.value / 1000 / calculationRatio;
+          // if(metricSelected.value === METRIC_OPTIONS.ABSOLUTE_VALUE.value)
+            yItems[yKey] = yData.value / 1000 / calculationRatio;
+          // else
+          //   // yItems[yKey] = yData.value * 1000 / calculationRatio;
+          //   yItems[yKey] = yData.value * 1000 / 375349;
+          // console.log(yData.value, 'kt ',(yData.value * 1000), 't, calculationRatio: ',calculationRatio,' items: ',yItems[yKey]);
         }
       });
       const item = { x, ...yItems };
@@ -259,10 +264,12 @@ export const getChartConfig = createSelector(
       unit = `${unit}/ million $ GDP`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `${unit} per capita`;
+    } else {
+      unit = `Mt${unit}`;
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit: `Mt${unit}` }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
     };
     return {
       axes,
