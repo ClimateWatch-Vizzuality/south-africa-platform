@@ -125,7 +125,7 @@ Energy.propTypes = {
 Energy.defaultProps = {
   chartData: {},
   chartTypeOptions: [],
-  chartTypeSelected: null,
+  chartTypeSelected: 'area',
   chartType: 'line',
   sourceOptions: [],
   sourceSelected: null,
