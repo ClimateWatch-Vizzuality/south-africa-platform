@@ -10,7 +10,7 @@ import {
 
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'DEA2017b', sector: 'Energy' };
-const fiteredSectors = [
+const filteredSectors = [
   'Energy',
   'Waste',
   'Agriculture, Forestry, and Other Land Use',
@@ -33,11 +33,10 @@ const getSectionContent = ({ SectionsContent }) =>
 
 const getTotalEmissionByYear = createSelector(getEmissionsData, data => {
   if (!data) return [];
-  const emissionsArr = flatten(
-    data
-      .filter(({ sector }) => fiteredSectors.includes(sector))
-      .map(({ emissions }) => emissions)
+  const filteredData = data.filter(
+    ({ sector }) => filteredSectors.includes(sector)
   );
+  const emissionsArr = flatten(filteredData.map(({ emissions }) => emissions));
   const emissionsByYear = groupBy(emissionsArr, 'year');
   return Object
     .keys(emissionsByYear)
