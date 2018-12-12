@@ -39,7 +39,7 @@ class Provincial extends PureComponent {
           onFilterChange={this.handleFilterChange}
           activeTabValue={activeTabValue}
           slugs="BUR2"
-          downloadUri="national_circumstance/priorities"
+          downloadUri="national_circumstance/priorities.zip?sources=BUR2"
         />
         <NationalCircumstancesPrioritiesProvider />
       </div>

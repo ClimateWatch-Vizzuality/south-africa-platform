@@ -14,6 +14,14 @@ module NationalCircumstance
   class Priority < ApplicationRecord
     include ::GenericToCsv
 
+    DEV_PRIORITIES_CODES = %w(Dev_priorities_mitigation Dev_priorities_adaptation).freeze
+    NATURAL_DISASTERS_CODES = %w(Flood_damage Drough_damage Fire_damage).freeze
+
+    DATA_SOURCE_TO_CODES_MAP = {
+      'COGTA2015' => %w(Flood_damage Drough_damage Fire_damage),
+      'BUR2' => %w(Dev_priorities_mitigation Dev_priorities_adaptation)
+    }.freeze
+
     validates_presence_of :value, :code
     belongs_to :location
   end

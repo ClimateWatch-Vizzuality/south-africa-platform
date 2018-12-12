@@ -20,7 +20,7 @@ class NaturalDisasters extends PureComponent {
           <div className={styles.buttonWrapper}>
             <InfoDownloadToolbox
               slugs="COGTA2015"
-              downloadUri="national_circumstance/categories"
+              downloadUri="national_circumstance/priorities.zip?sources=COGTA2015"
             />
           </div>
         </div>

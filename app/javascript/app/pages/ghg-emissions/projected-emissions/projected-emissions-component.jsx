@@ -121,7 +121,7 @@ class ProjectedEmissions extends PureComponent {
           />
           <InfoDownloadToolbox
             slugs="DEA2016e"
-            downloadUri="ghg/projected_emissions"
+            downloadUri="ghg/projected_emissions.zip?sources=DEA2016e"
           />
         </div>
         <p

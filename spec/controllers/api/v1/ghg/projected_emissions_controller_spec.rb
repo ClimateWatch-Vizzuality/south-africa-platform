@@ -21,11 +21,11 @@ describe Api::V1::Ghg::ProjectedEmissionsController, type: :controller do
         expect(parsed_body[parsed_body.keys.first].length).to eq(3)
       end
 
-      it 'responds to csv' do
-        get :index, format: :csv
-        expect(response.content_type).to eq('text/csv')
+      it 'responds to zip' do
+        get :index, format: :zip
+        expect(response.content_type).to eq('application/zip')
         expect(response.headers['Content-Disposition']).
-          to eq('attachment; filename="projected_emissions.csv"')
+          to eq('attachment; filename=projected_emissions.zip')
       end
 
       it 'lists the metadata' do
