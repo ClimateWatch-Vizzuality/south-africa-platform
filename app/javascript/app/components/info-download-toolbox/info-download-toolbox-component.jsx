@@ -14,7 +14,7 @@ const { API_URL } = process.env;
 class InfoDownloadToolbox extends PureComponent {
   handleDownloadClick = () => {
     const { downloadUri } = this.props;
-    if (downloadUri) window.open(`${API_URL}/${downloadUri}.csv`, '_blank');
+    if (downloadUri) window.open(`${API_URL}/${downloadUri}`, '_blank');
   };
 
   handleInfoClick = () => {
@@ -36,7 +36,7 @@ class InfoDownloadToolbox extends PureComponent {
           )
         }}
       >
-        <div data-for="blueTooltip" data-tip="Chart information">
+        <div data-for="blueTooltip" data-tip="Data information">
           <Button
             onClick={this.handleInfoClick}
             theme={{
@@ -46,7 +46,7 @@ class InfoDownloadToolbox extends PureComponent {
             <Icon icon={iconInfo} />
           </Button>
         </div>
-        <div data-for="blueTooltip" data-tip="Download chart in .csv">
+        <div data-for="blueTooltip" data-tip="Download data in .csv">
           {
             !noDownload && (
             <Button
