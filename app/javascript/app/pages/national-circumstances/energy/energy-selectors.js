@@ -126,7 +126,7 @@ const getChartTypeSelected = createSelector(
   [ getChartTypeOptions, getChartTypeSelection ],
   (chartTypeOptions, chartTypeSelected) => {
     if (!chartTypeOptions) return null;
-    if (!chartTypeSelected) return chartTypeOptions[0];
+    if (!chartTypeSelected) return chartTypeOptions[1];
     return chartTypeOptions.find(s => s.value === chartTypeSelected);
   }
 );

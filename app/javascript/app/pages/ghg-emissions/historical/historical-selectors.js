@@ -195,8 +195,8 @@ export const parseChartData = createSelector(
           x
         );
         if (yData && yData.value) {
-          // data is in kt, we want Mt so we have to divide value by 1000
-          yItems[yKey] = yData.value / 1000 / calculationRatio;
+          // 1000 is the data scale from the API, originally value is in kt
+          yItems[yKey] = yData.value * 1000 / calculationRatio;
         }
       });
       const item = { x, ...yItems };
@@ -255,14 +255,20 @@ export const getChartConfig = createSelector(
       ...yColumnDotsOptions
     ]);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
+    let scale = 1;
+    let format = '~d';
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `${unit} per capita`;
+      format = '.2~f';
+    } else {
+      unit = `Mt${unit}`;
+      scale = 1000000;
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit: `Mt${unit}` }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit, scale, format }
     };
     return {
       axes,

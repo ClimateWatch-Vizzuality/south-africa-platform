@@ -8,7 +8,7 @@ const renderTooltipChildren = selectedChildrenData =>
   has(selectedChildrenData, 'payload.payload.focus')
     ? (
       <p className={styles.focus}>
-        {`Focus: ${selectedChildrenData.payload.payload.focus}`}
+        {`Focus: ${selectedChildrenData.payload.payload.focus.join(', ')}`}
       </p>
 )
     : null;

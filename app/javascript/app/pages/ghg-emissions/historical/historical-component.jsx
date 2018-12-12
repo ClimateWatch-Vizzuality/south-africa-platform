@@ -93,6 +93,12 @@ class GHGHistoricalEmissions extends PureComponent {
       title,
       description
     } = this.props;
+    const scale = has(chartData, 'config.axes.yLeft.scale')
+      ? chartData.config.axes.yLeft.scale
+      : 1;
+    const d3Format = has(chartData, 'config.axes.yLeft.format')
+      ? chartData.config.axes.yLeft.format
+      : '~d';
     const dropdowns = (
       <div className={styles.dropdowWrapper}>
         <MultiDropdown
@@ -157,7 +163,8 @@ class GHGHistoricalEmissions extends PureComponent {
                 customMessage="Emissions data not available"
                 onLegendChange={v => this.handleFieldChange('sector', v)}
                 {...chartData}
-                getCustomYLabelFormat={value => format('~d')(value)}
+                getCustomYLabelFormat={value =>
+                      format(d3Format)(value / scale)}
                 showUnit
                 isAnimationActive={false}
               >

@@ -1,8 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import uniqBy from 'lodash/uniqBy';
-import isEmpty from 'lodash/isEmpty';
-import groupBy from 'lodash/groupBy';
-import intersection from 'lodash/intersection';
+import { flatten, sumBy, groupBy, isEmpty, uniqBy } from 'lodash';
 import { METRIC_OPTIONS } from 'utils/defaults';
 import {
   DEFAULT_AXES_CONFIG,
@@ -13,19 +10,41 @@ import {
 
 const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'DEA2017b', sector: 'Energy' };
+const filteredSectors = [
+  'Energy',
+  'Waste',
+  'Agriculture, Forestry, and Other Land Use',
+  'Industrial Processes and Product Use'
+];
+
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
 const getMetricParam = ({ location }) =>
   location.query ? location.query.metric : null;
 const getWBData = ({ WorldBank }) => WorldBank.data[COUNTRY_ISO] || null;
-const getEmissionsData = ({ GHGEmissions = {} }) =>
+const getEmissionsDataUniq = ({ GHGEmissions = {} }) =>
   isEmpty(GHGEmissions.data) ? null : uniqBy(GHGEmissions.data, 'value');
-
+const getEmissionsData = ({ GHGEmissions = {} }) =>
+  isEmpty(GHGEmissions.data) ? null : GHGEmissions.data;
 const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
   metadata.ghg.loading || GHGEmissions.loading;
-
 const getSectionContent = ({ SectionsContent }) =>
   SectionsContent.data && SectionsContent.data.historical_emissions;
+
+const getTotalEmissionByYear = createSelector(getEmissionsData, data => {
+  if (!data) return [];
+  const filteredData = data.filter(
+    ({ sector }) => filteredSectors.includes(sector)
+  );
+  const emissionsArr = flatten(filteredData.map(({ emissions }) => emissions));
+  const emissionsByYear = groupBy(emissionsArr, 'year');
+  return Object
+    .keys(emissionsByYear)
+    .map(year => ({
+      year: parseInt(year, 10),
+      value: sumBy(emissionsByYear[year], 'value')
+    }));
+});
 
 const getGas = createSelector(getMetaData, meta => {
   if (!meta || !meta.gas) return null;
@@ -72,36 +91,26 @@ const getCalculationData = createSelector([ getWBData ], data => {
 });
 
 export const parseChartData = createSelector(
-  [ getEmissionsData, getMetricSelected, getCalculationData ],
-  (emissionsData, metricSelected, calculationData) => {
+  [
+    getEmissionsDataUniq,
+    getMetricSelected,
+    getCalculationData,
+    getTotalEmissionByYear
+  ],
+  (emissionsData, metricSelected, calculationData, totalEmission) => {
     if (!emissionsData) return null;
     const [ data ] = emissionsData;
-    let xValues = data.emissions.map(d => d.year);
-    if (
-      calculationData &&
-        metricSelected.value !== METRIC_OPTIONS.ABSOLUTE_VALUE.value
-    ) {
-      xValues = intersection(
-        xValues,
-        Object.keys(calculationData || []).map(y => parseInt(y, 10))
-      );
-    }
-    const dataParsed = xValues.map(x => {
+    const yKey = getYColumnValue(data.gas);
+    const dataParsed = totalEmission.map(({ year, value }) => {
       const yItems = {};
-      emissionsData.forEach(d => {
-        const yKey = getYColumnValue(data.gas);
-        const yData = d.emissions.find(e => e.year === x);
-        const calculationRatio = getMetricRatio(
-          metricSelected.value,
-          calculationData,
-          x
-        );
-        if (yData && yData.value) {
-          // 1000000 is the data scale from the API
-          yItems[yKey] = yData.value * 1000000 / calculationRatio;
-        }
-      });
-      const item = { x, ...yItems };
+      const calculationRatio = getMetricRatio(
+        metricSelected.value,
+        calculationData,
+        year
+      );
+      // 1000 is the data scale from the API, originally value is in kt
+      if (value) yItems[yKey] = value * 1000 / calculationRatio;
+      const item = { x: year, ...yItems };
       return item;
     });
     return dataParsed;
@@ -109,7 +118,7 @@ export const parseChartData = createSelector(
 );
 
 export const getChartConfig = createSelector(
-  [ getEmissionsData, getMetricSelected ],
+  [ getEmissionsDataUniq, getMetricSelected ],
   (data, metricSelected) => {
     if (!data) return null;
     const yColumns = data.map(d => ({
@@ -125,14 +134,20 @@ export const getChartConfig = createSelector(
     );
     const tooltip = getTooltipConfig(yColumns);
     let { unit } = DEFAULT_AXES_CONFIG.yLeft;
+    let scale = 1;
+    let format = '~d';
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
       unit = `${unit} per capita`;
+      format = '.2~f';
+    } else {
+      unit = `Mt${unit}`;
+      scale = 1000000;
     }
     const axes = {
       ...DEFAULT_AXES_CONFIG,
-      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit }
+      yLeft: { ...DEFAULT_AXES_CONFIG.yLeft, unit, scale, format }
     };
     return {
       axes,

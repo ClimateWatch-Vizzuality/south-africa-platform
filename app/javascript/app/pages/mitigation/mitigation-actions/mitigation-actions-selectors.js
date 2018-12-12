@@ -27,7 +27,7 @@ const defaultColumns = [
   'status',
   'actor',
   'time_horizon',
-  'ghg',
+  'GHG',
   'estimated_emissions_reduction',
   'cobenefits'
 ];

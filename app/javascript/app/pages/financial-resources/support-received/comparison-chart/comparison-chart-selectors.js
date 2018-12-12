@@ -52,7 +52,7 @@ const getSelectedDataInfo = createSelector(
 
 export const getConfig = () => ({
   scale: 1 / 1000000,
-  suffix: 'm',
+  suffix: '',
   format: '~r'
 });
 
