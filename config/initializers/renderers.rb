@@ -1,3 +1,5 @@
+require 'zip'
+
 ActionController::Renderers.add :zip do |files, options|
   filename = options[:filename] || controller_name
 
