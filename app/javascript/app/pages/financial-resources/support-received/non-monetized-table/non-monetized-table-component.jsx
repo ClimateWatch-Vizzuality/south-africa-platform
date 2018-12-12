@@ -9,7 +9,7 @@ class NonMonetizedTable extends PureComponent {
       (
         <DataTable
           tableData={tableData}
-          setColumnWidth={() => 380}
+          setColumnWidth={() => 285}
           setRowsHeight={() => 200}
         />
       );

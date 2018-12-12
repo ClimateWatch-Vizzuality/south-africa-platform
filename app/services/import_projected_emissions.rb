@@ -38,7 +38,7 @@ class ImportProjectedEmissions
           next if year.last.nil?
           ::Ghg::ProjectedEmissionYear.create!(projected_emission: projected_emission,
                                                year: year.first.to_s.to_i,
-                                               value: year.last.to_i)
+                                               value: year.last.delete(',').to_f)
         end
       rescue ActiveRecord::RecordInvalid => invalid
         STDERR.puts "Error importing #{row.to_s.chomp}: #{invalid}"

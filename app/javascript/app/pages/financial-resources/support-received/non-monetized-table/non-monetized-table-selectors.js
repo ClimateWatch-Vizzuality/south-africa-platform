@@ -15,13 +15,14 @@ const addFocusToData = createSelector([ filterData, getMeta ], (data, meta) => {
   return data.map(d => ({
     focus: getFocus(d, focusNames),
     donor: d.donor.name,
-    purpose: d.purposeFunds
+    purpose: d.purposeFunds,
+    timeframe: d.timeframes
   }));
 });
 
 const getTableData = createSelector(addFocusToData, data => {
   if (!data) return null;
-  return { data, defaultColumns: [ 'donor', 'focus', 'purpose' ] };
+  return { data, defaultColumns: [ 'donor', 'focus', 'purpose', 'timeframe' ] };
 });
 
 export const getNonMonetizedData = createStructuredSelector({

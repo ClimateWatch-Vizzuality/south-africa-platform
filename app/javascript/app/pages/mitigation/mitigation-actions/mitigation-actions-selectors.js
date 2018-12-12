@@ -83,6 +83,9 @@ const renameMitigationColumns = createSelector(getParsedMitigation, data => {
         case 'estimatedEmissionReduction':
           updatedD.estimated_emissions_reduction = d.estimatedEmissionReduction;
           break;
+        case 'ghg':
+          updatedD.GHG = d.ghg;
+          break;
         default:
           updatedD[key] = d[key];
           break;

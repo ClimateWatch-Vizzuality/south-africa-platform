@@ -8,7 +8,7 @@ import styles from './mitigation-actions-styles.scss';
 
 const ALL_ACTIONS_KEY = 'allActions';
 const WITH_QUANTIFIED_EFFECTS_KEY = 'quantifiedEffects';
-const WITHOUT_QUANTIFIED_EFFECTS_KEY = 'withoutQuantifiedEffects';
+const WITH_CO_BENEFITS_KEY = 'withCoBenefits';
 
 class MitigationActions extends PureComponent {
   handleTabChange = ({ value }) => {
@@ -33,11 +33,7 @@ class MitigationActions extends PureComponent {
         value: WITH_QUANTIFIED_EFFECTS_KEY,
         component
       },
-      {
-        name: 'WITHOUT QUANTIFIED EFFECTS',
-        value: WITHOUT_QUANTIFIED_EFFECTS_KEY,
-        component
-      }
+      { name: 'WITH CO-BENEFITS', value: WITH_CO_BENEFITS_KEY, component }
     ];
   }
 
