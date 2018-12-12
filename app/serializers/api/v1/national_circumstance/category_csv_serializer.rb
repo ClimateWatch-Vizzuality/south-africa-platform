@@ -1,7 +1,7 @@
 module Api
   module V1
     module NationalCircumstance
-      class CategoryCSVSerializer < ApplicationSerializer
+      class CategoryCSVSerializer
         def initialize(categories)
           @categories = Array.wrap(categories)
           @indicators = ::NationalCircumstance::Indicator.all

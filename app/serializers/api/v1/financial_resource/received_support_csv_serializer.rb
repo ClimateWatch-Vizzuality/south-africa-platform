@@ -1,7 +1,7 @@
 module Api
   module V1
     module FinancialResource
-      class ReceivedSupportCSVSerializer < ApplicationSerializer
+      class ReceivedSupportCSVSerializer
         def initialize(values)
           @values = Array.wrap(values)
         end

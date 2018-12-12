@@ -1,7 +1,7 @@
 module Api
   module V1
     module NationalCircumstance
-      class PriorityCSVSerializer < ApplicationSerializer
+      class PriorityCSVSerializer
         def initialize(priorities)
           @priorities = Array.wrap(priorities)
         end
