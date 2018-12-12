@@ -8,7 +8,7 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::FinancialResource::ReceivedSupportSerializer,
+                     each_serializer: ReceivedSupportSerializer,
                      meta: ::FinancialResource::Indicator.all.
                        as_json(except: [:id, :created_at, :updated_at])
             end
@@ -17,8 +17,7 @@ module Api
               data_sources = data_sources.where(short_title: sources) if sources
 
               render zip: {
-                'received_supports.csv' =>
-                  Api::V1::FinancialResource::ReceivedSupportCSVSerializer.new(values).to_csv,
+                'received_supports.csv' => ReceivedSupportCSVSerializer.new(values).to_csv,
                 'data_sources.csv' => data_sources.to_csv
               }
             end

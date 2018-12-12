@@ -8,15 +8,14 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::Mitigation::MitigationActionSerializer
+                     each_serializer: MitigationActionSerializer
             end
             format.zip do
               data_sources = DataSource.all
               data_sources = data_sources.where(short_title: sources) if sources
 
               render zip: {
-                'mitigation_actions.csv' =>
-                  Api::V1::Mitigation::MitigationActionCSVSerializer.new(values).to_csv,
+                'mitigation_actions.csv' => MitigationActionCSVSerializer.new(values).to_csv,
                 'data_sources.csv' => data_sources.to_csv
               }
             end

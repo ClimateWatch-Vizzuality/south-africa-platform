@@ -8,7 +8,7 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::Mitigation::MitigationEffectSerializer,
+                     each_serializer: MitigationEffectSerializer,
                      meta: ::Mitigation::MitigationIndicator.all.
                        select(:code, :indicator, :unit, :cautions)
             end

@@ -10,7 +10,7 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::NationalCircumstance::CategorySerializer,
+                     each_serializer: CategorySerializer,
                      meta: ::NationalCircumstance::Indicator.all.
                        as_json(except: %w[id created_at updated_at])
             end
@@ -19,7 +19,7 @@ module Api
               data_sources = data_sources.where(short_title: sources) if sources
 
               render zip: {
-                'values.csv' => Api::V1::NationalCircumstance::CategoryCSVSerializer.new(values).to_csv,
+                'values.csv' => CategoryCSVSerializer.new(values).to_csv,
                 'data_sources.csv' => data_sources.to_csv
               }, filename: group || 'categories'
             end

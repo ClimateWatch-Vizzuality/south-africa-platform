@@ -9,7 +9,7 @@ module Api
           respond_to do |format|
             format.json do
               render json: values,
-                     each_serializer: Api::V1::NationalCircumstance::PrioritySerializer,
+                     each_serializer: PrioritySerializer,
                      meta: ::NationalCircumstance::Indicator.all.
                        as_json(except: %w[id created_at updated_at])
             end
@@ -18,7 +18,7 @@ module Api
               data_sources = data_sources.where(short_title: sources) if sources
 
               render zip: {
-                'priorities.csv' => Api::V1::NationalCircumstance::PriorityCSVSerializer.new(values).to_csv,
+                'priorities.csv' => PriorityCSVSerializer.new(values).to_csv,
                 'data_sources.csv' => data_sources.to_csv
               }
             end
