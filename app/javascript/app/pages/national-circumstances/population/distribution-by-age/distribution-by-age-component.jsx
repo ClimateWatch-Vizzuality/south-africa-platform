@@ -32,7 +32,7 @@ class PopulationTab extends PureComponent {
 
     const toolbar = (
       <InfoDownloadToolbox
-        slugs="distribution-by-age"
+        slugs="STAT2014a"
         downloadUri="national_circumstance/categories"
       />
     );

@@ -30,6 +30,12 @@ class PopulationTab extends PureComponent {
     const renderCard = data => (
       <Card title={data && data.description} theme={styles}>
         {data && data.value}
+        {
+          data &&
+            data.description &&
+            data.description === 'Total South Africa population' &&
+            ' millions'
+        }
       </Card>
     );
 

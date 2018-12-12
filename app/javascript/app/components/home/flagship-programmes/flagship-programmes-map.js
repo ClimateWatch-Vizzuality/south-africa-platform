@@ -11,42 +11,42 @@ const flagshipProgrammesSectionLink = '/mitigation/flagship-programmes';
 
 export const flagshipProgrammes = [
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-climate-change-response-public-works-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-climate-change-response-public-works-flagship-program`,
     title: 'Climate Change Response Public Works',
     background_image_url: climateChangeImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-water-conservation-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-water-conservation-flagship-program`,
     title: 'Water Conservation',
     background_image_url: waterConservationImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-renewable-energy-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-renewable-energy-flagship-program`,
     title: 'Renewable Energy',
     background_image_url: renewableEnergyImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-energy-efficiency-and-energy-demand-management-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-energy-efficiency-and-energy-demand-management-flagship-program`,
     title: 'Energy Efficiency & Management',
     background_image_url: energyEfficiencyImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-transport-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-transport-flagship-program`,
     title: 'Transport',
     background_image_url: transportImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-waste-management-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-waste-management-flagship-program`,
     title: 'Waste management',
     background_image_url: wasteManagementImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=the-carbon-capture-and-sequestration-flagship-program`,
+    link: `${flagshipProgrammesSectionLink}/the-carbon-capture-and-sequestration-flagship-program`,
     title: 'Carbon Capture & Sequestration',
     background_image_url: carbonCaptureImg
   },
   {
-    link: `${flagshipProgrammesSectionLink}?id=long-term-adaptation-scenarios-flagship-research-program`,
+    link: `${flagshipProgrammesSectionLink}/long-term-adaptation-scenarios-flagship-research-program`,
     title: 'Long-term Adaptation Scenarios',
     background_image_url: longTermAdaptationImg
   }

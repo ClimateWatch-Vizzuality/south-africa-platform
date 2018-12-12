@@ -107,7 +107,7 @@ export const getChartConfig = createSelector(
       }),
       {}
     );
-    let title = 'USD';
+    let title = 'USD, ZAR';
     let unit = 'USD';
     let suffix = 'billion';
     let scale = 1 / API_GDP_DATA_SCALE;

@@ -5,6 +5,7 @@ import flatMap from 'lodash/flatMap';
 import { format } from 'd3-format';
 
 const withCommas = value => format(',')(value);
+const divideByMillion = value => format('.2f')(value / 1000000);
 
 const getQueryParams = ({ location = {} }) => location.query || null;
 
@@ -76,7 +77,7 @@ const getTotalPopulation = createSelector(
     const yearData = findYearData(data, year);
     return {
       description: 'Total South Africa population',
-      value: yearData ? withCommas(yearData.value) : 'No data'
+      value: yearData ? divideByMillion(yearData.value) : 'No data'
     };
   }
 );
@@ -118,7 +119,7 @@ const getRegionPopulation = createSelector(
         {
           slug: 'regionTotal',
           value: totalRegionPopulationyearData
-            ? withCommas(totalRegionPopulationyearData.value)
+            ? divideByMillion(totalRegionPopulationyearData.value)
             : 'No data'
         }
       ];

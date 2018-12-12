@@ -53,7 +53,7 @@ const getSelectedDataInfo = createSelector(
 export const getConfig = () => ({
   scale: 1 / 1000000,
   suffix: '',
-  format: '~r'
+  format: '.1~f'
 });
 
 export const getComparison = createStructuredSelector({

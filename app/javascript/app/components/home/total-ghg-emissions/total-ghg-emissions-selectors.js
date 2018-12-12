@@ -1,5 +1,5 @@
 import { createSelector, createStructuredSelector } from 'reselect';
-import { flatten, sumBy, groupBy, isEmpty, uniqBy } from 'lodash';
+import { flatten, sumBy, groupBy, isEmpty, uniqBy, has } from 'lodash';
 import { METRIC_OPTIONS } from 'utils/defaults';
 import {
   DEFAULT_AXES_CONFIG,
@@ -63,6 +63,15 @@ const getSector = createSelector(getMetaData, meta => {
   const selected = meta.sector.find(source => source.label === defaults.sector);
   return selected && selected.value || null;
 });
+
+const getDownloadUri = ({ metadata = {} }) => {
+  const dataSources = has(metadata, 'ghg.data.dataSource') &&
+    metadata.ghg.data.dataSource;
+  const dataSource = dataSources &&
+    dataSources.find(d => d.source === 'DEA2017b');
+  const id = dataSource && dataSource.value;
+  return id ? `emissions.csv?source=${id}&location=ZAF` : null;
+};
 
 export const getEmissionsParams = createSelector(
   [ getSource, getGas, getSector ],
@@ -189,5 +198,6 @@ export const getTotalGHGEMissions = createStructuredSelector({
   metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,
   chartData: getChartData,
-  contentData: getTitleAndDescription
+  contentData: getTitleAndDescription,
+  downloadUri: getDownloadUri
 });
