@@ -19,6 +19,7 @@ const { COUNTRY_ISO } = process.env;
 const defaults = { gas: 'All GHG', source: 'DEA2017b' };
 const excludedSectors = [ 'Total excluding FOLU' ];
 const excludedGases = [ 'TotalGHG' ];
+const includingSector = 'Total including FOLU';
 
 const getMetaData = ({ metadata = {} }) =>
   metadata.ghg ? metadata.ghg.data : null;
@@ -107,6 +108,12 @@ export const getSectorOptions = createSelector(
         groupParent: String(d.value)
       }));
 
+    const lastShowingSectors = sectors.filter(s => s.label !== includingSector);
+    const firstShowingSectors = sectors.filter(
+      s => s.label === includingSector
+    );
+    const parsedSectors = [ ...firstShowingSectors, ...lastShowingSectors ];
+
     const subsectors = meta.sector
       .filter(
         s =>
@@ -119,7 +126,7 @@ export const getSectorOptions = createSelector(
         value: d.value,
         group: String(d.parentId)
       }));
-    return [ ...sectors, ...subsectors ];
+    return [ ...parsedSectors, ...subsectors ];
   }
 );
 
