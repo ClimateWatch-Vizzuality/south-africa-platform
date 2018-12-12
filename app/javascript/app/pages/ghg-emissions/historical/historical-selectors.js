@@ -2,7 +2,6 @@ import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import uniq from 'lodash/uniq';
-import has from 'lodash/has';
 import intersection from 'lodash/intersection';
 import { METRIC_OPTIONS } from 'utils/defaults';
 import {
@@ -35,15 +34,6 @@ const getEmissionsData = ({ GHGEmissions = {} }) =>
 
 const getChartLoading = ({ metadata = {}, GHGEmissions = {} }) =>
   metadata.ghg.loading || GHGEmissions.loading;
-
-const getDownloadUri = ({ metadata = {} }) => {
-  const dataSources = has(metadata, 'ghg.data.dataSource') &&
-    metadata.ghg.data.dataSource;
-  const dataSource = dataSources &&
-    dataSources.find(d => d.source === 'DEA2017b');
-  const id = dataSource && dataSource.value;
-  return id ? `emissions.csv?source=${id}&location=ZAF` : null;
-};
 
 const getSource = createSelector(getMetaData, meta => {
   if (!meta || !meta.dataSource) return null;
@@ -301,6 +291,5 @@ export const getTotalGHGEMissions = createStructuredSelector({
   metricSelected: getMetricSelected,
   emissionsParams: getEmissionsParams,
   chartData: getChartData,
-  query: getQueryParams,
-  downloadUri: getDownloadUri
+  query: getQueryParams
 });

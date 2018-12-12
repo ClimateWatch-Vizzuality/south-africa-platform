@@ -89,7 +89,6 @@ class GHGHistoricalEmissions extends PureComponent {
       metricOptions,
       emissionsParams,
       chartData,
-      downloadUri,
       title,
       description
     } = this.props;
@@ -131,7 +130,7 @@ class GHGHistoricalEmissions extends PureComponent {
       <div className={styles.toolbarButtons}>
         <InfoDownloadToolbox
           slugs="DEA2017b"
-          downloadUri={downloadUri}
+          downloadUri="emissions/download"
           className={styles.buttonWrapper}
         />
       </div>
@@ -197,7 +196,6 @@ GHGHistoricalEmissions.propTypes = {
   emissionsParams: PropTypes.object,
   onFilterChange: PropTypes.func.isRequired,
   updateFiltersSelected: PropTypes.func.isRequired,
-  downloadUri: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 };
@@ -209,7 +207,6 @@ GHGHistoricalEmissions.defaultProps = {
   gasSelected: null,
   metricOptions: [],
   metricSelected: null,
-  emissionsParams: null,
-  downloadUri: null
+  emissionsParams: null
 };
 export default GHGHistoricalEmissions;
