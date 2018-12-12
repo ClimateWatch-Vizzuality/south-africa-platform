@@ -77,7 +77,8 @@ export const addColorToData = createSelector(filterData, data => {
 export const getConfig = () => {
   const unit = 'USD million';
   const scale = 1 / 1000000;
-  return { tooltip: { unit, scale }, node: { unit, scale } };
+  const format = '.1~f';
+  return { tooltip: { unit, scale, format }, node: { unit, scale, format } };
 };
 
 export const getFlowsChart = createStructuredSelector({
