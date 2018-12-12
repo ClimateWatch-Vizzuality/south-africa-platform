@@ -21,7 +21,7 @@ gem 'sidekiq'
 gem 'activeadmin'
 gem 'devise'
 
-gem 'rubyzip'
+gem 'rubyzip', require: 'rubyzip'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
