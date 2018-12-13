@@ -6,6 +6,9 @@ import { Dropdown, Chart } from 'cw-components';
 import MetaProvider from 'providers/metadata-provider';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
 import WorldBankProvider from 'providers/world-bank-provider';
+import {
+  DOWNLOAD_URI
+} from 'pages/national-circumstances/economy/economy-constants';
 import { CustomYAxisTick } from './axis-ticks';
 import CustomTooltip from './gdp-tooltip';
 
@@ -32,10 +35,7 @@ class GDP extends PureComponent {
       />
     );
     const toolbar = (
-      <InfoDownloadToolbox
-        slugs="STAT2014b"
-        downloadUri="national_circumstance/categories"
-      />
+      <InfoDownloadToolbox slugs="STAT2014b" downloadUri={DOWNLOAD_URI} />
     );
     return (
       <React.Fragment>

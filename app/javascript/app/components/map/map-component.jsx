@@ -99,7 +99,7 @@ class Map extends Component {
               <div>
                 ${regionTotal
               ? `( ${regionTotal} millions)`
-              : ''} ${regionPercentage ? `( ${regionPercentage} )` : ''}
+              : ''} ${regionPercentage ? `( ${regionPercentage} of country population)` : ''}
               </div>
             </div >`;
           }}

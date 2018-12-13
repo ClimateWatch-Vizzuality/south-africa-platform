@@ -5,6 +5,9 @@ import { ChartComposed } from 'cw-components';
 import { Area, Line } from 'recharts';
 import MetaProvider from 'providers/metadata-provider';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
+import {
+  DOWNLOAD_URI
+} from 'pages/national-circumstances/economy/economy-constants';
 import { CustomYAxisTick } from './axis-ticks';
 import GdpTooltip from './gdp-tooltip-chart';
 
@@ -43,10 +46,7 @@ class GDPGrowth extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox
-            slugs="STAT2014b"
-            downloadUri="national_circumstance/categories"
-          />
+          <InfoDownloadToolbox slugs="STAT2014b" downloadUri={DOWNLOAD_URI} />
         </div>
         <div className={styles.chart}>
           {

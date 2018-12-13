@@ -26,6 +26,11 @@ describe Api::V1::NationalCircumstance::PrioritiesController, type: :controller 
         parsed_body = JSON.parse(response.body)
         expect(parsed_body['meta'].length).to eq(5)
       end
+
+      it 'responds to zip' do
+        get :index, format: :zip
+        expect(response.content_type).to eq('application/zip')
+      end
     end
   end
 end

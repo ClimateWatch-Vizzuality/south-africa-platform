@@ -375,6 +375,7 @@ DEPENDENCIES
   responders
   rspec-collection_matchers
   rspec-rails (~> 3.5)
+  rubyzip
   sass-rails (~> 5.0)
   selenium-webdriver
   sidekiq

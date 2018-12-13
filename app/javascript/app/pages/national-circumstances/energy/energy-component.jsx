@@ -61,7 +61,7 @@ class Energy extends PureComponent {
       <div className={styles.toolbarButtons}>
         <InfoDownloadToolbox
           slugs="DOE2016b"
-          downloadUri="national_circumstance/categories"
+          downloadUri="national_circumstance/categories.zip?sources=DOE2016b&amp;group=energy"
           className={styles.buttonWrapper}
         />
       </div>

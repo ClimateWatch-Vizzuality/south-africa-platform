@@ -9,6 +9,7 @@ const DataTable = ({ tableData, searchFilter, ...props }) => {
     ? (
       <Table
         horizontalScroll
+        parseMarkdown
         tableHeight={660}
         setRowsHeight={() => 120}
         dynamicRowsHeight

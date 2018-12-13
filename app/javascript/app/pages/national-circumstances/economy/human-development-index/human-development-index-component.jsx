@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import InfoDownloadToolbox from 'components/info-download-toolbox';
 import { Chart } from 'cw-components';
 import NationalCircumstancesProvider from 'providers/national-circumstances-provider';
+import {
+  DOWNLOAD_URI
+} from 'pages/national-circumstances/economy/economy-constants';
 import { CustomYAxisTick } from './axis-ticks';
 import HdiTooltip from './hdi-tooltip-chart';
 
@@ -18,10 +21,7 @@ class HumanDevelopmentIndex extends PureComponent {
     return (
       <React.Fragment>
         <div className={styles.toolbar}>
-          <InfoDownloadToolbox
-            slugs="UNDP2015"
-            downloadUri="national_circumstance/categories"
-          />
+          <InfoDownloadToolbox slugs="UNDP2018" downloadUri={DOWNLOAD_URI} />
         </div>
         <div className={styles.chart}>
           {

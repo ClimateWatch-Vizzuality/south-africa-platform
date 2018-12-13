@@ -25,7 +25,6 @@ class TotalGhgEmissions extends PureComponent {
       metricOptions,
       emissionsParams,
       chartData,
-      downloadUri,
       contentData
     } = this.props;
     const scale = has(chartData, 'config.axes.yLeft.scale')
@@ -55,7 +54,7 @@ class TotalGhgEmissions extends PureComponent {
         </Button>
         <InfoDownloadToolbox
           slugs="DEA2017b"
-          downloadUri={downloadUri}
+          downloadUri="emissions/download"
           className={styles.buttonWrapper}
         />
       </div>
@@ -111,7 +110,6 @@ TotalGhgEmissions.propTypes = {
   metricSelected: PropTypes.object,
   emissionsParams: PropTypes.object,
   updateMetricSelected: PropTypes.func.isRequired,
-  downloadUri: PropTypes.string,
   contentData: PropTypes.shape({
     title: PropTypes.string,
     description: PropTypes.string
@@ -122,7 +120,6 @@ TotalGhgEmissions.defaultProps = {
   metricOptions: [],
   metricSelected: null,
   emissionsParams: null,
-  downloadUri: null,
   contentData: {}
 };
 export default TotalGhgEmissions;

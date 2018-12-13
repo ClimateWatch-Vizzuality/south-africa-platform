@@ -90,7 +90,7 @@ class Summary extends PureComponent {
             <InfoDownloadToolbox
               slugs="BUR2"
               className={styles.buttonWrapper}
-              downloadUri="mitigation/mitigation_effects"
+              downloadUri="mitigation/mitigation_effects.zip?sources=BUR2"
             />
           </div>
         </div>
