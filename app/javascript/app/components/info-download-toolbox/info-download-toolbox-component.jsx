@@ -8,18 +8,23 @@ import buttonThemes from 'styles/themes/button';
 import ReactTooltip from 'react-tooltip';
 import ModalMetadata from 'components/modal-metadata';
 import styles from './info-download-toolbox-styles.scss';
+import { handleAnalytics } from 'utils/analytics';
 
 const { API_URL } = process.env;
 
 class InfoDownloadToolbox extends PureComponent {
   handleDownloadClick = () => {
     const { downloadUri } = this.props;
-    if (downloadUri) window.open(`${API_URL}/${downloadUri}`, '_blank');
+    if (downloadUri) {
+      handleAnalytics('Data Download', 'Download', downloadUri);
+      window.open(`${API_URL}/${downloadUri}`, '_blank');
+    }
   };
 
   handleInfoClick = () => {
     const { slugs, setModalMetadata } = this.props;
     if (slugs) {
+      handleAnalytics('Info Window', 'Open', slugs);
       setModalMetadata({ slugs, open: true });
     }
   };
@@ -49,19 +54,19 @@ class InfoDownloadToolbox extends PureComponent {
         <div data-for="blueTooltip" data-tip="Download data in .csv">
           {
             !noDownload && (
-            <Button
-              onClick={this.handleDownloadClick}
-              theme={{
+                <Button
+                  onClick={this.handleDownloadClick}
+                  theme={{
                     button: cx(
                       buttonThemes.outline,
                       styles.button,
                       theme.infobutton
                     )
                   }}
-              disabled={!downloadUri}
-            >
-              <Icon icon={downloadIcon} />
-            </Button>
+                  disabled={!downloadUri}
+                >
+                  <Icon icon={downloadIcon} />
+                </Button>
               )
           }
         </div>
