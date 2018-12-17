@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/ClimateWatch-Vizzuality/climate-watch-gems.git
-  revision: 4d067efb14fb47a5eeb4469ce337db1d3dcf5b6e
+  revision: a5590a5bcda709af9541c9125032372f05e55413
   specs:
-    climate_watch_engine (1.4.2)
+    climate_watch_engine (1.4.3)
       aws-sdk-s3 (~> 1)
       rails (~> 5.2.0)
     cw_data_uploader (0.4.3)
@@ -98,7 +98,7 @@ GEM
       activesupport (>= 3.0.0)
     arel (9.0.0)
     aws-eventstream (1.0.1)
-    aws-partitions (1.123.0)
+    aws-partitions (1.125.0)
     aws-sdk-core (3.44.0)
       aws-eventstream (~> 1.0)
       aws-partitions (~> 1.0)
@@ -359,7 +359,7 @@ DEPENDENCIES
   annotate
   byebug
   capybara (~> 2.13)
-  climate_watch_engine (~> 1.4.1)!
+  climate_watch_engine (~> 1.4.3)!
   cw_data_uploader (~> 0.4.3)!
   cw_historical_emissions (~> 1.5.0)!
   cw_locations (~> 1.4.0)!
