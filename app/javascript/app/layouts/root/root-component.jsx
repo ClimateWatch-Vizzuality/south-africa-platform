@@ -74,7 +74,8 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  route: Proptypes.object.isRequired
+  route: Proptypes.object.isRequired,
+  location: Proptypes.object.isRequired
 };
 
 export default App;
