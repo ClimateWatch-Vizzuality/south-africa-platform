@@ -20,22 +20,21 @@ function trackPage(page) {
 }
 
 let gaInitialized = false;
+const initializeGa = () => {
+  ReactGA.initialize(GOOGLE_ANALYTICS_ID);
+  gaInitialized = true;
+}
+
 function handleTrack(location, prevLocation) {
   if (GOOGLE_ANALYTICS_ID) {
-    if (!gaInitialized) {
-      ReactGA.initialize(GOOGLE_ANALYTICS_ID);
-      gaInitialized = true;
-    }
-    if (!prevLocation) {
-      trackPage(location.pathname);
-    } else {
-      const page = location.pathname;
-      const prevPage = prevLocation.pathname;
+    if (!gaInitialized) { initializeGa(); }
 
-      if (page !== prevPage) {
-        trackPage(page);
-      }
-    }
+    const page = location.pathname;
+    const prevPage = prevLocation && prevLocation.pathname;
+
+    const pageChanged = prevPage && page !== prevPage;
+    if(!prevLocation || pageChanged) { trackPage(page); }
+
   }
 }
 
