@@ -139,7 +139,7 @@ export const getChartConfig = createSelector(
     if (metricSelected.value === METRIC_OPTIONS.PER_GDP.value) {
       unit = `${unit}/ million $ GDP`;
     } else if (metricSelected.value === METRIC_OPTIONS.PER_CAPITA.value) {
-      unit = `${unit} per capita`;
+      unit = `t${unit} per capita`;
       format = '.2~f';
     } else {
       unit = `Mt${unit}`;

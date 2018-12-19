@@ -31,10 +31,6 @@ class GHGHistoricalEmissions extends PureComponent {
     onFilterChange({ metric: value });
   };
 
-  handleDownloadClick = () => {
-    console.info('TODO: link todownload data endpoint', this.props);
-  };
-
   renderDotsLines = () => {
     // eslint-disable-next-line react/destructuring-assignment
     const { config } = this.props.chartData;
