@@ -1,6 +1,7 @@
 import { createSelector, createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
 import isArray from 'lodash/isArray';
+import sortedUniq from 'lodash/sortedUniq';
 
 import lineAndDot from 'assets/icons/legend/line-and-dot.svg';
 import rangeCircle from 'assets/icons/legend/range-circle.svg';
@@ -27,9 +28,10 @@ const getModelSelection = ({ location }) =>
 
 const parseData = createSelector(getProjectedEmissionsData, data => {
   if (!data) return null;
-  const years = data[0] &&
-    data[0].projected_emission_years &&
-    data[0].projected_emission_years.map(d => d.year);
+  const allYears = data.flatMap(
+    d => d.projected_emission_years.map(pe => pe.year)
+  );
+  const years = sortedUniq(allYears.sort());
   const columnData = {};
   Object.keys(dataNames).forEach(code => {
     const columnName = dataNames[code];
