@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './ghg-emissions-provider-actions';
-import reducers, { initialState } from './ghg-emissions-provider-reducers';
+import * as reducers from './ghg-emissions-provider-reducers';
+
+const { initialState } = reducers;
 
 class GHGEmissionsProvider extends PureComponent {
   componentDidMount() {

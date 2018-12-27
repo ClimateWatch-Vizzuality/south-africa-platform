@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './flagship-programmes-provider-actions';
-import reducers, {
-  initialState
-} from './flagship-programmes-provider-reducers';
+import * as reducers from './flagship-programmes-provider-reducers';
+
+const { initialState } = reducers;
 
 class FlagshipProgrammesProvider extends PureComponent {
   componentDidMount() {

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import * as actions from './natural-disasters-data-provider-actions';
 
-import reducers, {
-  initialState
-} from './natural-disasters-data-provider-reducers';
+import * as reducers from './natural-disasters-data-provider-reducers';
+
+const { initialState } = reducers;
 
 class NaturalDisastersDataProvider extends PureComponent {
   componentDidMount() {
