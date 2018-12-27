@@ -213,6 +213,8 @@ const getDataOptions = createSelector(
 
 const getDataSelected = getSectorSelected;
 
+let colorCache = {};
+
 export const getChartConfig = createSelector(
   [ filterChartData, getMetaData, getSectorSelected, getMetricSelected ],
   (data, meta, sectorSelected, metricSelected) => {
@@ -245,8 +247,12 @@ export const getChartConfig = createSelector(
       label: `${subsectorParents[s.label]} - ${s.label}`
     }));
     const theme = {
-      ...getThemeConfig([ ...yColumnOptions, ...yColumnDotsOptions ])
+      ...getThemeConfig(
+        [ ...yColumnOptions, ...yColumnDotsOptions ],
+        colorCache
+      )
     };
+    colorCache = { ...theme, ...colorCache };
     const tooltip = getTooltipConfig([
       ...yColumnOptions,
       ...yColumnDotsOptions
