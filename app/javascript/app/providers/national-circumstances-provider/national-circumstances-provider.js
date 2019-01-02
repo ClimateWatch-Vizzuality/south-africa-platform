@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import * as actions from './national-circumstances-provider-actions';
 
-import reducers, {
-  initialState
-} from './national-circumstances-provider-reducers';
+import * as reducers from './national-circumstances-provider-reducers';
+
+const { initialState } = reducers;
 
 class NationalCircumstancesProvider extends PureComponent {
   componentDidMount() {
