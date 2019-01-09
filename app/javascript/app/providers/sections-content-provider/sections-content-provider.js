@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './sections-content-provider-actions';
-import * as reducers from './sections-content-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, { initialState } from './sections-content-provider-reducers';
 
 class SectionsContentProvider extends PureComponent {
   componentDidMount() {

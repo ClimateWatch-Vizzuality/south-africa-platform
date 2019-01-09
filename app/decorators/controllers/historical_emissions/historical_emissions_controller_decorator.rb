@@ -27,7 +27,7 @@ HistoricalEmissions::HistoricalEmissionsController.class_eval do
   def meta
     render(
       json: HistoricalEmissionsMetadata.new(
-        merged_records(grouped_records),
+        fetch_meta_data_sources,
         fetch_meta_sectors,
         ::HistoricalEmissions::Gas.all,
         ::HistoricalEmissions::Gwp.all,

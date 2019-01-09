@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './projected-emissions-provider-actions';
-import * as reducers from './projected-emissions-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, {
+  initialState
+} from './projected-emissions-provider-reducers';
 
 class ProjectedEmissionsProvider extends PureComponent {
   componentDidMount() {

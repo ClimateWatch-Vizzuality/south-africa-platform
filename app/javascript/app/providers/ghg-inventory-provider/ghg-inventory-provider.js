@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './ghg-inventory-provider-actions';
-import * as reducers from './ghg-inventory-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, { initialState } from './ghg-inventory-provider-reducers';
 
 class GHGInventoryProvider extends PureComponent {
   componentDidMount() {
