@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './natural-disasters-data-provider-actions';
-
-import * as reducers from './natural-disasters-data-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, {
+  initialState
+} from './natural-disasters-data-provider-reducers';
 
 class NaturalDisastersDataProvider extends PureComponent {
   componentDidMount() {

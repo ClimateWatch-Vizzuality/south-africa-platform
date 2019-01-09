@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './overview-country-info-provider-actions';
-import * as reducers from './overview-country-info-reducers';
-
-const { initialState } = reducers;
+import reducers, { initialState } from './overview-country-info-reducers';
 
 const { COUNTRY_ISO } = process.env;
 

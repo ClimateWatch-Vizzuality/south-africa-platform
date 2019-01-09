@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './mitigation-actions-provider-actions';
-import * as reducers from './mitigation-actions-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, { initialState } from './mitigation-actions-provider-reducers';
 
 class MitigationActionsProvider extends PureComponent {
   componentDidMount() {

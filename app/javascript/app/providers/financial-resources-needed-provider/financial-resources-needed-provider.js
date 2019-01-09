@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './financial-resources-needed-provider-actions';
-import * as reducers from './financial-resources-needed-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, {
+  initialState
+} from './financial-resources-needed-provider-reducers';
 
 class FinancialResourcesNeededProvider extends PureComponent {
   componentDidMount() {

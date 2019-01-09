@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './metadata-provider-actions';
-import * as reducers from './metadata-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, { initialState } from './metadata-provider-reducers';
 
 class MetaProvider extends PureComponent {
   componentDidMount() {

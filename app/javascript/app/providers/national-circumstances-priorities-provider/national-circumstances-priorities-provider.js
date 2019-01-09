@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as actions from './national-circumstances-priorities-provider-actions';
-import * as reducers from './national-circumstances-priorities-provider-reducers';
-
-const { initialState } = reducers;
+import reducers, {
+  initialState
+} from './national-circumstances-priorities-provider-reducers';
 
 class NationalCircumstancesPrioritiesProvider extends PureComponent {
   componentDidMount() {
