@@ -187,7 +187,12 @@ const parseChartData = createSelector(
           actor: d.coordinator,
           value,
           cautions: metaInfo.cautions,
-          unit: metaInfo.unit
+          unit: metaInfo.unit,
+          tooltipContent: [
+            `Action: ${d.name}`,
+            `Actor: ${d.coordinator}`,
+            value
+          ]
         });
       }
     });

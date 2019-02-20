@@ -118,11 +118,18 @@ class Summary extends PureComponent {
                   summarySelected && (
                   <div>
                     <p className={styles.label}>Action</p>
-                    <h2 className={styles.action}>
+                    <a 
+                      className={styles.action}
+                      href={`/mitigation?search=${summarySelected.action}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {summarySelected.action}
-                    </h2>
+                    </a>
                     <p className={styles.label}>Actor</p>
                     <p className={styles.text}>{summarySelected.actor}</p>
+                    <p className={styles.label}>Theme</p>
+                    <p className={styles.text}>{themeSelected.label}</p>
                   </div>
                     )
                 }

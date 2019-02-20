@@ -75,8 +75,14 @@
 }
 
 .action {
+  display: inline-block;
   font-family: $font-family-1;
   font-size: $font-size-large;
   color: $theme-color;
   margin-bottom: $gutter-padding;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
