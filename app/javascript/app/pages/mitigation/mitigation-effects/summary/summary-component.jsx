@@ -121,8 +121,6 @@ class Summary extends PureComponent {
                     <a 
                       className={styles.action}
                       href={`/mitigation?search=${summarySelected.action}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       {summarySelected.action}
                     </a>
