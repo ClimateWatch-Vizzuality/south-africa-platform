@@ -191,8 +191,7 @@ const parseChartData = createSelector(
           tooltipContent: [
             d.name,
             d.coordinator,
-            '',
-            `${metaInfo.indicator}:`,
+            `${metaInfo.indicator}`,
             value
           ]
         });

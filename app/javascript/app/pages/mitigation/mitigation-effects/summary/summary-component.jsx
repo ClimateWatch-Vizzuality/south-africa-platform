@@ -107,7 +107,7 @@ class Summary extends PureComponent {
                         height={400}
                         data={chartData}
                         handleNodeClick={this.handleNodeClick}
-                        tooltipClassName="global_SATooltip"
+                        tooltipClassName="global_SATMittigationTooltip"
                       />
 )
                     : <NoContent minHeight={400} message="No data available" />

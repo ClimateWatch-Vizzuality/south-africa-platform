@@ -18,6 +18,26 @@
     }
   }
 
+  .global_SATMittigationTooltip {
+    @extend .global_SATooltip;
+
+    .multi-line{
+      &:first-child {
+        color: $dark-gray;
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &:nth-child(2) {
+        color: $dark-gray;
+        margin-bottom: 8px;
+      }
+      &:nth-last-child(-n+2) {
+        font-weight: bold;
+      }
+    }
+  }
+
   .global_blueTooltip {
     padding: 15px;
     font-size: $font-size-xs;
