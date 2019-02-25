@@ -107,7 +107,7 @@ class Summary extends PureComponent {
                         height={400}
                         data={chartData}
                         handleNodeClick={this.handleNodeClick}
-                        tooltipClassName="global_SATooltip"
+                        tooltipClassName="global_SATMittigationTooltip"
                       />
 )
                     : <NoContent minHeight={400} message="No data available" />
@@ -118,11 +118,16 @@ class Summary extends PureComponent {
                   summarySelected && (
                   <div>
                     <p className={styles.label}>Action</p>
-                    <h2 className={styles.action}>
+                    <a 
+                      className={styles.action}
+                      href={`/mitigation?search=${summarySelected.action}`}
+                    >
                       {summarySelected.action}
-                    </h2>
+                    </a>
                     <p className={styles.label}>Actor</p>
                     <p className={styles.text}>{summarySelected.actor}</p>
+                    <p className={styles.label}>Theme</p>
+                    <p className={styles.text}>{themeSelected.label}</p>
                   </div>
                     )
                 }
