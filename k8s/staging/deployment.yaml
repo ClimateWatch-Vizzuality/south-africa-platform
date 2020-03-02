@@ -1,9 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  namespace: climate-watch
   labels:
-    name: {name}-staging
-  name: {name}-staging
+    name: south-africa-platform-staging
+  name: south-africa-platform-staging
 spec:
   revisionHistoryLimit: 0
   template:
@@ -11,7 +12,7 @@ spec:
       annotations:
         chaos.alpha.kubernetes.io/enabled: "true"
       labels:
-        name: {name}-staging
+        name: south-africa-platform-staging
     spec:
       tolerations:
       - key: "type"
@@ -36,11 +37,11 @@ spec:
                 - key: name
                   operator: In
                   values:
-                  - {name}-staging
+                  - south-africa-platform-staging
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: {name}-staging
-        image: vizzuality/{name}
+      - name: south-africa-platform-staging
+        image: vizzuality/south-africa-platform
         imagePullPolicy: Always
         resources:
           requests:
@@ -95,8 +96,8 @@ spec:
 
         ports:
           - containerPort: 3000
-      - name: {name}-sidekiq
-        image: vizzuality/{name}
+      - name: south-africa-platform-sidekiq
+        image: vizzuality/south-africa-platform
         imagePullPolicy: Always
         resources:
           requests:
